@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GPIO at Register Level — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="index.html">Peripherals as Hardware Engines</a><a class="nav-item active" href="gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="uart-serial.html">UART Serial Communication</a><a class="nav-item" href="spi-protocol.html">SPI Protocol</a><a class="nav-item" href="i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../mcu-peripherals-and-interrupts/index.html">Peripherals & Interrupts — Interact with the World</a><span class="sep">/</span><span>GPIO at Register Level</span></div>
+      <h1>GPIO at Register Level</h1>
+      <div class="tags"><span class="tag">gpio</span><span class="tag">registers</span><span class="tag">stm32</span><span class="tag">cortex-m</span><span class="tag">peripheral</span></div>
+      <p>
+GPIO (General-Purpose Input/Output) is the <strong>simplest peripheral</strong> on any MCU. Every pin can be independently configured as input, output, alternate function, or analog -- all by writing to a handful of registers.
+</p>
+<h2>Register Map Overview</h2>
+<p>
+Each GPIO port (GPIOA, GPIOB, ...) has these <a href="https://deepbluembedded.com/stm32-gpio-registers-direct-access-fast-pin-control/">registers at fixed offsets</a>:
+</p>
+<table><thead><tr><th>Offset</th><th>Register</th><th>Purpose</th></tr></thead><tbody><tr><td>0x00</td><td>MODER</td><td>Pin mode (input/output/AF/analog)</td></tr>
+<tr><td>0x04</td><td>OTYPER</td><td>Output type (push-pull / open-drain)</td></tr>
+<tr><td>0x08</td><td>OSPEEDR</td><td>Output speed (slew rate)</td></tr>
+<tr><td>0x0C</td><td>PUPDR</td><td>Pull-up / pull-down</td></tr>
+<tr><td>0x10</td><td>IDR</td><td>Input data (read-only)</td></tr>
+<tr><td>0x14</td><td>ODR</td><td>Output data</td></tr>
+<tr><td>0x18</td><td>BSRR</td><td>Bit set/reset (atomic)</td></tr>
+<tr><td>0x20</td><td>AFRL</td><td>Alternate function for pins 0-7</td></tr>
+<tr><td>0x24</td><td>AFRH</td><td>Alternate function for pins 8-15</td></tr></tbody></table>
+<h2>MODER -- Mode Register</h2>
+<p>
+Two bits per pin (32 bits for 16 pins):
+</p>
+<table><thead><tr><th>MODER value</th><th>Mode</th><th>When to use</th></tr></thead><tbody><tr><td>00</td><td>Input</td><td>Buttons, sensors with digital output</td></tr>
+<tr><td>01</td><td>General-purpose output</td><td>LEDs, control signals</td></tr>
+<tr><td>10</td><td>Alternate function</td><td>UART TX/RX, SPI, I2C, PWM</td></tr>
+<tr><td>11</td><td>Analog</td><td>ADC input, DAC output</td></tr></tbody></table>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Set PA5 to output mode (bits [11:10] = 01)
+<p>
+GPIOA-&gt;MODER &amp;= ~(0x3 &lt;&lt; (5 * 2));   // clear bits
+GPIOA-&gt;MODER |=  (0x1 &lt;&lt; (5 * 2));   // set to output</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+const GPIOA_MODER: <em>mut u32 = 0x4002_0000 as </em>mut u32;
+</p>
+<p>
+unsafe {
+    // Set PA5 to output mode (bits [11:10] = 01)
+    let val = read_volatile(GPIOA_MODER);
+    write_volatile(GPIOA_MODER, (val &amp; !(0x3 &lt;&lt; (5 <em> 2))) | (0x1 &lt;&lt; (5 </em> 2)));
+}</code></pre></div></div>
+</p>
+<h2>OTYPER -- Output Type Register</h2>
+<p>
+One bit per pin. Only matters when pin is in output or AF mode.
+</p>
+<table><thead><tr><th>Bit value</th><th>Type</th><th>Behavior</th></tr></thead><tbody><tr><td>0</td><td>Push-pull</td><td>Drives both high and low actively</td></tr>
+<tr><td>1</td><td>Open-drain</td><td>Drives low only; needs external pull-up for high</td></tr></tbody></table>
+<p>
+<strong>Push-pull</strong> is the default and works for most cases (LEDs, SPI clock). <strong>Open-drain</strong> is required for I2C (SDA/SCL) and any bus where multiple devices share a line.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">GPIOA-&gt;OTYPER &amp;= ~(1 &lt;&lt; 5);  // PA5 push-pull (default)</code></pre></div>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+const GPIOA_OTYPER: <em>mut u32 = (0x4002_0000 + 0x04) as </em>mut u32;
+</p>
+<p>
+unsafe {
+    write_volatile(GPIOA_OTYPER, read_volatile(GPIOA_OTYPER) &amp; !(1 &lt;&lt; 5));
+}</code></pre></div></div>
+</p>
+<h2>OSPEEDR -- Output Speed Register</h2>
+<p>
+Two bits per pin. Controls the slew rate (how fast the pin transitions).
+</p>
+<table><thead><tr><th>Value</th><th>Speed</th><th>Typical use</th></tr></thead><tbody><tr><td>00</td><td>Low (~2 MHz)</td><td>GPIO toggling, LEDs</td></tr>
+<tr><td>01</td><td>Medium (~25 MHz)</td><td>UART, I2C</td></tr>
+<tr><td>10</td><td>High (~50 MHz)</td><td>SPI</td></tr>
+<tr><td>11</td><td>Very high (~100 MHz)</td><td>SDIO, high-speed interfaces</td></tr></tbody></table>
+<p>
+Higher speed means more EMI and power consumption. Use the lowest speed that works.
+</p>
+<h2>PUPDR -- Pull-Up / Pull-Down Register</h2>
+<p>
+Two bits per pin. Connects an internal resistor (~40k ohm).
+</p>
+<table><thead><tr><th>Value</th><th>Configuration</th></tr></thead><tbody><tr><td>00</td><td>No pull-up, no pull-down (floating)</td></tr>
+<tr><td>01</td><td>Pull-up</td></tr>
+<tr><td>10</td><td>Pull-down</td></tr>
+<tr><td>11</td><td>Reserved</td></tr></tbody></table>
+<p>
+Use pull-up for active-low buttons. Use pull-down for active-high buttons. Floating inputs pick up noise and cause unpredictable reads.
+</p>
+<h2>IDR -- Input Data Register (Read-Only)</h2>
+<p>
+One bit per pin. Read this to get the current logic level on the pin.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">if (GPIOA-&gt;IDR &amp; (1 &lt;&lt; 0)) {
+<p>
+    // PA0 is HIGH
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::read_volatile;
+<p>
+const GPIOA_IDR: <em>const u32 = (0x4002_0000 + 0x10) as </em>const u32;
+</p>
+<p>
+unsafe {
+    if read_volatile(GPIOA_IDR) &amp; (1 &lt;&lt; 0) != 0 {
+        // PA0 is HIGH
+    }
+}</code></pre></div></div>
+</p>
+<h2>ODR -- Output Data Register</h2>
+<p>
+One bit per pin. Writing sets the output level. <strong>Not atomic</strong> -- read-modify-write can be interrupted.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">GPIOA-&gt;ODR |= (1 &lt;&lt; 5);   // set PA5 high (not atomic!)
+<p>
+GPIOA-&gt;ODR &amp;= ~(1 &lt;&lt; 5);  // set PA5 low</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+const GPIOA_ODR: <em>mut u32 = (0x4002_0000 + 0x14) as </em>mut u32;
+</p>
+<p>
+unsafe {
+    write_volatile(GPIOA_ODR, read_volatile(GPIOA_ODR) | (1 &lt;&lt; 5));   // set PA5 high (not atomic!)
+    write_volatile(GPIOA_ODR, read_volatile(GPIOA_ODR) &amp; !(1 &lt;&lt; 5));  // set PA5 low
+}</code></pre></div></div>
+</p>
+<h2>BSRR -- Bit Set/Reset Register (Atomic)</h2>
+<p>
+This is the preferred way to set or clear individual pins. It is a <strong>write-only, 32-bit</strong> register:
+</p>
+<ul>
+<li>Bits [15:0] -- <strong>Set</strong>: writing 1 sets the corresponding ODR bit</li>
+<li>Bits [31:16] -- <strong>Reset</strong>: writing 1 clears the corresponding ODR bit</li>
+</ul>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">GPIOA-&gt;BSRR = (1 &lt;&lt; 5);        // set PA5 high (atomic, single write)
+<p>
+GPIOA-&gt;BSRR = (1 &lt;&lt; (5 + 16)); // set PA5 low  (atomic, single write)</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::write_volatile;
+<p>
+const GPIOA_BSRR: <em>mut u32 = (0x4002_0000 + 0x18) as </em>mut u32;
+</p>
+<p>
+unsafe {
+    write_volatile(GPIOA_BSRR, 1 &lt;&lt; 5);        // set PA5 high (atomic, single write)
+    write_volatile(GPIOA_BSRR, 1 &lt;&lt; (5 + 16)); // set PA5 low  (atomic, single write)
+}</code></pre></div></div>
+</p>
+<p>
+Why use BSRR over ODR? Because <code>ODR |= ...</code> is a read-modify-write that can be corrupted if an interrupt changes another pin on the same port between the read and write. BSRR is a single write -- no race condition.
+</p>
+<h2>Step-by-Step: Blink an LED on PA5</h2>
+<p>
+On the STM32 Nucleo-F401RE, the user LED is connected to PA5. This <a href="https://embetronicx.com/tutorials/microcontrollers/stm32/stm32-gpio-tutorial/">step-by-step bare metal approach</a> shows the full configuration sequence.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">#include "stm32f4xx.h"
+<p>
+int main(void) {
+    // 1. Enable GPIOA clock
+    RCC-&gt;AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
+</p>
+<p>
+    // 2. Set PA5 as output (MODER bits [11:10] = 01)
+    GPIOA-&gt;MODER &amp;= ~(0x3 &lt;&lt; (5 * 2));
+    GPIOA-&gt;MODER |=  (0x1 &lt;&lt; (5 * 2));
+</p>
+<p>
+    // 3. Push-pull output (default, but explicit)
+    GPIOA-&gt;OTYPER &amp;= ~(1 &lt;&lt; 5);
+</p>
+<p>
+    // 4. Low speed is fine for an LED
+    GPIOA-&gt;OSPEEDR &amp;= ~(0x3 &lt;&lt; (5 * 2));
+</p>
+<p>
+    // 5. No pull-up/pull-down needed
+    GPIOA-&gt;PUPDR &amp;= ~(0x3 &lt;&lt; (5 * 2));
+</p>
+<p>
+    while (1) {
+        GPIOA-&gt;BSRR = (1 &lt;&lt; 5);         // LED on
+        for (volatile int i = 0; i &lt; 100000; i++);
+        GPIOA-&gt;BSRR = (1 &lt;&lt; (5 + 16));  // LED off
+        for (volatile int i = 0; i &lt; 100000; i++);
+    }
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">#![no_std]
+<p>
+#![no_main]
+</p>
+<p>
+use core::ptr::{read_volatile, write_volatile};
+</p>
+<p>
+const RCC_AHB1ENR: <em>mut u32 = (0x4002_3800 + 0x30) as </em>mut u32;
+const GPIOA_MODER: <em>mut u32 = 0x4002_0000 as </em>mut u32;
+const GPIOA_OTYPER: <em>mut u32 = (0x4002_0000 + 0x04) as </em>mut u32;
+const GPIOA_OSPEEDR: <em>mut u32 = (0x4002_0000 + 0x08) as </em>mut u32;
+const GPIOA_PUPDR: <em>mut u32 = (0x4002_0000 + 0x0C) as </em>mut u32;
+const GPIOA_BSRR: <em>mut u32 = (0x4002_0000 + 0x18) as </em>mut u32;
+</p>
+<p>
+#[no_mangle]
+pub unsafe extern "C" fn main() -&gt; ! {
+    // 1. Enable GPIOA clock
+    write_volatile(RCC_AHB1ENR, read_volatile(RCC_AHB1ENR) | (1 &lt;&lt; 0));
+</p>
+<p>
+    // 2. Set PA5 as output (MODER bits [11:10] = 01)
+    let moder = read_volatile(GPIOA_MODER);
+    write_volatile(GPIOA_MODER, (moder &amp; !(0x3 &lt;&lt; 10)) | (0x1 &lt;&lt; 10));
+</p>
+<p>
+    // 3. Push-pull output (default, but explicit)
+    write_volatile(GPIOA_OTYPER, read_volatile(GPIOA_OTYPER) &amp; !(1 &lt;&lt; 5));
+</p>
+<p>
+    // 4. Low speed
+    write_volatile(GPIOA_OSPEEDR, read_volatile(GPIOA_OSPEEDR) &amp; !(0x3 &lt;&lt; 10));
+</p>
+<p>
+    // 5. No pull-up/pull-down
+    write_volatile(GPIOA_PUPDR, read_volatile(GPIOA_PUPDR) &amp; !(0x3 &lt;&lt; 10));
+</p>
+<p>
+    loop {
+        write_volatile(GPIOA_BSRR, 1 &lt;&lt; 5);        // LED on
+        for _ in 0..100_000 { core::hint::black_box(()); }
+        write_volatile(GPIOA_BSRR, 1 &lt;&lt; (5 + 16));  // LED off
+        for _ in 0..100_000 { core::hint::black_box(()); }
+    }
+}</code></pre></div></div>
+</p>
+<h2>Alternate Function Configuration</h2>
+<p>
+When a pin is used by a peripheral (UART TX, SPI clock, PWM output), you set MODER to <code>10</code> (alternate function) and then select <strong>which</strong> peripheral via the AFR registers.
+</p>
+<p>
+Each pin has a 4-bit AF selection field. The mapping is fixed by the chip -- consult the datasheet's "alternate function mapping" table.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Configure PA2 as USART2_TX (AF7 on STM32F4)
+<p>
+// 1. Set PA2 to alternate function mode
+GPIOA-&gt;MODER &amp;= ~(0x3 &lt;&lt; (2 * 2));
+GPIOA-&gt;MODER |=  (0x2 &lt;&lt; (2 * 2));   // AF mode
+</p>
+<p>
+// 2. Select AF7 for PA2 (pins 0-7 use AFRL register)
+GPIOA-&gt;AFR[0] &amp;= ~(0xF &lt;&lt; (2 * 4));  // clear AF bits for pin 2
+GPIOA-&gt;AFR[0] |=  (0x7 &lt;&lt; (2 * 4));  // AF7 = USART2
+</p>
+<p>
+// 3. Set speed, type as needed
+GPIOA-&gt;OSPEEDR |= (0x2 &lt;&lt; (2 * 2));  // high speed for UART</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+const GPIOA_MODER: <em>mut u32 = 0x4002_0000 as </em>mut u32;
+const GPIOA_AFRL: <em>mut u32 = (0x4002_0000 + 0x20) as </em>mut u32;
+const GPIOA_OSPEEDR: <em>mut u32 = (0x4002_0000 + 0x08) as </em>mut u32;
+</p>
+<p>
+unsafe {
+    // 1. Set PA2 to alternate function mode
+    let moder = read_volatile(GPIOA_MODER);
+    write_volatile(GPIOA_MODER, (moder &amp; !(0x3 &lt;&lt; (2 <em> 2))) | (0x2 &lt;&lt; (2 </em> 2)));
+</p>
+<p>
+    // 2. Select AF7 for PA2 (pins 0-7 use AFRL register)
+    let afrl = read_volatile(GPIOA_AFRL);
+    write_volatile(GPIOA_AFRL, (afrl &amp; !(0xF &lt;&lt; (2 <em> 4))) | (0x7 &lt;&lt; (2 </em> 4)));
+</p>
+<p>
+    // 3. Set speed
+    write_volatile(GPIOA_OSPEEDR, read_volatile(GPIOA_OSPEEDR) | (0x2 &lt;&lt; (2 * 2)));
+}</code></pre></div></div>
+</p>
+<p>
+<strong>Common AF mappings on STM32F4:</strong>
+</p>
+<ul>
+<li>AF4: I2C1, I2C2, I2C3</li>
+<li>AF5: SPI1, SPI2</li>
+<li>AF6: SPI3</li>
+<li>AF7: USART1, USART2, USART3</li>
+</ul>
+<p>
+Always verify with your specific chip's datasheet.
+</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://deepbluembedded.com/stm32-gpio-registers-direct-access-fast-pin-control/">STM32 GPIO Registers - Direct Access Fast Pin Control</a> — Register map and direct register manipulation for GPIO</li>
+<li><a href="https://controllerstech.com/stm32-gpio-output-config-using-registers/">STM32 GPIO Output Register Configuration</a> — Configuring GPIO output mode via registers</li>
+<li><a href="https://embetronicx.com/tutorials/microcontrollers/stm32/stm32-gpio-tutorial/">Step-by-Step STM32 GPIO Tutorial - Bare Metal</a> — Complete bare-metal GPIO tutorial with examples</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="timers-and-counters.html">Timers and PWM</a> -- alternate function for timer output channels</li>
+<li><a href="uart-serial.html">UART</a> -- requires AF-mode GPIO for TX/RX pins</li>
+<li><a href="interrupt-system/index.html">Interrupt System</a> -- GPIO can trigger EXTI interrupts</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://deepbluembedded.com/stm32-gpio-registers-direct-access-fast-pin-control/" target="_blank" rel="noopener">STM32 GPIO Registers - Direct Access Fast Pin Control</a></li><li><a href="https://controllerstech.com/stm32-gpio-output-config-using-registers/" target="_blank" rel="noopener">STM32 GPIO Output Register Configuration</a></li><li><a href="https://embetronicx.com/tutorials/microcontrollers/stm32/stm32-gpio-tutorial/" target="_blank" rel="noopener">Step-by-Step STM32 GPIO Tutorial - Bare Metal</a></li></ul></div>
+      <div class="page-nav"><a href="index.html"><span class="nav-label">← Previous</span><span class="nav-title">Peripherals as Hardware Engines</span></a><a class="next" href="timers-and-counters.html"><span class="nav-label">Next →</span><span class="nav-title">Timers and Counters</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

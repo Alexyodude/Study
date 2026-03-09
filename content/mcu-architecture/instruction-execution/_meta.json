@@ -1,0 +1,14 @@
+{
+  "title": "Instruction Execution",
+  "slug": "instruction-execution",
+  "order": 7,
+  "tags": ["cpu", "pipeline", "instruction-set", "timing"],
+  "status": "draft",
+  "children": [
+    { "slug": "index", "title": "The Instruction Cycle" },
+    { "slug": "fetch-decode-execute", "title": "Fetch, Decode, Execute" },
+    { "slug": "clock-cycles-and-timing", "title": "Clock Cycles and Timing" },
+    { "slug": "pipeline-basics", "title": "Pipeline Basics" },
+    { "slug": "instruction-set-overview", "title": "Instruction Set Overview" }
+  ]
+}

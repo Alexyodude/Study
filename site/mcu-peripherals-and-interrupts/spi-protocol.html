@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPI Protocol — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="uart-serial.html">UART Serial Communication</a><a class="nav-item active" href="spi-protocol.html">SPI Protocol</a><a class="nav-item" href="i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../mcu-peripherals-and-interrupts/index.html">Peripherals & Interrupts — Interact with the World</a><span class="sep">/</span><span>SPI Protocol</span></div>
+      <h1>SPI Protocol</h1>
+      <div class="tags"><span class="tag">spi</span><span class="tag">serial</span><span class="tag">communication</span><span class="tag">stm32</span><span class="tag">cortex-m</span><span class="tag">peripheral</span></div>
+      <p>
+SPI (Serial Peripheral Interface) is a <strong>synchronous, full-duplex</strong> bus commonly used to talk to sensors, displays, SD cards, and flash memory. It is faster than I2C but uses more wires.
+</p>
+<h2>Bus Signals</h2>
+<table><thead><tr><th>Signal</th><th>Direction (Master)</th><th>Purpose</th></tr></thead><tbody><tr><td>SCK</td><td>Output</td><td>Clock generated by master</td></tr>
+<tr><td>MOSI</td><td>Output</td><td>Master Out, Slave In (data to slave)</td></tr>
+<tr><td>MISO</td><td>Input</td><td>Master In, Slave Out (data from slave)</td></tr>
+<tr><td>CS/NSS</td><td>Output</td><td>Chip Select -- active LOW to select a slave</td></tr></tbody></table>
+<pre><code class="language-text">Master              Slave
+<p>
+  SCK  -----------&gt;  SCK
+  MOSI -----------&gt;  MOSI
+  MISO &lt;-----------  MISO
+  CS   -----------&gt;  CS (active low)</code></pre>
+</p>
+<p>
+Multiple slaves share SCK, MOSI, and MISO. Each slave has its own CS line -- only the selected slave responds.
+</p>
+<h2>CPOL and CPHA: The Four SPI Modes</h2>
+<p>
+SPI has <a href="https://fastbitlab.com/spi-cpol-cpha-discussion/">four modes defined by two settings</a>:
+</p>
+<ul>
+<li><strong>CPOL</strong> (Clock Polarity): idle state of SCK</li>
+<li><strong>CPHA</strong> (Clock Phase): which edge samples data</li>
+</ul>
+<table><thead><tr><th>Mode</th><th>CPOL</th><th>CPHA</th><th>Clock Idle</th><th>Data Sampled On</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>0</td><td>LOW</td><td>Rising edge (1st edge)</td></tr>
+<tr><td>1</td><td>0</td><td>1</td><td>LOW</td><td>Falling edge (2nd edge)</td></tr>
+<tr><td>2</td><td>1</td><td>0</td><td>HIGH</td><td>Falling edge (1st edge)</td></tr>
+<tr><td>3</td><td>1</td><td>1</td><td>HIGH</td><td>Rising edge (2nd edge)</td></tr></tbody></table>
+<p>
+<strong>Mode 0</strong> is the most common (used by most sensors). Check your slave device's datasheet to confirm which mode it expects.
+</p>
+<h2>Full-Duplex Operation</h2>
+<p>
+SPI is full-duplex: <strong>every clock cycle shifts one bit out on MOSI and one bit in on MISO simultaneously</strong>. Even when you only want to read, you must send something (usually 0x00 or 0xFF). Even when you only want to write, the slave sends something back (usually ignored).
+</p>
+<pre><code class="language-text">Master TX:  [Command] [0x00] [0x00]    &lt;-- sends command, then dummy bytes
+<p>
+Master RX:  [junk]    [data1] [data2]  &lt;-- receives data during dummy bytes</code></pre>
+</p>
+<h2>Key Registers (STM32)</h2>
+<table><thead><tr><th>Register</th><th>Purpose</th></tr></thead><tbody><tr><td>SPI_CR1</td><td>Master/slave, baud rate prescaler, CPOL, CPHA, data frame size, SPI enable</td></tr>
+<tr><td>SPI_CR2</td><td>DMA enable, interrupt enable, frame format</td></tr>
+<tr><td>SPI_SR</td><td>Status: TXE (TX empty), RXNE (RX not empty), BSY (busy)</td></tr>
+<tr><td>SPI_DR</td><td>Data register -- write to send, read to receive</td></tr></tbody></table>
+<h3>Important CR1 Bits</h3>
+<table><thead><tr><th>Bit</th><th>Name</th><th>Purpose</th></tr></thead><tbody><tr><td>0</td><td>CPHA</td><td>Clock phase</td></tr>
+<tr><td>1</td><td>CPOL</td><td>Clock polarity</td></tr>
+<tr><td>2</td><td>MSTR</td><td>1 = master mode</td></tr>
+<tr><td>3:5</td><td>BR[2:0]</td><td>Baud rate prescaler: f_PCLK / 2, 4, 8, ..., 256</td></tr>
+<tr><td>6</td><td>SPE</td><td>SPI enable</td></tr>
+<tr><td>7</td><td>LSBFIRST</td><td>0 = MSB first (default), 1 = LSB first</td></tr>
+<tr><td>8</td><td>SSI</td><td>Internal slave select (when SSM=1)</td></tr>
+<tr><td>9</td><td>SSM</td><td>Software slave management</td></tr>
+<tr><td>11</td><td>DFF</td><td>Data frame format: 0 = 8-bit, 1 = 16-bit</td></tr></tbody></table>
+<h2>Master Configuration Step-by-Step</h2>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// 1. Enable clocks
+<p>
+RCC-&gt;APB2ENR |= RCC_APB2ENR_SPI1EN;
+RCC-&gt;AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
+</p>
+<p>
+// 2. Configure GPIO pins for SPI1 (AF5 on STM32F4)
+//    PA5 = SCK, PA6 = MISO, PA7 = MOSI
+GPIOA-&gt;MODER |= (0x2 &lt;&lt; (5<em>2)) | (0x2 &lt;&lt; (6</em>2)) | (0x2 &lt;&lt; (7*2));
+GPIOA-&gt;AFR[0] |= (5 &lt;&lt; (5<em>4)) | (5 &lt;&lt; (6</em>4)) | (5 &lt;&lt; (7*4));
+</p>
+<p>
+// 3. Configure SPI1 as master
+SPI1-&gt;CR1 = 0;                        // reset
+SPI1-&gt;CR1 |= SPI_CR1_MSTR;            // master mode
+SPI1-&gt;CR1 |= (0x3 &lt;&lt; SPI_CR1_BR_Pos); // baud = f_PCLK/16
+SPI1-&gt;CR1 &amp;= ~SPI_CR1_CPOL;           // CPOL=0 (Mode 0)
+SPI1-&gt;CR1 &amp;= ~SPI_CR1_CPHA;           // CPHA=0
+SPI1-&gt;CR1 |= SPI_CR1_SSM | SPI_CR1_SSI; // software CS management
+SPI1-&gt;CR1 &amp;= ~SPI_CR1_DFF;            // 8-bit data frame
+</p>
+<p>
+// 4. Enable SPI
+SPI1-&gt;CR1 |= SPI_CR1_SPE;</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+const RCC_APB2ENR: <em>mut u32 = (0x4002_3800 + 0x44) as </em>mut u32;
+const RCC_AHB1ENR: <em>mut u32 = (0x4002_3800 + 0x30) as </em>mut u32;
+const GPIOA_MODER: <em>mut u32 = 0x4002_0000 as </em>mut u32;
+const GPIOA_AFRL: <em>mut u32 = (0x4002_0000 + 0x20) as </em>mut u32;
+const SPI1_CR1: <em>mut u32 = 0x4001_3000 as </em>mut u32;
+</p>
+<p>
+unsafe {
+    // 1. Enable clocks
+    write_volatile(RCC_APB2ENR, read_volatile(RCC_APB2ENR) | (1 &lt;&lt; 12)); // SPI1EN
+    write_volatile(RCC_AHB1ENR, read_volatile(RCC_AHB1ENR) | (1 &lt;&lt; 0)); // GPIOAEN
+</p>
+<p>
+    // 2. Configure GPIO pins for SPI1 (AF5): PA5=SCK, PA6=MISO, PA7=MOSI
+    let moder = read_volatile(GPIOA_MODER);
+    write_volatile(GPIOA_MODER, moder | (0x2 &lt;&lt; 10) | (0x2 &lt;&lt; 12) | (0x2 &lt;&lt; 14));
+    let afrl = read_volatile(GPIOA_AFRL);
+    write_volatile(GPIOA_AFRL, afrl | (5 &lt;&lt; 20) | (5 &lt;&lt; 24) | (5 &lt;&lt; 28));
+</p>
+<p>
+    // 3. Configure SPI1 as master
+    write_volatile(SPI1_CR1, 0);  // reset
+    let mut cr1: u32 = 0;
+    cr1 |= 1 &lt;&lt; 2;             // MSTR: master mode
+    cr1 |= 0x3 &lt;&lt; 3;           // BR: f_PCLK/16
+    // CPOL=0, CPHA=0 (Mode 0) — already 0
+    cr1 |= (1 &lt;&lt; 9) | (1 &lt;&lt; 8); // SSM + SSI: software CS
+    // DFF=0: 8-bit — already 0
+    write_volatile(SPI1_CR1, cr1);
+</p>
+<p>
+    // 4. Enable SPI
+    write_volatile(SPI1_CR1, read_volatile(SPI1_CR1) | (1 &lt;&lt; 6)); // SPE
+}</code></pre></div></div>
+</p>
+<h2>SPI Transmit/Receive Function</h2>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">uint8_t spi_transfer(uint8_t data) {
+<p>
+    while (!(SPI1-&gt;SR &amp; SPI_SR_TXE)) { }   // wait for TX buffer empty
+    SPI1-&gt;DR = data;                         // send byte
+    while (!(SPI1-&gt;SR &amp; SPI_SR_RXNE)) { }  // wait for RX byte
+    return SPI1-&gt;DR;                         // read received byte
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+const SPI1_SR: <em>const u32 = (0x4001_3000 + 0x08) as </em>const u32;
+const SPI1_DR: <em>mut u32 = (0x4001_3000 + 0x0C) as </em>mut u32;
+</p>
+<p>
+unsafe fn spi_transfer(data: u8) -&gt; u8 {
+    while read_volatile(SPI1_SR) &amp; (1 &lt;&lt; 1) == 0 {}  // wait TXE
+    write_volatile(SPI1_DR, data as u32);              // send byte
+    while read_volatile(SPI1_SR) &amp; (1 &lt;&lt; 0) == 0 {}  // wait RXNE
+    read_volatile(SPI1_DR as *const u32) as u8         // read received byte
+}</code></pre></div></div>
+</p>
+<h2>Example: Reading WHO_AM_I from an Accelerometer</h2>
+<p>
+Most SPI sensors have a WHO_AM_I register (read-only ID). For an LIS3DSH accelerometer, WHO_AM_I is at address 0x0F and should return 0x3F.
+</p>
+<p>
+SPI sensor convention: bit 7 of the address byte = 1 for read, 0 for write.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// CS pin = PA4 (manual GPIO control)
+<p>
+#define CS_LOW()  GPIOA-&gt;BSRR = (1 &lt;&lt; (4 + 16))
+#define CS_HIGH() GPIOA-&gt;BSRR = (1 &lt;&lt; 4)
+</p>
+<p>
+// Configure PA4 as output for CS
+GPIOA-&gt;MODER |= (0x1 &lt;&lt; (4*2));
+CS_HIGH();  // deselect
+</p>
+<p>
+uint8_t read_who_am_i(void) {
+    CS_LOW();                          // select slave
+    spi_transfer(0x0F | 0x80);        // address + read bit
+    uint8_t id = spi_transfer(0x00);  // clock out response
+    CS_HIGH();                         // deselect slave
+    return id;                         // should be 0x3F
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+const GPIOA_MODER: <em>mut u32 = 0x4002_0000 as </em>mut u32;
+const GPIOA_BSRR: <em>mut u32 = (0x4002_0000 + 0x18) as </em>mut u32;
+</p>
+<p>
+#[inline(always)]
+unsafe fn cs_low() { write_volatile(GPIOA_BSRR, 1 &lt;&lt; (4 + 16)); }
+#[inline(always)]
+unsafe fn cs_high() { write_volatile(GPIOA_BSRR, 1 &lt;&lt; 4); }
+</p>
+<p>
+unsafe {
+    // Configure PA4 as output for CS
+    write_volatile(GPIOA_MODER, read_volatile(GPIOA_MODER) | (0x1 &lt;&lt; (4 * 2)));
+    cs_high();  // deselect
+}
+</p>
+<p>
+unsafe fn read_who_am_i() -&gt; u8 {
+    cs_low();                              // select slave
+    spi_transfer(0x0F | 0x80);            // address + read bit
+    let id = spi_transfer(0x00);          // clock out response
+    cs_high();                             // deselect slave
+    id                                     // should be 0x3F
+}</code></pre></div></div>
+</p>
+<h2>Software vs Hardware CS</h2>
+<p>
+<strong>Software CS (recommended for beginners):</strong>
+</p>
+<ul>
+<li>Configure CS pin as regular GPIO output</li>
+<li>Assert/deassert manually with BSRR</li>
+<li>Full control over timing</li>
+<li>SSM and SSI bits set in CR1</li>
+</ul>
+<p>
+<strong>Hardware CS (NSS pin):</strong>
+</p>
+<ul>
+<li>SPI peripheral controls the CS pin automatically</li>
+<li>Less flexible -- some slaves need CS held between bytes</li>
+<li>Useful for simple single-slave setups</li>
+</ul>
+<p>
+Most real-world code uses software CS because it gives precise control over when CS toggles, which matters for multi-byte transactions.
+</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://hackaday.com/2022/10/24/bare-metal-stm32-setting-up-and-using-spi/">Bare-Metal STM32: Setting Up And Using SPI</a> — Practical bare-metal SPI setup and usage guide</li>
+<li><a href="https://controllerstech.com/spi-using-registers-in-stm32/">STM32 SPI Register Programming: Full-Duplex Master Mode</a> — Register-level SPI master configuration walkthrough</li>
+<li><a href="https://fastbitlab.com/spi-cpol-cpha-discussion/">STM32 SPI: CPOL and CPHA Discussion</a> — Detailed explanation of SPI clock polarity and phase</li>
+<li><a href="https://deepbluembedded.com/stm32-spi-tutorial/">STM32 SPI Tutorial - HAL Code Examples</a> — SPI tutorial covering both HAL and low-level approaches</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="gpio-register-level.html">GPIO Alternate Functions</a> -- setting up SCK, MOSI, MISO pins</li>
+<li><a href="i2c-protocol.html">I2C Protocol</a> -- alternative serial bus (fewer wires, slower)</li>
+<li><a href="interrupt-system/index.html">Interrupt System</a> -- SPI with interrupt or DMA</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://hackaday.com/2022/10/24/bare-metal-stm32-setting-up-and-using-spi/" target="_blank" rel="noopener">Bare-Metal STM32: Setting Up And Using SPI</a></li><li><a href="https://controllerstech.com/spi-using-registers-in-stm32/" target="_blank" rel="noopener">STM32 SPI Register Programming: Full-Duplex Master Mode</a></li><li><a href="https://fastbitlab.com/spi-cpol-cpha-discussion/" target="_blank" rel="noopener">STM32 SPI: CPOL and CPHA Discussion</a></li><li><a href="https://deepbluembedded.com/stm32-spi-tutorial/" target="_blank" rel="noopener">STM32 SPI Tutorial - HAL Code Examples</a></li></ul></div>
+      <div class="page-nav"><a href="uart-serial.html"><span class="nav-label">← Previous</span><span class="nav-title">UART Serial Communication</span></a><a class="next" href="i2c-protocol.html"><span class="nav-label">Next →</span><span class="nav-title">I2C Protocol</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

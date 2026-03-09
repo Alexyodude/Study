@@ -1,0 +1,20 @@
+{
+  "title": "Bare-Metal Programming — Write Code for Bare Hardware",
+  "slug": "mcu-bare-metal-programming",
+  "order": 2,
+  "tags": ["bare-metal", "toolchain", "startup", "linker", "registers"],
+  "status": "draft",
+  "children": [
+    { "slug": "index", "title": "What Bare-Metal Means" },
+    { "slug": "cross-compilation-toolchain", "title": "Cross-Compilation Toolchain" },
+    { "slug": "startup-code", "title": "Startup Code" },
+    { "slug": "vector-table", "title": "Vector Table" },
+    { "slug": "linker-scripts-in-practice", "title": "Linker Scripts in Practice" },
+    { "slug": "register-level-programming", "title": "Register-Level Programming" },
+    { "slug": "volatile-and-compiler-barriers", "title": "Volatile and Compiler Barriers" },
+    { "slug": "makefile-and-build-system", "title": "Makefile and Build System" },
+    { "slug": "boot-process-deep-dive", "title": "Boot Process Deep Dive" },
+    { "slug": "flashing-firmware", "title": "Flashing Firmware onto an MCU" },
+    { "slug": "flash-programming-from-firmware", "title": "Flash Programming from Firmware" }
+  ]
+}

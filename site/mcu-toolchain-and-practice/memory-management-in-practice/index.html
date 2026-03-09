@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memory Management in Practice — MCU Study Guide</title>
+  <link rel="stylesheet" href="../../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title expanded"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item active" href="index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="dma-controller.html">DMA Controller</a><a class="nav-item" href="mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../../index.html">Home</a><span class="sep">/</span><a href="../../mcu-toolchain-and-practice/index.html">Toolchain & Practice — Build and Debug Real Projects</a><span class="sep">/</span><a href="../../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory Management in Practice</a><span class="sep">/</span><span>Memory Management in Practice</span></div>
+      <h1>Memory Management in Practice</h1>
+      <div class="tags"><span class="tag">memory</span><span class="tag">embedded</span><span class="tag">allocation</span><span class="tag">dma</span><span class="tag">mpu</span></div>
+      <p>
+Memory is the most constrained resource on a microcontroller. A typical Cortex-M0 might have 4 KB of SRAM and 16 KB of flash. Even a "large" Cortex-M7 often tops out at 1 MB of flash and 512 KB of SRAM. Every byte matters, and the allocation strategies you use on a desktop will not work here.
+</p>
+<h2>Why Dynamic Allocation Is Dangerous</h2>
+<p>
+On a desktop, you call <code>malloc()</code> freely and the OS handles the rest with virtual memory and paging. On an MCU, there is no OS, no virtual memory, and no paging. Using <code>malloc()</code> and <code>free()</code> on an MCU <a href="https://electrical.codidact.com/posts/286121">introduces several problems</a>:
+</p>
+<ol>
+<li><strong>Fragmentation</strong> -- after many alloc/free cycles, free memory becomes scattered into small, unusable chunks. With only a few KB of heap, this can be fatal.</li>
+</ol>
+<ol>
+<li><strong>Non-deterministic timing</strong> -- <code>malloc()</code> traversal time depends on heap state. In a real-time system, you cannot guarantee how long an allocation will take.</li>
+</ol>
+<ol>
+<li><strong>No recovery from failure</strong> -- when <code>malloc()</code> returns <code>NULL</code>, most embedded code has no way to recover gracefully. There is no swap file to fall back on.</li>
+</ol>
+<ol>
+<li><strong>Hidden memory leaks</strong> -- without a memory debugger or OS-level tools, leaks in embedded code silently consume SRAM until the system crashes.</li>
+</ol>
+<p>
+Many safety-critical coding standards (MISRA C, CERT C, DO-178C) ban or heavily restrict dynamic allocation for these reasons.
+</p>
+<h2>Memory Management Strategies</h2>
+<p>
+Instead of dynamic allocation, embedded developers use a combination of techniques:
+</p>
+<h3>Static Allocation</h3>
+<p>
+Allocate everything at compile time. Use global variables, <code>static</code> locals, and fixed-size arrays. The linker tells you exactly how much memory you need -- if it fits, it will always fit.
+</p>
+<h3>Memory Pools</h3>
+<p>
+Pre-allocate a fixed number of fixed-size blocks. Code "allocates" by taking a block from the pool and "frees" by returning it. No fragmentation because all blocks are the same size.
+</p>
+<h3>Ring Buffers</h3>
+<p>
+A fixed-size circular buffer for streaming data (UART, ADC, audio). The producer writes to the head; the consumer reads from the tail. No allocation needed after initialization.
+</p>
+<h3>Stack Discipline</h3>
+<p>
+Keep local variables small. Avoid large arrays on the stack. Measure stack usage with compiler flags and watermarking.
+</p>
+<h3>DMA</h3>
+<p>
+Use the DMA controller to move data between memory and peripherals without CPU involvement. This is not allocation per se, but it affects how you lay out buffers in memory.
+</p>
+<h3>MPU Protection</h3>
+<p>
+Use the Memory Protection Unit to enforce access rules -- for example, making a stack guard region that triggers a fault on overflow.
+</p>
+<h2>Section Overview</h2>
+<ul>
+<li><a href="stack-vs-heap.html">Stack vs Heap</a> -- understanding the two allocation regions and measuring usage</li>
+<li><a href="dma-controller.html">DMA Controller</a> -- offloading memory transfers from the CPU</li>
+<li><a href="mpu-memory-protection.html">MPU Memory Protection</a> -- hardware access control for memory regions</li>
+<li><a href="static-allocation-patterns.html">Static Allocation Patterns</a> -- pools, ring buffers, and compile-time strategies</li>
+</ul>
+<h2>Typical Memory Layout</h2>
+<p>
+For reference, here is how SRAM is typically organized on a Cortex-M MCU:
+</p>
+<pre><code class="language-text">High Address
+<p>
++-------------------+
+|    Stack          |  Grows downward from top of SRAM
+|    (grows down)   |
++-------------------+
+|    (free space)   |  Stack and heap grow toward each other
++-------------------+
+|    Heap           |  Grows upward (if used)
+|    (grows up)     |
++-------------------+
+|    .bss           |  Zero-initialized global/static variables
++-------------------+
+|    .data          |  Initialized global/static variables
++-------------------+
+Low Address</code></pre>
+</p>
+<p>
+The gap between stack and heap is your safety margin. If they collide, you get silent memory corruption -- one of the hardest bugs to diagnose.
+</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://electrical.codidact.com/posts/286121">Why Should I Not Use Dynamic Memory Allocation in Embedded Systems?</a> — Discussion of malloc pitfalls in resource-constrained environments</li>
+<li><a href="https://www.embedded.com/mastering-stack-and-heap-for-system-reliability-part-1-calculating-stack-size/">Mastering Stack and Heap for System Reliability</a> — Techniques for calculating and managing stack size</li>
+<li><a href="https://theembeddedgeorge.github.io/theEmbeddedNewTestament.github.io/Embedded_C/Memory_Management.html">Memory Management in Embedded Systems</a> — Overview of embedded memory management strategies</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="../../mcu-build-system-and-compilation/linker-script-and-memory-layout.html">Linker Script</a> -- defining memory regions and sections</li>
+<li><a href="../debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a> -- diagnosing memory-related crashes</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://electrical.codidact.com/posts/286121" target="_blank" rel="noopener">Why Should I Not Use Dynamic Memory Allocation in Embedded Systems?</a></li><li><a href="https://www.embedded.com/mastering-stack-and-heap-for-system-reliability-part-1-calculating-stack-size/" target="_blank" rel="noopener">Mastering Stack and Heap for System Reliability</a></li><li><a href="https://theembeddedgeorge.github.io/theEmbeddedNewTestament.github.io/Embedded_C/Memory_Management.html" target="_blank" rel="noopener">Memory Management in Embedded Systems</a></li></ul></div>
+      <div class="page-nav"><a href="../debugging-and-probes/fault-debugging-techniques.html"><span class="nav-label">← Previous</span><span class="nav-title">Fault Debugging Techniques</span></a><a class="next" href="stack-vs-heap.html"><span class="nav-label">Next →</span><span class="nav-title">Stack vs Heap</span></a></div>
+    </main>
+  </div>
+  <script src="../../scripts/main.js"></script>
+</body>
+</html>

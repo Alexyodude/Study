@@ -1,0 +1,15 @@
+{
+  "title": "MCU Families Compared",
+  "slug": "mcu-families-compared",
+  "order": 4,
+  "tags": ["arm", "cortex-m", "avr", "risc-v", "datasheet"],
+  "status": "draft",
+  "children": [
+    { "slug": "index", "title": "How to Read a Datasheet" },
+    { "slug": "arm-cortex-m", "title": "ARM Cortex-M Family" },
+    { "slug": "avr-architecture", "title": "AVR Architecture" },
+    { "slug": "risc-v-microcontrollers", "title": "RISC-V Microcontrollers" },
+    { "slug": "choosing-an-mcu", "title": "Choosing an MCU" },
+    { "slug": "ch32v003-parallel-image-processing", "title": "Case Study: CH32V003 Array for Image Processing" }
+  ]
+}

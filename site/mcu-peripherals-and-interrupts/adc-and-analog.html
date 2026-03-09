@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADC and Analog — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="uart-serial.html">UART Serial Communication</a><a class="nav-item" href="spi-protocol.html">SPI Protocol</a><a class="nav-item" href="i2c-protocol.html">I2C Protocol</a><a class="nav-item active" href="adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../mcu-peripherals-and-interrupts/index.html">Peripherals & Interrupts — Interact with the World</a><span class="sep">/</span><span>ADC and Analog</span></div>
+      <h1>ADC and Analog</h1>
+      <div class="tags"><span class="tag">adc</span><span class="tag">analog</span><span class="tag">sar</span><span class="tag">stm32</span><span class="tag">cortex-m</span><span class="tag">peripheral</span></div>
+      <p>
+The ADC (Analog-to-Digital Converter) converts a continuous analog voltage into a discrete digital number. This is how your MCU reads sensors like potentiometers, temperature sensors, light sensors, and microphones.
+</p>
+<h2>SAR ADC Operation</h2>
+<p>
+STM32 MCUs use a <strong>Successive Approximation Register (SAR)</strong> ADC. It works like a <a href="https://deepbluembedded.com/stm32-adc-tutorial-complete-guide-with-examples/">binary search</a>:
+</p>
+<pre><code class="language-text">1. Start with MSB. Set bit 11 = 1, compare with input voltage.
+<ol>
+<li>If input &gt; threshold: keep bit 11 = 1. Else: set bit 11 = 0.</li>
+<li>Move to bit 10. Repeat.</li>
+<li>Continue for all bits (12 steps for 12-bit resolution).</li>
+<li>Result is a 12-bit number (0-4095).</code></pre></li>
+</ol>
+<p>
+The SAR ADC uses an internal DAC and comparator. Each step takes one clock cycle, so a 12-bit conversion needs at least 12 ADC clock cycles plus sampling time.
+</p>
+<h2>Resolution and Reference Voltage</h2>
+<table><thead><tr><th>Resolution</th><th>Range</th><th>Precision at 3.3V</th></tr></thead><tbody><tr><td>8-bit</td><td>0-255</td><td>12.9 mV per step</td></tr>
+<tr><td>10-bit</td><td>0-1023</td><td>3.2 mV per step</td></tr>
+<tr><td>12-bit</td><td>0-4095</td><td>0.8 mV per step</td></tr></tbody></table>
+<p>
+The conversion formula:
+</p>
+<pre><code class="language-text">Voltage = (ADC_Value / 2^N) * V_REF
+<p>
+ADC_Value = (Voltage / V_REF) * 2^N</code></pre>
+</p>
+<p>
+Where N is the resolution (typically 12) and V_REF is the reference voltage (usually VDDA, which is 3.3V).
+</p>
+<p>
+<strong>Example:</strong> Reading 1.65V with 12-bit resolution at 3.3V reference:
+</p>
+<pre><code class="language-text">ADC_Value = (1.65 / 3.3) * 4095 = 2048 (approximately)</code></pre>
+<h2>Sampling Time and Conversion Time</h2>
+<p>
+Before the SAR algorithm starts, the ADC must <strong>sample</strong> the input voltage -- charge an internal capacitor to match the analog voltage. Longer sampling time gives more accuracy, especially for high-impedance sources.
+</p>
+<pre><code class="language-text">Total conversion time = Sampling time + 12 ADC cycles (for 12-bit)</code></pre>
+<p>
+STM32 ADC sampling time is configurable per channel: 3, 15, 28, 56, 84, 112, 144, or 480 ADC clock cycles.
+</p>
+<p>
+<strong>Rule of thumb:</strong> Use longer sampling time for high-impedance sources (potentiometers, thermistors). Short sampling time is fine for low-impedance signals.
+</p>
+<h2>Conversion Modes</h2>
+<h3>Single Conversion</h3>
+<p>
+Converts one channel once, sets EOC flag, then stops. You must trigger each conversion manually.
+</p>
+<h3>Continuous Conversion</h3>
+<p>
+After completing one conversion, the ADC immediately starts another. The DR register always has the latest value. Good for monitoring a signal continuously.
+</p>
+<h3>Scan Mode</h3>
+<p>
+Converts <strong>multiple channels in sequence</strong> (a "group"), one after another. Often combined with DMA to store each channel's result in memory automatically. The <a href="https://www.st.com/resource/en/application_note/an3116-stm32s-adc-modes-and-their-applications-stmicroelectronics.pdf">AN3116 application note</a> covers all conversion modes in detail.
+</p>
+<table><thead><tr><th>Mode</th><th>Use case</th></tr></thead><tbody><tr><td>Single</td><td>One-shot reading (e.g., battery voltage check)</td></tr>
+<tr><td>Continuous</td><td>Real-time monitoring (e.g., analog joystick)</td></tr>
+<tr><td>Scan + DMA</td><td>Multiple sensors read periodically</td></tr></tbody></table>
+<h2>Key Registers (STM32F4)</h2>
+<table><thead><tr><th>Register</th><th>Purpose</th></tr></thead><tbody><tr><td>ADC_CR1</td><td>Resolution, scan mode, interrupt enable</td></tr>
+<tr><td>ADC_CR2</td><td>ADON (enable), continuous mode, external trigger, alignment</td></tr>
+<tr><td>ADC_SMPR1/2</td><td>Sampling time for each channel</td></tr>
+<tr><td>ADC_SQR1/2/3</td><td>Sequence: which channels to convert and in what order</td></tr>
+<tr><td>ADC_DR</td><td>Data register -- holds conversion result</td></tr>
+<tr><td>ADC_SR</td><td>Status: EOC (end of conversion), STRT, OVR (overrun)</td></tr></tbody></table>
+<h3>Important Bits</h3>
+<table><thead><tr><th>Register</th><th>Bit</th><th>Purpose</th></tr></thead><tbody><tr><td>CR2</td><td>ADON</td><td>Turn ADC on/off</td></tr>
+<tr><td>CR2</td><td>SWSTART</td><td>Start conversion (software trigger)</td></tr>
+<tr><td>CR2</td><td>CONT</td><td>0 = single, 1 = continuous</td></tr>
+<tr><td>CR2</td><td>ALIGN</td><td>0 = right-aligned (default), 1 = left-aligned</td></tr>
+<tr><td>CR1</td><td>SCAN</td><td>Enable scan mode</td></tr>
+<tr><td>CR1</td><td>RES</td><td>Resolution: 00=12-bit, 01=10-bit, 10=8-bit, 11=6-bit</td></tr>
+<tr><td>SR</td><td>EOC</td><td>End of conversion flag</td></tr></tbody></table>
+<h2>Example: Reading a Potentiometer on PA0</h2>
+<p>
+PA0 is ADC1 channel 0 on most STM32 chips. A potentiometer wiper connected to PA0 gives a voltage between 0V and 3.3V.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// 1. Enable clocks
+<p>
+RCC-&gt;APB2ENR |= RCC_APB2ENR_ADC1EN;
+RCC-&gt;AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
+</p>
+<p>
+// 2. Configure PA0 as analog mode
+GPIOA-&gt;MODER |= (0x3 &lt;&lt; (0 * 2));   // analog mode (11)
+</p>
+<p>
+// 3. Configure ADC1
+ADC1-&gt;CR1 = 0;                       // 12-bit resolution, no scan
+ADC1-&gt;CR2 = 0;                       // single conversion, software trigger
+ADC1-&gt;SMPR2 |= (0x3 &lt;&lt; (0 * 3));    // 56 cycles sampling for channel 0
+ADC1-&gt;SQR3 = 0;                      // channel 0 is first (and only) in sequence
+ADC1-&gt;SQR1 &amp;= ~(0xF &lt;&lt; 20);         // sequence length = 1 conversion
+</p>
+<p>
+// 4. Enable ADC
+ADC1-&gt;CR2 |= ADC_CR2_ADON;
+</p>
+<p>
+// 5. Read function
+uint16_t read_adc(void) {
+    ADC1-&gt;CR2 |= ADC_CR2_SWSTART;           // start conversion
+    while (!(ADC1-&gt;SR &amp; ADC_SR_EOC)) { }    // wait for completion
+    return ADC1-&gt;DR;                          // read 12-bit result (0-4095)
+}
+</p>
+<p>
+// Convert to millivolts
+uint32_t voltage_mv = (uint32_t)read_adc() * 3300 / 4095;</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+// Register base addresses (STM32F4)
+const RCC_BASE: u32 = 0x4002_3800;
+const GPIOA_BASE: u32 = 0x4002_0000;
+const ADC1_BASE: u32 = 0x4001_2000;
+</p>
+<p>
+unsafe {
+    // 1. Enable clocks
+    let rcc_apb2enr = (RCC_BASE + 0x44) as *mut u32;
+    let rcc_ahb1enr = (RCC_BASE + 0x30) as *mut u32;
+    write_volatile(rcc_apb2enr, read_volatile(rcc_apb2enr) | (1 &lt;&lt; 8));  // ADC1EN
+    write_volatile(rcc_ahb1enr, read_volatile(rcc_ahb1enr) | (1 &lt;&lt; 0));  // GPIOAEN
+</p>
+<p>
+    // 2. Configure PA0 as analog mode
+    let gpioa_moder = GPIOA_BASE as *mut u32;
+    write_volatile(gpioa_moder, read_volatile(gpioa_moder) | (0x3 &lt;&lt; (0 * 2)));
+</p>
+<p>
+    // 3. Configure ADC1
+    let adc1_cr1 = (ADC1_BASE + 0x04) as *mut u32;
+    let adc1_cr2 = (ADC1_BASE + 0x08) as *mut u32;
+    let adc1_smpr2 = (ADC1_BASE + 0x10) as *mut u32;
+    let adc1_sqr3 = (ADC1_BASE + 0x34) as *mut u32;
+    let adc1_sqr1 = (ADC1_BASE + 0x2C) as *mut u32;
+    write_volatile(adc1_cr1, 0);
+    write_volatile(adc1_cr2, 0);
+    write_volatile(adc1_smpr2, read_volatile(adc1_smpr2) | (0x3 &lt;&lt; (0 * 3)));
+    write_volatile(adc1_sqr3, 0);
+    write_volatile(adc1_sqr1, read_volatile(adc1_sqr1) &amp; !(0xF &lt;&lt; 20));
+</p>
+<p>
+    // 4. Enable ADC
+    write_volatile(adc1_cr2, read_volatile(adc1_cr2) | (1 &lt;&lt; 0)); // ADON
+}
+</p>
+<p>
+// 5. Read function
+unsafe fn read_adc() -&gt; u16 {
+    let adc1_cr2 = (ADC1_BASE + 0x08) as *mut u32;
+    let adc1_sr = ADC1_BASE as *const u32;
+    let adc1_dr = (ADC1_BASE + 0x4C) as *const u32;
+</p>
+<p>
+    write_volatile(adc1_cr2, read_volatile(adc1_cr2) | (1 &lt;&lt; 30)); // SWSTART
+    while read_volatile(adc1_sr) &amp; (1 &lt;&lt; 1) == 0 {}                // wait EOC
+    read_volatile(adc1_dr) as u16
+}
+</p>
+<p>
+// Convert to millivolts
+let voltage_mv: u32 = unsafe { read_adc() } as u32 * 3300 / 4095;</code></pre></div></div>
+</p>
+<h2>Calibration and Accuracy</h2>
+<h3>Sources of Error</h3>
+<ul>
+<li><strong>Offset error:</strong> ADC reads non-zero when input is 0V</li>
+<li><strong>Gain error:</strong> Full-scale reading is slightly off</li>
+<li><strong>INL/DNL:</strong> Non-linearity -- some codes are wider/narrower than ideal</li>
+<li><strong>Noise:</strong> Analog supply noise couples into conversions</li>
+</ul>
+<h3>Improving Accuracy</h3>
+<ol>
+<li><strong>Use the internal calibration:</strong> Many STM32 ADCs have a built-in calibration routine. Run it at startup before any conversions.</li>
+</ol>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// STM32F3/L4 calibration example
+<p>
+ADC1-&gt;CR &amp;= ~ADC_CR_ADEN;        // ensure ADC is off
+ADC1-&gt;CR |= ADC_CR_ADCAL;        // start calibration
+while (ADC1-&gt;CR &amp; ADC_CR_ADCAL); // wait for completion</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+const ADC1_CR: <em>mut u32 = (0x4001_2000 + 0x08) as </em>mut u32;
+const ADC_CR_ADEN: u32 = 1 &lt;&lt; 0;
+const ADC_CR_ADCAL: u32 = 1 &lt;&lt; 31;
+</p>
+<p>
+unsafe {
+    // Ensure ADC is off
+    write_volatile(ADC1_CR, read_volatile(ADC1_CR) &amp; !ADC_CR_ADEN);
+    // Start calibration
+    write_volatile(ADC1_CR, read_volatile(ADC1_CR) | ADC_CR_ADCAL);
+    // Wait for completion
+    while read_volatile(ADC1_CR) &amp; ADC_CR_ADCAL != 0 {}
+}</code></pre></div></div>
+</p>
+<ol>
+<li><strong>Oversampling:</strong> Read multiple times and average. Reading 16 times and dividing by 16 reduces noise by 4x (equivalent to gaining 2 extra bits).</li>
+</ol>
+<ol>
+<li><strong>Stable reference:</strong> Use a dedicated VREF+ pin with a low-noise voltage reference instead of VDDA.</li>
+</ol>
+<ol>
+<li><strong>Decoupling:</strong> Place 100nF + 1uF capacitors close to VDDA and VREF+ pins.</li>
+</ol>
+<ol>
+<li><strong>Longer sampling time</strong> for high-impedance sources.</li>
+</ol>
+<h2>References</h2>
+<ol>
+<li><a href="https://deepbluembedded.com/stm32-adc-tutorial-complete-guide-with-examples/">STM32 ADC Tutorial + ADC Examples</a> — Complete guide to STM32 ADC with code examples</li>
+<li><a href="https://wiki.st.com/stm32mcu/wiki/Getting_started_with_ADC">Getting started with ADC - STM32 MCU Wiki</a> — Official ST wiki guide for ADC peripheral setup</li>
+<li><a href="https://www.st.com/resource/en/application_note/an3116-stm32s-adc-modes-and-their-applications-stmicroelectronics.pdf">AN3116: STM32 ADC Modes and Their Applications</a> — ST application note on conversion modes and DMA usage</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="gpio-register-level.html">GPIO Configuration</a> -- analog mode for ADC input pins</li>
+<li><a href="timers-and-counters.html">Timers</a> -- timers can trigger periodic ADC conversions</li>
+<li><a href="interrupt-system/index.html">Interrupt System</a> -- EOC interrupt for non-blocking ADC reads</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://deepbluembedded.com/stm32-adc-tutorial-complete-guide-with-examples/" target="_blank" rel="noopener">STM32 ADC Tutorial + ADC Examples</a></li><li><a href="https://wiki.st.com/stm32mcu/wiki/Getting_started_with_ADC" target="_blank" rel="noopener">Getting started with ADC - STM32 MCU Wiki</a></li><li><a href="https://www.st.com/resource/en/application_note/an3116-stm32s-adc-modes-and-their-applications-stmicroelectronics.pdf" target="_blank" rel="noopener">AN3116: STM32 ADC Modes and Their Applications</a></li></ul></div>
+      <div class="page-nav"><a href="i2c-protocol.html"><span class="nav-label">← Previous</span><span class="nav-title">I2C Protocol</span></a><a class="next" href="parallel-io-and-multi-mcu-sync.html"><span class="nav-label">Next →</span><span class="nav-title">Parallel I/O and Multi-MCU Synchronization</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

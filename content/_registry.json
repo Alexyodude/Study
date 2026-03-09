@@ -1,0 +1,30 @@
+{
+  "site_title": "MCU Study Guide",
+  "description": "Deep study of microcontrollers — bare-metal control of computation and memory",
+  "topics": [
+    {
+      "slug": "mcu-architecture",
+      "title": "MCU Architecture — Understand the Machine",
+      "order": 1,
+      "status": "draft"
+    },
+    {
+      "slug": "mcu-bare-metal-programming",
+      "title": "Bare-Metal Programming — Write Code for Bare Hardware",
+      "order": 2,
+      "status": "draft"
+    },
+    {
+      "slug": "mcu-peripherals-and-interrupts",
+      "title": "Peripherals & Interrupts — Interact with the World",
+      "order": 3,
+      "status": "draft"
+    },
+    {
+      "slug": "mcu-toolchain-and-practice",
+      "title": "Toolchain & Practice — Build and Debug Real Projects",
+      "order": 4,
+      "status": "draft"
+    }
+  ]
+}

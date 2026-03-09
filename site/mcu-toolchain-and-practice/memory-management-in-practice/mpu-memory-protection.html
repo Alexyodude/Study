@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MPU Memory Protection — MCU Study Guide</title>
+  <link rel="stylesheet" href="../../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title expanded"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="dma-controller.html">DMA Controller</a><a class="nav-item active" href="mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../../index.html">Home</a><span class="sep">/</span><a href="../../mcu-toolchain-and-practice/index.html">Toolchain & Practice — Build and Debug Real Projects</a><span class="sep">/</span><a href="../../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory Management in Practice</a><span class="sep">/</span><span>MPU Memory Protection</span></div>
+      <h1>MPU Memory Protection</h1>
+      <div class="tags"><span class="tag">mpu</span><span class="tag">memory-protection</span><span class="tag">cortex-m</span><span class="tag">security</span><span class="tag">embedded</span></div>
+      <p>
+The <a href="https://developer.arm.com/documentation/107565/latest/Memory-protection/Memory-Protection-Unit">Memory Protection Unit (MPU)</a> is an optional hardware component in Cortex-M processors that enforces access rules on memory regions. It cannot perform address translation like an MMU (Memory Management Unit) on application processors, but it can prevent code from accessing memory it should not touch -- catching bugs early and improving system robustness.
+</p>
+<h2>What the MPU Does</h2>
+<p>
+The MPU divides the address space into <strong>regions</strong>, each with configurable:
+</p>
+<ul>
+<li><strong>Base address</strong> and <strong>size</strong></li>
+<li><strong>Access permissions</strong> (read, write, execute, privileged vs unprivileged)</li>
+<li><strong>Memory attributes</strong> (cacheable, bufferable, shareable)</li>
+</ul>
+<p>
+When code violates a region's rules, the MPU triggers a <strong>MemManage fault</strong> (exception #4) with a precise address in the MMFAR register.
+</p>
+<h2>MPU Availability</h2>
+<table><thead><tr><th>Processor</th><th>Max Regions</th><th>Notes</th></tr></thead><tbody><tr><td>Cortex-M0/M0+</td><td>0 or 8</td><td>Optional, rarely included</td></tr>
+<tr><td>Cortex-M3</td><td>8</td><td>Optional</td></tr>
+<tr><td>Cortex-M4</td><td>8</td><td>Common on mid-range MCUs</td></tr>
+<tr><td>Cortex-M7</td><td>8 or 16</td><td>Often 16 regions</td></tr>
+<tr><td>Cortex-M33</td><td>8 or 16</td><td>ARMv8-M with enhanced MPU</td></tr></tbody></table>
+<p>
+Check if your MCU has an MPU by reading the MPU TYPE register:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">if (MPU-&gt;TYPE == 0) {
+<p>
+    // No MPU available
+} else {
+    uint8_t num_regions = (MPU-&gt;TYPE &gt;&gt; 8) &amp; 0xFF;
+    // num_regions is typically 8 or 16
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::read_volatile;
+<p>
+unsafe {
+    let mpu_type = read_volatile(0xE000_ED90 as *const u32);
+    if mpu_type == 0 {
+        // No MPU available
+    } else {
+        let num_regions = ((mpu_type &gt;&gt; 8) &amp; 0xFF) as u8;
+        // num_regions is typically 8 or 16
+    }
+}</code></pre></div></div>
+</p>
+<h2>Region Configuration</h2>
+<p>
+Each region is defined by three register values: the region number (RNR), the base address (RBAR), and the region attributes (RASR).
+</p>
+<h3>Region Number Register (RNR)</h3>
+<p>
+Selects which region (0 to N-1) you are configuring:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">MPU-&gt;RNR = 0;  // Configure region 0</code></pre></div>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">unsafe {
+<p>
+    core::ptr::write_volatile(0xE000_ED98 as *mut u32, 0); // Configure region 0
+}</code></pre></div></div>
+</p>
+<h3>Base Address Register (RBAR)</h3>
+<p>
+Sets the base address of the region. The address must be aligned to the region size.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">MPU-&gt;RBAR = 0x20000000;  // Region starts at SRAM base</code></pre></div>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">unsafe {
+<p>
+    core::ptr::write_volatile(0xE000_ED9C as *mut u32, 0x2000_0000); // SRAM base
+}</code></pre></div></div>
+</p>
+<h3>Region Attribute and Size Register (RASR)</h3>
+<p>
+This is the main configuration register:
+</p>
+<pre><code class="language-text">Bits [31:29] - Reserved
+<p>
+Bit  [28]    - XN (Execute Never): 1 = prevent code execution
+Bits [26:24] - AP (Access Permission)
+Bits [21:19] - TEX (Type Extension)
+Bit  [18]    - S (Shareable)
+Bit  [17]    - C (Cacheable)
+Bit  [16]    - B (Bufferable)
+Bits [15:8]  - SRD (Subregion Disable) - 8 bits, one per subregion
+Bits [5:1]   - SIZE (Region size as power of 2, min 5 = 32 bytes)
+Bit  [0]     - ENABLE</code></pre>
+</p>
+<h3>Access Permissions (AP Field)</h3>
+<table><thead><tr><th>AP Value</th><th>Privileged</th><th>Unprivileged</th><th>Description</th></tr></thead><tbody><tr><td>000</td><td>No access</td><td>No access</td><td>All accesses fault</td></tr>
+<tr><td>001</td><td>RW</td><td>No access</td><td>Privileged only</td></tr>
+<tr><td>010</td><td>RW</td><td>RO</td><td>Unprivileged read-only</td></tr>
+<tr><td>011</td><td>RW</td><td>RW</td><td>Full access</td></tr>
+<tr><td>101</td><td>RO</td><td>No access</td><td>Privileged read-only</td></tr>
+<tr><td>110</td><td>RO</td><td>RO</td><td>Read-only for all</td></tr></tbody></table>
+<h3>Size Encoding</h3>
+<p>
+The SIZE field encodes region size as a power of 2:
+</p>
+<table><thead><tr><th>SIZE value</th><th>Region size</th></tr></thead><tbody><tr><td>4</td><td>32 bytes (minimum)</td></tr>
+<tr><td>7</td><td>256 bytes</td></tr>
+<tr><td>9</td><td>1 KB</td></tr>
+<tr><td>12</td><td>8 KB</td></tr>
+<tr><td>14</td><td>32 KB</td></tr>
+<tr><td>19</td><td>1 MB</td></tr>
+<tr><td>31</td><td>4 GB (entire address space)</td></tr></tbody></table>
+<p>
+Formula: <code>region_size = 2^(SIZE + 1)</code>
+</p>
+<h3>Subregions</h3>
+<p>
+Each region can be divided into 8 equal <strong>subregions</strong>. Individual subregions can be disabled using the SRD bits, allowing finer-grained control without using additional regions.
+</p>
+<h2>Enabling the MPU</h2>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">void mpu_enable(void) {
+<p>
+    // Enable MemManage fault handler
+    SCB-&gt;SHCSR |= SCB_SHCSR_MEMFAULTENA_Msk;
+</p>
+<p>
+    // Enable MPU with default memory map for privileged access
+    // PRIVDEFENA = 1: privileged code can access anything not
+    //   explicitly denied by an MPU region
+    MPU-&gt;CTRL = MPU_CTRL_ENABLE_Msk | MPU_CTRL_PRIVDEFENA_Msk;
+</p>
+<p>
+    // Ensure MPU settings take effect
+    __DSB();
+    __ISB();
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+use cortex_m::asm;
+</p>
+<p>
+unsafe fn mpu_enable() {
+    // Enable MemManage fault handler
+    let shcsr = 0xE000_ED24 as *mut u32;
+    write_volatile(shcsr, read_volatile(shcsr) | (1 &lt;&lt; 16));
+</p>
+<p>
+    // Enable MPU with default memory map for privileged access
+    // PRIVDEFENA = 1, ENABLE = 1
+    let mpu_ctrl = 0xE000_ED94 as *mut u32;
+    write_volatile(mpu_ctrl, (1 &lt;&lt; 2) | (1 &lt;&lt; 0)); // PRIVDEFENA | ENABLE
+</p>
+<p>
+    // Ensure MPU settings take effect
+    asm::dsb();
+    asm::isb();
+}</code></pre></div></div>
+</p>
+<p>
+The <code>PRIVDEFENA</code> bit is important for getting started. When set, privileged code can access the default memory map for any address not covered by an MPU region. This means you only need to define regions for the areas you want to <strong>restrict</strong>, rather than mapping the entire address space.
+</p>
+<h2>Use Cases</h2>
+<h3>Stack Overflow Protection</h3>
+<p>
+Place a <a href="https://interrupt.memfault.com/blog/fix-bugs-and-secure-firmware-with-the-mpu">"no access" region at the bottom of the stack</a>. If the stack overflows into this guard region, you get an immediate MemManage fault instead of silent memory corruption.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">void mpu_configure_stack_guard(uint32_t stack_bottom) {
+<p>
+    MPU-&gt;RNR = 0;  // Use region 0
+</p>
+<p>
+    // 32-byte guard at the bottom of the stack
+    MPU-&gt;RBAR = stack_bottom &amp; ~0x1F;  // Align to 32 bytes
+</p>
+<p>
+    MPU-&gt;RASR = (0 &lt;&lt; 24)    // AP = 000 (no access)
+              | (1 &lt;&lt; 28)    // XN = 1 (no execute)
+              | (4 &lt;&lt; 1)     // SIZE = 4 (32 bytes)
+              | (1 &lt;&lt; 0);    // ENABLE
+</p>
+<p>
+    __DSB();
+    __ISB();
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::write_volatile;
+<p>
+use cortex_m::asm;
+</p>
+<p>
+unsafe fn mpu_configure_stack_guard(stack_bottom: u32) {
+    let mpu_rnr  = 0xE000_ED98 as *mut u32;
+    let mpu_rbar = 0xE000_ED9C as *mut u32;
+    let mpu_rasr = 0xE000_EDA0 as *mut u32;
+</p>
+<p>
+    write_volatile(mpu_rnr, 0); // Use region 0
+</p>
+<p>
+    // 32-byte guard at the bottom of the stack
+    write_volatile(mpu_rbar, stack_bottom &amp; !0x1F); // Align to 32 bytes
+</p>
+<p>
+    write_volatile(mpu_rasr,
+          (0 &lt;&lt; 24)    // AP = 000 (no access)
+        | (1 &lt;&lt; 28)    // XN = 1 (no execute)
+        | (4 &lt;&lt; 1)     // SIZE = 4 (32 bytes)
+        | (1 &lt;&lt; 0));   // ENABLE
+</p>
+<p>
+    asm::dsb();
+    asm::isb();
+}</code></pre></div></div>
+</p>
+<h3>Peripheral Access Control</h3>
+<p>
+Prevent unprivileged code from directly accessing peripheral registers:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">void mpu_protect_peripherals(void) {
+<p>
+    MPU-&gt;RNR = 1;  // Use region 1
+</p>
+<p>
+    // Protect peripheral address range 0x40000000 - 0x5FFFFFFF
+    MPU-&gt;RBAR = 0x40000000;
+</p>
+<p>
+    MPU-&gt;RASR = (1 &lt;&lt; 24)    // AP = 001 (privileged RW only)
+              | (1 &lt;&lt; 28)    // XN = 1 (no execute)
+              | (28 &lt;&lt; 1)    // SIZE = 28 (512 MB)
+              | (1 &lt;&lt; 0);    // ENABLE
+</p>
+<p>
+    __DSB();
+    __ISB();
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">unsafe fn mpu_protect_peripherals() {
+<p>
+    let mpu_rnr  = 0xE000_ED98 as *mut u32;
+    let mpu_rbar = 0xE000_ED9C as *mut u32;
+    let mpu_rasr = 0xE000_EDA0 as *mut u32;
+</p>
+<p>
+    core::ptr::write_volatile(mpu_rnr, 1); // Use region 1
+</p>
+<p>
+    // Protect peripheral address range 0x40000000 - 0x5FFFFFFF
+    core::ptr::write_volatile(mpu_rbar, 0x4000_0000);
+</p>
+<p>
+    core::ptr::write_volatile(mpu_rasr,
+          (1 &lt;&lt; 24)    // AP = 001 (privileged RW only)
+        | (1 &lt;&lt; 28)    // XN = 1 (no execute)
+        | (28 &lt;&lt; 1)    // SIZE = 28 (512 MB)
+        | (1 &lt;&lt; 0));   // ENABLE
+</p>
+<p>
+    cortex_m::asm::dsb();
+    cortex_m::asm::isb();
+}</code></pre></div></div>
+</p>
+<h3>Null Pointer Protection</h3>
+<p>
+Create a "no access" region at address 0x00000000 to catch null pointer dereferences:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">void mpu_null_pointer_guard(void) {
+<p>
+    MPU-&gt;RNR = 2;
+</p>
+<p>
+    MPU-&gt;RBAR = 0x00000000;
+</p>
+<p>
+    MPU-&gt;RASR = (0 &lt;&lt; 24)    // AP = 000 (no access)
+              | (1 &lt;&lt; 28)    // XN = 1
+              | (4 &lt;&lt; 1)     // SIZE = 4 (32 bytes)
+              | (1 &lt;&lt; 0);    // ENABLE
+</p>
+<p>
+    __DSB();
+    __ISB();
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">unsafe fn mpu_null_pointer_guard() {
+<p>
+    let mpu_rnr  = 0xE000_ED98 as *mut u32;
+    let mpu_rbar = 0xE000_ED9C as *mut u32;
+    let mpu_rasr = 0xE000_EDA0 as *mut u32;
+</p>
+<p>
+    core::ptr::write_volatile(mpu_rnr, 2);
+    core::ptr::write_volatile(mpu_rbar, 0x0000_0000);
+    core::ptr::write_volatile(mpu_rasr,
+          (0 &lt;&lt; 24)    // AP = 000 (no access)
+        | (1 &lt;&lt; 28)    // XN = 1
+        | (4 &lt;&lt; 1)     // SIZE = 4 (32 bytes)
+        | (1 &lt;&lt; 0));   // ENABLE
+</p>
+<p>
+    cortex_m::asm::dsb();
+    cortex_m::asm::isb();
+}</code></pre></div></div>
+</p>
+<h3>DMA Buffer Non-Cacheable (Cortex-M7)</h3>
+<p>
+On Cortex-M7, mark DMA buffers as non-cacheable to avoid cache coherency issues:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">void mpu_dma_buffer_nocache(uint32_t addr, uint32_t size_log2) {
+<p>
+    MPU-&gt;RNR = 3;
+</p>
+<p>
+    MPU-&gt;RBAR = addr;
+</p>
+<p>
+    // TEX=1, C=0, B=0 -&gt; Non-cacheable
+    MPU-&gt;RASR = (3 &lt;&lt; 24)              // AP = 011 (full access)
+              | (1 &lt;&lt; 28)              // XN = 1
+              | (1 &lt;&lt; 19)              // TEX = 001
+              | (0 &lt;&lt; 17)              // C = 0
+              | (0 &lt;&lt; 16)              // B = 0
+              | ((size_log2 - 1) &lt;&lt; 1) // SIZE
+              | (1 &lt;&lt; 0);              // ENABLE
+</p>
+<p>
+    __DSB();
+    __ISB();
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">unsafe fn mpu_dma_buffer_nocache(addr: u32, size_log2: u32) {
+<p>
+    let mpu_rnr  = 0xE000_ED98 as *mut u32;
+    let mpu_rbar = 0xE000_ED9C as *mut u32;
+    let mpu_rasr = 0xE000_EDA0 as *mut u32;
+</p>
+<p>
+    core::ptr::write_volatile(mpu_rnr, 3);
+    core::ptr::write_volatile(mpu_rbar, addr);
+</p>
+<p>
+    // TEX=1, C=0, B=0 -&gt; Non-cacheable
+    core::ptr::write_volatile(mpu_rasr,
+          (3 &lt;&lt; 24)                  // AP = 011 (full access)
+        | (1 &lt;&lt; 28)                  // XN = 1
+        | (1 &lt;&lt; 19)                  // TEX = 001
+        | (0 &lt;&lt; 17)                  // C = 0
+        | (0 &lt;&lt; 16)                  // B = 0
+        | ((size_log2 - 1) &lt;&lt; 1)     // SIZE
+        | (1 &lt;&lt; 0));                 // ENABLE
+</p>
+<p>
+    cortex_m::asm::dsb();
+    cortex_m::asm::isb();
+}</code></pre></div></div>
+</p>
+<h2>MemManage Fault Handling</h2>
+<p>
+When an MPU violation occurs:
+</p>
+<ol>
+<li>The MemManage exception fires (if enabled)</li>
+<li><code>SCB->CFSR</code> bits [7:0] (MMFSR) indicate the type of violation</li>
+<li>If <code>MMARVALID</code> is set, <code>SCB->MMFAR</code> contains the faulting address</li>
+</ol>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">void MemManage_Handler(void) {
+<p>
+    uint32_t mmfsr = SCB-&gt;CFSR &amp; 0xFF;
+    uint32_t mmfar = SCB-&gt;MMFAR;
+</p>
+<p>
+    if (mmfsr &amp; (1 &lt;&lt; 7)) {  // MMARVALID
+        // mmfar contains the address that caused the violation
+    }
+    if (mmfsr &amp; (1 &lt;&lt; 1)) {  // DACCVIOL
+        // Data access violation
+    }
+    if (mmfsr &amp; (1 &lt;&lt; 0)) {  // IACCVIOL
+        // Instruction access violation
+    }
+</p>
+<p>
+    // Clear fault flags
+    SCB-&gt;CFSR = 0xFF;
+</p>
+<p>
+    while (1) {}  // Halt for debugging
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+#[no_mangle]
+unsafe extern "C" fn MemManage_Handler() {
+    let cfsr  = read_volatile(0xE000_ED28 as *const u32);
+    let mmfsr = cfsr &amp; 0xFF;
+    let mmfar = read_volatile(0xE000_ED34 as *const u32);
+</p>
+<p>
+    if mmfsr &amp; (1 &lt;&lt; 7) != 0 {  // MMARVALID
+        // mmfar contains the address that caused the violation
+        let _ = mmfar;
+    }
+    if mmfsr &amp; (1 &lt;&lt; 1) != 0 {  // DACCVIOL
+        // Data access violation
+    }
+    if mmfsr &amp; (1 &lt;&lt; 0) != 0 {  // IACCVIOL
+        // Instruction access violation
+    }
+</p>
+<p>
+    // Clear fault flags
+    write_volatile(0xE000_ED28 as *mut u32, 0xFF);
+</p>
+<p>
+    loop {} // Halt for debugging
+}</code></pre></div></div>
+</p>
+<h2>Common Mistakes</h2>
+<table><thead><tr><th>Mistake</th><th>Consequence</th><th>Fix</th></tr></thead><tbody><tr><td>Forgetting <code>__DSB(); __ISB()</code></td><td>MPU changes not applied</td><td>Always issue barriers after config</td></tr>
+<tr><td>Misaligned base address</td><td>Unpredictable region boundaries</td><td>Align base to region size</td></tr>
+<tr><td>Not enabling MemManage handler</td><td>MPU violations escalate to HardFault</td><td>Set <code>MEMFAULTENA</code> in <code>SCB->SHCSR</code></td></tr>
+<tr><td>Overlapping regions</td><td>Higher-numbered region wins</td><td>Design regions carefully</td></tr>
+<tr><td>PRIVDEFENA = 0 without full coverage</td><td>Privileged code also faults</td><td>Enable PRIVDEFENA or map all regions</td></tr></tbody></table>
+<h2>References</h2>
+<ol>
+<li><a href="https://developer.arm.com/documentation/107565/latest/Memory-protection/Memory-Protection-Unit">Memory Protection Unit - ARM Developer</a> — Official ARM documentation on MPU architecture and usage</li>
+<li><a href="https://blog.feabhas.com/2013/02/setting-up-the-cortex-m34-armv7-m-memory-protection-unit-mpu/">Setting up the Cortex-M3/4 MPU - Feabhas</a> — Practical guide to MPU region configuration</li>
+<li><a href="https://interrupt.memfault.com/blog/fix-bugs-and-secure-firmware-with-the-mpu">Fix Bugs and Secure Firmware with the MPU - Memfault</a> — Using MPU to catch bugs and improve security</li>
+<li><a href="https://tickelton.gitlab.io/understanding-the-arm-cortex-m-mpu.html">Understanding the ARM Cortex-M MPU</a> — Clear introduction to MPU concepts and registers</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="../debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a> -- interpreting MemManage faults</li>
+<li><a href="stack-vs-heap.html">Stack vs Heap</a> -- stack guard use case</li>
+<li><a href="dma-controller.html">DMA Controller</a> -- marking DMA buffers non-cacheable</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://developer.arm.com/documentation/107565/latest/Memory-protection/Memory-Protection-Unit" target="_blank" rel="noopener">Memory Protection Unit - ARM Developer</a></li><li><a href="https://blog.feabhas.com/2013/02/setting-up-the-cortex-m34-armv7-m-memory-protection-unit-mpu/" target="_blank" rel="noopener">Setting up the Cortex-M3/4 MPU - Feabhas</a></li><li><a href="https://interrupt.memfault.com/blog/fix-bugs-and-secure-firmware-with-the-mpu" target="_blank" rel="noopener">Fix Bugs and Secure Firmware with the MPU - Memfault</a></li><li><a href="https://tickelton.gitlab.io/understanding-the-arm-cortex-m-mpu.html" target="_blank" rel="noopener">Understanding the ARM Cortex-M MPU</a></li></ul></div>
+      <div class="page-nav"><a href="dma-controller.html"><span class="nav-label">← Previous</span><span class="nav-title">DMA Controller</span></a><a class="next" href="static-allocation-patterns.html"><span class="nav-label">Next →</span><span class="nav-title">Static Allocation Patterns</span></a></div>
+    </main>
+  </div>
+  <script src="../../scripts/main.js"></script>
+</body>
+</html>

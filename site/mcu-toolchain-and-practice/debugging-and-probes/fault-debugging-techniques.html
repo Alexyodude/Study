@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fault Debugging Techniques — MCU Study Guide</title>
+  <link rel="stylesheet" href="../../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title expanded"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item active" href="fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../../index.html">Home</a><span class="sep">/</span><a href="../../mcu-toolchain-and-practice/index.html">Toolchain & Practice — Build and Debug Real Projects</a><span class="sep">/</span><a href="../../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debugging and Probes</a><span class="sep">/</span><span>Fault Debugging Techniques</span></div>
+      <h1>Fault Debugging Techniques</h1>
+      <div class="tags"><span class="tag">hardfault</span><span class="tag">debugging</span><span class="tag">fault</span><span class="tag">cortex-m</span><span class="tag">embedded</span></div>
+      <p>
+When a Cortex-M MCU encounters an illegal operation, it triggers a <a href="https://interrupt.memfault.com/blog/cortex-m-hardfault-debug"><strong>fault exception</strong></a>. The CPU jumps to a fault handler, and if you have not written one, it usually ends up in an infinite loop. This page covers how to diagnose faults systematically using the fault status registers and stacked context.
+</p>
+<h2>Types of Faults</h2>
+<p>
+Cortex-M processors have several fault exceptions, in order of priority:
+</p>
+<table><thead><tr><th>Fault</th><th>Exception #</th><th>Trigger</th></tr></thead><tbody><tr><td><strong>HardFault</strong></td><td>3</td><td>Catch-all for unhandled faults, or escalation from other faults</td></tr>
+<tr><td><strong>MemManage</strong></td><td>4</td><td>MPU violation or access to Execute Never region</td></tr>
+<tr><td><strong>BusFault</strong></td><td>5</td><td>Error on bus transaction (invalid address, peripheral not clocked)</td></tr>
+<tr><td><strong>UsageFault</strong></td><td>6</td><td>Undefined instruction, unaligned access, divide by zero</td></tr></tbody></table>
+<p>
+On Cortex-M0/M0+, only HardFault exists. On Cortex-M3 and above, the configurable faults (MemManage, BusFault, UsageFault) can be individually enabled. If they are not enabled, they <strong>escalate</strong> to HardFault.
+</p>
+<h2>Fault Status Registers</h2>
+<p>
+The key registers for fault diagnosis are all in the System Control Block (SCB), memory-mapped in the Private Peripheral Bus:
+</p>
+<table><thead><tr><th>Register</th><th>Address</th><th>Purpose</th></tr></thead><tbody><tr><td><strong>HFSR</strong></td><td>0xE000ED2C</td><td>HardFault Status Register</td></tr>
+<tr><td><strong>CFSR</strong></td><td>0xE000ED28</td><td>Configurable Fault Status Register</td></tr>
+<tr><td><strong>MMFAR</strong></td><td>0xE000ED34</td><td>MemManage Fault Address Register</td></tr>
+<tr><td><strong>BFAR</strong></td><td>0xE000ED38</td><td>BusFault Address Register</td></tr></tbody></table>
+<h3>CFSR Layout</h3>
+<p>
+The CFSR is a 32-bit register that combines three sub-registers:
+</p>
+<pre><code class="language-text">Bits [31:16]  UFSR  (Usage Fault Status Register)
+<p>
+Bits [15:8]   BFSR  (Bus Fault Status Register)
+Bits [7:0]    MMFSR (Memory Manage Fault Status Register)</code></pre>
+</p>
+<h3>HFSR Key Bits</h3>
+<table><thead><tr><th>Bit</th><th>Name</th><th>Meaning</th></tr></thead><tbody><tr><td>30</td><td>FORCED</td><td>Fault was escalated from a configurable fault</td></tr>
+<tr><td>1</td><td>VECTTBL</td><td>Bus fault during vector table read</td></tr></tbody></table>
+<p>
+If FORCED is set, check CFSR to find the original cause.
+</p>
+<h3>UFSR Key Bits</h3>
+<table><thead><tr><th>Bit</th><th>Name</th><th>Meaning</th></tr></thead><tbody><tr><td>25</td><td>DIVBYZERO</td><td>Division by zero (if enabled in CCR)</td></tr>
+<tr><td>24</td><td>UNALIGNED</td><td>Unaligned memory access</td></tr>
+<tr><td>18</td><td>INVPC</td><td>Invalid EXC_RETURN value</td></tr>
+<tr><td>17</td><td>INVSTATE</td><td>Attempt to execute in invalid state (e.g., ARM mode on Cortex-M)</td></tr>
+<tr><td>16</td><td>UNDEFINSTR</td><td>Undefined instruction</td></tr></tbody></table>
+<h3>BFSR Key Bits</h3>
+<table><thead><tr><th>Bit</th><th>Name</th><th>Meaning</th></tr></thead><tbody><tr><td>15</td><td>BFARVALID</td><td>BFAR register holds the faulting address</td></tr>
+<tr><td>13</td><td>STKERR</td><td>Bus fault on exception stacking</td></tr>
+<tr><td>12</td><td>UNSTKERR</td><td>Bus fault on exception unstacking</td></tr>
+<tr><td>11</td><td>IMPRECISERR</td><td>Imprecise data bus error (address unknown)</td></tr>
+<tr><td>10</td><td>PRECISERR</td><td>Precise data bus error (address in BFAR)</td></tr>
+<tr><td>9</td><td>IBUSERR</td><td>Instruction bus error</td></tr></tbody></table>
+<h3>MMFSR Key Bits</h3>
+<table><thead><tr><th>Bit</th><th>Name</th><th>Meaning</th></tr></thead><tbody><tr><td>7</td><td>MMARVALID</td><td>MMFAR register holds the faulting address</td></tr>
+<tr><td>4</td><td>MSTKERR</td><td>MemManage fault on exception stacking</td></tr>
+<tr><td>1</td><td>DACCVIOL</td><td>Data access violation</td></tr>
+<tr><td>0</td><td>IACCVIOL</td><td>Instruction access violation</td></tr></tbody></table>
+<h2>Extracting the Stacked PC</h2>
+<p>
+When a fault occurs, the CPU automatically pushes eight registers onto the stack before entering the handler:
+</p>
+<pre><code class="language-text">Stack (high address):
+<p>
+  xPSR         [SP + 28]
+  PC           [SP + 24]  &lt;-- Return address (where the fault happened)
+  LR           [SP + 20]
+  R12          [SP + 16]
+  R3           [SP + 12]
+  R2           [SP + 8]
+  R1           [SP + 4]
+  R0           [SP + 0]
+Stack pointer -&gt;</code></pre>
+</p>
+<p>
+The <strong>stacked PC</strong> tells you which instruction caused the fault. The tricky part is determining which stack pointer was active -- MSP (Main Stack Pointer) or PSP (Process Stack Pointer). Bit 2 of the EXC_RETURN value in LR tells you:
+</p>
+<ul>
+<li>LR bit 2 = 0: fault used MSP</li>
+<li>LR bit 2 = 1: fault used PSP</li>
+</ul>
+<h2>Writing a Custom HardFault Handler</h2>
+<p>
+Here is a practical fault handler that extracts all the useful information (based on the <a href="https://blog.feabhas.com/2018/09/updated-developing-a-generic-hard-fault-handler-for-arm-cortex-m3-cortex-m4-using-gcc/">Feabhas approach</a>):
+</p>
+<h3>Assembly Entry Point (GCC)</h3>
+<pre><code class="language-asm">/<em> In startup or separate .s file </em>/
+<p>
+.syntax unified
+.thumb
+</p>
+<p>
+.global HardFault_Handler
+.type HardFault_Handler, %function
+HardFault_Handler:
+    tst lr, #4              /<em> Test bit 2 of EXC_RETURN </em>/
+    ite eq
+    mrseq r0, msp           /<em> If 0, fault frame is on MSP </em>/
+    mrsne r0, psp           /<em> If 1, fault frame is on PSP </em>/
+    mov r1, lr              /<em> Pass EXC_RETURN as second argument </em>/
+    b HardFault_Handler_C   /<em> Call C handler </em>/</code></pre>
+</p>
+<h3>C Handler</h3>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">void HardFault_Handler_C(uint32_t *stack_frame, uint32_t exc_return) {
+<p>
+    volatile uint32_t r0   = stack_frame[0];
+    volatile uint32_t r1   = stack_frame[1];
+    volatile uint32_t r2   = stack_frame[2];
+    volatile uint32_t r3   = stack_frame[3];
+    volatile uint32_t r12  = stack_frame[4];
+    volatile uint32_t lr   = stack_frame[5];
+    volatile uint32_t pc   = stack_frame[6];  // Faulting instruction
+    volatile uint32_t xpsr = stack_frame[7];
+</p>
+<p>
+    volatile uint32_t cfsr  = SCB-&gt;CFSR;
+    volatile uint32_t hfsr  = SCB-&gt;HFSR;
+    volatile uint32_t mmfar = SCB-&gt;MMFAR;
+    volatile uint32_t bfar  = SCB-&gt;BFAR;
+</p>
+<p>
+    // All variables are now visible in the debugger.
+    // Set a breakpoint on the line below.
+    __BKPT(0);
+</p>
+<p>
+    while (1) {}  // Halt here
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// Rust embedded — using cortex-m crate for SCB access
+<p>
+use core::ptr::read_volatile;
+use cortex_m::peripheral::SCB;
+</p>
+<p>
+#[no_mangle]
+unsafe extern "C" fn HardFault_Handler_C(
+    stack_frame: *const u32,
+    exc_return: u32,
+) {
+    let r0   = read_volatile(stack_frame.offset(0));
+    let r1   = read_volatile(stack_frame.offset(1));
+    let r2   = read_volatile(stack_frame.offset(2));
+    let r3   = read_volatile(stack_frame.offset(3));
+    let r12  = read_volatile(stack_frame.offset(4));
+    let lr   = read_volatile(stack_frame.offset(5));
+    let pc   = read_volatile(stack_frame.offset(6)); // Faulting instruction
+    let xpsr = read_volatile(stack_frame.offset(7));
+</p>
+<p>
+    let scb = &amp;*SCB::PTR;
+    let cfsr  = read_volatile(&amp;scb.cfsr as <em>const _ as </em>const u32);
+    let hfsr  = read_volatile(&amp;scb.hfsr as <em>const _ as </em>const u32);
+    let mmfar = read_volatile(0xE000_ED34 as *const u32);
+    let bfar  = read_volatile(0xE000_ED38 as *const u32);
+</p>
+<p>
+    // All variables are now visible in the debugger.
+    cortex_m::asm::bkpt();
+</p>
+<p>
+    loop {} // Halt here
+}</code></pre></div></div>
+</p>
+<p>
+When you hit this handler in GDB, inspect the local variables:
+</p>
+<pre><code class="language-gdb">(gdb) print/x pc
+<p>
+$1 = 0x80001a4
+(gdb) print/x cfsr
+$2 = 0x20000        # Bit 17 = INVSTATE
+(gdb) print/x hfsr
+$3 = 0x40000000     # Bit 30 = FORCED</code></pre>
+</p>
+<h2>Using addr2line</h2>
+<p>
+Once you have the faulting PC, convert it to a source file and line number:
+</p>
+<pre><code class="language-bash">arm-none-eabi-addr2line -e firmware.elf -f -p 0x080001a4
+<h1>Output: main at src/main.c:47</code></pre></h1>
+<p>
+The <code>-f</code> flag shows the function name, <code>-p</code> makes the output human-readable.
+</p>
+<h2>Common Fault Causes and Fixes</h2>
+<table><thead><tr><th>CFSR Bits</th><th>Likely Cause</th><th>Fix</th></tr></thead><tbody><tr><td>UNDEFINSTR</td><td>Corrupted function pointer, wrong vector table</td><td>Check function pointers; verify <code>.isr_vector</code></td></tr>
+<tr><td>INVSTATE</td><td>Calling function via pointer without thumb bit set</td><td>Ensure bit 0 is set: <code>(void(*)(void))((uint32_t)func \</td><td>1)</code></td></tr>
+<tr><td>UNALIGNED</td><td>32-bit access at non-4-byte-aligned address</td><td>Check struct packing; use <code>__packed</code> carefully</td></tr>
+<tr><td>PRECISERR + BFARVALID</td><td>Access to invalid or unclocked peripheral</td><td>Enable peripheral clock in RCC before access</td></tr>
+<tr><td>IMPRECISERR</td><td>Asynchronous bus error (hard to locate)</td><td>Disable write buffer: set DISDEFWBUF in ACTLR</td></tr>
+<tr><td>DACCVIOL + MMARVALID</td><td>MPU violation</td><td>Check MPU region config; see <a href="../memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a></td></tr></tbody></table>
+<h3>Making Imprecise Faults Precise</h3>
+<p>
+Imprecise bus faults are difficult to debug because the PC has moved past the faulting instruction. You can force precise errors by disabling the write buffer:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Set DISDEFWBUF bit in Auxiliary Control Register
+<p>
+SCB-&gt;ACTLR |= (1 &lt;&lt; 1);</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// Set DISDEFWBUF bit in Auxiliary Control Register
+<p>
+unsafe {
+    let actlr = 0xE000_E008 as *mut u32;
+    let val = core::ptr::read_volatile(actlr);
+    core::ptr::write_volatile(actlr, val | (1 &lt;&lt; 1));
+}</code></pre></div></div>
+</p>
+<p>
+This slows execution but ensures the PC points to the exact faulting instruction.
+</p>
+<h2>Stack Overflow Detection</h2>
+<p>
+Stack overflow is a common cause of HardFaults. The symptoms are confusing -- corrupted variables, random crashes, faults at seemingly innocent code.
+</p>
+<h3>Watermark Technique</h3>
+<p>
+Fill the stack with a known pattern at startup and check how much was consumed:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// At startup, fill stack area with pattern
+<p>
+extern uint32_t _stack_start;  // From linker script
+extern uint32_t _stack_end;
+</p>
+<p>
+void stack_paint(void) {
+    volatile uint32_t *p = &amp;_stack_start;
+    while (p &lt; &amp;_stack_end) {
+        *p++ = 0xDEADBEEF;
+    }
+}
+</p>
+<p>
+// Later, check how much stack was used
+uint32_t stack_usage(void) {
+    volatile uint32_t *p = &amp;_stack_start;
+    while (*p == 0xDEADBEEF &amp;&amp; p &lt; &amp;_stack_end) {
+        p++;
+    }
+    return (uint32_t)(&amp;_stack_end - p) * sizeof(uint32_t);
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+extern "C" {
+    static mut _stack_start: u32; // From linker script
+    static mut _stack_end: u32;
+}
+</p>
+<p>
+const STACK_PATTERN: u32 = 0xDEAD_BEEF;
+</p>
+<p>
+unsafe fn stack_paint() {
+    let mut p = &amp;mut _stack_start as *mut u32;
+    let end = &amp;mut _stack_end as *mut u32;
+    while p &lt; end {
+        write_volatile(p, STACK_PATTERN);
+        p = p.add(1);
+    }
+}
+</p>
+<p>
+unsafe fn stack_usage() -&gt; u32 {
+    let mut p = &amp;_stack_start as *const u32;
+    let end = &amp;_stack_end as *const u32;
+    while read_volatile(p) == STACK_PATTERN &amp;&amp; p &lt; end {
+        p = p.add(1);
+    }
+    let remaining = end.offset_from(p) as u32;
+    remaining * core::mem::size_of::&lt;u32&gt;() as u32
+}</code></pre></div></div>
+</p>
+<h3>MPU-Based Detection</h3>
+<p>
+Configure an MPU region at the bottom of the stack as "no access". Any overflow triggers a MemManage fault with a precise address. See <a href="../memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a>.
+</p>
+<h3>Compiler Flags</h3>
+<pre><code class="language-makefile"># Warn if any function uses more than N bytes of stack
+<p>
+CFLAGS += -Wstack-usage=256
+</p>
+<h1>Generate .su files with per-function stack usage</h1>
+<p>
+CFLAGS += -fstack-usage</code></pre>
+</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://interrupt.memfault.com/blog/cortex-m-hardfault-debug">How to Debug a HardFault on an ARM Cortex-M MCU - Memfault</a> — In-depth guide to HardFault diagnosis and register inspection</li>
+<li><a href="https://community.st.com/t5/stm32-mcus/how-to-debug-a-hardfault-on-an-arm-cortex-m-stm32/ta-p/672235">How to Debug a HardFault on an ARM Cortex-M STM32</a> — ST Community guide for STM32-specific fault debugging</li>
+<li><a href="https://blog.feabhas.com/2018/09/updated-developing-a-generic-hard-fault-handler-for-arm-cortex-m3-cortex-m4-using-gcc/">Developing a Generic Hard Fault Handler for ARM Cortex-M3/M4</a> — Walkthrough of building a reusable fault handler</li>
+<li><a href="https://kb.segger.com/Cortex-M_Fault">Cortex-M Fault - SEGGER Knowledge Base</a> — SEGGER's reference on Cortex-M fault types and causes</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="openocd-and-gdb.html">OpenOCD and GDB</a> -- connecting a debugger to inspect fault state</li>
+<li><a href="../memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a> -- using MPU for stack guard regions</li>
+<li><a href="../memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a> -- understanding stack size constraints</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://interrupt.memfault.com/blog/cortex-m-hardfault-debug" target="_blank" rel="noopener">How to Debug a HardFault on an ARM Cortex-M MCU - Memfault</a></li><li><a href="https://community.st.com/t5/stm32-mcus/how-to-debug-a-hardfault-on-an-arm-cortex-m-stm32/ta-p/672235" target="_blank" rel="noopener">How to Debug a HardFault on an ARM Cortex-M STM32</a></li><li><a href="https://blog.feabhas.com/2018/09/updated-developing-a-generic-hard-fault-handler-for-arm-cortex-m3-cortex-m4-using-gcc/" target="_blank" rel="noopener">Developing a Generic Hard Fault Handler for ARM Cortex-M3/M4</a></li><li><a href="https://kb.segger.com/Cortex-M_Fault" target="_blank" rel="noopener">Cortex-M Fault - SEGGER Knowledge Base</a></li></ul></div>
+      <div class="page-nav"><a href="semihosting-and-printf.html"><span class="nav-label">← Previous</span><span class="nav-title">Semihosting and Printf Debugging</span></a><a class="next" href="../memory-management-in-practice/index.html"><span class="nav-label">Next →</span><span class="nav-title">Memory as Most Constrained Resource</span></a></div>
+    </main>
+  </div>
+  <script src="../../scripts/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PLL and Prescalers — MCU Study Guide</title>
+  <link rel="stylesheet" href="../../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../index.html">MCU Architecture Overview</a><a class="nav-item" href="../cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title expanded"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item active" href="pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../../index.html">Home</a><span class="sep">/</span><a href="../../mcu-architecture/index.html">MCU Architecture — Understand the Machine</a><span class="sep">/</span><a href="../../mcu-architecture/clock-and-power-system/index.html">Clock and Power System</a><span class="sep">/</span><span>PLL and Prescalers</span></div>
+      <h1>PLL and Prescalers</h1>
+      <div class="tags"><span class="tag">mcu</span><span class="tag">pll</span><span class="tag">prescaler</span><span class="tag">clock-gating</span><span class="tag">rcc</span><span class="tag">stm32</span><span class="tag">arm</span></div>
+      <h2>What a PLL Does</h2>
+<p>
+A <a href="https://tonyfu97.github.io/MCU1/04_clock_tree/"><strong>Phase-Locked Loop (PLL)</strong></a> takes a low-frequency input clock and multiplies it to produce a higher-frequency output. Without a PLL, you'd need a 168 MHz crystal to run a Cortex-M4 at full speed -- expensive and impractical. Instead, you use a cheap 8 MHz crystal and let the PLL multiply it.
+</p>
+<pre><code class="language-text">  Input: 8 MHz (from HSE crystal)
+<p>
+     |
+     v
+  +-----+     +-----+     +-----+
+  | / M  |----&gt;| x N  |----&gt;| / P  |----&gt; PLL Output
+  | (div)|     |(mult)|     | (div)|      e.g., 168 MHz
+  +-----+     +-----+     +-----+
+</p>
+<p>
+  8 MHz / 8 = 1 MHz  --&gt;  1 MHz * 336 = 336 MHz  --&gt;  336 MHz / 2 = 168 MHz</code></pre>
+</p>
+<h2>PLL Parameters (STM32F4)</h2>
+<p>
+The STM32F4 PLL has three key dividers:
+</p>
+<table><thead><tr><th>Parameter</th><th>Range</th><th>Purpose</th></tr></thead><tbody><tr><td><strong>M</strong></td><td>2--63</td><td>Input divider: brings HSE down to 1--2 MHz reference</td></tr>
+<tr><td><strong>N</strong></td><td>50--432</td><td>Multiplier: generates VCO frequency (100--432 MHz)</td></tr>
+<tr><td><strong>P</strong></td><td>2, 4, 6, 8</td><td>Main output divider (for SYSCLK)</td></tr>
+<tr><td><strong>Q</strong></td><td>2--15</td><td>USB/SDIO output divider (must produce 48 MHz for USB)</td></tr></tbody></table>
+<h3>PLL Output Formula</h3>
+<pre><code class="language-text">  f_VCO = f_input * (N / M)
+<p>
+  f_SYSCLK = f_VCO / P
+  f_USB = f_VCO / Q
+</p>
+<p>
+  Constraints:
+    1 MHz &lt;= f_input / M &lt;= 2 MHz  (recommended: 2 MHz for lower jitter)
+    100 MHz &lt;= f_VCO &lt;= 432 MHz
+    f_SYSCLK &lt;= 168 MHz
+    f_USB = 48 MHz (required for USB)</code></pre>
+</p>
+<h2>Example: Configuring STM32F4 to 168 MHz from 8 MHz HSE</h2>
+<p>
+Goal: SYSCLK = 168 MHz, USB clock = 48 MHz
+</p>
+<pre><code class="language-text">  Input:   8 MHz HSE
+<p>
+  M = 8:   8 / 8 = 1 MHz
+  N = 336: 1 * 336 = 336 MHz (VCO)
+  P = 2:   336 / 2 = 168 MHz (SYSCLK)
+  Q = 7:   336 / 7 = 48 MHz  (USB)</code></pre>
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button><button class="code-tab" data-lang="cpp">C++</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Step 1: Enable HSE and wait for it to stabilize
+<p>
+RCC-&gt;CR |= RCC_CR_HSEON;
+while (!(RCC-&gt;CR &amp; RCC_CR_HSERDY));
+</p>
+<p>
+// Step 2: Configure flash wait states BEFORE increasing clock
+FLASH-&gt;ACR = FLASH_ACR_LATENCY_5WS  // 5 wait states for 168 MHz
+           | FLASH_ACR_PRFTEN        // Prefetch enable
+           | FLASH_ACR_ICEN          // Instruction cache enable
+           | FLASH_ACR_DCEN;         // Data cache enable
+</p>
+<p>
+// Step 3: Configure PLL (M=8, N=336, P=2, Q=7)
+RCC-&gt;PLLCFGR = (8  &lt;&lt; RCC_PLLCFGR_PLLM_Pos)   // M = 8
+             | (336 &lt;&lt; RCC_PLLCFGR_PLLN_Pos)    // N = 336
+             | (0  &lt;&lt; RCC_PLLCFGR_PLLP_Pos)     // P = 2 (0 means /2)
+             | (7  &lt;&lt; RCC_PLLCFGR_PLLQ_Pos)     // Q = 7
+             | RCC_PLLCFGR_PLLSRC_HSE;          // PLL source = HSE
+</p>
+<p>
+// Step 4: Enable PLL and wait for lock
+RCC-&gt;CR |= RCC_CR_PLLON;
+while (!(RCC-&gt;CR &amp; RCC_CR_PLLRDY));
+</p>
+<p>
+// Step 5: Configure bus prescalers
+RCC-&gt;CFGR |= RCC_CFGR_HPRE_DIV1     // AHB prescaler = /1 (HCLK = 168 MHz)
+           |  RCC_CFGR_PPRE1_DIV4    // APB1 prescaler = /4 (PCLK1 = 42 MHz)
+           |  RCC_CFGR_PPRE2_DIV2;   // APB2 prescaler = /2 (PCLK2 = 84 MHz)
+</p>
+<p>
+// Step 6: Switch SYSCLK to PLL
+RCC-&gt;CFGR |= RCC_CFGR_SW_PLL;
+while ((RCC-&gt;CFGR &amp; RCC_CFGR_SWS) != RCC_CFGR_SWS_PLL);
+</p>
+<p>
+// Now running at 168 MHz!</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// Using stm32f4xx-hal -- the HAL handles all PLL math, flash wait states,
+<p>
+// and prescaler configuration in a single builder chain:
+use stm32f4xx_hal::{pac, prelude::*};
+</p>
+<p>
+let dp = pac::Peripherals::take().unwrap();
+let rcc = dp.RCC.constrain();
+</p>
+<p>
+let clocks = rcc.cfgr
+    .use_hse(8.MHz())          // 8 MHz external crystal
+    .sysclk(168.MHz())         // Target SYSCLK = 168 MHz
+    .hclk(168.MHz())           // AHB = 168 MHz
+    .pclk1(42.MHz())           // APB1 = 42 MHz
+    .pclk2(84.MHz())           // APB2 = 84 MHz
+    .require_pll48clk()        // Ensure 48 MHz for USB
+    .freeze();                 // Apply configuration (sets flash wait states automatically)
+</p>
+<p>
+// Now running at 168 MHz!</code></pre></div>
+</p>
+<div class="code-panel" data-lang="cpp"><pre><code class="language-cpp">// Using C++ CMSIS abstraction with constexpr validation
+<p>
+#include "stm32f4xx.h"
+</p>
+<p>
+struct PllConfig {
+    uint32_t m, n, p, q;
+    constexpr uint32_t vco_mhz(uint32_t hse_mhz) const { return hse_mhz / m * n; }
+    constexpr uint32_t sysclk_mhz(uint32_t hse_mhz) const { return vco_mhz(hse_mhz) / p; }
+    constexpr uint32_t usb_mhz(uint32_t hse_mhz) const { return vco_mhz(hse_mhz) / q; }
+};
+</p>
+<p>
+// Compile-time validation of PLL parameters
+constexpr PllConfig pll{.m = 8, .n = 336, .p = 2, .q = 7};
+static_assert(pll.sysclk_mhz(8) == 168, "SYSCLK must be 168 MHz");
+static_assert(pll.usb_mhz(8) == 48, "USB clock must be 48 MHz");
+</p>
+<p>
+void configure_168mhz() {
+    RCC-&gt;CR |= RCC_CR_HSEON;
+    while (!(RCC-&gt;CR &amp; RCC_CR_HSERDY));
+</p>
+<p>
+    FLASH-&gt;ACR = FLASH_ACR_LATENCY_5WS | FLASH_ACR_PRFTEN
+               | FLASH_ACR_ICEN | FLASH_ACR_DCEN;
+</p>
+<p>
+    RCC-&gt;PLLCFGR = (pll.m &lt;&lt; RCC_PLLCFGR_PLLM_Pos)
+                 | (pll.n &lt;&lt; RCC_PLLCFGR_PLLN_Pos)
+                 | ((pll.p / 2 - 1) &lt;&lt; RCC_PLLCFGR_PLLP_Pos)
+                 | (pll.q &lt;&lt; RCC_PLLCFGR_PLLQ_Pos)
+                 | RCC_PLLCFGR_PLLSRC_HSE;
+</p>
+<p>
+    RCC-&gt;CR |= RCC_CR_PLLON;
+    while (!(RCC-&gt;CR &amp; RCC_CR_PLLRDY));
+</p>
+<p>
+    RCC-&gt;CFGR |= RCC_CFGR_HPRE_DIV1 | RCC_CFGR_PPRE1_DIV4 | RCC_CFGR_PPRE2_DIV2;
+    RCC-&gt;CFGR |= RCC_CFGR_SW_PLL;
+    while ((RCC-&gt;CFGR &amp; RCC_CFGR_SWS) != RCC_CFGR_SWS_PLL);
+}</code></pre></div></div>
+</p>
+<p>
+<strong>Critical ordering:</strong> Set flash wait states <strong>before</strong> increasing the clock. If you increase the clock first, the CPU tries to read flash faster than flash can respond -- causing HardFaults or data corruption.
+</p>
+<h2>Bus Prescalers</h2>
+<p>
+After the PLL output becomes SYSCLK, it's divided by prescalers for different bus domains:
+</p>
+<h3>AHB Prescaler</h3>
+<p>
+Divides SYSCLK to produce <strong>HCLK</strong> (AHB clock). HCLK feeds:
+</p>
+<ul>
+<li>CPU core</li>
+<li>AHB bus (DMA, memory interface)</li>
+<li>SysTick timer (optionally divided by 8)</li>
+</ul>
+<p>
+Available dividers: /1, /2, /4, /8, /16, /64, /128, /256, /512
+</p>
+<p>
+Usually set to /1 -- you want the CPU running at full speed.
+</p>
+<h3>APB1 Prescaler (Low-Speed Peripheral Bus)</h3>
+<p>
+Produces <strong>PCLK1</strong>. Maximum frequency varies by MCU family:
+</p>
+<ul>
+<li>STM32F1: max 36 MHz</li>
+<li>STM32F4: max 42 MHz</li>
+</ul>
+<p>
+Peripherals on APB1: UART2/3/4/5, SPI2/3, I2C1/2, TIM2--7, DAC
+</p>
+<h3>APB2 Prescaler (High-Speed Peripheral Bus)</h3>
+<p>
+Produces <strong>PCLK2</strong>. Typically allowed up to SYSCLK speed:
+</p>
+<ul>
+<li>STM32F1: max 72 MHz</li>
+<li>STM32F4: max 84 MHz</li>
+</ul>
+<p>
+Peripherals on APB2: USART1/6, SPI1/4, TIM1/8/9/10/11, ADC1/2/3
+</p>
+<h3>Summary for 168 MHz Configuration</h3>
+<pre><code class="language-text">  SYSCLK = 168 MHz
+<p>
+     |
+     +-- AHB /1  --&gt; HCLK  = 168 MHz (CPU, DMA, memory)
+     |
+     +-- APB1 /4 --&gt; PCLK1 = 42 MHz  (UART2-5, I2C, TIM2-7)
+     |                                 Timers: 84 MHz (auto-doubled)
+     |
+     +-- APB2 /2 --&gt; PCLK2 = 84 MHz  (USART1, SPI1, ADC, TIM1)
+                                       Timers: 168 MHz (auto-doubled)</code></pre>
+</p>
+<h2>Clock Gating (RCC Enable Bits)</h2>
+<p>
+By default, <a href="https://www.compilenrun.com/docs/iot/stm32/stm32-fundamentals/stm32-clock-system/"><strong>all peripheral clocks are disabled</strong></a> to save power. Before using any peripheral, you must enable its clock through the <strong>RCC (Reset and Clock Control)</strong> registers.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Enable GPIOA clock (AHB1 peripheral)
+<p>
+RCC-&gt;AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
+</p>
+<p>
+// Enable USART2 clock (APB1 peripheral)
+RCC-&gt;APB1ENR |= RCC_APB1ENR_USART2EN;
+</p>
+<p>
+// Enable SPI1 clock (APB2 peripheral)
+RCC-&gt;APB2ENR |= RCC_APB2ENR_SPI1EN;</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// Using PAC (Peripheral Access Crate)
+<p>
+let rcc = unsafe { &amp;*pac::RCC::ptr() };
+</p>
+<p>
+// Enable GPIOA clock (AHB1 peripheral)
+rcc.ahb1enr.modify(|_, w| w.gpioaen().set_bit());
+</p>
+<p>
+// Enable USART2 clock (APB1 peripheral)
+rcc.apb1enr.modify(|_, w| w.usart2en().set_bit());
+</p>
+<p>
+// Enable SPI1 clock (APB2 peripheral)
+rcc.apb2enr.modify(|_, w| w.spi1en().set_bit());
+</p>
+<p>
+// With stm32f4xx-hal, clocks are enabled automatically when
+// you take ownership of a peripheral (e.g., Serial::new() enables USART clock)</code></pre></div></div>
+</p>
+<p>
+<strong>Forgetting to enable the peripheral clock</strong> is one of the most common beginner mistakes. The peripheral registers exist in the address space, but reads return 0 and writes have no effect until the clock is enabled.
+</p>
+<h3>Disabling Unused Clocks</h3>
+<p>
+To save power, disable clocks for peripherals you're not using:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">RCC-&gt;APB1ENR &amp;= ~RCC_APB1ENR_USART2EN;  // Disable USART2 clock</code></pre></div>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">let rcc = unsafe { &amp;*pac::RCC::ptr() };
+<p>
+rcc.apb1enr.modify(|_, w| w.usart2en().clear_bit()); // Disable USART2 clock</code></pre></div></div>
+</p>
+<p>
+This is particularly useful in battery-powered applications where every milliwatt counts.
+</p>
+<h2>STM32F1 PLL (Simpler)</h2>
+<p>
+The STM32F1 PLL is simpler than the F4:
+</p>
+<pre><code class="language-text">  HSE (8 MHz) --&gt; optional /2 --&gt; PLL multiplier (x2..x16) --&gt; SYSCLK
+<p>
+  Example: 8 MHz * 9 = 72 MHz</code></pre>
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// STM32F1: Configure PLL for 72 MHz
+<p>
+RCC-&gt;CFGR |= RCC_CFGR_PLLSRC      // PLL source = HSE
+           |  RCC_CFGR_PLLMULL9;   // PLL multiplier = 9 (8 * 9 = 72)</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// Using stm32f1xx-hal
+<p>
+use stm32f1xx_hal::{pac, prelude::*};
+</p>
+<p>
+let dp = pac::Peripherals::take().unwrap();
+let rcc = dp.RCC.constrain();
+let mut flash = dp.FLASH.constrain();
+</p>
+<p>
+let clocks = rcc.cfgr
+    .use_hse(8.MHz())
+    .sysclk(72.MHz())       // HAL sets PLL multiplier = 9 automatically
+    .freeze(&amp;mut flash.acr);</code></pre></div></div>
+</p>
+<h2>Common Pitfalls</h2>
+<ol>
+<li><strong>Wrong flash wait states:</strong> Always set wait states before increasing clock speed</li>
+<li><strong>APB1 exceeds max frequency:</strong> Remember APB1 has a lower max than SYSCLK</li>
+<li><strong>Forgetting to enable peripheral clock:</strong> Reads return 0, writes silently fail</li>
+<li><strong>PLL input out of range:</strong> The VCO input should be 1--2 MHz for stability</li>
+<li><strong>Modifying PLL while it's running:</strong> Disable PLL first, reconfigure, then re-enable</li>
+</ol>
+<h2>References</h2>
+<ol>
+<li><a href="https://tonyfu97.github.io/MCU1/04_clock_tree/">Clock Tree - Peripheral Driver Development</a> — PLL configuration and bus prescaler setup walkthrough</li>
+<li><a href="https://www.compilenrun.com/docs/iot/stm32/stm32-fundamentals/stm32-clock-system/">STM32 Clock System</a> — RCC registers, clock gating, and peripheral clock enable</li>
+<li><a href="https://www.ampheo.com/blog/how-to-choose-stm32-clock">How to Choose STM32 Clock</a> — PLL parameter selection and common configuration pitfalls</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="clock-sources-and-tree.html">Clock Sources and Tree</a> -- HSI, HSE, and clock tree routing</li>
+<li><a href="sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a> -- PLL is disabled in Stop/Standby</li>
+<li><a href="../memory-architecture/flash-memory.html">Flash Memory</a> -- wait states must match clock speed</li>
+<li><a href="../instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a> -- faster clock = more throughput</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://tonyfu97.github.io/MCU1/04_clock_tree/" target="_blank" rel="noopener">Clock Tree - Peripheral Driver Development</a></li><li><a href="https://www.compilenrun.com/docs/iot/stm32/stm32-fundamentals/stm32-clock-system/" target="_blank" rel="noopener">STM32 Clock System</a></li><li><a href="https://www.ampheo.com/blog/how-to-choose-stm32-clock" target="_blank" rel="noopener">How to Choose STM32 Clock</a></li></ul></div>
+      <div class="page-nav"><a href="clock-sources-and-tree.html"><span class="nav-label">← Previous</span><span class="nav-title">Clock Sources and Clock Tree</span></a><a class="next" href="sleep-and-low-power-modes.html"><span class="nav-label">Next →</span><span class="nav-title">Sleep and Low-Power Modes</span></a></div>
+    </main>
+  </div>
+  <script src="../../scripts/main.js"></script>
+</body>
+</html>

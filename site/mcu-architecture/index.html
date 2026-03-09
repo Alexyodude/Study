@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MCU Architecture — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item active" href="index.html">MCU Architecture Overview</a><a class="nav-item" href="cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="memory-architecture/sram.html">SRAM</a><a class="nav-item" href="memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../mcu-architecture/index.html">MCU Architecture — Understand the Machine</a><span class="sep">/</span><span>MCU Architecture</span></div>
+      <h1>MCU Architecture</h1>
+      <div class="tags"><span class="tag">mcu</span><span class="tag">architecture</span><span class="tag">arm</span><span class="tag">cortex-m</span><span class="tag">embedded</span></div>
+      <h2>What Is a Microcontroller?</h2>
+<p>
+A microcontroller (MCU) is a small computer on a single chip. Unlike a general-purpose CPU (like the one in your laptop), an MCU integrates the processor, memory, and peripherals into one package. You don't need to add external RAM chips or a separate graphics card -- everything needed to run a program is already on the chip.
+</p>
+<table><thead><tr><th>Feature</th><th>General-Purpose CPU</th><th>Microcontroller (MCU)</th></tr></thead><tbody><tr><td>Memory</td><td>External (GB of DRAM)</td><td>On-chip (KB of SRAM + Flash)</td></tr>
+<tr><td>Clock speed</td><td>GHz range</td><td>MHz range (8--480 MHz typical)</td></tr>
+<tr><td>Power</td><td>Watts</td><td>Milliwatts or microwatts</td></tr>
+<tr><td>OS</td><td>Runs Linux/Windows</td><td>Often bare-metal or RTOS</td></tr>
+<tr><td>Cost</td><td>$50--$500+</td><td>$0.10--$20</td></tr>
+<tr><td>Use case</td><td>Desktop, server</td><td>Sensor, motor control, IoT</td></tr></tbody></table>
+<h2>MCU Block Diagram</h2>
+<p>
+A typical <a href="https://en.wikipedia.org/wiki/ARM_Cortex-M">ARM Cortex-M</a> microcontroller contains these major blocks:
+</p>
+<pre><code class="language-text"> +--------------------------------------------------+
+<p>
+ |                   MCU Chip                        |
+ |                                                   |
+ |  +----------+    +-------+    +-----------+       |
+ |  | CPU Core |&lt;--&gt;| Bus   |&lt;--&gt;|  Flash    |       |
+ |  | (ARM     |    | Matrix|    |  (Code)   |       |
+ |  |  Cortex-M|    |       |&lt;--&gt;+-----------+       |
+ |  +----------+    |       |    |  SRAM     |       |
+ |       |          |       |&lt;--&gt;|  (Data)   |       |
+ |  +----------+    |       |    +-----------+       |
+ |  |   NVIC   |    |       |                        |
+ |  +----------+    |       |&lt;--&gt;+-----------+       |
+ |                  |       |    | Peripheral|       |
+ |  +----------+    |       |    | GPIO,UART |       |
+ |  | SysTick  |    +-------+    | SPI,I2C.. |       |
+ |  +----------+                 +-----------+       |
+ |                                                   |
+ |  +----------+    +----------+                     |
+ |  | Clock    |    | Power    |                     |
+ |  | System   |    | Manage   |                     |
+ |  +----------+    +----------+                     |
+ +--------------------------------------------------+</code></pre>
+</p>
+<h2>Key Components</h2>
+<h3>CPU Core</h3>
+<p>
+The processor that fetches, decodes, and executes instructions. <a href="https://embeddedsecurity.io/sec-arm-arch-core">ARM Cortex-M cores</a> are 32-bit RISC processors using the Thumb/Thumb-2 instruction set. The core contains general-purpose registers (R0--R12), a program counter (PC), stack pointer (SP), link register (LR), and an ALU for arithmetic and logic operations.
+</p>
+<p>
+See: <a href="cpu-core-and-alu.html">CPU Core and ALU</a> | <a href="registers-and-register-file.html">Registers</a>
+</p>
+<h3>Memory</h3>
+<p>
+MCUs use on-chip <strong>Flash</strong> (non-volatile, stores your program) and <strong>SRAM</strong> (volatile, stores runtime data). The entire 4 GB address space is divided into well-defined regions -- code, SRAM, peripherals, and system.
+</p>
+<p>
+See: <a href="memory-architecture/index.html">Memory Architecture</a>
+</p>
+<h3>Bus System</h3>
+<p>
+The bus matrix connects the CPU to memory and peripherals. ARM Cortex-M MCUs typically use:
+</p>
+<ul>
+<li><strong>AHB (Advanced High-performance Bus)</strong> -- connects CPU to Flash, SRAM, and high-speed peripherals</li>
+<li><strong>APB (Advanced Peripheral Bus)</strong> -- connects to lower-speed peripherals (UART, SPI, I2C)</li>
+</ul>
+<h3>Peripherals</h3>
+<p>
+Hardware modules for interacting with the outside world. All peripherals are accessed through <strong>memory-mapped registers</strong> -- you read and write to specific memory addresses to control hardware. Common peripherals include GPIO, timers, UART, SPI, I2C, ADC, and DMA.
+</p>
+<p>
+See: <a href="memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a>
+</p>
+<h3>Interrupt Controller (NVIC)</h3>
+<p>
+The <strong>Nested Vectored Interrupt Controller</strong> handles hardware events (button press, timer overflow, data received). It supports priority-based preemption so urgent events are handled first.
+</p>
+<h3>Clock and Power System</h3>
+<p>
+The clock drives all digital logic. MCUs offer multiple clock sources (internal RC, external crystal) and power modes (sleep, stop, standby) to balance performance and energy use.
+</p>
+<p>
+See: <a href="clock-and-power-system/index.html">Clock and Power System</a>
+</p>
+<h2>ARM Cortex-M Family at a Glance</h2>
+<table><thead><tr><th>Variant</th><th>Architecture</th><th>Pipeline</th><th>Key Features</th></tr></thead><tbody><tr><td>Cortex-M0/M0+</td><td>ARMv6-M</td><td>2-stage</td><td>Ultra-low power, minimal gate count</td></tr>
+<tr><td>Cortex-M3</td><td>ARMv7-M</td><td>3-stage</td><td>Hardware divide, bit-banding</td></tr>
+<tr><td>Cortex-M4</td><td>ARMv7E-M</td><td>3-stage</td><td>DSP instructions, optional FPU</td></tr>
+<tr><td>Cortex-M7</td><td>ARMv7E-M</td><td>6-stage</td><td>Cache, dual-issue, branch prediction</td></tr>
+<tr><td>Cortex-M33</td><td>ARMv8-M</td><td>3-stage</td><td>TrustZone security</td></tr></tbody></table>
+<h2>Execution Modes</h2>
+<p>
+ARM Cortex-M processors have two execution modes:
+</p>
+<ul>
+<li><strong>Thread Mode</strong> -- normal application code runs here (can be privileged or unprivileged)</li>
+<li><strong>Handler Mode</strong> -- exception/interrupt handlers run here (always privileged)</li>
+</ul>
+<p>
+The processor boots into privileged Thread Mode. The <code>CONTROL</code> register can switch Thread Mode to unprivileged, which is useful when running an RTOS to isolate user tasks from kernel code.
+</p>
+<h2>Child Pages</h2>
+<ul>
+<li><a href="cpu-core-and-alu.html">CPU Core and ALU</a> -- how the processor performs arithmetic and logic</li>
+<li><a href="registers-and-register-file.html">Registers and Register File</a> -- R0--R15, special registers, xPSR</li>
+<li><a href="program-counter-and-execution-flow.html">Program Counter and Execution Flow</a> -- branching, subroutine calls</li>
+<li><a href="stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a> -- MSP, PSP, stack frames</li>
+<li><a href="memory-architecture/index.html">Memory Architecture</a> -- Flash, SRAM, memory map, linker scripts</li>
+<li><a href="instruction-execution/index.html">Instruction Execution</a> -- pipeline, timing, ISA</li>
+<li><a href="clock-and-power-system/index.html">Clock and Power System</a> -- oscillators, PLL, low-power modes</li>
+</ul>
+<h2>References</h2>
+<ol>
+<li><a href="https://embeddedsecurity.io/sec-arm-arch-core">Arm M-profile architectures and Cortex-M</a> — Overview of ARM Cortex-M core architecture and security features</li>
+<li><a href="https://en.wikipedia.org/wiki/ARM_Cortex-M">ARM Cortex-M - Wikipedia</a> — General reference for Cortex-M family variants and specifications</li>
+<li><a href="https://microcontrollerslab.com/arm-cortex-m4-architecture/">ARM Cortex-M4 Architecture</a> — Detailed breakdown of the Cortex-M4 core architecture</li>
+</ol>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://embeddedsecurity.io/sec-arm-arch-core" target="_blank" rel="noopener">Arm M-profile architectures and Cortex-M</a></li><li><a href="https://en.wikipedia.org/wiki/ARM_Cortex-M" target="_blank" rel="noopener">ARM Cortex-M - Wikipedia</a></li><li><a href="https://microcontrollerslab.com/arm-cortex-m4-architecture/" target="_blank" rel="noopener">ARM Cortex-M4 Architecture</a></li></ul></div>
+      <div class="page-nav"><span></span><a class="next" href="cpu-core-and-alu.html"><span class="nav-label">Next →</span><span class="nav-title">CPU Core and ALU</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

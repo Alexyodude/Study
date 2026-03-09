@@ -1,0 +1,15 @@
+{
+  "title": "Memory Architecture",
+  "slug": "memory-architecture",
+  "order": 6,
+  "tags": ["memory", "flash", "sram", "linker"],
+  "status": "draft",
+  "children": [
+    { "slug": "index", "title": "Memory Architecture Overview" },
+    { "slug": "flash-memory", "title": "Flash Memory" },
+    { "slug": "sram", "title": "SRAM" },
+    { "slug": "eeprom-and-nvm", "title": "EEPROM and Non-Volatile Memory" },
+    { "slug": "memory-mapped-io", "title": "Memory-Mapped I/O" },
+    { "slug": "memory-layout-and-linker-scripts", "title": "Memory Layout and Linker Scripts" }
+  ]
+}

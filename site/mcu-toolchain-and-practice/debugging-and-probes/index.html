@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Debugging and Probes — MCU Study Guide</title>
+  <link rel="stylesheet" href="../../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title expanded"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item active" href="index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../../index.html">Home</a><span class="sep">/</span><a href="../../mcu-toolchain-and-practice/index.html">Toolchain & Practice — Build and Debug Real Projects</a><span class="sep">/</span><a href="../../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debugging and Probes</a><span class="sep">/</span><span>Debugging and Probes</span></div>
+      <h1>Debugging and Probes</h1>
+      <div class="tags"><span class="tag">debugging</span><span class="tag">probes</span><span class="tag">coresight</span><span class="tag">dap</span><span class="tag">embedded</span></div>
+      <p>
+Debugging embedded systems is fundamentally different from debugging desktop applications. You cannot just attach a process debugger -- you need specialized hardware and protocols to peek inside a running microcontroller. This page introduces the ARM CoreSight debug architecture and explains why <code>printf</code> alone will not cut it.
+</p>
+<h2>Why Printf-Debugging Is Insufficient</h2>
+<p>
+On a desktop, sprinkling <code>printf</code> statements through your code is a reasonable first step. On an MCU, it falls apart:
+</p>
+<ul>
+<li><strong>No stdout</strong> -- there is no terminal connected by default. You need a UART, USB, or debug probe to see output.</li>
+<li><strong>Timing disruption</strong> -- printing over UART at 115200 baud takes milliseconds per line. This changes the timing of your code and can mask or introduce bugs, especially in interrupt-driven or real-time systems.</li>
+<li><strong>Crashes are silent</strong> -- if the MCU hits a HardFault, it will not print anything helpful. It just stops.</li>
+<li><strong>No register visibility</strong> -- you cannot inspect CPU registers, peripheral registers, or memory contents with printf.</li>
+<li><strong>Limited breakpoints</strong> -- you cannot pause execution at a specific line and inspect state.</li>
+</ul>
+<p>
+A proper debug setup gives you all of this: breakpoints, watchpoints, register inspection, memory reads, and step-by-step execution.
+</p>
+<h2>The CoreSight Debug Architecture</h2>
+<p>
+ARM designed a standardized debug infrastructure called <a href="https://developer.arm.com/-/media/Arm%20Developer%20Community/Images/Tutorial%20Guide%20Diagrams%20and%20Screenshots/Arm%20Development%20Studio/Understanding%20the%20CoreSight%20DAP/Understanding_the_CoreSight_DAP.pdf"><strong>CoreSight</strong></a> that is implemented across all Cortex-M devices. It provides a consistent way for external tools to access the internals of any ARM-based MCU, regardless of the silicon vendor.
+</p>
+<h3>Key Components</h3>
+<pre><code class="language-text">External Debugger (PC)
+<p>
+       |
+   Debug Probe (ST-Link, J-Link, etc.)
+       |
+   Debug Port (DP)  -- physical interface (JTAG or SWD)
+       |
+   Access Port (AP) -- bridge to internal buses
+       |
+   +-----------+-----------+
+   |           |           |
+  CPU       Debug       Trace
+ Regs    Components   Components</code></pre>
+</p>
+<h3>Debug Port (DP)</h3>
+<p>
+The Debug Port handles the physical connection between the debug probe and the chip. There are three variants:
+</p>
+<table><thead><tr><th>DP Type</th><th>Protocols Supported</th></tr></thead><tbody><tr><td><strong>SWJ-DP</strong></td><td>Both SWD and JTAG (most common)</td></tr>
+<tr><td><strong>SW-DP</strong></td><td>SWD only</td></tr>
+<tr><td><strong>JTAG-DP</strong></td><td>JTAG only</td></tr></tbody></table>
+<p>
+Most modern Cortex-M chips use SWJ-DP, which lets you choose either protocol.
+</p>
+<h3>Access Ports (AP)</h3>
+<p>
+An Access Port connects the Debug Port to internal system buses. A single DP can support up to 256 APs (in ADIv5). Common types:
+</p>
+<ul>
+<li><strong>AHB-AP</strong> -- connects to the AHB bus, giving access to all memory-mapped resources (flash, SRAM, peripheral registers). This is the most important AP for debugging.</li>
+<li><strong>APB-AP</strong> -- connects to the APB bus for debug component registers.</li>
+<li><strong>JTAG-AP</strong> -- bridges to legacy (pre-CoreSight) debug interfaces.</li>
+</ul>
+<h3>Debug Access Port (DAP)</h3>
+<p>
+The combination of one DP and one or more APs is called a <strong>DAP</strong> (Debug Access Port). It is the complete debug interface of the chip.
+</p>
+<p>
+Through the DAP, an external debugger can:
+</p>
+<ul>
+<li>Read and write any memory address (including peripheral registers)</li>
+<li>Halt and resume the CPU</li>
+<li>Set hardware breakpoints and watchpoints</li>
+<li>Read CPU registers (R0-R15, PSR, etc.)</li>
+<li>Access trace data</li>
+</ul>
+<h2>What You Need to Debug</h2>
+<p>
+A minimal debug setup requires three things:
+</p>
+<ol>
+<li><strong>A debug probe</strong> -- hardware that speaks JTAG or SWD (e.g., ST-Link, J-Link, CMSIS-DAP)</li>
+<li><strong>Debug software</strong> -- a bridge like OpenOCD that translates high-level commands into DAP transactions</li>
+<li><strong>A debugger</strong> -- GDB or an IDE that provides the user interface</li>
+</ol>
+<h2>Child Pages</h2>
+<ul>
+<li><a href="jtag-and-swd.html">JTAG and SWD</a> -- the transport protocols that connect your probe to the chip</li>
+<li><a href="openocd-and-gdb.html">OpenOCD and GDB</a> -- the open-source debug toolchain</li>
+<li><a href="semihosting-and-printf.html">Semihosting and Printf</a> -- getting text output without a dedicated UART</li>
+<li><a href="fault-debugging-techniques.html">Fault Debugging Techniques</a> -- diagnosing HardFaults and other crashes</li>
+</ul>
+<h2>References</h2>
+<ol>
+<li><a href="https://developer.arm.com/-/media/Arm%20Developer%20Community/Images/Tutorial%20Guide%20Diagrams%20and%20Screenshots/Arm%20Development%20Studio/Understanding%20the%20CoreSight%20DAP/Understanding_the_CoreSight_DAP.pdf">Understanding the CoreSight DAP - ARM Developer</a> — ARM's official guide to CoreSight debug architecture</li>
+<li><a href="https://www.allaboutcircuits.com/technical-articles/jtag-implementation-arm-core-devices/">JTAG Implementation in ARM Core Devices</a> — Detailed walkthrough of JTAG on ARM targets</li>
+<li><a href="https://arm-software.github.io/CMSIS_5/DAP/html/index.html">Firmware for CoreSight Debug Access Port - CMSIS-DAP</a> — Open-source debug probe firmware specification</li>
+<li><a href="https://ignitarium.com/a-complete-guide-to-soc-debugging-part-3/">A Complete Guide to SoC Debugging Part 3</a> — SoC debug concepts and debug port internals</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="../../mcu-architecture-fundamentals/interrupts-and-nvic.html">Interrupt Handling</a> -- understanding the NVIC and exception model</li>
+<li><a href="../../mcu-architecture-fundamentals/memory-map-and-bus.html">Memory Map</a> -- how the address space is organized</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://developer.arm.com/-/media/Arm%20Developer%20Community/Images/Tutorial%20Guide%20Diagrams%20and%20Screenshots/Arm%20Development%20Studio/Understanding%20the%20CoreSight%20DAP/Understanding_the_CoreSight_DAP.pdf" target="_blank" rel="noopener">Understanding the CoreSight DAP - ARM Developer</a></li><li><a href="https://www.allaboutcircuits.com/technical-articles/jtag-implementation-arm-core-devices/" target="_blank" rel="noopener">JTAG Implementation in ARM Core Devices</a></li><li><a href="https://arm-software.github.io/CMSIS_5/DAP/html/index.html" target="_blank" rel="noopener">Firmware for CoreSight Debug Access Port - CMSIS-DAP</a></li><li><a href="https://ignitarium.com/a-complete-guide-to-soc-debugging-part-3/" target="_blank" rel="noopener">A Complete Guide to SoC Debugging Part 3</a></li></ul></div>
+      <div class="page-nav"><a href="../index.html"><span class="nav-label">← Previous</span><span class="nav-title">Bridging Theory to Practice</span></a><a class="next" href="jtag-and-swd.html"><span class="nav-label">Next →</span><span class="nav-title">JTAG and SWD</span></a></div>
+    </main>
+  </div>
+  <script src="../../scripts/main.js"></script>
+</body>
+</html>

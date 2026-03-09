@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stack vs Heap — MCU Study Guide</title>
+  <link rel="stylesheet" href="../../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title expanded"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="index.html">Memory as Most Constrained Resource</a><a class="nav-item active" href="stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="dma-controller.html">DMA Controller</a><a class="nav-item" href="mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../../index.html">Home</a><span class="sep">/</span><a href="../../mcu-toolchain-and-practice/index.html">Toolchain & Practice — Build and Debug Real Projects</a><span class="sep">/</span><a href="../../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory Management in Practice</a><span class="sep">/</span><span>Stack vs Heap</span></div>
+      <h1>Stack vs Heap</h1>
+      <div class="tags"><span class="tag">stack</span><span class="tag">heap</span><span class="tag">memory</span><span class="tag">embedded</span><span class="tag">allocation</span></div>
+      <p>
+The <a href="https://medium.com/@haekyong13/stack-vs-heap-memory-in-c-what-every-embedded-engineer-should-know-e46dd2cd1f14">stack and the heap</a> are the two main regions where data lives at runtime. In embedded systems, understanding their behavior is critical because both share the same limited SRAM, and mismanaging either one can crash your system.
+</p>
+<h2>Stack</h2>
+<p>
+The stack is managed automatically by the CPU and compiler. It grows <strong>downward</strong> from the top of SRAM on ARM Cortex-M.
+</p>
+<h3>Characteristics</h3>
+<ul>
+<li><strong>LIFO</strong> (Last In, First Out) -- function calls push frames; returns pop them</li>
+<li><strong>Deterministic</strong> -- allocation and deallocation take constant time (just adjusting SP)</li>
+<li><strong>Fixed size</strong> -- defined at link time, does not grow dynamically</li>
+<li><strong>Automatic cleanup</strong> -- local variables are freed when the function returns</li>
+</ul>
+<h3>What Goes on the Stack</h3>
+<ul>
+<li>Function local variables</li>
+<li>Function parameters (those not passed in registers)</li>
+<li>Return addresses</li>
+<li>Saved registers during function calls and interrupts</li>
+<li>Interrupt context (8 registers auto-pushed by Cortex-M hardware)</li>
+</ul>
+<h3>Stack Sizing</h3>
+<p>
+A typical Cortex-M project might allocate 1-8 KB for the main stack. The required size depends on:
+</p>
+<ul>
+<li>Maximum call depth (deepest function nesting)</li>
+<li>Size of local variables in each function</li>
+<li>Interrupt nesting depth (each interrupt pushes at least 32 bytes)</li>
+<li>RTOS task stacks (each task has its own stack)</li>
+</ul>
+<p>
+<strong>Example</strong>: If your deepest call chain is 10 functions deep, each using ~50 bytes of locals, plus 3 levels of interrupt nesting at 32 bytes each, you need at minimum: <code>10 <em> 50 + 3 </em> 32 = 596 bytes</code>, plus some safety margin.
+</p>
+<h2>Heap</h2>
+<p>
+The heap is managed by software (the C library's <code>malloc</code>/<code>free</code> implementation). It grows <strong>upward</strong> from after the <code>.bss</code> section.
+</p>
+<h3>Characteristics</h3>
+<ul>
+<li><strong>Flexible</strong> -- allocate any size at any time</li>
+<li><strong>Non-deterministic</strong> -- allocation time varies depending on heap state</li>
+<li><strong>Manual management</strong> -- you must <code>free()</code> what you <code>malloc()</code></li>
+<li><strong>Fragmentation risk</strong> -- repeated alloc/free creates unusable gaps</li>
+</ul>
+<h3>The Fragmentation Problem</h3>
+<p>
+Consider a heap with 1024 bytes free:
+</p>
+<pre><code class="language-text">[A:128][free:64][B:256][free:128][C:64][free:384]</code></pre>
+<p>
+Total free: 64 + 128 + 384 = 576 bytes. But if you request a 256-byte block, <code>malloc</code> returns NULL -- no single contiguous chunk is large enough. This is <strong>external fragmentation</strong>.
+</p>
+<p>
+On a desktop with gigabytes of RAM, fragmentation is a nuisance. On an MCU with 4 KB of SRAM, it is a system failure.
+</p>
+<h2>When Heap Is Acceptable</h2>
+<p>
+Despite the warnings, there are cases where heap allocation on an MCU is reasonable:
+</p>
+<ul>
+<li><strong>One-time allocation at startup</strong> -- allocate buffers during <code>main()</code> initialization and never free them. This avoids fragmentation entirely.</li>
+<li><strong>Large, infrequent buffers</strong> -- if you need a temporary 2 KB buffer for one operation, heap can make sense if the allocation pattern is simple.</li>
+<li><strong>Memory pool backing</strong> -- use a single <code>malloc</code> to get the pool memory, then manage it yourself.</li>
+</ul>
+<p>
+The rule: if you can prove that <code>free()</code> is never called (or called in strict reverse order), heap is safe.
+</p>
+<h2>Measuring Stack Usage</h2>
+<h3>Compiler Flags</h3>
+<p>
+GCC provides two useful flags:
+</p>
+<pre><code class="language-makefile"># Warn if any function uses more than N bytes of stack
+<p>
+CFLAGS += -Wstack-usage=256
+</p>
+<h1>Generate .su files showing stack usage per function</h1>
+<p>
+CFLAGS += -fstack-usage</code></pre>
+</p>
+<p>
+The <code>.su</code> files list each function and its stack consumption:
+</p>
+<pre><code class="language-text">src/main.c:15:6:main	128	static
+<p>
+src/uart.c:42:6:uart_init	32	static
+src/parser.c:89:6:parse_packet	512	dynamic,bounded</code></pre>
+</p>
+<p>
+"static" means the compiler can determine the exact usage. "dynamic,bounded" means it includes variable-length arrays but the compiler can still bound it.
+</p>
+<h3>Stack Watermarking</h3>
+<p>
+Fill the entire stack region with a known pattern at startup, then check how far the pattern was overwritten:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">#define STACK_FILL_PATTERN 0xDEADBEEF
+<p>
+// Call this very early in startup, before main()
+void stack_paint(void) {
+    extern uint32_t _stack_bottom;  // From linker script
+    extern uint32_t _stack_top;
+</p>
+<p>
+    volatile uint32_t *p = &amp;_stack_bottom;
+    // Don't overwrite the current stack frame!
+    volatile uint32_t *current_sp;
+    __asm volatile("mov %0, sp" : "=r"(current_sp));
+</p>
+<p>
+    while (p &lt; current_sp - 16) {  // Leave margin
+        *p++ = STACK_FILL_PATTERN;
+    }
+}
+</p>
+<p>
+// Call this periodically to check high-water mark
+uint32_t stack_check_usage(void) {
+    extern uint32_t _stack_bottom;
+    extern uint32_t _stack_top;
+</p>
+<p>
+    volatile uint32_t *p = &amp;_stack_bottom;
+    while (*p == STACK_FILL_PATTERN &amp;&amp; p &lt; &amp;_stack_top) {
+        p++;
+    }
+</p>
+<p>
+    uint32_t total = (uint32_t)&amp;_stack_top - (uint32_t)&amp;_stack_bottom;
+    uint32_t unused = (uint32_t)p - (uint32_t)&amp;_stack_bottom;
+    return total - unused;  // Bytes used
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+const STACK_FILL_PATTERN: u32 = 0xDEAD_BEEF;
+</p>
+<p>
+extern "C" {
+    static mut _stack_bottom: u32;
+    static mut _stack_top: u32;
+}
+</p>
+<p>
+/// Call this very early in startup, before main()
+unsafe fn stack_paint() {
+    let mut p = &amp;mut _stack_bottom as *mut u32;
+    // Don't overwrite the current stack frame!
+    let current_sp: *const u32;
+    core::arch::asm!("mov {}, sp", out(reg) current_sp);
+</p>
+<p>
+    while p &lt; current_sp.sub(16) as *mut u32 { // Leave margin
+        write_volatile(p, STACK_FILL_PATTERN);
+        p = p.add(1);
+    }
+}
+</p>
+<p>
+/// Call this periodically to check high-water mark
+unsafe fn stack_check_usage() -&gt; u32 {
+    let bottom = &amp;_stack_bottom as *const u32;
+    let top = &amp;_stack_top as *const u32;
+</p>
+<p>
+    let mut p = bottom;
+    while read_volatile(p) == STACK_FILL_PATTERN &amp;&amp; p &lt; top {
+        p = p.add(1);
+    }
+</p>
+<p>
+    let total = top as u32 - bottom as u32;
+    let unused = p as u32 - bottom as u32;
+    total - unused // Bytes used
+}</code></pre></div></div>
+</p>
+<p>
+The watermark tells you the <a href="https://www.embedded.com/mastering-stack-and-heap-for-system-reliability-part-1-calculating-stack-size/"><strong>maximum</strong> stack usage</a> observed during the test run. In production, add a 25-50% safety margin above this value.
+</p>
+<h3>Static Analysis</h3>
+<p>
+Tools like <code>arm-none-eabi-objdump</code> and dedicated analyzers can compute worst-case stack depth by analyzing the call graph:
+</p>
+<pre><code class="language-bash"># Dump call tree with stack usage
+<p>
+arm-none-eabi-nm --print-size --size-sort firmware.elf</code></pre>
+</p>
+<p>
+For RTOS-based projects, most RTOSes (FreeRTOS, Zephyr) provide stack usage statistics per task via API calls like <code>uxTaskGetStackHighWaterMark()</code>.
+</p>
+<h2>Linker Script Configuration</h2>
+<p>
+The stack and heap sizes are set in the linker script:
+</p>
+<pre><code class="language-ld">/<em> Define stack and heap sizes </em>/
+<p>
+_stack_size = 0x1000;   /<em> 4 KB stack </em>/
+_heap_size  = 0x0400;   /<em> 1 KB heap (or 0 if unused) </em>/
+</p>
+<p>
+SECTIONS {
+    /<em> ... other sections ... </em>/
+</p>
+<p>
+    .heap (NOLOAD) : {
+        _heap_start = .;
+        . += _heap_size;
+        _heap_end = .;
+    } &gt; SRAM
+</p>
+<p>
+    .stack (NOLOAD) : {
+        _stack_bottom = .;
+        . += _stack_size;
+        _stack_top = .;
+    } &gt; SRAM
+}</code></pre>
+</p>
+<h2>Quick Reference</h2>
+<table><thead><tr><th>Aspect</th><th>Stack</th><th>Heap</th></tr></thead><tbody><tr><td>Growth direction</td><td>Downward (high to low)</td><td>Upward (low to high)</td></tr>
+<tr><td>Speed</td><td>Very fast (SP adjust)</td><td>Slower (search free list)</td></tr>
+<tr><td>Lifetime</td><td>Function scope</td><td>Until <code>free()</code></td></tr>
+<tr><td>Size</td><td>Fixed at link time</td><td>Grows until collision</td></tr>
+<tr><td>Fragmentation</td><td>None</td><td>Yes</td></tr>
+<tr><td>Thread safety</td><td>Each task gets its own</td><td>Needs mutex protection</td></tr>
+<tr><td>Failure mode</td><td>Overflow (silent corruption)</td><td>Returns NULL</td></tr></tbody></table>
+<h2>References</h2>
+<ol>
+<li><a href="https://medium.com/@haekyong13/stack-vs-heap-memory-in-c-what-every-embedded-engineer-should-know-e46dd2cd1f14">Stack vs. Heap Memory in C: What Every Embedded Engineer Should Know</a> — Comparison of stack and heap for embedded contexts</li>
+<li><a href="https://www.embedded.com/mastering-stack-and-heap-for-system-reliability-part-1-calculating-stack-size/">Mastering Stack and Heap for System Reliability</a> — Methods for calculating worst-case stack usage</li>
+<li><a href="https://visualgdb.com/documentation/embedded/stackheap/">Stack and Heap Layout of Embedded Projects - VisualGDB</a> — Visual guide to stack and heap memory layout</li>
+<li><a href="https://electrical.codidact.com/posts/286121">Why Should I Not Use Dynamic Memory Allocation in Embedded Systems?</a> — Rationale for avoiding heap in embedded systems</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="static-allocation-patterns.html">Static Allocation Patterns</a> -- alternatives to heap allocation</li>
+<li><a href="../debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a> -- detecting stack overflows</li>
+<li><a href="mpu-memory-protection.html">MPU Memory Protection</a> -- hardware stack guard regions</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://medium.com/@haekyong13/stack-vs-heap-memory-in-c-what-every-embedded-engineer-should-know-e46dd2cd1f14" target="_blank" rel="noopener">Stack vs. Heap Memory in C: What Every Embedded Engineer Should Know</a></li><li><a href="https://www.embedded.com/mastering-stack-and-heap-for-system-reliability-part-1-calculating-stack-size/" target="_blank" rel="noopener">Mastering Stack and Heap for System Reliability</a></li><li><a href="https://visualgdb.com/documentation/embedded/stackheap/" target="_blank" rel="noopener">Stack and Heap Layout of Embedded Projects - VisualGDB</a></li><li><a href="https://electrical.codidact.com/posts/286121" target="_blank" rel="noopener">Why Should I Not Use Dynamic Memory Allocation in Embedded Systems?</a></li></ul></div>
+      <div class="page-nav"><a href="index.html"><span class="nav-label">← Previous</span><span class="nav-title">Memory as Most Constrained Resource</span></a><a class="next" href="dma-controller.html"><span class="nav-label">Next →</span><span class="nav-title">DMA Controller</span></a></div>
+    </main>
+  </div>
+  <script src="../../scripts/main.js"></script>
+</body>
+</html>

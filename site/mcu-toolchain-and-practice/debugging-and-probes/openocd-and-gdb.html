@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenOCD and GDB — MCU Study Guide</title>
+  <link rel="stylesheet" href="../../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title expanded"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="jtag-and-swd.html">JTAG and SWD</a><a class="nav-item active" href="openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../../index.html">Home</a><span class="sep">/</span><a href="../../mcu-toolchain-and-practice/index.html">Toolchain & Practice — Build and Debug Real Projects</a><span class="sep">/</span><a href="../../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debugging and Probes</a><span class="sep">/</span><span>OpenOCD and GDB</span></div>
+      <h1>OpenOCD and GDB</h1>
+      <div class="tags"><span class="tag">openocd</span><span class="tag">gdb</span><span class="tag">debugging</span><span class="tag">embedded</span><span class="tag">toolchain</span></div>
+      <p>
+<a href="https://openocd.org/doc/html/GDB-and-OpenOCD.html">OpenOCD</a> and GDB form the standard open-source toolchain for embedded debugging. OpenOCD talks to your debug probe; GDB talks to OpenOCD. Together, they let you flash firmware, set breakpoints, step through code, and inspect memory on a real MCU.
+</p>
+<h2>Architecture</h2>
+<pre><code class="language-text">+----------+       TCP/IP        +---------+      SWD/JTAG     +--------+
+<p>
+|   GDB    | &lt;--- port 3333 ---&gt; | OpenOCD | &lt;--- probe -----&gt; |  MCU   |
+| (client) |                     | (server)|    (ST-Link,      | target |
++----------+                     +---------+     J-Link)       +--------+</code></pre>
+</p>
+<ul>
+<li><strong>GDB</strong> is the debugger you interact with (command-line or IDE frontend)</li>
+<li><strong>OpenOCD</strong> is the bridge that translates GDB commands into DAP transactions over JTAG or SWD</li>
+<li><strong>Debug probe</strong> is the hardware that connects to the MCU</li>
+</ul>
+<h2>OpenOCD Configuration</h2>
+<p>
+<a href="https://makeprogress.ee/blog/getting-started-with-openocd-a-beginner-s-guide-for-embedded-developers">OpenOCD needs two pieces of information</a>: which debug probe (interface) and which target MCU. These are specified as config files.
+</p>
+<h3>Config File Structure</h3>
+<p>
+OpenOCD ships with many built-in config files:
+</p>
+<pre><code class="language-text">/usr/share/openocd/scripts/
+<p>
+  interface/       # Debug probe configs
+    stlink.cfg
+    jlink.cfg
+    cmsis-dap.cfg
+  target/          # MCU target configs
+    stm32f4x.cfg
+    stm32f1x.cfg
+    nrf52.cfg
+  board/           # Combined board configs (interface + target)
+    st_nucleo_f4.cfg</code></pre>
+</p>
+<h3>Starting OpenOCD</h3>
+<p>
+Basic invocation specifying interface and target separately:
+</p>
+<pre><code class="language-bash"># ST-Link with STM32F4
+<p>
+openocd -f interface/stlink.cfg -f target/stm32f4x.cfg
+</p>
+<h1>J-Link with nRF52</h1>
+<p>
+openocd -f interface/jlink.cfg -f target/nrf52.cfg
+</p>
+<h1>Using a board config (includes both)</h1>
+<p>
+openocd -f board/st_nucleo_f4.cfg</code></pre>
+</p>
+<p>
+When OpenOCD starts successfully, you will see:
+</p>
+<pre><code class="language-text">Info : Listening on port 3333 for gdb connections
+<p>
+Info : Listening on port 4444 for telnet connections
+Info : Listening on port 6666 for tcl connections</code></pre>
+</p>
+<p>
+Port 3333 is the GDB server. Port 4444 is a telnet interface for direct OpenOCD commands.
+</p>
+<h3>Common OpenOCD Commands (Telnet)</h3>
+<pre><code class="language-text">&gt; reset halt          # Reset MCU and halt at first instruction
+<p>
+&gt; flash write_image erase firmware.elf   # Flash the ELF file
+&gt; reg                 # Show all CPU registers
+&gt; mdw 0x40021000 4    # Read 4 words starting at address (RCC registers)
+&gt; bp 0x08000100 2 hw  # Set hardware breakpoint
+&gt; resume              # Resume execution</code></pre>
+</p>
+<h2>Connecting GDB</h2>
+<p>
+Once OpenOCD is running, connect GDB in a separate terminal:
+</p>
+<pre><code class="language-bash"># Start GDB with your ELF file (which contains debug symbols)
+<p>
+arm-none-eabi-gdb firmware.elf
+</p>
+<h1>Inside GDB, connect to OpenOCD</h1>
+<p>
+(gdb) target remote localhost:3333
+</p>
+<h1>Load firmware into flash</h1>
+<p>
+(gdb) load
+</p>
+<h1>Reset and halt</h1>
+<p>
+(gdb) monitor reset halt
+</p>
+<h1>Set a breakpoint at main</h1>
+<p>
+(gdb) break main
+</p>
+<h1>Continue execution</h1>
+<p>
+(gdb) continue</code></pre>
+</p>
+<h2>Essential GDB Commands</h2>
+<h3>Execution Control</h3>
+<table><thead><tr><th>Command</th><th>Shortcut</th><th>Description</th></tr></thead><tbody><tr><td><code>continue</code></td><td><code>c</code></td><td>Resume execution until next breakpoint</td></tr>
+<tr><td><code>step</code></td><td><code>s</code></td><td>Step into (follows function calls)</td></tr>
+<tr><td><code>next</code></td><td><code>n</code></td><td>Step over (skips function internals)</td></tr>
+<tr><td><code>stepi</code></td><td><code>si</code></td><td>Step one assembly instruction</td></tr>
+<tr><td><code>finish</code></td><td><code>fin</code></td><td>Run until current function returns</td></tr>
+<tr><td><code>until <line></code></td><td>Run until specified line</td></tr></tbody></table>
+<h3>Breakpoints and Watchpoints</h3>
+<pre><code class="language-gdb">break main              # Break at function
+<p>
+break app.c:42          # Break at file:line
+break *0x08000100       # Break at address
+watch my_variable       # Break when variable changes (watchpoint)
+info breakpoints        # List all breakpoints
+delete 2                # Delete breakpoint #2</code></pre>
+</p>
+<p>
+<strong>Note</strong>: Cortex-M MCUs have a limited number of hardware breakpoints (typically 4-8). If you exceed this, GDB will fall back to software breakpoints, which require modifying flash -- usually not what you want.
+</p>
+<h3>Inspecting State</h3>
+<pre><code class="language-gdb">print my_var            # Print variable value
+<p>
+print/x my_var          # Print in hex
+print *my_struct        # Print struct contents
+x/16xw 0x20000000      # Examine 16 words in hex at address (SRAM start)
+x/8xb &amp;my_array        # Examine 8 bytes of an array
+info registers          # Show all CPU registers
+info reg sp pc lr       # Show specific registers
+display my_var          # Auto-print variable after each step</code></pre>
+</p>
+<h3>Memory and Registers</h3>
+<pre><code class="language-gdb">set $r0 = 0x42          # Modify register
+<p>
+set my_var = 100        # Modify variable
+set {int}0x20000000 = 0 # Write to memory address</code></pre>
+</p>
+<h2>Example Debug Session</h2>
+<p>
+Suppose your firmware hangs after calling <code>uart_init()</code>. Here is how you would debug it:
+</p>
+<pre><code class="language-bash"># Terminal 1: Start OpenOCD
+<p>
+openocd -f interface/stlink.cfg -f target/stm32f4x.cfg
+</p>
+<h1>Terminal 2: Start GDB</h1>
+<p>
+arm-none-eabi-gdb build/firmware.elf</code></pre>
+</p>
+<pre><code class="language-gdb">(gdb) target remote :3333
+<p>
+(gdb) monitor reset halt
+(gdb) load
+(gdb) break uart_init
+(gdb) continue
+Breakpoint 1, uart_init () at src/uart.c:23
+(gdb) next       # Step through uart_init line by line
+(gdb) next
+(gdb) print USART2-&gt;BRR    # Check baud rate register
+$1 = 0x0                   # Oops -- BRR is zero, clock not enabled!
+(gdb) print RCC-&gt;APB1ENR   # Check if USART2 clock is enabled
+$2 = 0x0                   # Clock not enabled -- found the bug!</code></pre>
+</p>
+<h2>VS Code Integration with Cortex-Debug</h2>
+<p>
+The <strong>Cortex-Debug</strong> extension for VS Code provides a graphical frontend for GDB + OpenOCD. Add this to <code>.vscode/launch.json</code>:
+</p>
+<pre><code class="language-json">{
+<p>
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug (OpenOCD)",
+      "type": "cortex-debug",
+      "request": "launch",
+      "servertype": "openocd",
+      "cwd": "${workspaceFolder}",
+      "executable": "build/firmware.elf",
+      "configFiles": [
+        "interface/stlink.cfg",
+        "target/stm32f4x.cfg"
+      ],
+      "svdFile": "STM32F407.svd",
+      "runToEntryPoint": "main"
+    }
+  ]
+}</code></pre>
+</p>
+<p>
+Key features of Cortex-Debug:
+</p>
+<ul>
+<li><strong>Peripheral registers</strong> -- load an SVD file to view named peripheral registers with bit-field descriptions</li>
+<li><strong>Live watch</strong> -- variables update in real-time while stepping</li>
+<li><strong>Memory view</strong> -- hex dump of any memory region</li>
+<li><strong>Disassembly view</strong> -- see the generated assembly alongside C code</li>
+<li><strong>ITM/SWO console</strong> -- view trace output directly in VS Code</li>
+</ul>
+<h2>Troubleshooting</h2>
+<table><thead><tr><th>Problem</th><th>Solution</th></tr></thead><tbody><tr><td>"Error: open failed"</td><td>Check probe USB connection; install udev rules on Linux</td></tr>
+<tr><td>"Target not examined yet"</td><td>Wrong target config; verify MCU part number</td></tr>
+<tr><td>"No flash bank found"</td><td>Flash config mismatch; check target .cfg file</td></tr>
+<tr><td>Breakpoint not hit</td><td>Firmware not loaded; run <code>load</code> then <code>monitor reset halt</code></td></tr>
+<tr><td>GDB shows wrong source</td><td>ELF file does not match flashed firmware; rebuild and reload</td></tr></tbody></table>
+<h2>References</h2>
+<ol>
+<li><a href="https://openocd.org/doc/html/GDB-and-OpenOCD.html">GDB and OpenOCD - OpenOCD User's Guide</a> — Official documentation for GDB-OpenOCD integration</li>
+<li><a href="https://makeprogress.ee/blog/getting-started-with-openocd-a-beginner-s-guide-for-embedded-developers">Getting Started with OpenOCD: Beginner's Guide</a> — Step-by-step OpenOCD setup for beginners</li>
+<li><a href="https://cushychicken.github.io/embedded-openocd-gdb/">GDB + OpenOCD Setup</a> — Practical walkthrough of GDB and OpenOCD workflow</li>
+<li><a href="https://kickstartembedded.com/2024/03/26/openocd-one-software-to-rule-debug-them-all/">OpenOCD - One Software to Rule (Debug) Them All</a> — Overview of OpenOCD capabilities and configuration</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="jtag-and-swd.html">JTAG and SWD</a> -- the protocols OpenOCD uses to talk to the probe</li>
+<li><a href="fault-debugging-techniques.html">Fault Debugging Techniques</a> -- using GDB to diagnose crashes</li>
+<li><a href="semihosting-and-printf.html">Semihosting and Printf</a> -- getting text output through OpenOCD</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://openocd.org/doc/html/GDB-and-OpenOCD.html" target="_blank" rel="noopener">GDB and OpenOCD - OpenOCD User's Guide</a></li><li><a href="https://makeprogress.ee/blog/getting-started-with-openocd-a-beginner-s-guide-for-embedded-developers" target="_blank" rel="noopener">Getting Started with OpenOCD: Beginner's Guide</a></li><li><a href="https://cushychicken.github.io/embedded-openocd-gdb/" target="_blank" rel="noopener">GDB + OpenOCD Setup</a></li><li><a href="https://kickstartembedded.com/2024/03/26/openocd-one-software-to-rule-debug-them-all/" target="_blank" rel="noopener">OpenOCD - One Software to Rule (Debug) Them All</a></li></ul></div>
+      <div class="page-nav"><a href="jtag-and-swd.html"><span class="nav-label">← Previous</span><span class="nav-title">JTAG and SWD</span></a><a class="next" href="semihosting-and-printf.html"><span class="nav-label">Next →</span><span class="nav-title">Semihosting and Printf Debugging</span></a></div>
+    </main>
+  </div>
+  <script src="../../scripts/main.js"></script>
+</body>
+</html>

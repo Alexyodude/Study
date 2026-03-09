@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Choosing an MCU — MCU Study Guide</title>
+  <link rel="stylesheet" href="../../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title expanded"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="index.html">How to Read a Datasheet</a><a class="nav-item" href="arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="avr-architecture.html">AVR Architecture</a><a class="nav-item" href="risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item active" href="choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../../index.html">Home</a><span class="sep">/</span><a href="../../mcu-toolchain-and-practice/index.html">Toolchain & Practice — Build and Debug Real Projects</a><span class="sep">/</span><a href="../../mcu-toolchain-and-practice/mcu-families-compared/index.html">MCU Families Compared</a><span class="sep">/</span><span>Choosing an MCU</span></div>
+      <h1>Choosing an MCU</h1>
+      <div class="tags"><span class="tag">mcu-selection</span><span class="tag">decision-framework</span><span class="tag">comparison</span><span class="tag">embedded</span></div>
+      <p>
+<a href="https://hackaday.com/2025/02/14/a-guide-to-making-the-right-microcontroller-choice/">Selecting a microcontroller</a> is one of the earliest and most consequential decisions in an embedded project. Choose wrong and you will either waste money on unnecessary features or run out of resources mid-development. This page provides a systematic approach.
+</p>
+<h2>Decision Framework</h2>
+<p>
+The selection process has three phases:
+</p>
+<pre><code class="language-text">1. Define Requirements     2. Apply Constraints     3. Select and Validate
+<p>
+   - What must it do?         - Budget per unit         - Pick 2-3 candidates
+   - What peripherals?        - Power budget             - Check dev board availability
+   - How fast?                - Physical size            - Prototype and test
+   - How much memory?         - Operating environment    - Verify long-term supply</code></pre>
+</p>
+<h2>Step 1: Define Requirements</h2>
+<h3>Functional Requirements</h3>
+<p>
+Start by listing what the MCU must do. Be specific:
+</p>
+<table><thead><tr><th>Question</th><th>Example Answer</th></tr></thead><tbody><tr><td>How many UARTs?</td><td>2 (one for debug, one for GPS module)</td></tr>
+<tr><td>How many SPI?</td><td>1 (for SPI flash or display)</td></tr>
+<tr><td>ADC channels and resolution?</td><td>4 channels, 12-bit minimum</td></tr>
+<tr><td>PWM outputs?</td><td>3 (for RGB LED or motor)</td></tr>
+<tr><td>GPIO count?</td><td>15 minimum</td></tr>
+<tr><td>USB?</td><td>USB device (CDC virtual COM port)</td></tr>
+<tr><td>Wireless?</td><td>Bluetooth LE required</td></tr>
+<tr><td>Special peripherals?</td><td>CAN bus, I2S audio, Ethernet</td></tr></tbody></table>
+<h3>Performance Requirements</h3>
+<table><thead><tr><th>Question</th><th>How to Estimate</th></tr></thead><tbody><tr><td>CPU speed</td><td>Profile your algorithm on a dev board; measure cycles</td></tr>
+<tr><td>Flash size</td><td>Compile your code; check the <code>.elf</code> size. Add 50% margin</td></tr>
+<tr><td>SRAM size</td><td>Check <code>.bss</code> + <code>.data</code> + stack + heap. Add 30% margin</td></tr>
+<tr><td>FPU needed?</td><td>If you do floating-point math in tight loops, yes</td></tr>
+<tr><td>DSP needed?</td><td>If you do signal processing (filters, FFT), yes</td></tr></tbody></table>
+<h3>Power Requirements</h3>
+<table><thead><tr><th>Scenario</th><th>Typical Target</th></tr></thead><tbody><tr><td>Wall-powered device</td><td>Not a constraint</td></tr>
+<tr><td>Battery, weeks of life</td><td>< 10 uA sleep, < 10 mA active</td></tr>
+<tr><td>Battery, years of life</td><td>< 1 uA sleep, < 5 mA active, duty-cycled</td></tr>
+<tr><td>Energy harvesting</td><td>Sub-uA sleep, minimal active time</td></tr></tbody></table>
+<h2>Step 2: Apply Constraints</h2>
+<h3>Budget</h3>
+<table><thead><tr><th>Volume</th><th>Approach</th></tr></thead><tbody><tr><td>Prototype (1-10 units)</td><td>Use a dev board; chip cost does not matter</td></tr>
+<tr><td>Low volume (100-1K)</td><td>Chip cost matters, but availability matters more</td></tr>
+<tr><td>Mass production (10K+)</td><td>Every penny counts; negotiate with distributors</td></tr></tbody></table>
+<p>
+At prototype stage, do not optimize for chip price. Optimize for development speed -- choose the MCU with the best tools and community.
+</p>
+<h3>Physical Constraints</h3>
+<ul>
+<li><strong>Package size</strong> -- QFP-48 is easy to hand-solder; QFN-20 is small but harder; BGA requires reflow</li>
+<li><strong>Pin count</strong> -- more pins = more GPIO and peripheral options, but bigger package</li>
+<li><strong>Temperature range</strong> -- commercial (0-70C), industrial (-40 to 85C), or automotive (-40 to 125C)</li>
+</ul>
+<h3>Supply Chain</h3>
+<p>
+For commercial products, check:
+</p>
+<ul>
+<li><strong>Distributor stock</strong> -- is it available from Mouser, Digikey, LCSC?</li>
+<li><strong>Lead time</strong> -- weeks vs months</li>
+<li><strong>Lifecycle status</strong> -- "Active" vs "Not Recommended for New Designs"</li>
+<li><strong>Second source</strong> -- is there a pin-compatible alternative from another vendor?</li>
+</ul>
+<h2>Step 3: Compare Candidates</h2>
+<h3>Comparison Table Template</h3>
+<p>
+Use a table like this to compare your top 2-3 candidates:
+</p>
+<table><thead><tr><th>Criterion</th><th>Weight</th><th>MCU A</th><th>MCU B</th><th>MCU C</th></tr></thead><tbody><tr><td>Core</td><td>-</td><td>Cortex-M4F</td><td>Cortex-M0+</td><td>RV32IMC</td></tr>
+<tr><td>Clock (MHz)</td><td>180</td><td>48</td><td>160</td></tr>
+<tr><td>Flash (KB)</td><td>512</td><td>64</td><td>4096 (ext)</td></tr>
+<tr><td>SRAM (KB)</td><td>128</td><td>8</td><td>400</td></tr>
+<tr><td>UARTs</td><td>4</td><td>2</td><td>3</td></tr>
+<tr><td>ADC channels</td><td>16</td><td>8</td><td>6</td></tr>
+<tr><td>USB</td><td>FS+HS</td><td>No</td><td>Serial/JTAG</td></tr>
+<tr><td>Wireless</td><td>No</td><td>No</td><td>Wi-Fi+BLE</td></tr>
+<tr><td>FPU</td><td>Yes (SP)</td><td>No</td><td>No</td></tr>
+<tr><td>Sleep current (uA)</td><td>2.4</td><td>0.4</td><td>5</td></tr>
+<tr><td>Unit price ($, 1K qty)</td><td>$4.50</td><td>$1.20</td><td>$1.80</td></tr>
+<tr><td>Dev board price ($)</td><td>$15</td><td>$4</td><td>$5</td></tr>
+<tr><td>Community/docs</td><td>Excellent</td><td>Good</td><td>Good</td></tr>
+<tr><td>Debugger</td><td>SWD/JTAG</td><td>SWD</td><td>JTAG</td></tr></tbody></table>
+<p>
+Score each criterion (1-5) multiplied by weight, then sum.
+</p>
+<h2>Key Factors Deep Dive</h2>
+<h3>Ecosystem Quality</h3>
+<p>
+A great MCU with poor tools is <a href="https://thinkrobotics.com/blogs/learn/choosing-the-right-microcontroller-a-comprehensive-guide">worse than an adequate MCU with great tools</a>. Evaluate:
+</p>
+<ul>
+<li><strong>IDE and toolchain</strong> -- does the vendor provide a free, functional IDE? Does GCC work well?</li>
+<li><strong>HAL/SDK quality</strong> -- is the vendor's driver library well-documented and reliable?</li>
+<li><strong>Code examples</strong> -- are there working examples for common peripherals?</li>
+<li><strong>Community</strong> -- are there active forums, Stack Overflow answers, blog posts?</li>
+<li><strong>Third-party support</strong> -- does PlatformIO, Arduino, or Zephyr support it?</li>
+</ul>
+<h3>Documentation Quality</h3>
+<p>
+Check these before committing:
+</p>
+<ul>
+<li>Is the reference manual comprehensive and accurate?</li>
+<li>Are there application notes for common use cases?</li>
+<li>Are errata sheets published and up to date?</li>
+<li>Is the datasheet available in English?</li>
+</ul>
+<h3>Development Board Availability</h3>
+<p>
+A good dev board dramatically accelerates development:
+</p>
+<ul>
+<li><strong>Integrated debugger</strong> -- ST-Link on Nucleo, J-Link OB on Nordic DK</li>
+<li><strong>Header pins</strong> -- easy access to all GPIO</li>
+<li><strong>Arduino-compatible headers</strong> -- access to shields ecosystem</li>
+<li><strong>On-board sensors or LEDs</strong> -- useful for initial testing</li>
+</ul>
+<h2>Recommended Starter MCUs</h2>
+<p>
+For learning embedded development, these are proven choices in 2026:
+</p>
+<h3>For General Embedded Learning</h3>
+<p>
+<strong>STM32F411 (Nucleo-F411RE)</strong> -- ~$15
+</p>
+<ul>
+<li>Cortex-M4F at 100 MHz, 512 KB flash, 128 KB SRAM</li>
+<li>FPU, DSP, DMA, plenty of peripherals</li>
+<li>ST-Link V2 debugger on board</li>
+<li>CubeMX code generation, massive community</li>
+</ul>
+<h3>For Ultra-Low-Cost Learning</h3>
+<p>
+<strong>Raspberry Pi Pico (RP2040)</strong> -- ~$4
+</p>
+<ul>
+<li>Dual Cortex-M0+ at 133 MHz, 264 KB SRAM</li>
+<li>Unique PIO (Programmable I/O) peripheral</li>
+<li>Excellent official documentation</li>
+<li>No on-board debugger (use a second Pico as picoprobe)</li>
+</ul>
+<h3>For Wireless/IoT</h3>
+<p>
+<strong>ESP32-C3 (any dev board)</strong> -- ~$5
+</p>
+<ul>
+<li>RISC-V at 160 MHz with Wi-Fi + BLE 5</li>
+<li>Mature ESP-IDF framework</li>
+<li>Huge community from ESP32 ecosystem</li>
+<li>Good for learning both RISC-V and wireless</li>
+</ul>
+<h3>For Bluetooth LE</h3>
+<p>
+<strong>nRF52840 DK</strong> -- ~$30
+</p>
+<ul>
+<li>Cortex-M4F at 64 MHz, 1 MB flash, 256 KB SRAM</li>
+<li>Best-in-class Bluetooth LE support</li>
+<li>Thread/Zigbee capable</li>
+<li>Excellent Nordic SDK and documentation</li>
+</ul>
+<h3>For Absolute Beginners</h3>
+<p>
+<strong>Arduino Uno R3 (ATmega328P)</strong> -- ~$25
+</p>
+<ul>
+<li>8-bit AVR at 16 MHz</li>
+<li>Simplest possible learning path</li>
+<li>Thousands of tutorials and libraries</li>
+<li>Limited for serious embedded work, but great for fundamentals</li>
+</ul>
+<h2>Common Mistakes</h2>
+<table><thead><tr><th>Mistake</th><th>Consequence</th><th>Better Approach</th></tr></thead><tbody><tr><td>Choosing based on specs alone</td><td>Poor tooling wastes months</td><td>Weight ecosystem heavily</td></tr>
+<tr><td>Over-specifying</td><td>Paying for unused features</td><td>Start with actual requirements</td></tr>
+<tr><td>Ignoring power modes</td><td>Battery life too short</td><td>Test sleep current early</td></tr>
+<tr><td>Not checking pin multiplexing</td><td>Peripheral conflicts</td><td>Study the pin alternate function table</td></tr>
+<tr><td>Selecting EOL parts</td><td>Supply chain risk</td><td>Check lifecycle status on vendor site</td></tr>
+<tr><td>Choosing the cheapest option</td><td>Poor debug support, no community</td><td>Spend $2 more for a better ecosystem</td></tr></tbody></table>
+<h2>References</h2>
+<ol>
+<li><a href="https://hackaday.com/2025/02/14/a-guide-to-making-the-right-microcontroller-choice/">A Guide to Making the Right Microcontroller Choice - Hackaday</a> — Practical MCU selection advice and considerations</li>
+<li><a href="https://thinkrobotics.com/blogs/learn/choosing-the-right-microcontroller-a-comprehensive-guide">Choosing the Right Microcontroller: A Comprehensive Guide</a> — Comprehensive decision framework for MCU selection</li>
+<li><a href="https://promwad.com/news/how-to-choose-the-right-microcontroller-for-iot">How to Choose the Right Microcontroller for Your IoT Project</a> — IoT-focused MCU selection methodology</li>
+<li><a href="https://pcxco.com/how-to-choose-the-right-microcontroller-for-your-project-a-beginners-guide/">How to Choose the Right Microcontroller for Your Project</a> — Beginner-friendly guide to MCU decision-making</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="arm-cortex-m.html">ARM Cortex-M</a> -- the most popular MCU architecture</li>
+<li><a href="avr-architecture.html">AVR Architecture</a> -- the Arduino platform</li>
+<li><a href="risc-v-microcontrollers.html">RISC-V Microcontrollers</a> -- the open-source option</li>
+<li><a href="index.html">MCU Families Overview</a> -- how to read datasheets</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://hackaday.com/2025/02/14/a-guide-to-making-the-right-microcontroller-choice/" target="_blank" rel="noopener">A Guide to Making the Right Microcontroller Choice - Hackaday</a></li><li><a href="https://thinkrobotics.com/blogs/learn/choosing-the-right-microcontroller-a-comprehensive-guide" target="_blank" rel="noopener">Choosing the Right Microcontroller: A Comprehensive Guide</a></li><li><a href="https://promwad.com/news/how-to-choose-the-right-microcontroller-for-iot" target="_blank" rel="noopener">How to Choose the Right Microcontroller for Your IoT Project</a></li><li><a href="https://pcxco.com/how-to-choose-the-right-microcontroller-for-your-project-a-beginners-guide/" target="_blank" rel="noopener">How to Choose the Right Microcontroller for Your Project</a></li></ul></div>
+      <div class="page-nav"><a href="risc-v-microcontrollers.html"><span class="nav-label">← Previous</span><span class="nav-title">RISC-V Microcontrollers</span></a><a class="next" href="ch32v003-parallel-image-processing.html"><span class="nav-label">Next →</span><span class="nav-title">Case Study: CH32V003 Array for Image Processing</span></a></div>
+    </main>
+  </div>
+  <script src="../../scripts/main.js"></script>
+</body>
+</html>

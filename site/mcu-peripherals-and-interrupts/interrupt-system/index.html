@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interrupt System — MCU Study Guide</title>
+  <link rel="stylesheet" href="../../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title expanded"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item active" href="index.html">Why Interrupts</a><a class="nav-item" href="nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../../index.html">Home</a><span class="sep">/</span><a href="../../mcu-peripherals-and-interrupts/index.html">Peripherals & Interrupts — Interact with the World</a><span class="sep">/</span><a href="../../mcu-peripherals-and-interrupts/interrupt-system/index.html">Interrupt System</a><span class="sep">/</span><span>Interrupt System</span></div>
+      <h1>Interrupt System</h1>
+      <div class="tags"><span class="tag">interrupts</span><span class="tag">nvic</span><span class="tag">isr</span><span class="tag">cortex-m</span><span class="tag">stm32</span></div>
+      <h2>Why Interrupts?</h2>
+<p>
+Without interrupts, the only way to detect events is <strong>polling</strong> -- sitting in a loop checking a flag. This wastes CPU cycles and makes it impossible to respond quickly to multiple events.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Polling: CPU does nothing but wait
+<p>
+while (!(USART2-&gt;SR &amp; USART_SR_RXNE)) { }
+char c = USART2-&gt;DR;</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::read_volatile;
+<p>
+const USART2_SR: <em>const u32 = 0x4000_4400 as </em>const u32;
+const USART2_DR: <em>const u32 = (0x4000_4400 + 0x04) as </em>const u32;
+</p>
+<p>
+// Polling: CPU does nothing but wait
+unsafe {
+    while read_volatile(USART2_SR) &amp; (1 &lt;&lt; 5) == 0 {}  // RXNE
+    let c = read_volatile(USART2_DR) as u8;
+}</code></pre></div></div>
+</p>
+<p>
+With interrupts, the hardware <strong>signals the CPU</strong> when something happens. The CPU stops what it is doing, runs a short handler (ISR), then returns to its previous task. Between events, the CPU can do useful work or enter a low-power sleep mode.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Interrupt: CPU is free until data arrives
+<p>
+void USART2_IRQHandler(void) {
+    if (USART2-&gt;SR &amp; USART_SR_RXNE) {
+        buffer[head++] = USART2-&gt;DR;  // handle event
+    }
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::read_volatile;
+<p>
+static mut BUFFER: [u8; 256] = [0; 256];
+static mut HEAD: usize = 0;
+</p>
+<p>
+const USART2_SR: <em>const u32 = 0x4000_4400 as </em>const u32;
+const USART2_DR: <em>const u32 = (0x4000_4400 + 0x04) as </em>const u32;
+</p>
+<p>
+// Interrupt: CPU is free until data arrives
+#[no_mangle]
+pub unsafe extern "C" fn USART2_IRQHandler() {
+    if read_volatile(USART2_SR) &amp; (1 &lt;&lt; 5) != 0 {  // RXNE
+        BUFFER[HEAD] = read_volatile(USART2_DR) as u8;
+        HEAD += 1;
+    }
+}</code></pre></div></div>
+</p>
+<h2>How a Hardware Signal Becomes an ISR Call</h2>
+<pre><code class="language-text">1. Peripheral detects event (e.g., byte received)
+<ol>
+<li>Peripheral sets its interrupt flag (RXNE in USART_SR)</li>
+<li>If peripheral interrupt enable bit is set (RXNEIE in CR1)</li>
+</ol>   --&gt; peripheral asserts its IRQ line to NVIC
+<ol>
+<li>NVIC checks: is this IRQ enabled? is its priority high enough?</li>
+<li>If yes: CPU stacks current context (8 registers) automatically</li>
+<li>CPU loads PC from vector table entry for this IRQ</li>
+<li>ISR executes</li>
+<li>ISR returns via special EXC_RETURN value</li>
+<li>CPU unstacks context and resumes previous code</code></pre></li>
+</ol>
+<h2>Interrupt Latency</h2>
+<p>
+The time from the peripheral event to the first ISR instruction is called <strong>interrupt latency</strong>. On Cortex-M3/M4, this is deterministic: <a href="https://interrupt.memfault.com/blog/arm-cortex-m-exceptions-and-nvic"><strong>12 clock cycles</strong></a> (for zero-wait-state memory).
+</p>
+<p>
+This includes:
+</p>
+<ul>
+<li>Recognizing the pending interrupt</li>
+<li>Stacking 8 registers (R0-R3, R12, LR, PC, xPSR)</li>
+<li>Fetching the vector table entry</li>
+<li>Loading the ISR address into PC</li>
+</ul>
+<p>
+Optimizations like <strong>tail-chaining</strong> and <strong>late-arriving</strong> can reduce latency further for back-to-back interrupts.
+</p>
+<h2>The Big Picture</h2>
+<p>
+The interrupt system on Cortex-M has several interconnected parts:
+</p>
+<pre><code class="language-text">Peripheral                NVIC                    CPU Core
+<p>
++----------+         +-----------+          +------------------+
+| UART IRQ |--------&gt;| Enable    |          | Vector Table     |
+| TIM IRQ  |--------&gt;| Priority  |---------&gt;| Context Switch   |
+| EXTI IRQ |--------&gt;| Pending   |          | ISR Execution    |
+| DMA IRQ  |--------&gt;|           |          | EXC_RETURN       |
++----------+         +-----------+          +------------------+
+                          |
+                     Priority Grouping
+                     (AIRCR.PRIGROUP)</code></pre>
+</p>
+<h2>Child Pages</h2>
+<ul>
+<li><a href="nvic-architecture.html">NVIC Architecture</a> -- registers, EXTI, enabling interrupts</li>
+<li><a href="priority-and-preemption.html">Priority and Preemption</a> -- priority levels, grouping, nesting</li>
+<li><a href="isr-design-patterns.html">ISR Design Patterns</a> -- writing safe, efficient interrupt handlers</li>
+<li><a href="context-switching-mechanics.html">Context Switching Mechanics</a> -- stacking, EXC_RETURN, tail-chaining</li>
+<li><a href="exceptions-and-faults.html">Exceptions and Faults</a> -- HardFault, BusFault, debugging crashes</li>
+</ul>
+<h2>References</h2>
+<ol>
+<li><a href="https://interrupt.memfault.com/blog/arm-cortex-m-exceptions-and-nvic">A Practical Guide to ARM Cortex-M Exception Handling</a> — In-depth guide to exception handling, latency, and NVIC operation</li>
+<li><a href="https://microcontrollerslab.com/nested-vectored-interrupt-controller-nvic-arm-cortex-m/">Nested Vectored Interrupt Controller (NVIC) ARM Cortex-M</a> — Overview of NVIC features and interrupt flow</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="../gpio-register-level.html">GPIO</a> -- EXTI interrupts on pin edges</li>
+<li><a href="../timers-and-counters.html">Timers</a> -- timer update interrupts</li>
+<li><a href="../uart-serial.html">UART</a> -- RXNE/TXE interrupts</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://interrupt.memfault.com/blog/arm-cortex-m-exceptions-and-nvic" target="_blank" rel="noopener">A Practical Guide to ARM Cortex-M Exception Handling</a></li><li><a href="https://microcontrollerslab.com/nested-vectored-interrupt-controller-nvic-arm-cortex-m/" target="_blank" rel="noopener">Nested Vectored Interrupt Controller (NVIC) ARM Cortex-M</a></li></ul></div>
+      <div class="page-nav"><a href="../parallel-io-and-multi-mcu-sync.html"><span class="nav-label">← Previous</span><span class="nav-title">Parallel I/O and Multi-MCU Synchronization</span></a><a class="next" href="nvic-architecture.html"><span class="nav-label">Next →</span><span class="nav-title">NVIC Architecture</span></a></div>
+    </main>
+  </div>
+  <script src="../../scripts/main.js"></script>
+</body>
+</html>

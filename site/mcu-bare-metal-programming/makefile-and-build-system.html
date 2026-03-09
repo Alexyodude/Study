@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Makefile and Build System — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="index.html">What Bare-Metal Means</a><a class="nav-item" href="cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="startup-code.html">Startup Code</a><a class="nav-item" href="vector-table.html">Vector Table</a><a class="nav-item" href="linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item active" href="makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../mcu-bare-metal-programming/index.html">Bare-Metal Programming — Write Code for Bare Hardware</a><span class="sep">/</span><span>Makefile and Build System</span></div>
+      <h1>Makefile and Build System</h1>
+      <div class="tags"><span class="tag">makefile</span><span class="tag">build-system</span><span class="tag">openocd</span><span class="tag">st-flash</span><span class="tag">gcc</span><span class="tag">embedded</span></div>
+      <h2>Why Use Make</h2>
+<p>
+A bare-metal project involves multiple compilation steps: compiling each source file, linking them together, converting the output, and flashing it to the MCU. Typing these commands by hand every time is tedious and error-prone. A Makefile automates the entire pipeline with a single command: <code>make</code>.
+</p>
+<h2>The Build Pipeline</h2>
+<pre><code class="language-text"> .c/.s files     .o files       .elf file        .bin/.hex
+<p>
+ [source]  ---&gt;  [compile]  --&gt; [link]  ------&gt;  [convert]  --&gt; [flash]
+  main.c          main.o        firmware.elf      firmware.bin
+  startup.c       startup.o</code></pre>
+</p>
+<h2>Makefile Variables</h2>
+<p>
+The top of a Makefile defines the toolchain and flags:
+</p>
+<pre><code class="language-makefile"># Toolchain
+<p>
+CC      = arm-none-eabi-gcc
+AS      = arm-none-eabi-gcc -x assembler-with-cpp
+LD      = arm-none-eabi-gcc
+OBJCOPY = arm-none-eabi-objcopy
+OBJDUMP = arm-none-eabi-objdump
+SIZE    = arm-none-eabi-size
+</p>
+<h1>Project</h1>
+<p>
+TARGET   = firmware
+LDSCRIPT = linker.ld
+</p>
+<h1>MCU flags</h1>
+<p>
+MCU = -mcpu=cortex-m3 -mthumb -mfloat-abi=soft
+</p>
+<h1>C flags</h1>
+<p>
+CFLAGS  = $(MCU) -Wall -Wextra -Os
+CFLAGS += -ffunction-sections -fdata-sections
+CFLAGS += -std=c11
+</p>
+<h1>Linker flags</h1>
+<p>
+LDFLAGS  = $(MCU) -T$(LDSCRIPT)
+LDFLAGS += -Wl,--gc-sections
+LDFLAGS += -specs=nano.specs -specs=nosys.specs
+LDFLAGS += -Wl,-Map=$(TARGET).map,--cref</code></pre>
+</p>
+<p>
+Key points:
+</p>
+<ul>
+<li>We use <code>gcc</code> as the linker (not <code>ld</code> directly) so it adds <code>libgcc</code> automatically.</li>
+<li><a href="https://jacobmossberg.se/posts/2018/08/11/run-c-program-bare-metal-on-arm-cortex-m3.html"><code>--gc-sections</code></a> removes unused code and data, reducing binary size.</li>
+<li><code>-Wl,-Map=...</code> generates a map file showing where everything is placed in memory.</li>
+</ul>
+<h2>Compile Targets: .c to .o</h2>
+<pre><code class="language-makefile"># Source files
+<p>
+SRCS = main.c startup.c system.c
+OBJS = $(SRCS:.c=.o)
+</p>
+<h1>Pattern rule: compile .c to .o</h1>
+<p>
+%.o: %.c
+	$(CC) $(CFLAGS) -c $&lt; -o $@</code></pre>
+</p>
+<p>
+The <code>$<</code> is the input file, <code>$@</code> is the output file. Each source file is compiled independently.
+</p>
+<h2>Link Target: .o to .elf</h2>
+<pre><code class="language-makefile">$(TARGET).elf: $(OBJS)
+<p>
+	$(LD) $(LDFLAGS) $(OBJS) -o $@
+	$(SIZE) $@</code></pre>
+</p>
+<p>
+The linker combines all object files using the linker script and produces an ELF executable. The <code>size</code> command prints the section sizes as a quick sanity check.
+</p>
+<h2>Binary Conversion: .elf to .bin/.hex</h2>
+<pre><code class="language-makefile">$(TARGET).bin: $(TARGET).elf
+<p>
+	$(OBJCOPY) -O binary $&lt; $@
+</p>
+<p>
+$(TARGET).hex: $(TARGET).elf
+	$(OBJCOPY) -O ihex $&lt; $@</code></pre>
+</p>
+<p>
+Most flash tools require raw binary (<code>.bin</code>) or Intel HEX (<code>.hex</code>), not ELF.
+</p>
+<h2>Flash Target</h2>
+<h3>Using st-flash (ST-Link)</h3>
+<pre><code class="language-makefile">flash: $(TARGET).bin
+<p>
+	st-flash write $&lt; 0x08000000</code></pre>
+</p>
+<h3>Using OpenOCD</h3>
+<pre><code class="language-makefile">flash: $(TARGET).elf
+<p>
+	openocd -f interface/stlink-v2.cfg \
+	        -f target/stm32f1x.cfg \
+	        -c "program $&lt; verify reset exit"</code></pre>
+</p>
+<p>
+<a href="https://www.hackster.io/yusefkarim/upload-code-to-stm32l4-using-linux-gnu-make-and-openocd-a3d4de">OpenOCD</a> can program, verify, and reset in a single command.
+</p>
+<h2>Clean Target</h2>
+<pre><code class="language-makefile">clean:
+<p>
+	rm -f $(OBJS) $(TARGET).elf $(TARGET).bin $(TARGET).hex $(TARGET).map</code></pre>
+</p>
+<h2>Debug vs Release Builds</h2>
+<p>
+Use a variable to switch between debug and release configurations:
+</p>
+<pre><code class="language-makefile"># Set BUILD=debug or BUILD=release (default: debug)
+<p>
+BUILD ?= debug
+</p>
+<p>
+ifeq ($(BUILD),debug)
+  CFLAGS += -g3 -O0 -DDEBUG
+else
+  CFLAGS += -Os -DNDEBUG
+endif</code></pre>
+</p>
+<ul>
+<li><strong>Debug</strong>: <code>-g3</code> (full debug symbols), <code>-O0</code> (no optimization), <code>-DDEBUG</code> (enable debug code).</li>
+<li><strong>Release</strong>: <code>-Os</code> (optimize for size), <code>-DNDEBUG</code> (disable assertions).</li>
+</ul>
+<h2>Debug with GDB</h2>
+<pre><code class="language-makefile">debug: $(TARGET).elf
+<p>
+	openocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg &amp;
+	arm-none-eabi-gdb $&lt; \
+	    -ex "target remote :3333" \
+	    -ex "monitor reset halt" \
+	    -ex "load"</code></pre>
+</p>
+<p>
+This starts OpenOCD as a GDB server and connects GDB to it.
+</p>
+<h2>Full Example Makefile</h2>
+<pre><code class="language-makefile">######################################################################
+<h1>Bare-Metal STM32F103 Makefile</h1>
+<p>
+######################################################################
+</p>
+<h1>Toolchain</h1>
+<p>
+CC      = arm-none-eabi-gcc
+OBJCOPY = arm-none-eabi-objcopy
+SIZE    = arm-none-eabi-size
+</p>
+<h1>Project</h1>
+<p>
+TARGET   = firmware
+LDSCRIPT = STM32F103C8Tx.ld
+</p>
+<h1>Sources</h1>
+<p>
+SRCS = src/main.c src/startup.c src/system_stm32f1xx.c
+OBJS = $(SRCS:.c=.o)
+</p>
+<h1>MCU</h1>
+<p>
+MCU = -mcpu=cortex-m3 -mthumb -mfloat-abi=soft
+</p>
+<h1>Build type: debug | release</h1>
+<p>
+BUILD ?= debug
+</p>
+<h1>Flags</h1>
+<p>
+CFLAGS  = $(MCU) -Wall -Wextra -std=c11
+CFLAGS += -ffunction-sections -fdata-sections
+CFLAGS += -I./include
+</p>
+<p>
+ifeq ($(BUILD),debug)
+  CFLAGS += -g3 -O0 -DDEBUG
+else
+  CFLAGS += -Os -DNDEBUG
+endif
+</p>
+<p>
+LDFLAGS  = $(MCU) -T$(LDSCRIPT)
+LDFLAGS += -Wl,--gc-sections
+LDFLAGS += -specs=nano.specs -specs=nosys.specs
+LDFLAGS += -Wl,-Map=$(TARGET).map,--cref
+</p>
+<p>
+######################################################################
+</p>
+<h1>Targets</h1>
+<p>
+######################################################################
+</p>
+<p>
+all: $(TARGET).bin $(TARGET).hex
+</p>
+<p>
+$(TARGET).elf: $(OBJS)
+	$(CC) $(LDFLAGS) $^ -o $@
+	$(SIZE) $@
+</p>
+<p>
+$(TARGET).bin: $(TARGET).elf
+	$(OBJCOPY) -O binary $&lt; $@
+</p>
+<p>
+$(TARGET).hex: $(TARGET).elf
+	$(OBJCOPY) -O ihex $&lt; $@
+</p>
+<p>
+%.o: %.c
+	$(CC) $(CFLAGS) -c $&lt; -o $@
+</p>
+<p>
+flash: $(TARGET).bin
+	st-flash write $&lt; 0x08000000
+</p>
+<p>
+ocd-flash: $(TARGET).elf
+	openocd -f interface/stlink-v2.cfg \
+	        -f target/stm32f1x.cfg \
+	        -c "program $&lt; verify reset exit"
+</p>
+<p>
+debug: $(TARGET).elf
+	openocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg &amp;
+	arm-none-eabi-gdb $&lt; \
+	    -ex "target remote :3333" \
+	    -ex "monitor reset halt" \
+	    -ex "load"
+</p>
+<p>
+disasm: $(TARGET).elf
+	arm-none-eabi-objdump -dS $&lt; &gt; $(TARGET).lst
+</p>
+<p>
+clean:
+	rm -f $(OBJS) $(TARGET).elf $(TARGET).bin $(TARGET).hex \
+	      $(TARGET).map $(TARGET).lst
+</p>
+<p>
+.PHONY: all flash ocd-flash debug disasm clean</code></pre>
+</p>
+<h3>Usage</h3>
+<pre><code class="language-bash">make                        # Build debug (default)
+<p>
+make BUILD=release          # Build release
+make flash                  # Flash with st-flash
+make ocd-flash              # Flash with OpenOCD
+make clean                  # Remove build artifacts
+make disasm                 # Generate disassembly listing</code></pre>
+</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://github.com/stuianna/stm32f1xx_bare_template">STM32F1xx Bare Metal Template - GitHub</a> — Complete Makefile template for STM32F1 bare-metal projects</li>
+<li><a href="https://github.com/lucasdietrich/stm32l011k4-bare-metal">STM32L011K4 Bare Metal Dev - GitHub</a> — Minimal bare-metal project structure with Makefile</li>
+<li><a href="https://www.hackster.io/yusefkarim/upload-code-to-stm32l4-using-linux-gnu-make-and-openocd-a3d4de">Upload Code to STM32L4 Using Linux, GNU Make, and OpenOCD</a> — Guide to flashing STM32 with Make and OpenOCD</li>
+<li><a href="https://jacobmossberg.se/posts/2018/08/11/run-c-program-bare-metal-on-arm-cortex-m3.html">Run a C Program Bare Metal on ARM Cortex-M3</a> — Build and link workflow for Cortex-M3 bare-metal</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="cross-compilation-toolchain.html">Cross-Compilation Toolchain</a> -- the tools this Makefile invokes</li>
+<li><a href="linker-scripts-in-practice.html">Linker Scripts in Practice</a> -- the linker script referenced by LDSCRIPT</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://github.com/stuianna/stm32f1xx_bare_template" target="_blank" rel="noopener">STM32F1xx Bare Metal Template - GitHub</a></li><li><a href="https://github.com/lucasdietrich/stm32l011k4-bare-metal" target="_blank" rel="noopener">STM32L011K4 Bare Metal Dev - GitHub</a></li><li><a href="https://www.hackster.io/yusefkarim/upload-code-to-stm32l4-using-linux-gnu-make-and-openocd-a3d4de" target="_blank" rel="noopener">Upload Code to STM32L4 Using Linux, GNU Make, and OpenOCD</a></li><li><a href="https://jacobmossberg.se/posts/2018/08/11/run-c-program-bare-metal-on-arm-cortex-m3.html" target="_blank" rel="noopener">Run a C Program Bare Metal on ARM Cortex-M3</a></li></ul></div>
+      <div class="page-nav"><a href="volatile-and-compiler-barriers.html"><span class="nav-label">← Previous</span><span class="nav-title">Volatile and Compiler Barriers</span></a><a class="next" href="boot-process-deep-dive.html"><span class="nav-label">Next →</span><span class="nav-title">Boot Process Deep Dive</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

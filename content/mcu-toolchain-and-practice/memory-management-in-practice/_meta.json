@@ -1,0 +1,15 @@
+{
+  "title": "Memory Management in Practice",
+  "slug": "memory-management-in-practice",
+  "order": 3,
+  "tags": ["stack", "heap", "dma", "mpu", "memory-pool"],
+  "status": "draft",
+  "children": [
+    { "slug": "index", "title": "Memory as Most Constrained Resource" },
+    { "slug": "stack-vs-heap", "title": "Stack vs Heap" },
+    { "slug": "dma-controller", "title": "DMA Controller" },
+    { "slug": "mpu-memory-protection", "title": "MPU Memory Protection" },
+    { "slug": "static-allocation-patterns", "title": "Static Allocation Patterns" },
+    { "slug": "external-shared-ram", "title": "External Shared RAM" }
+  ]
+}

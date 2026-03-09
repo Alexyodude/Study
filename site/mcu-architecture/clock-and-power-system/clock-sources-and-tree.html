@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clock Sources and Tree — MCU Study Guide</title>
+  <link rel="stylesheet" href="../../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../index.html">MCU Architecture Overview</a><a class="nav-item" href="../cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title expanded"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item active" href="clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../../index.html">Home</a><span class="sep">/</span><a href="../../mcu-architecture/index.html">MCU Architecture — Understand the Machine</a><span class="sep">/</span><a href="../../mcu-architecture/clock-and-power-system/index.html">Clock and Power System</a><span class="sep">/</span><span>Clock Sources and Tree</span></div>
+      <h1>Clock Sources and Tree</h1>
+      <div class="tags"><span class="tag">mcu</span><span class="tag">clock</span><span class="tag">oscillator</span><span class="tag">hsi</span><span class="tag">hse</span><span class="tag">lsi</span><span class="tag">lse</span><span class="tag">clock-tree</span><span class="tag">stm32</span></div>
+      <h2>Clock Sources</h2>
+<p>
+An MCU needs an oscillating signal to operate. <a href="https://www.compilenrun.com/docs/iot/stm32/stm32-fundamentals/stm32-clock-system/">STM32 devices</a> provide four clock sources -- two high-speed and two low-speed.
+</p>
+<h3>HSI -- High-Speed Internal RC Oscillator</h3>
+<ul>
+<li><strong>Frequency:</strong> 8 MHz (STM32F1) or 16 MHz (STM32F4/L4)</li>
+<li><strong>Accuracy:</strong> +/- 1% at 25 C (varies with temperature and voltage)</li>
+<li><strong>Startup time:</strong> A few microseconds</li>
+<li><strong>No external components needed</strong></li>
+</ul>
+<p>
+The HSI is the <strong>default clock source</strong> at reset. The MCU can boot and run immediately without any external crystal. It's fast to start and good enough for many applications, but its frequency drifts with temperature.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// HSI is already running at reset -- no setup needed
+<p>
+// On STM32F4, SYSCLK = HSI = 16 MHz by default</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// HSI is already running at reset -- no setup needed
+<p>
+// On STM32F4, SYSCLK = HSI = 16 MHz by default
+// Using stm32f4xx-hal, HSI is the default clock source:
+// let dp = pac::Peripherals::take().unwrap();
+// let clocks = dp.RCC.constrain().cfgr.freeze();  // defaults to HSI</code></pre></div></div>
+</p>
+<p>
+<strong>Use when:</strong> External crystal is not available, or during early startup before the HSE is stable.
+</p>
+<h3>HSE -- High-Speed External Crystal/Oscillator</h3>
+<ul>
+<li><strong>Frequency:</strong> Typically 4--25 MHz (8 MHz is most common on STM32 boards)</li>
+<li><strong>Accuracy:</strong> +/- 20 ppm (0.002%) -- far better than HSI</li>
+<li><strong>Startup time:</strong> 1--5 ms (crystal must stabilize)</li>
+<li><strong>Requires:</strong> External crystal + two load capacitors, or an external clock source</li>
+</ul>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Enable HSE and wait for it to stabilize
+<p>
+RCC-&gt;CR |= RCC_CR_HSEON;
+while (!(RCC-&gt;CR &amp; RCC_CR_HSERDY)) { /<em> wait </em>/ }</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// Using raw register access (PAC)
+<p>
+let rcc = unsafe { &amp;*pac::RCC::ptr() };
+rcc.cr.modify(|_, w| w.hseon().set_bit());
+while rcc.cr.read().hserdy().bit_is_clear() {}
+</p>
+<p>
+// Or with stm32f4xx-hal:
+// let clocks = dp.RCC.constrain().cfgr
+//     .use_hse(8.MHz())
+//     .freeze();</code></pre></div></div>
+</p>
+<p>
+<strong>Use when:</strong> You need accurate timing (UART communication, USB, precise timers) or want to drive the PLL to reach high SYSCLK frequencies.
+</p>
+<h3>LSI -- Low-Speed Internal RC Oscillator</h3>
+<ul>
+<li><strong>Frequency:</strong> ~32 kHz (varies, typically 30--60 kHz)</li>
+<li><strong>Accuracy:</strong> Poor (+/- 10% or worse)</li>
+<li><strong>Always available</strong>, even in deep low-power modes</li>
+</ul>
+<p>
+<strong>Use for:</strong> Independent Watchdog (IWDG), wake-up from Standby mode. Not suitable for accurate timekeeping.
+</p>
+<h3>LSE -- Low-Speed External Crystal</h3>
+<ul>
+<li><strong>Frequency:</strong> 32.768 kHz (exactly 2^15 Hz -- divides evenly into 1 Hz)</li>
+<li><strong>Accuracy:</strong> Excellent (+/- 20 ppm)</li>
+<li><strong>Requires:</strong> External 32.768 kHz crystal</li>
+<li><strong>Ultra-low power consumption</strong></li>
+</ul>
+<p>
+<strong>Use for:</strong> Real-Time Clock (RTC) for accurate date/time keeping, even in low-power modes.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Enable LSE
+<p>
+RCC-&gt;BDCR |= RCC_BDCR_LSEON;
+while (!(RCC-&gt;BDCR &amp; RCC_BDCR_LSERDY)) { /<em> wait </em>/ }
+</p>
+<p>
+// Select LSE as RTC clock source
+RCC-&gt;BDCR |= RCC_BDCR_RTCSEL_0;  // LSE selected
+RCC-&gt;BDCR |= RCC_BDCR_RTCEN;     // Enable RTC</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// Using raw register access (PAC)
+<p>
+let rcc = unsafe { &amp;*pac::RCC::ptr() };
+rcc.bdcr.modify(|_, w| w.lseon().set_bit());
+while rcc.bdcr.read().lserdy().bit_is_clear() {}
+</p>
+<p>
+// Select LSE as RTC clock source
+rcc.bdcr.modify(|_, w| w.rtcsel().lse());
+rcc.bdcr.modify(|_, w| w.rtcen().set_bit());</code></pre></div></div>
+</p>
+<h2>Clock Source Comparison</h2>
+<table><thead><tr><th>Source</th><th>Freq</th><th>Accuracy</th><th>External Parts</th><th>Start Time</th><th>Power</th></tr></thead><tbody><tr><td>HSI</td><td>8/16 MHz</td><td>+/- 1%</td><td>None</td><td>us</td><td>Low</td></tr>
+<tr><td>HSE</td><td>4--25 MHz</td><td>+/- 20 ppm</td><td>Crystal + caps</td><td>1--5 ms</td><td>Medium</td></tr>
+<tr><td>LSI</td><td>~32 kHz</td><td>+/- 10%</td><td>None</td><td>us</td><td>Very low</td></tr>
+<tr><td>LSE</td><td>32.768 kHz</td><td>+/- 20 ppm</td><td>Crystal</td><td>0.5--2 s</td><td>Very low</td></tr></tbody></table>
+<h2>The Clock Tree</h2>
+<p>
+The <a href="https://tonyfu97.github.io/MCU1/04_clock_tree/">clock tree</a> is the routing network that distributes clock signals from sources to consumers. It consists of <strong>multiplexers</strong> (MUXes) that select between sources and <strong>prescalers</strong> (dividers) that reduce frequency.
+</p>
+<h3>SYSCLK: The System Clock</h3>
+<p>
+<strong>SYSCLK</strong> is the main clock that drives the CPU and most of the chip. It can be sourced from:
+</p>
+<ol>
+<li>HSI (default at reset)</li>
+<li>HSE</li>
+<li>PLL output (most common for high-performance operation)</li>
+</ol>
+<p>
+The SYSCLK source is selected via the <code>RCC_CFGR</code> register:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Select PLL as SYSCLK source
+<p>
+RCC-&gt;CFGR |= RCC_CFGR_SW_PLL;
+</p>
+<p>
+// Wait until PLL is confirmed as SYSCLK source
+while ((RCC-&gt;CFGR &amp; RCC_CFGR_SWS) != RCC_CFGR_SWS_PLL) { /<em> wait </em>/ }</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// Using raw register access (PAC)
+<p>
+let rcc = unsafe { &amp;*pac::RCC::ptr() };
+rcc.cfgr.modify(|_, w| w.sw().pll());
+</p>
+<p>
+// Wait until PLL is confirmed as SYSCLK source
+while !rcc.cfgr.read().sws().is_pll() {}</code></pre></div></div>
+</p>
+<h3>Clock Distribution</h3>
+<p>
+From SYSCLK, the clock is distributed through a hierarchy of buses:
+</p>
+<pre><code class="language-text">  SYSCLK (e.g., 72 MHz)
+<p>
+     |
+     v
+  AHB Prescaler (/1, /2, /4, ... /512)
+     |
+     +---&gt; HCLK (e.g., 72 MHz)
+     |       |
+     |       +---&gt; CPU core, AHB bus, DMA, memory interface
+     |       +---&gt; Cortex System Timer (SysTick)
+     |
+     +---&gt; APB1 Prescaler (/1, /2, /4, /8, /16)
+     |       |
+     |       +---&gt; PCLK1 (max 36 MHz on STM32F1)
+     |               +---&gt; TIM2-7, UART2-5, SPI2/3, I2C1/2
+     |
+     +---&gt; APB2 Prescaler (/1, /2, /4, /8, /16)
+             |
+             +---&gt; PCLK2 (max 72 MHz on STM32F1)
+                     +---&gt; TIM1/8, USART1, SPI1, ADC</code></pre>
+</p>
+<p>
+<strong>Important:</strong> APB1 peripherals on STM32F1 are limited to 36 MHz, even if SYSCLK is 72 MHz. The APB1 prescaler must be set to /2 or more.
+</p>
+<h3>Timer Clock Quirk</h3>
+<p>
+If the APB prescaler is not /1, the timer clock is <strong>doubled</strong>. For example, with PCLK1 = 36 MHz (APB1 prescaler = /2), timers on APB1 get 72 MHz, not 36 MHz. This ensures timers can run at full system speed.
+</p>
+<h2>Clock Output (MCO)</h2>
+<p>
+STM32 can output a clock signal on a GPIO pin (MCO -- Microcontroller Clock Output). This is useful for:
+</p>
+<ul>
+<li>Debugging: verify your clock configuration with an oscilloscope</li>
+<li>Clocking external devices</li>
+<li>Testing clock accuracy</li>
+</ul>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Output HSI on MCO1 pin (PA8 on STM32F4)
+<p>
+RCC-&gt;CFGR |= RCC_CFGR_MCO1_0 | RCC_CFGR_MCO1_1;  // Select HSI
+// Configure PA8 as alternate function</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// Using raw register access (PAC)
+<p>
+let rcc = unsafe { &amp;*pac::RCC::ptr() };
+rcc.cfgr.modify(|_, w| unsafe { w.mco1().bits(0b11) }); // Select HSI
+// Configure PA8 as alternate function</code></pre></div></div>
+</p>
+<h2>Clock Security System (CSS)</h2>
+<p>
+The CSS monitors the HSE oscillator. If the HSE fails (crystal breaks, bad solder joint), the CSS automatically:
+</p>
+<ol>
+<li>Switches SYSCLK back to HSI</li>
+<li>Generates an NMI (Non-Maskable Interrupt)</li>
+</ol>
+<p>
+This prevents the MCU from hanging if the external crystal stops. Enable it with:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">RCC-&gt;CR |= RCC_CR_CSSON;  // Enable Clock Security System</code></pre></div>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">let rcc = unsafe { &amp;*pac::RCC::ptr() };
+<p>
+rcc.cr.modify(|_, w| w.csson().set_bit()); // Enable Clock Security System</code></pre></div></div>
+</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://tonyfu97.github.io/MCU1/04_clock_tree/">Clock Tree - Peripheral Driver Development</a> — Visual clock tree walkthrough with register configuration</li>
+<li><a href="https://www.compilenrun.com/docs/iot/stm32/stm32-fundamentals/stm32-clock-system/">STM32 Clock System</a> — STM32 clock sources and SYSCLK selection explained</li>
+<li><a href="https://www.ampheo.com/blog/how-to-choose-stm32-clock">How to Choose STM32 Clock</a> — Practical guide for selecting clock sources and crystals</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="pll-and-prescalers.html">PLL and Prescalers</a> -- how to multiply HSE to get high SYSCLK</li>
+<li><a href="sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a> -- which clocks run in each power mode</li>
+<li><a href="../instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a> -- clock speed affects instruction throughput</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://tonyfu97.github.io/MCU1/04_clock_tree/" target="_blank" rel="noopener">Clock Tree - Peripheral Driver Development</a></li><li><a href="https://www.compilenrun.com/docs/iot/stm32/stm32-fundamentals/stm32-clock-system/" target="_blank" rel="noopener">STM32 Clock System</a></li><li><a href="https://www.ampheo.com/blog/how-to-choose-stm32-clock" target="_blank" rel="noopener">How to Choose STM32 Clock</a></li></ul></div>
+      <div class="page-nav"><a href="index.html"><span class="nav-label">← Previous</span><span class="nav-title">Clock as Heartbeat, Power Trade-offs</span></a><a class="next" href="pll-and-prescalers.html"><span class="nav-label">Next →</span><span class="nav-title">PLL and Prescalers</span></a></div>
+    </main>
+  </div>
+  <script src="../../scripts/main.js"></script>
+</body>
+</html>

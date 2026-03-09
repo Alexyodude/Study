@@ -1,0 +1,13 @@
+{
+  "title": "Toolchain & Practice — Build and Debug Real Projects",
+  "slug": "mcu-toolchain-and-practice",
+  "order": 4,
+  "tags": ["debugging", "jtag", "swd", "gdb", "dma", "mpu", "datasheet"],
+  "status": "draft",
+  "children": [
+    { "slug": "index", "title": "Bridging Theory to Practice" },
+    { "slug": "debugging-and-probes", "title": "Debugging and Probes", "type": "directory" },
+    { "slug": "memory-management-in-practice", "title": "Memory Management in Practice", "type": "directory" },
+    { "slug": "mcu-families-compared", "title": "MCU Families Compared", "type": "directory" }
+  ]
+}

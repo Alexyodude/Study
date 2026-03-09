@@ -1,0 +1,13 @@
+{
+  "title": "Clock and Power System",
+  "slug": "clock-and-power-system",
+  "order": 8,
+  "tags": ["clock", "pll", "power", "sleep-modes"],
+  "status": "draft",
+  "children": [
+    { "slug": "index", "title": "Clock as Heartbeat, Power Trade-offs" },
+    { "slug": "clock-sources-and-tree", "title": "Clock Sources and Clock Tree" },
+    { "slug": "pll-and-prescalers", "title": "PLL and Prescalers" },
+    { "slug": "sleep-and-low-power-modes", "title": "Sleep and Low-Power Modes" }
+  ]
+}

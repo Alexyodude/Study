@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Semihosting and Printf — MCU Study Guide</title>
+  <link rel="stylesheet" href="../../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title expanded"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item active" href="semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../../index.html">Home</a><span class="sep">/</span><a href="../../mcu-toolchain-and-practice/index.html">Toolchain & Practice — Build and Debug Real Projects</a><span class="sep">/</span><a href="../../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debugging and Probes</a><span class="sep">/</span><span>Semihosting and Printf</span></div>
+      <h1>Semihosting and Printf</h1>
+      <div class="tags"><span class="tag">semihosting</span><span class="tag">printf</span><span class="tag">itm</span><span class="tag">swo</span><span class="tag">rtt</span><span class="tag">debugging</span><span class="tag">embedded</span></div>
+      <p>
+Getting text output from a microcontroller to your PC is one of the first things you need when developing firmware. There are several methods, each with different trade-offs in speed, intrusiveness, and hardware requirements.
+</p>
+<h2>Overview of Methods</h2>
+<table><thead><tr><th>Method</th><th>Speed</th><th>Pins Needed</th><th>Bidirectional</th><th>Real-Time Safe</th><th>Probe Required</th></tr></thead><tbody><tr><td>UART printf</td><td>Medium</td><td>1-2 (TX/RX)</td><td>Yes</td><td>No (blocking)</td><td>No</td></tr>
+<tr><td>Semihosting</td><td>Very slow</td><td>0 (uses debug)</td><td>Yes</td><td>No (halts CPU)</td><td>Yes</td></tr>
+<tr><td>ITM/SWO</td><td>Fast</td><td>1 (SWO pin)</td><td>No (output only)</td><td>Mostly</td><td>Yes</td></tr>
+<tr><td>SEGGER RTT</td><td>Very fast</td><td>0 (uses debug)</td><td>Yes</td><td>Yes</td><td>J-Link</td></tr></tbody></table>
+<h2>Semihosting</h2>
+<p>
+<a href="https://www.gabevso.dev/posts/semihosting/part-1/">Semihosting</a> redirects standard I/O calls (like <code>printf</code>, <code>fopen</code>, <code>fwrite</code>) from the MCU to the host PC through the debug connection. The MCU does not need a UART or any extra pins.
+</p>
+<h3>How It Works</h3>
+<ol>
+<li>Your code calls <code>printf("Hello\n")</code></li>
+<li>The C library triggers a special <strong>BKPT</strong> (breakpoint) instruction with a specific code</li>
+<li>The debug probe detects this breakpoint and <strong>halts the CPU</strong></li>
+<li>The debugger reads the string from target memory</li>
+<li>The debugger displays the string on the host</li>
+<li>The CPU is resumed</li>
+</ol>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Enable semihosting in your code
+<p>
+extern void initialise_monitor_handles(void);
+</p>
+<p>
+int main(void) {
+    initialise_monitor_handles();  // Initialize semihosting
+    printf("Hello from MCU!\n");   // This goes to the debugger console
+    // ...
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// Rust embedded — using cortex-m-semihosting crate
+<p>
+#![no_std]
+#![no_main]
+</p>
+<p>
+use cortex_m_semihosting::hprintln;
+use cortex_m_rt::entry;
+</p>
+<p>
+#[entry]
+fn main() -&gt; ! {
+    hprintln!("Hello from MCU!");  // This goes to the debugger console
+    loop {}
+}</code></pre></div></div>
+</p>
+<h3>Enabling Semihosting</h3>
+<p>
+In OpenOCD, enable semihosting with:
+</p>
+<pre><code class="language-text">monitor arm semihosting enable</code></pre>
+<p>
+Link with the semihosting-compatible C library:
+</p>
+<pre><code class="language-makefile">LDFLAGS += --specs=rdimon.specs -lrdimon</code></pre>
+<h3>Performance Impact</h3>
+<p>
+Semihosting is <strong>extremely slow</strong> -- each <code>printf</code> can take 10-100+ milliseconds because the CPU halts completely. This makes it unsuitable for:
+</p>
+<ul>
+<li>Interrupt service routines</li>
+<li>Real-time control loops</li>
+<li>Any time-sensitive code</li>
+</ul>
+<p>
+Semihosting is acceptable for one-time initialization messages or infrequent diagnostic output.
+</p>
+<h3>Critical Limitation</h3>
+<p>
+If you build with semihosting enabled and run <strong>without</strong> a debugger connected, the BKPT instruction will cause a <strong>HardFault</strong>. Your firmware will crash immediately. Always have a way to conditionally disable semihosting in release builds.
+</p>
+<h2>ITM and SWO (Instrumentation Trace Macrocell)</h2>
+<p>
+ITM is a hardware trace peripheral built into Cortex-M3, M4, M7, and M33 processors (not available on M0/M0+). It sends data out through the <strong>SWO</strong> (Serial Wire Output) pin, which is part of the SWD debug connector.
+</p>
+<h3>How It Works</h3>
+<ol>
+<li>Your code writes a byte to an ITM stimulus port register</li>
+<li>The ITM hardware serializes the data</li>
+<li>The data is sent out through the SWO pin to the debug probe</li>
+<li>The probe forwards it to the host PC</li>
+</ol>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Write a character to ITM stimulus port 0
+<p>
+void ITM_SendChar(char c) {
+    // Wait until stimulus port is ready
+    while ((ITM-&gt;PORT[0].u32 &amp; 1) == 0);
+    ITM-&gt;PORT[0].u8 = c;
+}
+</p>
+<p>
+// Retarget _write for printf
+int _write(int file, char *data, int len) {
+    for (int i = 0; i &lt; len; i++) {
+        ITM_SendChar(data[i]);
+    }
+    return len;
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// Rust embedded — using cortex-m ITM support
+<p>
+use cortex_m::itm;
+</p>
+<p>
+fn itm_send_char(itm_port: &amp;mut cortex_m::peripheral::itm::Stim, c: u8) {
+    // cortex_m::itm::write_all handles the ready-wait internally
+    itm::write_all(itm_port, &amp;[c]);
+}
+</p>
+<p>
+// Write a string to ITM port 0
+fn itm_write(itm: &amp;mut cortex_m::peripheral::ITM, data: &amp;[u8]) {
+    itm::write_all(&amp;mut itm.stim[0], data);
+}</code></pre></div></div>
+</p>
+<h3>Configuration</h3>
+<p>
+ITM requires configuration on both sides:
+</p>
+<p>
+<strong>Target side</strong> -- enable ITM in the Debug Exception and Monitor Control Register:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Enable TRCENA in DEMCR
+<p>
+CoreDebug-&gt;DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
+</p>
+<p>
+// Unlock ITM
+ITM-&gt;LAR = 0xC5ACCE55;
+</p>
+<p>
+// Enable ITM, set trace bus ID
+ITM-&gt;TCR = ITM_TCR_ITMENA_Msk | ITM_TCR_SYNCENA_Msk;
+</p>
+<p>
+// Enable stimulus port 0
+ITM-&gt;TER = 0x1;</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+unsafe fn itm_init() {
+    // Enable TRCENA in DEMCR
+    let demcr = 0xE000_EDFC as *mut u32;
+    write_volatile(demcr, read_volatile(demcr) | (1 &lt;&lt; 24));
+</p>
+<p>
+    // Unlock ITM
+    write_volatile(0xE000_0FB0 as *mut u32, 0xC5AC_CE55);
+</p>
+<p>
+    // Enable ITM, set trace bus ID
+    let tcr = 0xE000_0E80 as *mut u32;
+    write_volatile(tcr, (1 &lt;&lt; 0) | (1 &lt;&lt; 2)); // ITMENA | SYNCENA
+</p>
+<p>
+    // Enable stimulus port 0
+    write_volatile(0xE000_0E00 as *mut u32, 0x1);
+}</code></pre></div></div>
+</p>
+<p>
+<strong>OpenOCD side</strong> -- configure SWO speed:
+</p>
+<pre><code class="language-text"># In OpenOCD config or telnet
+<p>
+tpiu config internal /dev/stdout uart off 168000000
+</p>
+<h1>Parameters: internal/external, output, format, enable/disable, CPU clock</code></pre></h1>
+<h3>Performance</h3>
+<p>
+ITM output is <strong>non-blocking</strong> as long as the FIFO does not fill up. At 10 MHz SWO speed, each character takes about 1.5 microseconds. An 80-character line takes roughly 120 microseconds -- much faster than semihosting, but not zero cost.
+</p>
+<h3>Limitations</h3>
+<ul>
+<li>Only available on Cortex-M3 and above (not M0/M0+)</li>
+<li>Requires the SWO pin to be connected (not always routed on cheap boards)</li>
+<li>Output only -- you cannot send data from host to target through ITM</li>
+<li>SWO speed is limited by the probe and the target's SWO output divider</li>
+</ul>
+<h2>SEGGER RTT (Real Time Transfer)</h2>
+<p>
+<a href="https://www.segger.com/products/debug-probes/j-link/technology/about-real-time-transfer/">RTT</a> is a proprietary technology from SEGGER that uses the debug probe's memory access capability to transfer data in and out of the target without halting the CPU or using any extra pins.
+</p>
+<h3>How It Works</h3>
+<ol>
+<li>A small <strong>control block</strong> is placed in target RAM, containing ring buffer descriptors</li>
+<li>Your code writes data into an <strong>up buffer</strong> (target to host) in RAM</li>
+<li>The J-Link probe continuously reads this buffer over the debug connection in the background</li>
+<li>For input, the probe writes to a <strong>down buffer</strong> (host to target) that your code polls</li>
+</ol>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">#include "SEGGER_RTT.h"
+<p>
+int main(void) {
+    SEGGER_RTT_Init();
+    SEGGER_RTT_printf(0, "Hello via RTT! Count: %d\n", 42);
+</p>
+<p>
+    // Non-blocking read from host
+    char c;
+    if (SEGGER_RTT_Read(0, &amp;c, 1) &gt; 0) {
+        // Process input character
+    }
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// Rust embedded — using the rtt-target crate
+<p>
+#![no_std]
+#![no_main]
+</p>
+<p>
+use rtt_target::{rprintln, rtt_init_print};
+use cortex_m_rt::entry;
+</p>
+<p>
+#[entry]
+fn main() -&gt; ! {
+    rtt_init_print!();
+    rprintln!("Hello via RTT! Count: {}", 42);
+</p>
+<p>
+    // For bidirectional RTT, use rtt_init! with channels
+    // let channels = rtt_init! { up: { 0: { size: 1024 } } down: { 0: { size: 16 } } };
+    // Non-blocking read would use the down channel
+</p>
+<p>
+    loop {}
+}</code></pre></div></div>
+</p>
+<h3>Performance</h3>
+<p>
+RTT is remarkably fast:
+</p>
+<ul>
+<li>An average line of text takes <strong>less than 1 microsecond</strong> to output</li>
+<li>Speed comes from the fact that writing to a RAM buffer is just a memory copy</li>
+<li>The probe reads the buffer asynchronously -- the CPU is never halted</li>
+</ul>
+<h3>Requirements</h3>
+<ul>
+<li><strong>SEGGER J-Link</strong> debug probe (or J-Link OB on some dev boards)</li>
+<li>Add the RTT source files to your project (freely available from SEGGER)</li>
+<li>Use SEGGER's J-Link RTT Viewer or Telnet client to see output</li>
+</ul>
+<h3>Host-Side Tools</h3>
+<pre><code class="language-bash"># RTT Viewer (GUI) -- bundled with J-Link Software Pack
+<p>
+JLinkRTTViewer
+</p>
+<h1>Or connect via telnet after starting J-Link GDB Server</h1>
+<p>
+telnet localhost 19021</code></pre>
+</p>
+<h2>When to Use Which</h2>
+<table><thead><tr><th>Scenario</th><th>Recommended Method</th></tr></thead><tbody><tr><td>Quick prototype, no spare UART</td><td>Semihosting</td></tr>
+<tr><td>Production-like timing matters</td><td>RTT (if J-Link) or ITM/SWO</td></tr>
+<tr><td>Need output from ISR</td><td>RTT or ITM (never semihosting)</td></tr>
+<tr><td>Cortex-M0/M0+ target</td><td>RTT (ITM not available)</td></tr>
+<tr><td>No SEGGER probe available</td><td>ITM/SWO or UART</td></tr>
+<tr><td>Bidirectional console</td><td>RTT or UART</td></tr>
+<tr><td>Release build logging</td><td>UART (no debug probe dependency)</td></tr></tbody></table>
+<h3>Decision Flowchart</h3>
+<pre><code class="language-text">Do you have a J-Link?
+<p>
+  Yes -&gt; Use SEGGER RTT (fastest, most flexible)
+  No  -&gt; Is your target Cortex-M3 or above?
+           Yes -&gt; Is SWO pin connected?
+                    Yes -&gt; Use ITM/SWO
+                    No  -&gt; Use UART or semihosting (non-real-time only)
+           No  -&gt; Use UART</code></pre>
+</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://blog.segger.com/getting-printf-output-from-target-to-debugger/">Getting printf Output from Target to Debugger - SEGGER Blog</a> — Comparison of printf output methods for embedded</li>
+<li><a href="https://www.segger.com/products/debug-probes/j-link/technology/about-real-time-transfer/">J-Link RTT - Real Time Transfer</a> — Official SEGGER documentation on RTT technology</li>
+<li><a href="https://mcuoneclipse.com/2023/03/09/using-semihosting-the-direct-way/">Using Semihosting the Direct Way</a> — Low-level semihosting implementation details</li>
+<li><a href="https://mcuoneclipse.com/2023/01/29/arm-swo-itm-console-bidirectional-standard-i-o-retargeting/">ARM SWO ITM Console Bidirectional Standard I/O Retargeting</a> — ITM/SWO setup for printf-style output</li>
+<li><a href="https://www.gabevso.dev/posts/semihosting/part-1/">ARM Semihosting Part 1 - Introduction</a> — Introduction to ARM semihosting mechanism</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="openocd-and-gdb.html">OpenOCD and GDB</a> -- configuring SWO output in OpenOCD</li>
+<li><a href="jtag-and-swd.html">JTAG and SWD</a> -- the SWO pin is part of the SWD connector</li>
+<li><a href="fault-debugging-techniques.html">Fault Debugging Techniques</a> -- semihosting can trigger HardFault if debugger is disconnected</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://blog.segger.com/getting-printf-output-from-target-to-debugger/" target="_blank" rel="noopener">Getting printf Output from Target to Debugger - SEGGER Blog</a></li><li><a href="https://www.segger.com/products/debug-probes/j-link/technology/about-real-time-transfer/" target="_blank" rel="noopener">J-Link RTT - Real Time Transfer</a></li><li><a href="https://mcuoneclipse.com/2023/03/09/using-semihosting-the-direct-way/" target="_blank" rel="noopener">Using Semihosting the Direct Way</a></li><li><a href="https://mcuoneclipse.com/2023/01/29/arm-swo-itm-console-bidirectional-standard-i-o-retargeting/" target="_blank" rel="noopener">ARM SWO ITM Console Bidirectional Standard I/O Retargeting</a></li><li><a href="https://www.gabevso.dev/posts/semihosting/part-1/" target="_blank" rel="noopener">ARM Semihosting Part 1 - Introduction</a></li></ul></div>
+      <div class="page-nav"><a href="openocd-and-gdb.html"><span class="nav-label">← Previous</span><span class="nav-title">OpenOCD and GDB</span></a><a class="next" href="fault-debugging-techniques.html"><span class="nav-label">Next →</span><span class="nav-title">Fault Debugging Techniques</span></a></div>
+    </main>
+  </div>
+  <script src="../../scripts/main.js"></script>
+</body>
+</html>

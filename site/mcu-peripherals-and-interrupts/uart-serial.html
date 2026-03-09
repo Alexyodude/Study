@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UART Serial Communication — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="timers-and-counters.html">Timers and Counters</a><a class="nav-item active" href="uart-serial.html">UART Serial Communication</a><a class="nav-item" href="spi-protocol.html">SPI Protocol</a><a class="nav-item" href="i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../mcu-peripherals-and-interrupts/index.html">Peripherals & Interrupts — Interact with the World</a><span class="sep">/</span><span>UART Serial Communication</span></div>
+      <h1>UART Serial Communication</h1>
+      <div class="tags"><span class="tag">uart</span><span class="tag">usart</span><span class="tag">serial</span><span class="tag">stm32</span><span class="tag">cortex-m</span><span class="tag">peripheral</span><span class="tag">communication</span></div>
+      <p>
+UART (Universal Asynchronous Receiver/Transmitter) is the most common way to get debug output from an MCU or communicate with GPS modules, Bluetooth adapters, and other serial devices. It uses <strong>two wires</strong> (TX and RX) with no clock -- both sides must agree on the baud rate.
+</p>
+<h2>Frame Format</h2>
+<p>
+Each UART frame looks like this on the wire:
+</p>
+<pre><code class="language-text">Idle (HIGH)
+<p>
+    |  Start  |  D0  D1  D2  D3  D4  D5  D6  D7  | Parity | Stop |
+    |   (0)   |         8 data bits                | (opt)  | (1)  |</code></pre>
+</p>
+<ul>
+<li><strong>Start bit:</strong> Always LOW. Signals the beginning of a frame.</li>
+<li><strong>Data bits:</strong> 8 bits (or 7/9), LSB first.</li>
+<li><strong>Parity bit:</strong> Optional error detection (even or odd).</li>
+<li><strong>Stop bit:</strong> Always HIGH. 1 or 2 stop bits.</li>
+<li><strong>Idle:</strong> Line stays HIGH when no data is being sent.</li>
+</ul>
+<h2>Baud Rate</h2>
+<p>
+Baud rate = bits per second on the wire. Both transmitter and receiver must use the <strong>exact same</strong> baud rate.
+</p>
+<p>
+Common values: 9600, 19200, 38400, 57600, <strong>115200</strong> (most popular for debug).
+</p>
+<h3>Baud Rate Calculation</h3>
+<p>
+The USART divides its input clock to produce the baud rate:
+</p>
+<pre><code class="language-text">USARTDIV = f_clock / (16 * baud_rate)     // for oversampling by 16
+<p>
+USARTDIV = f_clock / (8 * baud_rate)      // for oversampling by 8</code></pre>
+</p>
+<p>
+The BRR register holds this value. On STM32F4 with <a href="https://controllerstech.com/how-to-setup-uart-using-registers-in-stm32/">16x oversampling</a>:
+</p>
+<pre><code class="language-text">f_clock = 42 MHz (APB1), baud = 115200
+<p>
+USARTDIV = 42,000,000 / (16 * 115200) = 22.786
+BRR mantissa = 22 (integer part)
+BRR fraction = 0.786 * 16 = 12.58 ≈ 13
+</p>
+<p>
+BRR = (22 &lt;&lt; 4) | 13 = 0x16D</code></pre>
+</p>
+<h2>Key Registers</h2>
+<table><thead><tr><th>Register</th><th>Purpose</th></tr></thead><tbody><tr><td>USART_BRR</td><td>Baud rate divisor (mantissa + fraction)</td></tr>
+<tr><td>USART_CR1</td><td>Enable USART, TX, RX; word length; parity; interrupts</td></tr>
+<tr><td>USART_CR2</td><td>Stop bits (1 or 2), clock settings</td></tr>
+<tr><td>USART_CR3</td><td>DMA enable, hardware flow control</td></tr>
+<tr><td>USART_SR (or ISR)</td><td>Status flags: TXE, RXNE, TC, ORE, etc.</td></tr>
+<tr><td>USART_DR (or TDR/RDR)</td><td>Data register for send/receive</td></tr></tbody></table>
+<h3>Important Status Flags</h3>
+<table><thead><tr><th>Flag</th><th>Meaning</th></tr></thead><tbody><tr><td>TXE</td><td>Transmit data register empty -- safe to write next byte</td></tr>
+<tr><td>RXNE</td><td>Receive data register not empty -- new byte available</td></tr>
+<tr><td>TC</td><td>Transmission complete -- all bits shifted out</td></tr>
+<tr><td>ORE</td><td>Overrun error -- new byte arrived before previous was read</td></tr>
+<tr><td>FE</td><td>Framing error -- stop bit was not HIGH</td></tr></tbody></table>
+<h2>Transmit Flow</h2>
+<pre><code class="language-text">1. Wait for TXE (transmit buffer empty)
+<ol>
+<li>Write byte to DR</li>
+<li>Hardware shifts it out bit-by-bit</li>
+<li>TXE goes high again when ready for next byte</li>
+<li>TC goes high when last bit is fully transmitted</code></pre></li>
+</ol>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">void uart_send_char(char c) {
+<p>
+    while (!(USART2-&gt;SR &amp; USART_SR_TXE)) { }  // wait for empty
+    USART2-&gt;DR = c;
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+const USART2_SR: <em>const u32 = 0x4000_4400 as </em>const u32;
+const USART2_DR: <em>mut u32 = (0x4000_4400 + 0x04) as </em>mut u32;
+</p>
+<p>
+unsafe fn uart_send_char(c: u8) {
+    while read_volatile(USART2_SR) &amp; (1 &lt;&lt; 7) == 0 {}  // wait TXE
+    write_volatile(USART2_DR, c as u32);
+}</code></pre></div></div>
+</p>
+<h2>Receive Flow</h2>
+<pre><code class="language-text">1. Hardware detects start bit, samples data bits
+<ol>
+<li>When full byte received, RXNE flag is set</li>
+<li>Read DR to get the byte (also clears RXNE)</li>
+<li>If you don't read before next byte arrives: ORE (overrun)</code></pre></li>
+</ol>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">char uart_recv_char(void) {
+<p>
+    while (!(USART2-&gt;SR &amp; USART_SR_RXNE)) { }  // wait for data
+    return USART2-&gt;DR;
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::read_volatile;
+<p>
+const USART2_SR: <em>const u32 = 0x4000_4400 as </em>const u32;
+const USART2_DR: <em>const u32 = (0x4000_4400 + 0x04) as </em>const u32;
+</p>
+<p>
+unsafe fn uart_recv_char() -&gt; u8 {
+    while read_volatile(USART2_SR) &amp; (1 &lt;&lt; 5) == 0 {}  // wait RXNE
+    read_volatile(USART2_DR) as u8
+}</code></pre></div></div>
+</p>
+<h2>Example: Sending "Hello" at 115200 Baud</h2>
+<p>
+Using USART2 on STM32F4 (PA2 = TX, PA3 = RX), APB1 clock = 42 MHz (based on the <a href="https://vivonomicon.com/2020/06/28/bare-metal-stm32-programming-part-10-uart-communication/">bare metal UART programming</a> approach):
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// 1. Enable clocks
+<p>
+RCC-&gt;APB1ENR |= RCC_APB1ENR_USART2EN;
+RCC-&gt;AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
+</p>
+<p>
+// 2. Configure PA2 (TX) and PA3 (RX) as alternate function (AF7)
+GPIOA-&gt;MODER &amp;= ~((0x3 &lt;&lt; (2<em>2)) | (0x3 &lt;&lt; (3</em>2)));
+GPIOA-&gt;MODER |=  ((0x2 &lt;&lt; (2<em>2)) | (0x2 &lt;&lt; (3</em>2)));
+GPIOA-&gt;AFR[0] |= (0x7 &lt;&lt; (2<em>4)) | (0x7 &lt;&lt; (3</em>4));   // AF7
+</p>
+<p>
+// 3. Configure UART: 8N1 at 115200
+USART2-&gt;BRR = 0x016D;    // 42 MHz / (16 * 115200) ≈ 22.786
+</p>
+<p>
+USART2-&gt;CR1 = 0;         // reset
+USART2-&gt;CR1 |= USART_CR1_TE    // enable transmitter
+             | USART_CR1_RE    // enable receiver
+             | USART_CR1_UE;   // enable USART
+</p>
+<p>
+// 4. Send "Hello\r\n"
+const char *msg = "Hello\r\n";
+while (*msg) {
+    while (!(USART2-&gt;SR &amp; USART_SR_TXE)) { }
+    USART2-&gt;DR = *msg++;
+}
+// Wait for last byte to finish transmitting
+while (!(USART2-&gt;SR &amp; USART_SR_TC)) { }</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+const RCC_APB1ENR: <em>mut u32 = (0x4002_3800 + 0x40) as </em>mut u32;
+const RCC_AHB1ENR: <em>mut u32 = (0x4002_3800 + 0x30) as </em>mut u32;
+const GPIOA_MODER: <em>mut u32 = 0x4002_0000 as </em>mut u32;
+const GPIOA_AFRL: <em>mut u32 = (0x4002_0000 + 0x20) as </em>mut u32;
+const USART2_BASE: u32 = 0x4000_4400;
+const USART2_SR: <em>const u32 = USART2_BASE as </em>const u32;
+const USART2_DR: <em>mut u32 = (USART2_BASE + 0x04) as </em>mut u32;
+const USART2_BRR: <em>mut u32 = (USART2_BASE + 0x08) as </em>mut u32;
+const USART2_CR1: <em>mut u32 = (USART2_BASE + 0x0C) as </em>mut u32;
+</p>
+<p>
+unsafe {
+    // 1. Enable clocks
+    write_volatile(RCC_APB1ENR, read_volatile(RCC_APB1ENR) | (1 &lt;&lt; 17)); // USART2EN
+    write_volatile(RCC_AHB1ENR, read_volatile(RCC_AHB1ENR) | (1 &lt;&lt; 0)); // GPIOAEN
+</p>
+<p>
+    // 2. Configure PA2 (TX) and PA3 (RX) as AF7
+    let moder = read_volatile(GPIOA_MODER);
+    write_volatile(GPIOA_MODER,
+        (moder &amp; !((0x3 &lt;&lt; 4) | (0x3 &lt;&lt; 6))) | ((0x2 &lt;&lt; 4) | (0x2 &lt;&lt; 6)));
+    let afrl = read_volatile(GPIOA_AFRL);
+    write_volatile(GPIOA_AFRL, afrl | (0x7 &lt;&lt; 8) | (0x7 &lt;&lt; 12)); // AF7
+</p>
+<p>
+    // 3. Configure UART: 8N1 at 115200
+    write_volatile(USART2_BRR, 0x016D); // 42 MHz / (16 * 115200)
+</p>
+<p>
+    write_volatile(USART2_CR1, 0); // reset
+    write_volatile(USART2_CR1,
+          (1 &lt;&lt; 3)    // TE: enable transmitter
+        | (1 &lt;&lt; 2)    // RE: enable receiver
+        | (1 &lt;&lt; 13)); // UE: enable USART
+</p>
+<p>
+    // 4. Send "Hello\r\n"
+    for &amp;byte in b"Hello\r\n" {
+        while read_volatile(USART2_SR) &amp; (1 &lt;&lt; 7) == 0 {} // TXE
+        write_volatile(USART2_DR, byte as u32);
+    }
+    // Wait for last byte to finish transmitting
+    while read_volatile(USART2_SR) &amp; (1 &lt;&lt; 6) == 0 {} // TC
+}</code></pre></div></div>
+</p>
+<h2>Common Issues</h2>
+<h3>Baud Rate Mismatch</h3>
+<p>
+If you see garbled characters, the baud rate is wrong. Double-check:
+</p>
+<ul>
+<li>Which clock bus feeds your USART (APB1 vs APB2 -- different speeds)</li>
+<li>Whether the system clock is actually what you think (check RCC configuration)</li>
+</ul>
+<h3>Overrun Errors</h3>
+<p>
+If RXNE is not read before the next byte arrives, the overrun flag (ORE) is set and the new byte is <strong>lost</strong>. Solutions:
+</p>
+<ul>
+<li>Use interrupt-driven receive with a ring buffer</li>
+<li>Use DMA for high-speed reception</li>
+</ul>
+<h3>Noise and Framing Errors</h3>
+<p>
+Long wires, mismatched ground, or electrical noise cause bit errors. Noise Error (NE) and Framing Error (FE) flags indicate this. Keep UART wires short or use RS-232/RS-485 level converters for longer distances.
+</p>
+<h3>8N1 vs Other Formats</h3>
+<p>
+"8N1" means 8 data bits, No parity, 1 stop bit -- the default and most common. If the other device expects a different format (e.g., 8E1 for even parity), configure CR1 and CR2 accordingly.
+</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://controllerstech.com/how-to-setup-uart-using-registers-in-stm32/">Setup STM32 UART via Registers (Blocking Mode)</a> — Register-level UART setup with BRR calculation details</li>
+<li><a href="https://vivonomicon.com/2020/06/28/bare-metal-stm32-programming-part-10-uart-communication/">Bare Metal STM32 Programming: UART Communication</a> — Step-by-step bare metal UART implementation guide</li>
+<li><a href="https://deepbluembedded.com/stm32-usart-uart-tutorial/">STM32 UART (USART) Tutorial + Examples</a> — Comprehensive UART tutorial with HAL and register examples</li>
+<li><a href="https://hackaday.com/2021/01/08/bare-metal-stm32-universal-asynchronous-communication-with-uarts/">Bare-Metal STM32: Universal Asynchronous Communication With UARTs</a> — Hackaday guide to UART frame format and configuration</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="gpio-register-level.html">GPIO Alternate Functions</a> -- setting up TX/RX pins</li>
+<li><a href="interrupt-system/isr-design-patterns.html">ISR Design Patterns</a> -- ring buffer for UART RX</li>
+<li><a href="interrupt-system/index.html">Interrupt System</a> -- RXNE and TXE interrupts</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://controllerstech.com/how-to-setup-uart-using-registers-in-stm32/" target="_blank" rel="noopener">Setup STM32 UART via Registers (Blocking Mode)</a></li><li><a href="https://vivonomicon.com/2020/06/28/bare-metal-stm32-programming-part-10-uart-communication/" target="_blank" rel="noopener">Bare Metal STM32 Programming: UART Communication</a></li><li><a href="https://deepbluembedded.com/stm32-usart-uart-tutorial/" target="_blank" rel="noopener">STM32 UART (USART) Tutorial + Examples</a></li><li><a href="https://hackaday.com/2021/01/08/bare-metal-stm32-universal-asynchronous-communication-with-uarts/" target="_blank" rel="noopener">Bare-Metal STM32: Universal Asynchronous Communication With UARTs</a></li></ul></div>
+      <div class="page-nav"><a href="timers-and-counters.html"><span class="nav-label">← Previous</span><span class="nav-title">Timers and Counters</span></a><a class="next" href="spi-protocol.html"><span class="nav-label">Next →</span><span class="nav-title">SPI Protocol</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

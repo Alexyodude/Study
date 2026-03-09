@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RISC-V Microcontrollers — MCU Study Guide</title>
+  <link rel="stylesheet" href="../../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title expanded"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="index.html">How to Read a Datasheet</a><a class="nav-item" href="arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="avr-architecture.html">AVR Architecture</a><a class="nav-item active" href="risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../../index.html">Home</a><span class="sep">/</span><a href="../../mcu-toolchain-and-practice/index.html">Toolchain & Practice — Build and Debug Real Projects</a><span class="sep">/</span><a href="../../mcu-toolchain-and-practice/mcu-families-compared/index.html">MCU Families Compared</a><span class="sep">/</span><span>RISC-V Microcontrollers</span></div>
+      <h1>RISC-V Microcontrollers</h1>
+      <div class="tags"><span class="tag">risc-v</span><span class="tag">esp32-c3</span><span class="tag">gd32v</span><span class="tag">ch32v</span><span class="tag">open-source</span><span class="tag">embedded</span></div>
+      <p>
+RISC-V is an open-source instruction set architecture (ISA) that is rapidly gaining ground in the microcontroller space. Unlike ARM, where licensees pay royalties, RISC-V is freely available for anyone to implement. This has attracted both major chip companies and open-source hardware enthusiasts.
+</p>
+<h2>The RISC-V ISA</h2>
+<p>
+RISC-V is designed to be modular. There is a small base integer ISA, and additional functionality comes from standard extensions that vendors can include or omit.
+</p>
+<h3>Base Integer ISAs</h3>
+<table><thead><tr><th>Base ISA</th><th>Register Width</th><th>Description</th></tr></thead><tbody><tr><td><strong>RV32I</strong></td><td>32-bit</td><td>Base integer instructions -- the minimum for any RISC-V MCU</td></tr>
+<tr><td><strong>RV32E</strong></td><td>32-bit</td><td>Embedded variant with 16 registers instead of 32 (for tiny cores)</td></tr>
+<tr><td><strong>RV64I</strong></td><td>64-bit</td><td>64-bit base (for application processors, not typical MCUs)</td></tr></tbody></table>
+<h3>Standard Extensions</h3>
+<p>
+Extensions are denoted by single letters appended to the base ISA:
+</p>
+<table><thead><tr><th>Extension</th><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><strong>M</strong></td><td>Multiply/Divide</td><td>Hardware integer multiply and divide</td></tr>
+<tr><td><strong>A</strong></td><td>Atomic</td><td>Atomic read-modify-write operations (for multicore)</td></tr>
+<tr><td><strong>F</strong></td><td>Single-precision Float</td><td>32-bit floating-point</td></tr>
+<tr><td><strong>D</strong></td><td>Double-precision Float</td><td>64-bit floating-point</td></tr>
+<tr><td><strong>C</strong></td><td>Compressed</td><td>16-bit compressed instructions (like ARM Thumb)</td></tr></tbody></table>
+<p>
+Common MCU configurations:
+</p>
+<ul>
+<li><strong>RV32IMC</strong> -- integer with multiply and compressed instructions (most common for MCUs)</li>
+<li><strong>RV32IMAC</strong> -- adds atomics (needed for multicore or RTOS)</li>
+<li><strong>RV32IMAFC</strong> -- adds single-precision float</li>
+</ul>
+<p>
+The "C" extension is almost always included because it significantly reduces code size -- important when flash is limited.
+</p>
+<h2>Why Open-Source Matters</h2>
+<p>
+ARM charges licensing fees to chip manufacturers, and the core designs are proprietary. RISC-V is different:
+</p>
+<ul>
+<li><strong>No royalties</strong> -- anyone can design and sell a RISC-V chip without paying ISA fees</li>
+<li><strong>Customizable</strong> -- vendors can add custom instructions for their specific use case</li>
+<li><strong>Transparent</strong> -- the ISA specification is publicly available and community-developed</li>
+<li><strong>Growing ecosystem</strong> -- open-source cores like PULP, Rocket, and VexRiscv are freely available</li>
+</ul>
+<p>
+For chip designers, this means lower costs. For developers, it means more competition and potentially lower chip prices.
+</p>
+<h2>Notable RISC-V MCUs</h2>
+<h3>ESP32-C3 (Espressif)</h3>
+<p>
+The <a href="https://hackaday.com/2021/02/08/hands-on-the-risc-v-esp32-c3-will-be-your-new-esp8266/">most successful RISC-V MCU</a> to date, from the makers of the popular ESP32.
+</p>
+<table><thead><tr><th>Feature</th><th>Specification</th></tr></thead><tbody><tr><td>Core</td><td>32-bit RISC-V (RV32IMC), single core</td></tr>
+<tr><td>Clock</td><td>Up to 160 MHz</td></tr>
+<tr><td>Flash</td><td>External, typically 4 MB on module</td></tr>
+<tr><td>SRAM</td><td>400 KB</td></tr>
+<tr><td>Wireless</td><td>Wi-Fi 802.11 b/g/n + Bluetooth 5 LE</td></tr>
+<tr><td>GPIO</td><td>22</td></tr>
+<tr><td>ADC</td><td>2x 12-bit SAR, 6 channels</td></tr>
+<tr><td>Interfaces</td><td>SPI, I2C, UART, I2S, LED PWM, USB Serial/JTAG</td></tr>
+<tr><td>Price</td><td>~$1-2 in quantity</td></tr></tbody></table>
+<p>
+The <a href="https://www.espressif.com/en/products/socs/esp32-c3">ESP32-C3</a> is positioned as a replacement for the ESP8266, offering similar Wi-Fi capability with added BLE, better security (secure boot, flash encryption), and a modern RISC-V core. It uses the same ESP-IDF development framework as other ESP32 variants.
+</p>
+<h3>GD32VF103 (GigaDevice)</h3>
+<p>
+A RISC-V MCU designed as a pin-compatible alternative to the STM32F103.
+</p>
+<table><thead><tr><th>Feature</th><th>Specification</th></tr></thead><tbody><tr><td>Core</td><td>Bumblebee (RV32IMAC), based on Nuclei N200</td></tr>
+<tr><td>Clock</td><td>Up to 108 MHz</td></tr>
+<tr><td>Flash</td><td>16-128 KB</td></tr>
+<tr><td>SRAM</td><td>6-32 KB</td></tr>
+<tr><td>Peripherals</td><td>UART, SPI, I2C, CAN, USB OTG, ADC, DAC</td></tr>
+<tr><td>Price</td><td>~$1-3</td></tr></tbody></table>
+<p>
+The GD32VF103 offers similar peripherals to the STM32F103 at a competitive price. However, its ecosystem is less mature, with fewer libraries and community examples.
+</p>
+<h3>CH32V Series (WCH)</h3>
+<p>
+WCH (Nanjing Qinheng Microelectronics) produces ultra-low-cost RISC-V MCUs.
+</p>
+<table><thead><tr><th>Chip</th><th>Core</th><th>Clock</th><th>Flash</th><th>SRAM</th><th>Notable Feature</th></tr></thead><tbody><tr><td><strong>CH32V003</strong></td><td>RV32EC</td><td>48 MHz</td><td>16 KB</td><td>2 KB</td><td>~$0.10 -- cheapest MCU available</td></tr>
+<tr><td><strong>CH32V103</strong></td><td>RV32IMAC</td><td>80 MHz</td><td>64 KB</td><td>20 KB</td><td>USB, CAN</td></tr>
+<tr><td><strong>CH32V307</strong></td><td>RV32IMAFC</td><td>144 MHz</td><td>256 KB</td><td>64 KB</td><td>Ethernet, USB HS</td></tr></tbody></table>
+<p>
+The CH32V003 is remarkable for its price -- it competes with the cheapest 8-bit MCUs while offering a 32-bit RISC-V core. WCH provides a free toolchain (MounRiver Studio) and proprietary programming tools.
+</p>
+<h2>RISC-V vs ARM Cortex-M Comparison</h2>
+<table><thead><tr><th>Aspect</th><th>RISC-V MCUs</th><th>ARM Cortex-M</th></tr></thead><tbody><tr><td>ISA license</td><td>Free / open</td><td>Proprietary (royalty)</td></tr>
+<tr><td>Ecosystem maturity</td><td>Growing</td><td>Very mature</td></tr>
+<tr><td>Debugging</td><td>Varies (JTAG, proprietary)</td><td>Standardized (CoreSight, SWD)</td></tr>
+<tr><td>Code density</td><td>Good with C extension</td><td>Excellent (Thumb-2)</td></tr>
+<tr><td>Vendor support</td><td>Varies widely</td><td>Consistent across vendors</td></tr>
+<tr><td>Community</td><td>Enthusiastic but smaller</td><td>Massive</td></tr>
+<tr><td>IDE support</td><td>Improving (PlatformIO, Eclipse)</td><td>Excellent (CubeIDE, Keil, IAR)</td></tr>
+<tr><td>RTOS support</td><td>FreeRTOS, Zephyr, RT-Thread</td><td>Nearly all RTOSes</td></tr>
+<tr><td>Documentation</td><td>Often sparse</td><td>Usually excellent</td></tr></tbody></table>
+<h3>Where RISC-V Wins</h3>
+<ul>
+<li><strong>Cost</strong> -- no ISA royalties mean potentially cheaper chips (CH32V003 at $0.10)</li>
+<li><strong>Customization</strong> -- vendors can add custom instructions</li>
+<li><strong>Philosophy</strong> -- open-source aligns with certain project values</li>
+<li><strong>Wireless IoT</strong> -- ESP32-C3 is a compelling Wi-Fi+BLE solution</li>
+</ul>
+<h3>Where ARM Wins</h3>
+<ul>
+<li><strong>Ecosystem</strong> -- decades of libraries, tools, examples, and community knowledge</li>
+<li><strong>Debugging</strong> -- CoreSight is standardized; RISC-V debug varies by vendor</li>
+<li><strong>Vendor diversity</strong> -- dozens of vendors with consistent development experience</li>
+<li><strong>Safety certification</strong> -- ARM cores have extensive certification history</li>
+</ul>
+<h2>Toolchain</h2>
+<p>
+The standard RISC-V GCC toolchain is <code>riscv-none-embed-gcc</code> (bare-metal) or <code>riscv-none-elf-gcc</code>:
+</p>
+<pre><code class="language-bash"># Compile for RV32IMC target
+<p>
+riscv-none-embed-gcc -march=rv32imc -mabi=ilp32 -Os \
+    -o firmware.elf main.c startup.c
+</p>
+<h1>Flash depends on the chip and programmer</h1>
+<h1>ESP32-C3: use esptool.py (same as ESP32)</h1>
+<h1>GD32V: use dfu-util or OpenOCD</h1>
+<h1>CH32V: use WCH-specific tools (wchisp, WCH-Link)</code></pre></h1>
+<h3>OpenOCD Support</h3>
+<p>
+OpenOCD has growing RISC-V support, but it is not as polished as ARM Cortex-M:
+</p>
+<pre><code class="language-bash"># GD32VF103 with CMSIS-DAP
+<p>
+openocd -f interface/cmsis-dap.cfg -f target/gd32vf103.cfg
+</p>
+<h1>ESP32-C3 uses its built-in USB JTAG</h1>
+<p>
+openocd -f board/esp32c3-builtin.cfg</code></pre>
+</p>
+<p>
+GDB for RISC-V is <code>riscv-none-embed-gdb</code> and works similarly to <code>arm-none-eabi-gdb</code>.
+</p>
+<h2>Current Ecosystem Maturity</h2>
+<p>
+As of 2026, the RISC-V MCU ecosystem is at an inflection point:
+</p>
+<p>
+<strong>Mature</strong>:
+</p>
+<ul>
+<li>ESP32-C3/C6 -- well-supported through ESP-IDF, large community</li>
+<li>FreeRTOS and Zephyr RTOS support</li>
+<li>GCC and LLVM compiler support</li>
+</ul>
+<p>
+<strong>Improving</strong>:
+</p>
+<ul>
+<li>OpenOCD debug support</li>
+<li>IDE integration (VS Code, PlatformIO)</li>
+<li>Third-party library availability</li>
+<li>Documentation quality (varies widely by vendor)</li>
+</ul>
+<p>
+<strong>Still Lacking</strong>:
+</p>
+<ul>
+<li>Standardized debug architecture (no CoreSight equivalent)</li>
+<li>Consistent peripheral abstraction (no CMSIS equivalent)</li>
+<li>Safety certification track record</li>
+<li>Mature static analysis and testing tools</li>
+</ul>
+<h3>Recommendation</h3>
+<p>
+For new projects in 2026: if you need Wi-Fi + BLE, the ESP32-C3 is a strong choice regardless of architecture. For general-purpose embedded learning, ARM Cortex-M still offers the best tooling and documentation. Keep an eye on RISC-V -- the ecosystem is improving rapidly.
+</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://www.dfrobot.com/blog-13495.html">Guide to RISC-V MCU: Comparative Analysis of ESP32-C3, GD32VF103, and K210</a> — Comparison of popular RISC-V microcontrollers</li>
+<li><a href="https://hackaday.com/2021/02/08/hands-on-the-risc-v-esp32-c3-will-be-your-new-esp8266/">Hands-On: The RISC-V ESP32-C3 - Hackaday</a> — Practical review of the ESP32-C3 platform</li>
+<li><a href="https://www.espressif.com/en/products/socs/esp32-c3">ESP32-C3 Wi-Fi & BLE 5 SoC - Espressif</a> — Official ESP32-C3 product page and specifications</li>
+<li><a href="https://www.elektormagazine.com/news/getting-started-with-the-esp32-c3-riscv-mcu">Getting Started with the ESP32-C3 RISC-V Microcontroller</a> — Introductory guide for ESP32-C3 development</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="arm-cortex-m.html">ARM Cortex-M</a> -- the established competitor</li>
+<li><a href="avr-architecture.html">AVR Architecture</a> -- the 8-bit alternative</li>
+<li><a href="choosing-an-mcu.html">Choosing an MCU</a> -- where RISC-V fits in the decision</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://www.dfrobot.com/blog-13495.html" target="_blank" rel="noopener">Guide to RISC-V MCU: Comparative Analysis of ESP32-C3, GD32VF103, and K210</a></li><li><a href="https://hackaday.com/2021/02/08/hands-on-the-risc-v-esp32-c3-will-be-your-new-esp8266/" target="_blank" rel="noopener">Hands-On: The RISC-V ESP32-C3 - Hackaday</a></li><li><a href="https://www.espressif.com/en/products/socs/esp32-c3" target="_blank" rel="noopener">ESP32-C3 Wi-Fi & BLE 5 SoC - Espressif</a></li><li><a href="https://www.elektormagazine.com/news/getting-started-with-the-esp32-c3-riscv-mcu" target="_blank" rel="noopener">Getting Started with the ESP32-C3 RISC-V Microcontroller</a></li></ul></div>
+      <div class="page-nav"><a href="avr-architecture.html"><span class="nav-label">← Previous</span><span class="nav-title">AVR Architecture</span></a><a class="next" href="choosing-an-mcu.html"><span class="nav-label">Next →</span><span class="nav-title">Choosing an MCU</span></a></div>
+    </main>
+  </div>
+  <script src="../../scripts/main.js"></script>
+</body>
+</html>

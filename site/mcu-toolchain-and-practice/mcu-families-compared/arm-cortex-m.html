@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARM Cortex-M — MCU Study Guide</title>
+  <link rel="stylesheet" href="../../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title expanded"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="index.html">How to Read a Datasheet</a><a class="nav-item active" href="arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="avr-architecture.html">AVR Architecture</a><a class="nav-item" href="risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../../index.html">Home</a><span class="sep">/</span><a href="../../mcu-toolchain-and-practice/index.html">Toolchain & Practice — Build and Debug Real Projects</a><span class="sep">/</span><a href="../../mcu-toolchain-and-practice/mcu-families-compared/index.html">MCU Families Compared</a><span class="sep">/</span><span>ARM Cortex-M</span></div>
+      <h1>ARM Cortex-M</h1>
+      <div class="tags"><span class="tag">arm</span><span class="tag">cortex-m</span><span class="tag">cmsis</span><span class="tag">stm32</span><span class="tag">nrf</span><span class="tag">embedded</span></div>
+      <p>
+The <a href="https://community.arm.com/cfs-file/__key/communityserver-discussions-components-files/18/Cortex_2D00_M-for-Beginners-_2D00_-2017_5F00_EN_5F00_v2.pdf">ARM Cortex-M</a> family is the dominant architecture for 32-bit microcontrollers. Designed by ARM and licensed to silicon vendors, Cortex-M cores power everything from simple IoT sensors to motor controllers and audio processors. Understanding the different Cortex-M variants is essential for choosing the right MCU.
+</p>
+<h2>The Cortex-M Lineup</h2>
+<p>
+ARM designs the processor cores; silicon vendors (ST, NXP, Nordic, Microchip, etc.) build complete MCUs around them by adding flash, SRAM, and peripherals.
+</p>
+<h3>Cortex-M0 / M0+</h3>
+<p>
+The smallest, lowest-power Cortex-M cores.
+</p>
+<table><thead><tr><th>Feature</th><th>M0</th><th>M0+</th></tr></thead><tbody><tr><td>Architecture</td><td>ARMv6-M</td><td>ARMv6-M</td></tr>
+<tr><td>Pipeline</td><td>3-stage</td><td>2-stage</td></tr>
+<tr><td>Instructions</td><td>56 (mostly 16-bit Thumb)</td><td>56 + single-cycle I/O port</td></tr>
+<tr><td>Interrupts</td><td>Up to 32</td><td>Up to 32</td></tr>
+<tr><td>Hardware divide</td><td>No</td><td>No</td></tr>
+<tr><td>MPU</td><td>No</td><td>Optional (8 regions)</td></tr>
+<tr><td>Typical clock</td><td>24-48 MHz</td><td>24-64 MHz</td></tr></tbody></table>
+<p>
+<strong>Use cases</strong>: Simple sensor nodes, battery-powered IoT, LED drivers, USB accessories.
+</p>
+<p>
+The M0+ is essentially an improved M0 with a shorter pipeline (better energy per instruction) and an optional single-cycle I/O port for GPIO bit-banging.
+</p>
+<h3>Cortex-M3</h3>
+<p>
+The original "mainstream" Cortex-M core that introduced the Thumb-2 instruction set.
+</p>
+<table><thead><tr><th>Feature</th><th>Detail</th></tr></thead><tbody><tr><td>Architecture</td><td>ARMv7-M</td></tr>
+<tr><td>Pipeline</td><td>3-stage</td></tr>
+<tr><td>Instruction set</td><td>Full Thumb-2 (mix of 16-bit and 32-bit)</td></tr>
+<tr><td>Interrupts</td><td>Up to 240 (with NVIC)</td></tr>
+<tr><td>Hardware divide</td><td>Yes (SDIV, UDIV)</td></tr>
+<tr><td>MPU</td><td>Optional (8 regions)</td></tr>
+<tr><td>DSP</td><td>No</td></tr>
+<tr><td>FPU</td><td>No</td></tr>
+<tr><td>Typical clock</td><td>72-120 MHz</td></tr></tbody></table>
+<p>
+<strong>Use cases</strong>: General-purpose control, communication stacks, mid-range industrial.
+</p>
+<p>
+The M3 is a significant step up from M0: it adds hardware integer division, the full Thumb-2 instruction set (efficient mix of 16-bit and 32-bit instructions), bit-banding for atomic bit manipulation, and up to 240 interrupts with priority levels.
+</p>
+<h3>Cortex-M4</h3>
+<p>
+Adds DSP and optional floating-point to the M3 foundation.
+</p>
+<table><thead><tr><th>Feature</th><th>Detail</th></tr></thead><tbody><tr><td>Architecture</td><td>ARMv7E-M</td></tr>
+<tr><td>Pipeline</td><td>3-stage</td></tr>
+<tr><td>DSP instructions</td><td>Yes (SIMD, MAC, saturating arithmetic)</td></tr>
+<tr><td>FPU</td><td>Optional single-precision (M4F)</td></tr>
+<tr><td>MPU</td><td>Optional (8 regions)</td></tr>
+<tr><td>Typical clock</td><td>80-180 MHz</td></tr></tbody></table>
+<p>
+<strong>Use cases</strong>: Motor control, audio processing, sensor fusion, digital filtering.
+</p>
+<p>
+Key DSP instructions:
+</p>
+<ul>
+<li><strong>SIMD</strong> -- process two 16-bit or four 8-bit values in one instruction</li>
+<li><strong>MAC</strong> -- multiply-accumulate in a single cycle (essential for FIR/IIR filters)</li>
+<li><strong>Saturating arithmetic</strong> -- results clamp to min/max instead of wrapping</li>
+</ul>
+<p>
+The "F" suffix (e.g., STM32F4, Cortex-M4F) means the FPU is included. Without it, floating-point operations are emulated in software (~10-20x slower).
+</p>
+<h3>Cortex-M7</h3>
+<p>
+The high-performance member of the family.
+</p>
+<table><thead><tr><th>Feature</th><th>Detail</th></tr></thead><tbody><tr><td>Architecture</td><td>ARMv7E-M</td></tr>
+<tr><td>Pipeline</td><td>6-stage, superscalar, dual-issue</td></tr>
+<tr><td>FPU</td><td>Optional single + double precision</td></tr>
+<tr><td>Cache</td><td>Optional I-cache and D-cache</td></tr>
+<tr><td>TCM</td><td>Tightly Coupled Memory (zero-wait-state)</td></tr>
+<tr><td>MPU</td><td>Optional (8 or 16 regions)</td></tr>
+<tr><td>Typical clock</td><td>216-600 MHz</td></tr></tbody></table>
+<p>
+<strong>Use cases</strong>: Graphics, complex signal processing, high-speed communication, real-time control with heavy computation.
+</p>
+<p>
+The <a href="https://qcentlabs.com/posts/cortex-wars/">M7's 6-stage pipeline</a> and branch prediction make it 2x faster per MHz than M4. The cache and TCM provide fast local memory, but introduce cache coherency concerns with DMA (see <a href="../memory-management-in-practice/dma-controller.html">DMA Controller</a>).
+</p>
+<h2>Comparison Table</h2>
+<table><thead><tr><th>Feature</th><th>M0/M0+</th><th>M3</th><th>M4/M4F</th><th>M7</th></tr></thead><tbody><tr><td>Thumb instructions</td><td>Thumb-1</td><td>Thumb-2</td><td>Thumb-2</td><td>Thumb-2</td></tr>
+<tr><td>Hardware divide</td><td>No</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>DSP extensions</td><td>No</td><td>No</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>FPU</td><td>No</td><td>No</td><td>Optional SP</td><td>Optional SP+DP</td></tr>
+<tr><td>Cache</td><td>No</td><td>No</td><td>No</td><td>Optional</td></tr>
+<tr><td>Max interrupts</td><td>32</td><td>240</td><td>240</td><td>240</td></tr>
+<tr><td>Pipeline stages</td><td>2-3</td><td>3</td><td>3</td><td>6</td></tr>
+<tr><td>CoreMark/MHz</td><td>~2.3</td><td>~3.3</td><td>~3.4</td><td>~5.0</td></tr>
+<tr><td>Typical power</td><td>Lowest</td><td>Medium</td><td>Medium</td><td>Highest</td></tr></tbody></table>
+<h2>CMSIS: The Common Interface</h2>
+<p>
+ARM provides <strong>CMSIS (Cortex Microcontroller Software Interface Standard)</strong> -- a vendor-independent abstraction layer:
+</p>
+<ul>
+<li><strong>CMSIS-Core</strong> -- standard access to CPU registers, NVIC, SysTick, MPU. Every vendor's HAL builds on this.</li>
+<li><strong>CMSIS-DSP</strong> -- optimized DSP library (FFT, filters, matrix math) for M4/M7.</li>
+<li><strong>CMSIS-RTOS</strong> -- RTOS abstraction API.</li>
+<li><strong>CMSIS-DAP</strong> -- standardized debug probe firmware.</li>
+</ul>
+<p>
+Because of CMSIS, the same NVIC setup code works across STM32, LPC, nRF, and SAM devices:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// This code works on ANY Cortex-M, regardless of vendor
+<p>
+NVIC_SetPriority(USART2_IRQn, 3);
+NVIC_EnableIRQ(USART2_IRQn);</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// Rust embedded — using cortex-m and PAC crates
+<p>
+// Works on any Cortex-M via the cortex-m NVIC API
+use cortex_m::peripheral::NVIC;
+use stm32f4::stm32f407::Interrupt; // PAC provides interrupt enum
+</p>
+<p>
+unsafe {
+    // Set priority for USART2 interrupt
+    NVIC::unmask(Interrupt::USART2);
+    // Priority set via the PAC's NVIC peripheral
+    let mut nvic = cortex_m::Peripherals::take().unwrap().NVIC;
+    nvic.set_priority(Interrupt::USART2, 3);
+    NVIC::unmask(Interrupt::USART2);
+}</code></pre></div></div>
+</p>
+<h2>Major Vendors</h2>
+<table><thead><tr><th>Vendor</th><th>Family</th><th>Notable Chips</th><th>Strengths</th></tr></thead><tbody><tr><td><strong>ST</strong> (STMicroelectronics)</td><td>STM32</td><td>STM32F103, STM32F407, STM32H743</td><td>Huge portfolio, CubeMX code gen, massive community</td></tr>
+<tr><td><strong>NXP</strong></td><td>LPC, i.MX RT</td><td>LPC1768, i.MX RT1060</td><td>Industrial focus, crossover processors</td></tr>
+<tr><td><strong>Nordic</strong></td><td>nRF</td><td>nRF52840, nRF5340</td><td>Bluetooth LE leader, ultra-low power</td></tr>
+<tr><td><strong>Microchip</strong></td><td>SAM</td><td>SAMD21, SAME70</td><td>Broad portfolio (acquired Atmel)</td></tr>
+<tr><td><strong>Raspberry Pi</strong></td><td>RP</td><td>RP2040</td><td>Dual M0+, PIO state machines, low cost</td></tr>
+<tr><td><strong>Infineon</strong></td><td>PSoC, XMC</td><td>PSoC6, XMC4000</td><td>Analog integration, automotive</td></tr></tbody></table>
+<h2>Getting Started</h2>
+<p>
+For learning, the best entry points are:
+</p>
+<ol>
+<li><strong>STM32 Nucleo boards</strong> (~$12-15) -- ST-Link debugger built in, huge community, CubeMX support</li>
+<li><strong>Raspberry Pi Pico</strong> (~$4) -- RP2040, excellent documentation, no debugger on board but SWD header available</li>
+<li><strong>nRF52 DK</strong> (~$30) -- if Bluetooth is needed</li>
+</ol>
+<p>
+All support GCC (<code>arm-none-eabi-gcc</code>), OpenOCD, and GDB.
+</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://community.arm.com/cfs-file/__key/communityserver-discussions-components-files/18/Cortex_2D00_M-for-Beginners-_2D00_-2017_5F00_EN_5F00_v2.pdf">Cortex-M for Beginners - ARM Community</a> — ARM's official introductory guide to Cortex-M</li>
+<li><a href="https://developerhelp.microchip.com/xwiki/bin/view/products/mcu-mpu/32bit-mcu/sam/arm-cortex-differences/">Differences Between ARM Cortex Families - Microchip</a> — Vendor comparison of Cortex-M variants</li>
+<li><a href="https://qcentlabs.com/posts/cortex-wars/">The Core Wars: ARM Cortex M0+ vs M3 vs M4 vs M7</a> — Performance and feature comparison across Cortex-M cores</li>
+<li><a href="https://en.wikipedia.org/wiki/ARM_Cortex-M">ARM Cortex-M - Wikipedia</a> — General overview of the Cortex-M architecture family</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="choosing-an-mcu.html">Choosing an MCU</a> -- using these specs to make a selection</li>
+<li><a href="avr-architecture.html">AVR Architecture</a> -- the 8-bit alternative</li>
+<li><a href="risc-v-microcontrollers.html">RISC-V Microcontrollers</a> -- the open-source competitor</li>
+<li><a href="../debugging-and-probes/index.html">Debugging and Probes</a> -- CoreSight debug on all Cortex-M</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://community.arm.com/cfs-file/__key/communityserver-discussions-components-files/18/Cortex_2D00_M-for-Beginners-_2D00_-2017_5F00_EN_5F00_v2.pdf" target="_blank" rel="noopener">Cortex-M for Beginners - ARM Community</a></li><li><a href="https://developerhelp.microchip.com/xwiki/bin/view/products/mcu-mpu/32bit-mcu/sam/arm-cortex-differences/" target="_blank" rel="noopener">Differences Between ARM Cortex Families - Microchip</a></li><li><a href="https://qcentlabs.com/posts/cortex-wars/" target="_blank" rel="noopener">The Core Wars: ARM Cortex M0+ vs M3 vs M4 vs M7</a></li><li><a href="https://en.wikipedia.org/wiki/ARM_Cortex-M" target="_blank" rel="noopener">ARM Cortex-M - Wikipedia</a></li></ul></div>
+      <div class="page-nav"><a href="index.html"><span class="nav-label">← Previous</span><span class="nav-title">How to Read a Datasheet</span></a><a class="next" href="avr-architecture.html"><span class="nav-label">Next →</span><span class="nav-title">AVR Architecture</span></a></div>
+    </main>
+  </div>
+  <script src="../../scripts/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "title": "Debugging and Probes",
+  "slug": "debugging-and-probes",
+  "order": 2,
+  "tags": ["jtag", "swd", "openocd", "gdb", "semihosting"],
+  "status": "draft",
+  "children": [
+    { "slug": "index", "title": "Debug Access Port and CoreSight" },
+    { "slug": "jtag-and-swd", "title": "JTAG and SWD" },
+    { "slug": "openocd-and-gdb", "title": "OpenOCD and GDB" },
+    { "slug": "semihosting-and-printf", "title": "Semihosting and Printf Debugging" },
+    { "slug": "fault-debugging-techniques", "title": "Fault Debugging Techniques" }
+  ]
+}

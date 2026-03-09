@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EEPROM and Non-Volatile Memory — MCU Study Guide</title>
+  <link rel="stylesheet" href="../../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../index.html">MCU Architecture Overview</a><a class="nav-item" href="../cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title expanded"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="index.html">Memory Architecture Overview</a><a class="nav-item" href="flash-memory.html">Flash Memory</a><a class="nav-item" href="sram.html">SRAM</a><a class="nav-item active" href="eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../../index.html">Home</a><span class="sep">/</span><a href="../../mcu-architecture/index.html">MCU Architecture — Understand the Machine</a><span class="sep">/</span><a href="../../mcu-architecture/memory-architecture/index.html">Memory Architecture</a><span class="sep">/</span><span>EEPROM and Non-Volatile Memory</span></div>
+      <h1>EEPROM and Non-Volatile Memory</h1>
+      <div class="tags"><span class="tag">mcu</span><span class="tag">eeprom</span><span class="tag">nvm</span><span class="tag">flash-emulation</span><span class="tag">wear-leveling</span></div>
+      <h2>What EEPROM Is</h2>
+<p>
+<strong>EEPROM (Electrically Erasable Programmable Read-Only Memory)</strong> is a type of non-volatile memory that can be erased and reprogrammed <strong>byte by byte</strong>. Unlike flash, which requires erasing an entire sector/page before rewriting, EEPROM allows you to update a single byte without affecting its neighbors.
+</p>
+<h2>EEPROM vs Flash</h2>
+<table><thead><tr><th>Feature</th><th>EEPROM</th><th>Flash (NOR)</th></tr></thead><tbody><tr><td>Erase granularity</td><td>Single byte</td><td>Sector/page (1 KB -- 128 KB)</td></tr>
+<tr><td>Write speed</td><td>Slow (~5 ms per byte)</td><td>Moderate (~16 us per word)</td></tr>
+<tr><td>Endurance</td><td>~1,000,000 cycles</td><td>~10,000--100,000 cycles</td></tr>
+<tr><td>Density</td><td>Small (256 B -- 16 KB)</td><td>Large (16 KB -- 2 MB)</td></tr>
+<tr><td>Cost per bit</td><td>Higher</td><td>Lower</td></tr>
+<tr><td>Use case</td><td>Config data, counters</td><td>Code storage</td></tr></tbody></table>
+<p>
+The key advantage of EEPROM is <strong>byte-level writes</strong> and <strong>higher endurance</strong>. The trade-off is slower writes and much smaller capacity.
+</p>
+<h2>Common Use Cases</h2>
+<h3>Configuration Storage</h3>
+<p>
+Settings that change occasionally but must survive power cycles:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button><button class="code-tab" data-lang="cpp">C++</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Example: storing user-configurable parameters
+<p>
+typedef struct {
+    uint8_t  brightness;     // 0-255
+    uint16_t motor_speed;    // RPM target
+    float    pid_kp;         // PID proportional gain
+    uint32_t checksum;       // Integrity check
+} Config;</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// Example: storing user-configurable parameters
+<p>
+#[repr(C)]
+struct Config {
+    brightness: u8,          // 0-255
+    motor_speed: u16,        // RPM target
+    pid_kp: f32,             // PID proportional gain
+    checksum: u32,           // Integrity check
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="cpp"><pre><code class="language-cpp">// C++ version with default values and auto-checksum
+<p>
+#include &lt;cstdint&gt;
+</p>
+<p>
+struct Config {
+    uint8_t  brightness  = 128;
+    uint16_t motor_speed = 1000;
+    float    pid_kp      = 1.0f;
+    uint32_t checksum    = 0;
+</p>
+<p>
+    constexpr uint32_t compute_checksum() const {
+        return brightness ^ motor_speed ^ <em>reinterpret_cast&lt;const uint32_t</em>&gt;(&amp;pid_kp);
+    }
+</p>
+<p>
+    bool is_valid() const { return checksum == compute_checksum(); }
+};</code></pre></div></div>
+</p>
+<h3>Calibration Data</h3>
+<p>
+Factory-set values determined during manufacturing:
+</p>
+<ul>
+<li>ADC offset and gain corrections</li>
+<li>Sensor scaling coefficients</li>
+<li>Temperature compensation tables</li>
+</ul>
+<h3>Usage Counters and Logs</h3>
+<ul>
+<li>Operating hours counter</li>
+<li>Error event log</li>
+<li>Boot count</li>
+</ul>
+<h3>Last-Known-Good State</h3>
+<ul>
+<li>Motor position before power loss</li>
+<li>Communication parameters (baud rate, device address)</li>
+<li>User preferences</li>
+</ul>
+<h2>How EEPROM Works</h2>
+<p>
+<a href="https://en.wikipedia.org/wiki/EEPROM">EEPROM</a> uses floating-gate transistors similar to flash, but with a thinner oxide layer that allows single-byte erase/program operations through <strong>Fowler-Nordheim tunneling</strong>.
+</p>
+<pre><code class="language-text">  Write sequence for one byte:
+<p>
+  1. Apply high voltage to erase the target byte (bits -&gt; 1)
+  2. Program desired bits to 0
+  3. Verify written data
+  Total time: ~3-5 ms per byte</code></pre>
+</p>
+<p>
+Because of the slow write speed, EEPROM is unsuitable for storing data that changes rapidly.
+</p>
+<h2>MCUs With Built-In EEPROM</h2>
+<p>
+Some MCU families include dedicated EEPROM:
+</p>
+<table><thead><tr><th>MCU</th><th>EEPROM Size</th><th>Notes</th></tr></thead><tbody><tr><td>ATmega328P (AVR)</td><td>1 KB</td><td>Direct byte read/write</td></tr>
+<tr><td>STM32L0/L1 series</td><td>2--16 KB</td><td>Memory-mapped, accessible via load/store</td></tr>
+<tr><td>PIC18F series</td><td>256 B -- 1 KB</td><td>Register-based access</td></tr>
+<tr><td>MSP430</td><td>256 B</td><td>Info segments</td></tr></tbody></table>
+<p>
+On STM32L0, EEPROM is memory-mapped starting at <code>0x0808_0000</code> and can be read like regular memory. Writing requires unlocking the data EEPROM and waiting for completion.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// STM32L0 EEPROM write (simplified)
+<p>
+HAL_FLASHEx_DATAEEPROM_Unlock();
+HAL_FLASHEx_DATAEEPROM_Program(FLASH_TYPEPROGRAMDATA_BYTE, 0x08080000, 0x42);
+HAL_FLASHEx_DATAEEPROM_Lock();</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// Using raw register access for STM32L0 data EEPROM
+<p>
+const EEPROM_BASE: u32 = 0x0808_0000;
+</p>
+<p>
+unsafe {
+    // Unlock data EEPROM (write magic keys to FLASH_PEKEYR)
+    let flash = &amp;*pac::FLASH::ptr();
+    flash.pekeyr.write(|w| w.bits(0x89AB_CDEF));
+    flash.pekeyr.write(|w| w.bits(0x0203_0405));
+</p>
+<p>
+    // Write byte
+    core::ptr::write_volatile(EEPROM_BASE as *mut u8, 0x42);
+</p>
+<p>
+    // Wait for completion
+    while flash.sr.read().bsy().bit_is_set() {}
+</p>
+<p>
+    // Lock data EEPROM
+    flash.pecr.modify(|_, w| w.pelock().set_bit());
+}</code></pre></div></div>
+</p>
+<h2>Emulated EEPROM in Flash</h2>
+<p>
+Many popular MCUs (STM32F1, F4, F7, H7) do <strong>not</strong> have dedicated EEPROM hardware. Instead, you emulate EEPROM behavior using regular flash memory. ST provides <a href="https://www.st.com/resource/en/application_note/an4894-eeprom-emulation-techniques-and-software-for-stm32-microcontrollers-stmicroelectronics.pdf">application notes (AN2594, AN4894)</a> describing this technique.
+</p>
+<h3>How Flash EEPROM Emulation Works</h3>
+<p>
+The basic idea: use two flash sectors (or pages) and alternate between them.
+</p>
+<pre><code class="language-text">  Sector A (Active)           Sector B (Receiving)
+<p>
+  +-------------------+      +-------------------+
+  | Tag=0x01 Val=0x42 |      | (erased: 0xFFFF)  |
+  | Tag=0x02 Val=0x10 |      |                   |
+  | Tag=0x01 Val=0x55 |  &lt;-- latest value for     |
+  | (free space)      |      tag 0x01 is 0x55     |
+  +-------------------+      +-------------------+</code></pre>
+</p>
+<ol>
+<li>Each "variable" gets a <strong>tag</strong> (virtual address)</li>
+<li>New values are appended sequentially (old values are not erased)</li>
+<li>To read, scan backward to find the latest entry for a given tag</li>
+<li>When the active sector fills up, <strong>compact</strong>: copy only the latest value for each tag to the other sector, then erase the full sector</li>
+<li>Swap roles: the receiving sector becomes active</li>
+</ol>
+<h3>Advantages of Emulation</h3>
+<ul>
+<li>Works on any MCU with flash (no dedicated EEPROM hardware needed)</li>
+<li>Spreads writes across the sector, extending lifetime</li>
+<li>Atomic updates -- a power failure during write leaves the old value intact</li>
+</ul>
+<h3>Disadvantages</h3>
+<ul>
+<li>Uses two flash sectors (e.g., 2 x 16 KB for just a few bytes of data)</li>
+<li>More complex software</li>
+<li>Slower than real EEPROM for reads (must scan entries)</li>
+</ul>
+<h2>Wear Leveling Basics</h2>
+<p>
+Both EEPROM and flash have limited write endurance. <strong>Wear leveling</strong> distributes writes evenly to prevent any single cell from wearing out prematurely.
+</p>
+<h3>Simple Wear Leveling Strategies</h3>
+<p>
+<strong>Round-robin writes:</strong> Instead of always writing to the same address, cycle through multiple locations:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Writing a counter that updates every second
+<p>
+// Instead of always writing to address 0, use a rotating index:
+uint32_t write_index = find_next_free_slot();
+write_to_slot(write_index, counter_value);
+// Each slot is used once before cycling back</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// Writing a counter that updates every second
+<p>
+// Instead of always writing to address 0, use a rotating index:
+let write_index = find_next_free_slot();
+write_to_slot(write_index, counter_value);
+// Each slot is used once before cycling back</code></pre></div></div>
+</p>
+<p>
+<strong>Effective endurance calculation:</strong>
+</p>
+<pre><code class="language-text">  Base endurance: 10,000 cycles per sector
+<p>
+  Sector size: 16 KB
+  Data size: 4 bytes (one uint32_t)
+  Entries per sector: 16384 / 8 = 2048 (4 bytes data + 4 bytes tag)
+  Two sectors: 2 x 2048 = 4096 writes before a sector erase
+  Effective endurance: 4096 x 10,000 = 40,960,000 writes</code></pre>
+</p>
+<h2>External EEPROM</h2>
+<p>
+For applications needing more NVM than on-chip options provide, external EEPROM ICs are common:
+</p>
+<table><thead><tr><th>Part</th><th>Interface</th><th>Capacity</th><th>Endurance</th></tr></thead><tbody><tr><td>AT24C256</td><td>I2C</td><td>32 KB</td><td>1,000,000 cycles</td></tr>
+<tr><td>25LC512</td><td>SPI</td><td>64 KB</td><td>1,000,000 cycles</td></tr>
+<tr><td>CAT24M01</td><td>I2C</td><td>128 KB</td><td>1,000,000 cycles</td></tr></tbody></table>
+<p>
+External EEPROM communicates over I2C or SPI, making it slower but offering larger and more durable storage.
+</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://en.wikipedia.org/wiki/EEPROM">EEPROM - Wikipedia</a> — How EEPROM technology works and its characteristics</li>
+<li><a href="https://hackaday.com/2020/12/23/bare-metal-stm32-exploring-memory-mapped-i-o-and-linker-scripts/">Bare-Metal STM32: Memory-Mapped I/O And Linker Scripts</a> — STM32 memory organization and non-volatile storage</li>
+<li><a href="https://www.st.com/resource/en/application_note/an4894-eeprom-emulation-techniques-and-software-for-stm32-microcontrollers-stmicroelectronics.pdf">ST AN4894: EEPROM Emulation for STM32</a> — Official ST guide for flash-based EEPROM emulation techniques</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="flash-memory.html">Flash Memory</a> -- the primary non-volatile memory, also used for EEPROM emulation</li>
+<li><a href="sram.html">SRAM</a> -- volatile runtime memory</li>
+<li><a href="memory-mapped-io.html">Memory-Mapped I/O</a> -- how EEPROM registers are accessed on some MCUs</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://en.wikipedia.org/wiki/EEPROM" target="_blank" rel="noopener">EEPROM - Wikipedia</a></li><li><a href="https://hackaday.com/2020/12/23/bare-metal-stm32-exploring-memory-mapped-i-o-and-linker-scripts/" target="_blank" rel="noopener">Bare-Metal STM32: Memory-Mapped I/O And Linker Scripts</a></li><li><a href="https://www.st.com/resource/en/application_note/an4894-eeprom-emulation-techniques-and-software-for-stm32-microcontrollers-stmicroelectronics.pdf" target="_blank" rel="noopener">ST AN4894: EEPROM Emulation for STM32</a></li></ul></div>
+      <div class="page-nav"><a href="sram.html"><span class="nav-label">← Previous</span><span class="nav-title">SRAM</span></a><a class="next" href="memory-mapped-io.html"><span class="nav-label">Next →</span><span class="nav-title">Memory-Mapped I/O</span></a></div>
+    </main>
+  </div>
+  <script src="../../scripts/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "title": "MCU Architecture — Understand the Machine",
+  "slug": "mcu-architecture",
+  "order": 1,
+  "tags": ["mcu", "architecture", "cpu", "memory", "clock"],
+  "status": "draft",
+  "children": [
+    { "slug": "index", "title": "MCU Architecture Overview", "type": "file" },
+    { "slug": "cpu-core-and-alu", "title": "CPU Core and ALU", "type": "file" },
+    { "slug": "registers-and-register-file", "title": "Registers and Register File", "type": "file" },
+    { "slug": "program-counter-and-execution-flow", "title": "Program Counter and Execution Flow", "type": "file" },
+    { "slug": "stack-pointer-and-call-stack", "title": "Stack Pointer and Call Stack", "type": "file" },
+    { "slug": "memory-architecture", "title": "Memory Architecture", "type": "directory" },
+    { "slug": "instruction-execution", "title": "Instruction Execution", "type": "directory" },
+    { "slug": "clock-and-power-system", "title": "Clock and Power System", "type": "directory" }
+  ]
+}

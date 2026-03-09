@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JTAG and SWD — MCU Study Guide</title>
+  <link rel="stylesheet" href="../../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title expanded"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="index.html">Debug Access Port and CoreSight</a><a class="nav-item active" href="jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../../index.html">Home</a><span class="sep">/</span><a href="../../mcu-toolchain-and-practice/index.html">Toolchain & Practice — Build and Debug Real Projects</a><span class="sep">/</span><a href="../../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debugging and Probes</a><span class="sep">/</span><span>JTAG and SWD</span></div>
+      <h1>JTAG and SWD</h1>
+      <div class="tags"><span class="tag">jtag</span><span class="tag">swd</span><span class="tag">debugging</span><span class="tag">probes</span><span class="tag">embedded</span></div>
+      <p>
+JTAG and SWD are the two physical protocols used to connect a debug probe to a microcontroller. Both allow you to halt the CPU, set breakpoints, read memory, and flash firmware. They differ in pin count, speed, and capability.
+</p>
+<h2>JTAG (Joint Test Action Group)</h2>
+<p>
+<a href="https://www.allaboutcircuits.com/technical-articles/jtag-implementation-arm-core-devices/">JTAG</a> is an industry standard defined by IEEE 1149.1. It was originally designed for board-level testing (boundary scan) but became the dominant debug interface for processors.
+</p>
+<h3>JTAG Signals</h3>
+<p>
+JTAG uses four mandatory signals plus an optional reset:
+</p>
+<table><thead><tr><th>Signal</th><th>Direction</th><th>Purpose</th></tr></thead><tbody><tr><td><strong>TCK</strong></td><td>Probe -> Target</td><td>Test Clock -- clocks all JTAG operations</td></tr>
+<tr><td><strong>TMS</strong></td><td>Probe -> Target</td><td>Test Mode Select -- controls the TAP state machine</td></tr>
+<tr><td><strong>TDI</strong></td><td>Probe -> Target</td><td>Test Data In -- serial data into the target</td></tr>
+<tr><td><strong>TDO</strong></td><td>Target -> Probe</td><td>Test Data Out -- serial data from the target</td></tr>
+<tr><td><strong>nTRST</strong></td><td>Probe -> Target</td><td>Test Reset (optional) -- resets the TAP controller</td></tr></tbody></table>
+<h3>How JTAG Works</h3>
+<p>
+JTAG operates through a state machine called the <strong>TAP (Test Access Port) controller</strong>. The debugger navigates this state machine by toggling TMS on each TCK edge:
+</p>
+<pre><code class="language-text">         TMS=1
+<p>
+  +--&gt; Test-Logic-Reset
+  |         |  TMS=0
+  |    Run-Test/Idle
+  |         |  TMS=1
+  |    Select-DR-Scan ----TMS=1----&gt; Select-IR-Scan
+  |         |  TMS=0                      |  TMS=0
+  |    Capture-DR                    Capture-IR
+  |         |                              |
+  |    Shift-DR  &lt;-- data bits --&gt;   Shift-IR
+  |         |                              |
+  |    Update-DR                     Update-IR
+  +---  (back to idle)</code></pre>
+</p>
+<p>
+Data is shifted in through TDI and out through TDO one bit at a time while in the Shift-DR or Shift-IR states.
+</p>
+<h3>JTAG Daisy-Chaining</h3>
+<p>
+A powerful feature of JTAG is <strong>daisy-chaining</strong>: multiple devices on a board can share the same TCK and TMS lines, with TDO of one device connected to TDI of the next. This lets a single debug probe access every chip on the board.
+</p>
+<h2>SWD (Serial Wire Debug)</h2>
+<p>
+<a href="https://developer.arm.com/-/media/Arm%20Developer%20Community/PDF/Low_Pin-Count_Debug_Interfaces_for_Multi-device_Systems.pdf">ARM developed SWD</a> as a 2-pin alternative to JTAG, specifically for Cortex-M devices. It provides the same debug capability with fewer pins.
+</p>
+<h3>SWD Signals</h3>
+<table><thead><tr><th>Signal</th><th>Direction</th><th>Purpose</th></tr></thead><tbody><tr><td><strong>SWDIO</strong></td><td>Bidirectional</td><td>Serial Wire Data -- carries commands and data</td></tr>
+<tr><td><strong>SWCLK</strong></td><td>Probe -> Target</td><td>Serial Wire Clock -- clocks all operations</td></tr></tbody></table>
+<p>
+SWDIO is bidirectional: the probe drives it when sending commands, and the target drives it when responding. A turnaround period separates the direction changes.
+</p>
+<h3>SWD Protocol</h3>
+<p>
+SWD uses a packet-based protocol with three phases:
+</p>
+<ol>
+<li><strong>Request</strong> (8 bits) -- the probe sends: start bit, APnDP (access port or debug port), RnW (read or write), address bits, parity, stop, park</li>
+<li><strong>Acknowledge</strong> (3 bits) -- the target responds: OK, WAIT, or FAULT</li>
+<li><strong>Data</strong> (33 bits) -- 32 data bits + 1 parity bit, driven by either side depending on RnW</li>
+</ol>
+<pre><code class="language-text">Host sends:         Target responds:    Data phase:
+<p>
+[Start|AP|RW|A2|A3|Par|Stop|Park]  [ACK]  [32-bit data + parity]</code></pre>
+</p>
+<h3>SWO (Serial Wire Output)</h3>
+<p>
+SWD can optionally use a third pin, <strong>SWO</strong>, for trace output. SWO carries ITM (Instrumentation Trace Macrocell) data from the target to the probe, enabling <code>printf</code>-style output and event tracing without consuming a UART. See <a href="semihosting-and-printf.html">Semihosting and Printf</a> for details.
+</p>
+<h2>JTAG vs SWD Comparison</h2>
+<table><thead><tr><th>Feature</th><th>JTAG</th><th>SWD</th></tr></thead><tbody><tr><td>Pins required</td><td>4 (+ optional reset)</td><td>2 (+ optional SWO)</td></tr>
+<tr><td>Daisy-chain support</td><td>Yes</td><td>No</td></tr>
+<tr><td>ARM Cortex-M support</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Non-ARM device support</td><td>Yes</td><td>No (ARM only)</td></tr>
+<tr><td>Trace output</td><td>Separate trace port</td><td>SWO pin</td></tr>
+<tr><td>Speed</td><td>Typically up to 20 MHz</td><td>Typically up to 50 MHz</td></tr>
+<tr><td>Boundary scan</td><td>Yes</td><td>No</td></tr></tbody></table>
+<p>
+<strong>Rule of thumb</strong>: Use SWD for single-chip ARM Cortex-M projects (fewer wires, simpler). Use JTAG when you need daisy-chaining, boundary scan, or are debugging non-ARM devices.
+</p>
+<h2>Common Debug Probes</h2>
+<h3>ST-Link</h3>
+<ul>
+<li>Bundled with STM32 Nucleo and Discovery boards</li>
+<li>Supports SWD and JTAG (V2 and V3)</li>
+<li>V3 adds high-speed SWD and virtual COM port</li>
+<li>Price: free (on dev boards) or ~$25 standalone</li>
+<li>Works with OpenOCD, STM32CubeIDE, pyOCD</li>
+</ul>
+<h3>SEGGER J-Link</h3>
+<ul>
+<li>Industry standard, supports nearly all ARM devices</li>
+<li>Very fast flash programming</li>
+<li>J-Link EDU available for ~$20 (non-commercial use)</li>
+<li>Proprietary software with GDB server</li>
+<li>Supports SEGGER RTT for real-time output</li>
+</ul>
+<h3>CMSIS-DAP</h3>
+<ul>
+<li>ARM's <a href="https://arm-software.github.io/CMSIS_5/DAP/html/index.html">open-source debug probe firmware</a> specification</li>
+<li>Runs on various hardware (e.g., DAPLink on mbed boards)</li>
+<li>Compatible with OpenOCD, pyOCD, and many IDEs</li>
+<li>Typically slower than J-Link but fully open</li>
+</ul>
+<h3>Black Magic Probe</h3>
+<ul>
+<li>Open-source probe that runs GDB server on the probe itself</li>
+<li>No need for OpenOCD -- connect GDB directly via USB serial</li>
+<li>Built on STM32F103</li>
+</ul>
+<h2>Connector Pinouts</h2>
+<p>
+Most probes use the standard ARM debug connectors:
+</p>
+<p>
+<strong>10-pin Cortex Debug Connector (1.27mm)</strong>:
+</p>
+<pre><code class="language-text">Pin 1: VTref    Pin 2: SWDIO/TMS
+<p>
+Pin 3: GND      Pin 4: SWCLK/TCK
+Pin 5: GND      Pin 6: SWO/TDO
+Pin 7: (key)    Pin 8: TDI
+Pin 9: GND      Pin 10: nRESET</code></pre>
+</p>
+<p>
+<strong>20-pin ARM Standard JTAG (2.54mm)</strong>: Older, larger connector found on many development boards. Carries the same signals with additional GND pins.
+</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://www.allaboutcircuits.com/technical-articles/jtag-implementation-arm-core-devices/">JTAG Implementation in ARM Core Devices</a> — Comprehensive overview of JTAG protocol on ARM</li>
+<li><a href="https://developer.arm.com/-/media/Arm%20Developer%20Community/PDF/Low_Pin-Count_Debug_Interfaces_for_Multi-device_Systems.pdf">Low Pin-Count Debug Interfaces for Multi-device Systems - ARM</a> — ARM whitepaper on SWD and low-pin debug</li>
+<li><a href="https://qcentlabs.com/posts/swd_banger/">Making my own Programmer/Debugger using ARM SWD</a> — Hands-on SWD protocol implementation walkthrough</li>
+<li><a href="https://arm-software.github.io/CMSIS_5/DAP/html/index.html">CMSIS-DAP Firmware</a> — ARM's open-source debug probe firmware reference</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="openocd-and-gdb.html">OpenOCD and GDB</a> -- using these protocols with open-source tools</li>
+<li><a href="index.html">Debugging Overview</a> -- CoreSight architecture and the DAP</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://www.allaboutcircuits.com/technical-articles/jtag-implementation-arm-core-devices/" target="_blank" rel="noopener">JTAG Implementation in ARM Core Devices</a></li><li><a href="https://developer.arm.com/-/media/Arm%20Developer%20Community/PDF/Low_Pin-Count_Debug_Interfaces_for_Multi-device_Systems.pdf" target="_blank" rel="noopener">Low Pin-Count Debug Interfaces for Multi-device Systems - ARM</a></li><li><a href="https://qcentlabs.com/posts/swd_banger/" target="_blank" rel="noopener">Making my own Programmer/Debugger using ARM SWD</a></li><li><a href="https://arm-software.github.io/CMSIS_5/DAP/html/index.html" target="_blank" rel="noopener">CMSIS-DAP Firmware</a></li></ul></div>
+      <div class="page-nav"><a href="index.html"><span class="nav-label">← Previous</span><span class="nav-title">Debug Access Port and CoreSight</span></a><a class="next" href="openocd-and-gdb.html"><span class="nav-label">Next →</span><span class="nav-title">OpenOCD and GDB</span></a></div>
+    </main>
+  </div>
+  <script src="../../scripts/main.js"></script>
+</body>
+</html>

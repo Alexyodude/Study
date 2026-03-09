@@ -1,0 +1,18 @@
+{
+  "title": "Peripherals & Interrupts — Interact with the World",
+  "slug": "mcu-peripherals-and-interrupts",
+  "order": 3,
+  "tags": ["gpio", "timers", "uart", "spi", "i2c", "adc", "interrupts", "nvic"],
+  "status": "draft",
+  "children": [
+    { "slug": "index", "title": "Peripherals as Hardware Engines" },
+    { "slug": "gpio-register-level", "title": "GPIO at Register Level" },
+    { "slug": "timers-and-counters", "title": "Timers and Counters" },
+    { "slug": "uart-serial", "title": "UART Serial Communication" },
+    { "slug": "spi-protocol", "title": "SPI Protocol" },
+    { "slug": "i2c-protocol", "title": "I2C Protocol" },
+    { "slug": "adc-and-analog", "title": "ADC and Analog" },
+    { "slug": "parallel-io-and-multi-mcu-sync", "title": "Parallel I/O and Multi-MCU Synchronization" },
+    { "slug": "interrupt-system", "title": "Interrupt System", "type": "directory" }
+  ]
+}

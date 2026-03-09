@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memory-Mapped I/O — MCU Study Guide</title>
+  <link rel="stylesheet" href="../../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../index.html">MCU Architecture Overview</a><a class="nav-item" href="../cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title expanded"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="index.html">Memory Architecture Overview</a><a class="nav-item" href="flash-memory.html">Flash Memory</a><a class="nav-item" href="sram.html">SRAM</a><a class="nav-item" href="eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item active" href="memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../../index.html">Home</a><span class="sep">/</span><a href="../../mcu-architecture/index.html">MCU Architecture — Understand the Machine</a><span class="sep">/</span><a href="../../mcu-architecture/memory-architecture/index.html">Memory Architecture</a><span class="sep">/</span><span>Memory-Mapped I/O</span></div>
+      <h1>Memory-Mapped I/O</h1>
+      <div class="tags"><span class="tag">mcu</span><span class="tag">mmio</span><span class="tag">volatile</span><span class="tag">bit-banding</span><span class="tag">gpio</span><span class="tag">arm</span><span class="tag">cortex-m</span></div>
+      <h2>Peripherals as Memory Addresses</h2>
+<p>
+On <a href="https://hackaday.com/2020/12/23/bare-metal-stm32-exploring-memory-mapped-i-o-and-linker-scripts/">ARM Cortex-M</a> microcontrollers, <strong>everything is a memory address</strong>. Peripheral hardware -- GPIO pins, timers, UARTs, ADCs -- is controlled by reading and writing to specific addresses in the 32-bit address space. There are no special <code>IN</code>/<code>OUT</code> instructions; you use the same <code>LDR</code> (load) and <code>STR</code> (store) instructions used for SRAM.
+</p>
+<p>
+The peripheral region occupies <code>0x4000_0000</code> to <code>0x5FFF_FFFF</code> in the standard ARM memory map.
+</p>
+<h3>Example: GPIO on STM32F4</h3>
+<p>
+GPIOA's registers start at <code>0x4002_0000</code>. Each register is a 32-bit word at a fixed offset:
+</p>
+<table><thead><tr><th>Offset</th><th>Register</th><th>Purpose</th></tr></thead><tbody><tr><td>0x00</td><td>MODER</td><td>Pin mode (input, output, alternate, analog)</td></tr>
+<tr><td>0x04</td><td>OTYPER</td><td>Output type (push-pull, open-drain)</td></tr>
+<tr><td>0x08</td><td>OSPEEDR</td><td>Output speed</td></tr>
+<tr><td>0x0C</td><td>PUPDR</td><td>Pull-up / pull-down</td></tr>
+<tr><td>0x10</td><td>IDR</td><td>Input data (read pin states)</td></tr>
+<tr><td>0x14</td><td>ODR</td><td>Output data (set pin states)</td></tr>
+<tr><td>0x18</td><td>BSRR</td><td>Bit set/reset (atomic set or clear)</td></tr></tbody></table>
+<p>
+To turn on an LED on PA5, you write to the ODR register at <code>0x4002_0014</code>.
+</p>
+<h2>Reading a GPIO Register by Address</h2>
+<h3>Raw Pointer Access (C)</h3>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Read GPIOA-&gt;IDR (Input Data Register)
+<p>
+uint32_t value = <em>(volatile uint32_t </em>)0x40020010;
+</p>
+<p>
+// Set bit 5 in GPIOA-&gt;ODR (turn on LED on PA5)
+<em>(volatile uint32_t </em>)0x40020014 |= (1 &lt;&lt; 5);</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr;
+<p>
+// Read GPIOA-&gt;IDR (Input Data Register)
+let value = unsafe { ptr::read_volatile(0x4002_0010 as *const u32) };
+</p>
+<p>
+// Set bit 5 in GPIOA-&gt;ODR (turn on LED on PA5)
+unsafe {
+    let odr = 0x4002_0014 as *mut u32;
+    let current = ptr::read_volatile(odr);
+    ptr::write_volatile(odr, current | (1 &lt;&lt; 5));
+}</code></pre></div></div>
+</p>
+<h3>Using Vendor-Defined Structs (Cleaner)</h3>
+<p>
+ST provides header files that map peripheral structs to their base addresses:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button><button class="code-tab" data-lang="cpp">C++</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// From stm32f4xx.h (simplified)
+<p>
+#define GPIOA_BASE  0x40020000
+#define GPIOA       ((GPIO_TypeDef *)GPIOA_BASE)
+</p>
+<p>
+typedef struct {
+    volatile uint32_t MODER;    // 0x00
+    volatile uint32_t OTYPER;   // 0x04
+    volatile uint32_t OSPEEDR;  // 0x08
+    volatile uint32_t PUPDR;    // 0x0C
+    volatile uint32_t IDR;      // 0x10
+    volatile uint32_t ODR;      // 0x14
+    volatile uint32_t BSRR;     // 0x18
+    volatile uint32_t LCKR;     // 0x1C
+    volatile uint32_t AFR[2];   // 0x20-0x24
+} GPIO_TypeDef;
+</p>
+<p>
+// Usage:
+GPIOA-&gt;ODR |= (1 &lt;&lt; 5);        // Set PA5 high
+uint32_t pins = GPIOA-&gt;IDR;    // Read all input pins</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// The PAC (Peripheral Access Crate) auto-generates register structs
+<p>
+// from SVD files. All reads/writes use volatile access internally.
+use stm32f4::stm32f407 as pac;
+</p>
+<p>
+let gpioa = unsafe { &amp;*pac::GPIOA::ptr() };
+</p>
+<p>
+// Set PA5 high (read-modify-write via typed API)
+gpioa.odr.modify(|r, w| unsafe { w.bits(r.bits() | (1 &lt;&lt; 5)) });
+</p>
+<p>
+// Read all input pins
+let pins = gpioa.idr.read().bits();
+</p>
+<p>
+// Or with HAL (fully type-safe, no raw bit manipulation):
+// let mut pa5 = gpioa.pa5.into_push_pull_output();
+// pa5.set_high();</code></pre></div>
+</p>
+<div class="code-panel" data-lang="cpp"><pre><code class="language-cpp">// C++ wrapper using a reference for cleaner syntax
+<p>
+#include "stm32f4xx.h"
+</p>
+<p>
+inline auto&amp; gpioa() {
+    return <em>reinterpret_cast&lt;GPIO_TypeDef</em>&gt;(GPIOA_BASE);
+}
+</p>
+<p>
+// Usage:
+gpioa().ODR |= (1 &lt;&lt; 5);          // Set PA5 high
+uint32_t pins = gpioa().IDR;      // Read all input pins</code></pre></div></div>
+</p>
+<h2>Why <code>volatile</code> Is Required</h2>
+<p>
+The <code>volatile</code> keyword tells the compiler: "this value can change at any time for reasons outside the program's control -- do not optimize away reads or writes."
+</p>
+<h3>Without volatile (Dangerous)</h3>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">uint32_t <em>reg = (uint32_t </em>)0x40020010;  // No volatile!
+<p>
+while (*reg &amp; 0x01) {
+    // Wait for bit 0 to clear
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// Rust equivalent of the WRONG approach (would require unsafe + raw ptr):
+<p>
+let reg = 0x4002_0010 as *const u32;
+let cached = unsafe { *reg };  // Read once -- compiler may never re-read!
+while cached &amp; 0x01 != 0 {
+    // Infinite loop -- <code>cached</code> never changes
+}</code></pre></div></div>
+</p>
+<p>
+The compiler may optimize this to:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">uint32_t cached = *reg;     // Read once
+<p>
+while (cached &amp; 0x01) {     // Loop forever -- never re-reads hardware
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// This is what the compiler optimizes the non-volatile read to:
+<p>
+let cached = unsafe { *reg };  // Single read, value is cached
+while cached &amp; 0x01 != 0 {    // Loops forever -- never re-reads
+}</code></pre></div></div>
+</p>
+<p>
+The compiler sees that <code>*reg</code> isn't modified inside the loop, so it "helpfully" caches the value. But the hardware can change the register at any time (e.g., a button is pressed, a timer overflows). Without <code>volatile</code>, the program never sees the change.
+</p>
+<h3>With volatile (Correct)</h3>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">volatile uint32_t <em>reg = (volatile uint32_t </em>)0x40020010;
+<p>
+while (*reg &amp; 0x01) {
+    // Compiler re-reads *reg every iteration
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr;
+<p>
+let reg = 0x4002_0010 as *const u32;
+// read_volatile forces a re-read every iteration (equivalent to C volatile)
+while unsafe { ptr::read_volatile(reg) } &amp; 0x01 != 0 {
+    // Compiler re-reads the register every iteration
+}</code></pre></div></div>
+</p>
+<p>
+<strong>Rule:</strong> Every pointer to a peripheral register must be <code>volatile</code>.
+</p>
+<h2>Read-Modify-Write Hazards</h2>
+<p>
+Many register operations follow a <strong>read-modify-write</strong> (RMW) pattern:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">GPIOA-&gt;ODR |= (1 &lt;&lt; 5);   // Read ODR, OR in bit 5, write back</code></pre></div>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// Read-modify-write with PAC (same hazard as C)
+<p>
+let gpioa = unsafe { &amp;*pac::GPIOA::ptr() };
+gpioa.odr.modify(|r, w| unsafe { w.bits(r.bits() | (1 &lt;&lt; 5)) });</code></pre></div></div>
+</p>
+<p>
+This compiles to three instructions:
+</p>
+<pre><code class="language-arm">LDR  R0, [R1]        @ Read current ODR value
+<p>
+ORR  R0, R0, #0x20   @ Set bit 5
+STR  R0, [R1]        @ Write back</code></pre>
+</p>
+<h3>The Problem</h3>
+<p>
+If an interrupt fires between the <code>LDR</code> and <code>STR</code>, and the interrupt handler also modifies ODR, the interrupt's changes are lost -- the main code writes back the stale value it read before the interrupt.
+</p>
+<h3>Solutions</h3>
+<ol>
+<li><strong>Use atomic set/reset registers:</strong> STM32 provides <code>BSRR</code> (Bit Set/Reset Register) that avoids RMW:</li>
+</ol>   <div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">   GPIOA-&gt;BSRR = (1 &lt;&lt; 5);        // Set PA5 (atomic, no RMW)
+<p>
+   GPIOA-&gt;BSRR = (1 &lt;&lt; (5 + 16)); // Reset PA5 (atomic)</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">   let gpioa = unsafe { &amp;*pac::GPIOA::ptr() };
+<p>
+   gpioa.bsrr.write(|w| w.bs5().set_bit());   // Set PA5 (atomic)
+   gpioa.bsrr.write(|w| w.br5().set_bit());   // Reset PA5 (atomic)</code></pre></div></div>
+</p>
+<ol>
+<li><strong>Disable interrupts around RMW:</strong></li>
+</ol>   <div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">   __disable_irq();
+<p>
+   GPIOA-&gt;ODR |= (1 &lt;&lt; 5);
+   __enable_irq();</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">   use cortex_m::interrupt;
+<p>
+   interrupt::free(|_| {
+       let gpioa = unsafe { &amp;*pac::GPIOA::ptr() };
+       gpioa.odr.modify(|r, w| unsafe { w.bits(r.bits() | (1 &lt;&lt; 5)) });
+   });</code></pre></div></div>
+</p>
+<ol>
+<li><strong>Use bit-banding</strong> (see below).</li>
+</ol>
+<h2>Bit-Banding (Cortex-M3/M4)</h2>
+<p>
+<a href="https://embeddedprep.com/arm-cortex-m4-core-registers/">Bit-banding</a> maps each bit in a region of memory to a full 32-bit word in a separate "alias" region. Writing to the alias word atomically sets or clears a single bit -- no read-modify-write needed.
+</p>
+<h3>How It Works</h3>
+<p>
+Two bit-band regions exist:
+</p>
+<table><thead><tr><th>Region</th><th>Bit-Band Base</th><th>Alias Base</th><th>Size</th></tr></thead><tbody><tr><td>SRAM</td><td><code>0x2000_0000</code></td><td><code>0x2200_0000</code></td><td>1 MB -> 32 MB alias</td></tr>
+<tr><td>Peripheral</td><td><code>0x4000_0000</code></td><td><code>0x4200_0000</code></td><td>1 MB -> 32 MB alias</td></tr></tbody></table>
+<p>
+Formula to compute the alias address:
+</p>
+<pre><code class="language-text">alias_addr = alias_base + (byte_offset <em> 32) + (bit_number </em> 4)</code></pre>
+<h3>Example: Set Bit 5 of GPIOA->ODR (0x40020014)</h3>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// ODR is at 0x40020014
+<p>
+// Byte offset from peripheral base: 0x20014
+// Bit number: 5
+// Alias address: 0x42000000 + (0x20014 <em> 32) + (5 </em> 4)
+//              = 0x42000000 + 0x400280 + 0x14
+//              = 0x42400294
+</p>
+<p>
+#define BB_ALIAS(reg, bit) \
+    (<em>(volatile uint32_t </em>)(0x42000000 + \
+     ((uint32_t)(reg) - 0x40000000) <em> 32 + (bit) </em> 4))
+</p>
+<p>
+// Atomic bit set (no RMW):
+BB_ALIAS(&amp;GPIOA-&gt;ODR, 5) = 1;  // Set PA5
+BB_ALIAS(&amp;GPIOA-&gt;ODR, 5) = 0;  // Clear PA5</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr;
+<p>
+/// Compute the bit-band alias address for a peripheral register bit.
+const fn bb_alias(reg_addr: u32, bit: u32) -&gt; *mut u32 {
+    (0x4200_0000 + (reg_addr - 0x4000_0000) <em> 32 + bit </em> 4) as *mut u32
+}
+</p>
+<p>
+const GPIOA_ODR: u32 = 0x4002_0014;
+</p>
+<p>
+// Atomic bit set (no RMW):
+unsafe { ptr::write_volatile(bb_alias(GPIOA_ODR, 5), 1) };  // Set PA5
+unsafe { ptr::write_volatile(bb_alias(GPIOA_ODR, 5), 0) };  // Clear PA5</code></pre></div></div>
+</p>
+<p>
+Writing <code>1</code> to the alias word sets the bit. Writing <code>0</code> clears it. This is a single <code>STR</code> instruction -- fully atomic.
+</p>
+<p>
+<strong>Note:</strong> Bit-banding is available on Cortex-M3 and M4 but <strong>not</strong> on M0, M0+, M7, or M33.
+</p>
+<h2>System Peripheral Registers</h2>
+<p>
+The Private Peripheral Bus (PPB) region at <code>0xE000_0000</code> contains system-level registers:
+</p>
+<table><thead><tr><th>Address</th><th>Peripheral</th><th>Purpose</th></tr></thead><tbody><tr><td><code>0xE000_E010</code></td><td>SysTick</td><td>System tick timer</td></tr>
+<tr><td><code>0xE000_E100</code></td><td>NVIC</td><td>Interrupt enable/priority</td></tr>
+<tr><td><code>0xE000_ED00</code></td><td>SCB</td><td>System control block</td></tr>
+<tr><td><code>0xE000_EF00</code></td><td>Debug</td><td>Debug registers</td></tr></tbody></table>
+<p>
+These are also memory-mapped and accessed the same way as GPIO or timers.
+</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://hackaday.com/2020/12/23/bare-metal-stm32-exploring-memory-mapped-i-o-and-linker-scripts/">Bare-Metal STM32: Memory-Mapped I/O And Linker Scripts</a> — Practical guide to STM32 memory-mapped peripheral access</li>
+<li><a href="https://embeddedsecurity.io/sec-arm-arch-core">Arm M-profile architectures and Cortex-M</a> — Cortex-M memory map and peripheral bus architecture</li>
+<li><a href="https://embeddedprep.com/arm-cortex-m4-core-registers/">ARM Cortex-M4 Core Registers</a> — Bit-banding and special register access on Cortex-M4</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="index.html">Memory Architecture</a> -- the full memory map</li>
+<li><a href="../registers-and-register-file.html">Registers and Register File</a> -- CPU registers vs peripheral registers</li>
+<li><a href="../cpu-core-and-alu.html">CPU Core and ALU</a> -- LDR/STR instructions that access MMIO</li>
+<li><a href="memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a> -- where peripheral addresses come from</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://hackaday.com/2020/12/23/bare-metal-stm32-exploring-memory-mapped-i-o-and-linker-scripts/" target="_blank" rel="noopener">Bare-Metal STM32: Memory-Mapped I/O And Linker Scripts</a></li><li><a href="https://embeddedsecurity.io/sec-arm-arch-core" target="_blank" rel="noopener">Arm M-profile architectures and Cortex-M</a></li><li><a href="https://embeddedprep.com/arm-cortex-m4-core-registers/" target="_blank" rel="noopener">ARM Cortex-M4 Core Registers</a></li></ul></div>
+      <div class="page-nav"><a href="eeprom-and-nvm.html"><span class="nav-label">← Previous</span><span class="nav-title">EEPROM and Non-Volatile Memory</span></a><a class="next" href="memory-layout-and-linker-scripts.html"><span class="nav-label">Next →</span><span class="nav-title">Memory Layout and Linker Scripts</span></a></div>
+    </main>
+  </div>
+  <script src="../../scripts/main.js"></script>
+</body>
+</html>

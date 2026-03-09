@@ -1,0 +1,15 @@
+{
+  "title": "Interrupt System",
+  "slug": "interrupt-system",
+  "order": 8,
+  "tags": ["nvic", "interrupts", "isr", "exceptions", "faults"],
+  "status": "draft",
+  "children": [
+    { "slug": "index", "title": "Why Interrupts" },
+    { "slug": "nvic-architecture", "title": "NVIC Architecture" },
+    { "slug": "priority-and-preemption", "title": "Priority and Preemption" },
+    { "slug": "isr-design-patterns", "title": "ISR Design Patterns" },
+    { "slug": "context-switching-mechanics", "title": "Context Switching Mechanics" },
+    { "slug": "exceptions-and-faults", "title": "Exceptions and Faults" }
+  ]
+}
