@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flashing Firmware onto an MCU — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="index.html">What Bare-Metal Means</a><a class="nav-item" href="cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="startup-code.html">Startup Code</a><a class="nav-item" href="vector-table.html">Vector Table</a><a class="nav-item" href="linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item active" href="flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../mcu-bare-metal-programming/index.html">Bare-Metal Programming — Write Code for Bare Hardware</a><span class="sep">/</span><span>Flashing Firmware onto an MCU</span></div>
+      <h1>Flashing Firmware onto an MCU</h1>
+      <div class="tags"><span class="tag">flashing</span><span class="tag">swd</span><span class="tag">jtag</span><span class="tag">bootloader</span><span class="tag">uart</span><span class="tag">dfu</span><span class="tag">openocd</span><span class="tag">st-flash</span></div>
+      <p>
+"Flashing" means writing your compiled firmware binary into the MCU's flash memory so it executes on power-up. There are multiple methods, each with different hardware requirements, speed, and use cases.
+</p>
+<h2>Method 1: Debug Probe (SWD / JTAG)</h2>
+<p>
+The most common method for development. A debug probe connects to the MCU's <a href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">debug port</a> and writes firmware directly into flash.
+</p>
+<h3>Hardware Setup</h3>
+<pre><code class="language-text">PC (USB) ──── Debug Probe ──── MCU
+<p>
+               ST-Link          SWDIO, SWCLK, GND, (optional NRST)
+               J-Link
+               CMSIS-DAP</code></pre>
+</p>
+<p>
+Most STM32 development boards (Nucleo, Discovery) have an <strong>on-board ST-Link</strong> — just plug in USB.
+</p>
+<h3>Using st-flash (ST-Link only)</h3>
+<pre><code class="language-bash"># Flash a binary at the start of flash (0x08000000 for STM32)
+<p>
+st-flash write firmware.bin 0x08000000
+</p>
+<h1>Read flash contents</h1>
+<p>
+st-flash read dump.bin 0x08000000 0x10000
+</p>
+<h1>Erase entire flash</h1>
+<p>
+st-flash erase</code></pre>
+</p>
+<h3>Using OpenOCD (any probe)</h3>
+<pre><code class="language-bash"># One-shot flash command
+<p>
+openocd -f interface/stlink.cfg -f target/stm32f4x.cfg \
+  -c "program firmware.elf verify reset exit"
+</p>
+<h1>Or from the OpenOCD telnet console (port 4444)</h1>
+<p>
+&gt; program firmware.elf verify reset
+</p>
+<h1>Flash a raw binary (must specify base address)</h1>
+<p>
+&gt; flash write_image erase firmware.bin 0x08000000
+&gt; reset run</code></pre>
+</p>
+<h3>Using GDB (for debug sessions)</h3>
+<pre><code class="language-bash">arm-none-eabi-gdb firmware.elf
+<p>
+(gdb) target remote :3333
+(gdb) load                    # writes firmware to flash
+(gdb) monitor reset halt      # reset and halt at entry
+(gdb) continue                # run</code></pre>
+</p>
+<h3>Using pyOCD (CMSIS-DAP probes)</h3>
+<pre><code class="language-bash">pyocd flash -t stm32f401re firmware.hex
+<p>
+pyocd erase -t stm32f401re --chip</code></pre>
+</p>
+<p>
+<strong>Pros</strong>: fastest, supports debugging, no special MCU pin configuration needed.
+<strong>Cons</strong>: requires a debug probe (~$3 for ST-Link clone, ~$20 for official).
+</p>
+<h2>Method 2: Built-in UART Bootloader</h2>
+<p>
+Every STM32 has a <a href="boot-process-deep-dive.html">factory-programmed bootloader</a> in system memory ROM. It supports firmware upload over UART (and sometimes I2C, SPI, CAN, or USB depending on the chip).
+</p>
+<h3>Entering Bootloader Mode</h3>
+<p>
+The MCU checks the <strong>BOOT0 pin</strong> on reset. According to the <a href="https://stm32world.com/wiki/STM32_How_to_flash">STM32 wiki</a>, if BOOT0 is high on power-up, the built-in bootloader executes instead of user flash:
+</p>
+<table><thead><tr><th>BOOT0</th><th>BOOT1</th><th>Boot Source</th></tr></thead><tbody><tr><td>0</td><td>x</td><td>User flash (normal operation)</td></tr>
+<tr><td>1</td><td>0</td><td>System memory (bootloader)</td></tr>
+<tr><td>1</td><td>1</td><td>Embedded SRAM</td></tr></tbody></table>
+<p>
+Steps:
+</p>
+<ol>
+<li>Connect BOOT0 to 3.3V (or press the BOOT0 button)</li>
+<li>Reset the MCU (press NRST or power cycle)</li>
+<li>The bootloader is now active on UART1 (typically PA9/PA10)</li>
+</ol>
+<h3>Using stm32flash (Linux/macOS/Windows)</h3>
+<pre><code class="language-bash"># Write firmware via serial
+<p>
+stm32flash -w firmware.bin -v -g 0x0 /dev/ttyUSB0
+</p>
+<h1>Read current firmware</h1>
+<p>
+stm32flash -r backup.bin /dev/ttyUSB0
+</p>
+<h1>Erase all flash</h1>
+<p>
+stm32flash -o /dev/ttyUSB0</code></pre>
+</p>
+<h3>Using stm32loader (Python)</h3>
+<pre><code class="language-bash">pip install stm32loader
+<h1>Flash firmware</h1>
+<p>
+stm32loader -p /dev/ttyUSB0 -e -w -v firmware.bin
+</p>
+<h1>Flags: -e = erase, -w = write, -v = verify</code></pre></h1>
+<h3>Bootloader Protocol (AN3155)</h3>
+<p>
+The UART bootloader uses a simple binary protocol at any standard baud rate. Key commands:
+</p>
+<table><thead><tr><th>Command</th><th>Code</th><th>Description</th></tr></thead><tbody><tr><td>Get</td><td>0x00</td><td>List supported commands</td></tr>
+<tr><td>Get ID</td><td>0x02</td><td>Read chip ID</td></tr>
+<tr><td>Read</td><td>0x11</td><td>Read memory</td></tr>
+<tr><td>Go</td><td>0x21</td><td>Jump to address</td></tr>
+<tr><td>Write</td><td>0x31</td><td>Write up to 256 bytes</td></tr>
+<tr><td>Erase</td><td>0x43/0x44</td><td>Erase pages/sectors</td></tr></tbody></table>
+<p>
+Each command is acknowledged with 0x79 (ACK) or 0x1F (NACK).
+</p>
+<p>
+<strong>Pros</strong>: no debug probe needed, just a USB-to-serial adapter (~$1).
+<strong>Cons</strong>: slower, requires physical access to BOOT0 pin, no debugging capability.
+</p>
+<h2>Method 3: USB DFU (Device Firmware Update)</h2>
+<p>
+Some STM32 chips (F0, F3, F4, L4, etc.) support USB DFU in their built-in bootloader. The MCU appears as a USB device when in bootloader mode.
+</p>
+<pre><code class="language-bash"># Using dfu-util
+<p>
+dfu-util -a 0 -s 0x08000000:leave -D firmware.bin
+</p>
+<h1>List connected DFU devices</h1>
+<p>
+dfu-util -l</code></pre>
+</p>
+<p>
+Enter DFU mode the same way as UART bootloader (BOOT0 high + reset), but connect via USB instead of UART.
+</p>
+<p>
+<strong>Pros</strong>: no adapter needed (just USB cable), faster than UART.
+<strong>Cons</strong>: not all STM32 chips support it, still need BOOT0 access.
+</p>
+<h2>Method 4: STM32CubeProgrammer</h2>
+<p>
+ST's official all-in-one GUI/CLI tool. Supports SWD, JTAG, UART, USB, and I2C.
+</p>
+<pre><code class="language-bash"># CLI: flash via SWD
+<p>
+STM32_Programmer_CLI -c port=SWD -w firmware.bin 0x08000000 -v -rst
+</p>
+<h1>CLI: flash via UART</h1>
+<p>
+STM32_Programmer_CLI -c port=/dev/ttyUSB0 -w firmware.bin 0x08000000 -v</code></pre>
+</p>
+<h2>Method 5: Custom Bootloader</h2>
+<p>
+For production devices, you write your own bootloader that lives in a protected region of flash and updates the application firmware via any interface you choose (UART, CAN, BLE, WiFi, etc.).
+</p>
+<pre><code class="language-text">Flash Layout with Custom Bootloader:
+<p>
++-------------------+ 0x08000000
+| Bootloader (16KB) |  ← Always runs first
++-------------------+ 0x08004000
+| Application       |  ← Bootloader jumps here if valid
+|                   |
++-------------------+ 0x0807FFFF</code></pre>
+</p>
+<p>
+See <a href="boot-process-deep-dive.html">Boot Process Deep Dive</a> for implementation details.
+</p>
+<h2>Which Method to Use?</h2>
+<table><thead><tr><th>Scenario</th><th>Best Method</th></tr></thead><tbody><tr><td>Development & debugging</td><td>SWD with ST-Link/J-Link</td></tr>
+<tr><td>No debug probe available</td><td>UART bootloader</td></tr>
+<tr><td>Production firmware update</td><td>Custom bootloader or USB DFU</td></tr>
+<tr><td>One-time programming</td><td>STM32CubeProgrammer GUI</td></tr>
+<tr><td>CI/CD automated flashing</td><td>OpenOCD or pyOCD scripts</td></tr></tbody></table>
+<h2>Flash Memory Address Map</h2>
+<p>
+Know where flash starts on your MCU:
+</p>
+<table><thead><tr><th>MCU Family</th><th>Flash Base</th><th>Typical Size</th></tr></thead><tbody><tr><td>STM32F0</td><td>0x08000000</td><td>16-256 KB</td></tr>
+<tr><td>STM32F1</td><td>0x08000000</td><td>16-512 KB</td></tr>
+<tr><td>STM32F4</td><td>0x08000000</td><td>256 KB-2 MB</td></tr>
+<tr><td>STM32H7</td><td>0x08000000</td><td>128 KB-2 MB</td></tr>
+<tr><td>nRF52</td><td>0x00000000</td><td>256-1024 KB</td></tr>
+<tr><td>ATmega328P</td><td>0x0000</td><td>32 KB</td></tr></tbody></table>
+<h2>References</h2>
+<ol>
+<li><a href="https://stm32world.com/wiki/STM32_How_to_flash">STM32 How to Flash - Stm32World Wiki</a> — Overview of all STM32 flashing methods and BOOT pin configuration</li>
+<li><a href="https://scienceprog.com/flashing-programs-to-stm32-embedded-bootloader/">Flashing Programs to STM32 - Embedded Bootloader</a> — Detailed guide on using the factory bootloader</li>
+<li><a href="https://embeddedprojects101.com/how-to-program-an-stm32-via-uart/">How to Program an STM32 via UART</a> — Step-by-step UART bootloader programming</li>
+<li><a href="https://github.com/ARMinARM/stm32flash">stm32flash on GitHub</a> — Open source serial bootloader flash tool</li>
+<li><a href="https://pypi.org/project/stm32loader/">stm32loader on PyPI</a> — Python-based STM32 bootloader utility</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="boot-process-deep-dive.html">Boot Process Deep Dive</a> — BOOT0/BOOT1 pins and custom bootloaders</li>
+<li><a href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a> — Debug probe setup</li>
+<li><a href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a> — Debug interface hardware</li>
+<li><a href="makefile-and-build-system.html">Makefile and Build System</a> — Integrating flash targets into your build</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://stm32world.com/wiki/STM32_How_to_flash" target="_blank" rel="noopener">STM32 How to Flash - Stm32World Wiki</a></li><li><a href="https://scienceprog.com/flashing-programs-to-stm32-embedded-bootloader/" target="_blank" rel="noopener">Flashing Programs to STM32 - Embedded Bootloader</a></li><li><a href="https://embeddedprojects101.com/how-to-program-an-stm32-via-uart/" target="_blank" rel="noopener">How to Program an STM32 via UART</a></li><li><a href="https://github.com/ARMinARM/stm32flash" target="_blank" rel="noopener">stm32flash - Open Source Serial Bootloader Flasher</a></li><li><a href="https://pypi.org/project/stm32loader/" target="_blank" rel="noopener">stm32loader - Python STM32 Bootloader Tool</a></li></ul></div>
+      <div class="page-nav"><a href="boot-process-deep-dive.html"><span class="nav-label">← Previous</span><span class="nav-title">Boot Process Deep Dive</span></a><a class="next" href="flash-programming-from-firmware.html"><span class="nav-label">Next →</span><span class="nav-title">Flash Programming from Firmware</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

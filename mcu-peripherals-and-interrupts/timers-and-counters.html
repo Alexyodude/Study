@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timers and Counters — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="gpio-register-level.html">GPIO at Register Level</a><a class="nav-item active" href="timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="uart-serial.html">UART Serial Communication</a><a class="nav-item" href="spi-protocol.html">SPI Protocol</a><a class="nav-item" href="i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../mcu-peripherals-and-interrupts/index.html">Peripherals & Interrupts — Interact with the World</a><span class="sep">/</span><span>Timers and Counters</span></div>
+      <h1>Timers and Counters</h1>
+      <div class="tags"><span class="tag">timer</span><span class="tag">pwm</span><span class="tag">counter</span><span class="tag">stm32</span><span class="tag">cortex-m</span><span class="tag">peripheral</span></div>
+      <p>
+Timers are one of the most versatile peripherals on a microcontroller. At their core, they are just <strong>hardware counters</strong> that <a href="https://deepbluembedded.com/stm32-timers-tutorial-hardware-timers-explained/">count clock ticks</a> -- but the features built around that counter enable PWM generation, pulse measurement, event counting, and precise time delays.
+</p>
+<h2>Timer Hardware Block</h2>
+<pre><code class="language-text">                    +-------------------+
+<p>
+  Timer Clock -----&gt;| Prescaler (PSC)   |----&gt; Divided Clock
+  (e.g. 72 MHz)    +-------------------+          |
+                                                   v
+                                          +------------------+
+                                          | Counter (CNT)    |
+                                          +------------------+
+                                                   |
+                            Compare &lt;--------------+-------------&gt; Auto-Reload
+                           (CCRx)                                   (ARR)
+                              |                                       |
+                              v                                       v
+                        PWM Output /                          Update Event
+                        Input Capture                         (UEV interrupt)</code></pre>
+</p>
+<h3>Key Registers</h3>
+<table><thead><tr><th>Register</th><th>Purpose</th></tr></thead><tbody><tr><td>TIMx_PSC</td><td>Prescaler -- divides input clock by (PSC + 1)</td></tr>
+<tr><td>TIMx_ARR</td><td>Auto-reload -- counter resets when it reaches this value</td></tr>
+<tr><td>TIMx_CNT</td><td>Current counter value</td></tr>
+<tr><td>TIMx_CR1</td><td>Control: enable timer, direction, alignment</td></tr>
+<tr><td>TIMx_CCRx</td><td>Capture/Compare -- threshold for PWM or captured value</td></tr>
+<tr><td>TIMx_CCMRx</td><td>Capture/Compare mode (PWM mode 1/2, input capture filter)</td></tr>
+<tr><td>TIMx_CCER</td><td>Capture/Compare enable -- connects output to pin</td></tr>
+<tr><td>TIMx_DIER</td><td>DMA/Interrupt enable</td></tr>
+<tr><td>TIMx_SR</td><td>Status flags (update, capture/compare)</td></tr></tbody></table>
+<h2>Basic Timer Operation</h2>
+<p>
+The counter counts from 0 up to ARR, then resets to 0 and generates an <strong>update event</strong> (UEV). The time for one full cycle:
+</p>
+<pre><code class="language-text">Timer Period = (PSC + 1) * (ARR + 1) / Timer_Clock_Hz</code></pre>
+<p>
+<strong>Example:</strong> With a 72 MHz clock, to get a 1-second period:
+</p>
+<ul>
+<li>PSC = 7199 (divides 72 MHz by 7200 = 10 kHz)</li>
+<li>ARR = 9999 (10,000 ticks at 10 kHz = 1 second)</li>
+</ul>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">TIM2-&gt;PSC = 7199;
+<p>
+TIM2-&gt;ARR = 9999;
+TIM2-&gt;CR1 |= TIM_CR1_CEN;  // start counting</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+const TIM2_BASE: u32 = 0x4000_0000;
+const TIM2_PSC: <em>mut u32 = (TIM2_BASE + 0x28) as </em>mut u32;
+const TIM2_ARR: <em>mut u32 = (TIM2_BASE + 0x2C) as </em>mut u32;
+const TIM2_CR1: <em>mut u32 = TIM2_BASE as </em>mut u32;
+</p>
+<p>
+unsafe {
+    write_volatile(TIM2_PSC, 7199);
+    write_volatile(TIM2_ARR, 9999);
+    write_volatile(TIM2_CR1, read_volatile(TIM2_CR1) | (1 &lt;&lt; 0)); // CEN
+}</code></pre></div></div>
+</p>
+<h2>PWM Generation</h2>
+<p>
+<a href="https://deepbluembedded.com/stm32-pwm-example-timer-pwm-mode-tutorial/">PWM (Pulse Width Modulation)</a> compares the counter against a threshold (CCRx):
+</p>
+<ul>
+<li><strong>Counter < CCRx</strong> --> output HIGH</li>
+<li><strong>Counter >= CCRx</strong> --> output LOW</li>
+</ul>
+<p>
+This produces a square wave whose duty cycle is <code>CCRx / (ARR + 1)</code>.
+</p>
+<pre><code class="language-text">ARR = 999
+<p>
+CCR = 250 (25% duty cycle)
+</p>
+<p>
+        ____          ____          ____
+Output |    |________|    |________|    |________
+       0   250      999  0   250      999</code></pre>
+</p>
+<h3>PWM Mode Configuration</h3>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// PWM Mode 1: output active while CNT &lt; CCR
+<p>
+TIM2-&gt;CCMR1 &amp;= ~TIM_CCMR1_OC1M;
+TIM2-&gt;CCMR1 |= (0x6 &lt;&lt; TIM_CCMR1_OC1M_Pos);  // PWM mode 1
+</p>
+<p>
+// Enable preload (buffered CCR updates)
+TIM2-&gt;CCMR1 |= TIM_CCMR1_OC1PE;
+</p>
+<p>
+// Enable output on channel 1
+TIM2-&gt;CCER |= TIM_CCER_CC1E;</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+const TIM2_CCMR1: <em>mut u32 = (0x4000_0000 + 0x18) as </em>mut u32;
+const TIM2_CCER: <em>mut u32 = (0x4000_0000 + 0x20) as </em>mut u32;
+</p>
+<p>
+unsafe {
+    // PWM Mode 1: output active while CNT &lt; CCR
+    let ccmr1 = read_volatile(TIM2_CCMR1);
+    write_volatile(TIM2_CCMR1, (ccmr1 &amp; !(0x7 &lt;&lt; 4)) | (0x6 &lt;&lt; 4)); // OC1M = PWM mode 1
+</p>
+<p>
+    // Enable preload (buffered CCR updates)
+    write_volatile(TIM2_CCMR1, read_volatile(TIM2_CCMR1) | (1 &lt;&lt; 3)); // OC1PE
+</p>
+<p>
+    // Enable output on channel 1
+    write_volatile(TIM2_CCER, read_volatile(TIM2_CCER) | (1 &lt;&lt; 0)); // CC1E
+}</code></pre></div></div>
+</p>
+<h2>Input Capture</h2>
+<p>
+Input capture <strong>records the counter value</strong> when an edge is detected on a pin. This lets you measure:
+</p>
+<ul>
+<li>Pulse width (time between rising and falling edge)</li>
+<li>Frequency (time between two rising edges)</li>
+</ul>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Configure channel 1 as input capture on rising edge
+<p>
+TIM2-&gt;CCMR1 &amp;= ~TIM_CCMR1_CC1S;
+TIM2-&gt;CCMR1 |= TIM_CCMR1_CC1S_0;   // IC1 mapped to TI1
+</p>
+<p>
+TIM2-&gt;CCER &amp;= ~TIM_CCER_CC1P;       // rising edge
+TIM2-&gt;CCER |= TIM_CCER_CC1E;        // enable capture
+</p>
+<p>
+// After capture, read TIM2-&gt;CCR1 for the timestamp</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+const TIM2_CCMR1: <em>mut u32 = (0x4000_0000 + 0x18) as </em>mut u32;
+const TIM2_CCER: <em>mut u32 = (0x4000_0000 + 0x20) as </em>mut u32;
+const TIM2_CCR1: <em>const u32 = (0x4000_0000 + 0x34) as </em>const u32;
+</p>
+<p>
+unsafe {
+    // Configure channel 1 as input capture on rising edge
+    let ccmr1 = read_volatile(TIM2_CCMR1);
+    write_volatile(TIM2_CCMR1, (ccmr1 &amp; !(0x3 &lt;&lt; 0)) | (0x1 &lt;&lt; 0)); // CC1S = 01
+</p>
+<p>
+    let ccer = read_volatile(TIM2_CCER);
+    write_volatile(TIM2_CCER, (ccer &amp; !(1 &lt;&lt; 1)) | (1 &lt;&lt; 0)); // CC1P=0 (rising), CC1E=1
+</p>
+<p>
+    // After capture, read TIM2-&gt;CCR1 for the timestamp
+    let _timestamp = read_volatile(TIM2_CCR1);
+}</code></pre></div></div>
+</p>
+<p>
+To measure pulse width: capture on rising edge (store value), then capture on falling edge (subtract).
+</p>
+<h2>Timer Interrupts</h2>
+<p>
+Enable the update interrupt to run code at a fixed rate:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">TIM2-&gt;DIER |= TIM_DIER_UIE;     // enable update interrupt
+<p>
+NVIC_EnableIRQ(TIM2_IRQn);      // enable in NVIC
+</p>
+<p>
+void TIM2_IRQHandler(void) {
+    if (TIM2-&gt;SR &amp; TIM_SR_UIF) {
+        TIM2-&gt;SR &amp;= ~TIM_SR_UIF;  // clear flag (MUST do this)
+        // your periodic code here
+    }
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+const TIM2_DIER: <em>mut u32 = (0x4000_0000 + 0x0C) as </em>mut u32;
+const TIM2_SR: <em>mut u32 = (0x4000_0000 + 0x10) as </em>mut u32;
+const NVIC_ISER0: <em>mut u32 = 0xE000_E100 as </em>mut u32;
+</p>
+<p>
+unsafe {
+    write_volatile(TIM2_DIER, read_volatile(TIM2_DIER) | (1 &lt;&lt; 0)); // UIE
+    write_volatile(NVIC_ISER0, 1 &lt;&lt; 28);  // TIM2_IRQn = 28
+}
+</p>
+<p>
+#[no_mangle]
+pub unsafe extern "C" fn TIM2_IRQHandler() {
+    if read_volatile(TIM2_SR) &amp; (1 &lt;&lt; 0) != 0 {  // UIF
+        write_volatile(TIM2_SR, read_volatile(TIM2_SR) &amp; !(1 &lt;&lt; 0)); // clear flag
+        // your periodic code here
+    }
+}</code></pre></div></div>
+</p>
+<h2>Example: 1 kHz PWM on TIM2 CH1 (PA0)</h2>
+<p>
+Assuming a 72 MHz system clock:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// 1. Enable clocks
+<p>
+RCC-&gt;APB1ENR |= RCC_APB1ENR_TIM2EN;
+RCC-&gt;AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
+</p>
+<p>
+// 2. Configure PA0 as TIM2_CH1 (AF1 on STM32F4)
+GPIOA-&gt;MODER &amp;= ~(0x3 &lt;&lt; (0 * 2));
+GPIOA-&gt;MODER |=  (0x2 &lt;&lt; (0 * 2));   // alternate function
+GPIOA-&gt;AFR[0] |= (0x1 &lt;&lt; (0 * 4));   // AF1 = TIM2
+</p>
+<p>
+// 3. Set timer for 1 kHz PWM
+//    72 MHz / (71+1) = 1 MHz tick
+//    1 MHz / (999+1) = 1 kHz PWM frequency
+TIM2-&gt;PSC = 71;
+TIM2-&gt;ARR = 999;
+</p>
+<p>
+// 4. Set 50% duty cycle
+TIM2-&gt;CCR1 = 500;
+</p>
+<p>
+// 5. Configure PWM mode 1 on channel 1
+TIM2-&gt;CCMR1 &amp;= ~TIM_CCMR1_OC1M;
+TIM2-&gt;CCMR1 |= (0x6 &lt;&lt; TIM_CCMR1_OC1M_Pos);
+TIM2-&gt;CCMR1 |= TIM_CCMR1_OC1PE;  // preload enable
+</p>
+<p>
+// 6. Enable output
+TIM2-&gt;CCER |= TIM_CCER_CC1E;
+</p>
+<p>
+// 7. Start timer
+TIM2-&gt;CR1 |= TIM_CR1_CEN;
+</p>
+<p>
+// To change duty cycle at runtime:
+// TIM2-&gt;CCR1 = new_value;  // 0 to 999</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+const RCC_APB1ENR: <em>mut u32 = (0x4002_3800 + 0x40) as </em>mut u32;
+const RCC_AHB1ENR: <em>mut u32 = (0x4002_3800 + 0x30) as </em>mut u32;
+const GPIOA_MODER: <em>mut u32 = 0x4002_0000 as </em>mut u32;
+const GPIOA_AFRL: <em>mut u32 = (0x4002_0000 + 0x20) as </em>mut u32;
+const TIM2_BASE: u32 = 0x4000_0000;
+</p>
+<p>
+unsafe {
+    // 1. Enable clocks
+    write_volatile(RCC_APB1ENR, read_volatile(RCC_APB1ENR) | (1 &lt;&lt; 0)); // TIM2EN
+    write_volatile(RCC_AHB1ENR, read_volatile(RCC_AHB1ENR) | (1 &lt;&lt; 0)); // GPIOAEN
+</p>
+<p>
+    // 2. Configure PA0 as TIM2_CH1 (AF1)
+    let moder = read_volatile(GPIOA_MODER);
+    write_volatile(GPIOA_MODER, (moder &amp; !(0x3 &lt;&lt; 0)) | (0x2 &lt;&lt; 0)); // AF mode
+    let afrl = read_volatile(GPIOA_AFRL);
+    write_volatile(GPIOA_AFRL, afrl | (0x1 &lt;&lt; 0)); // AF1 = TIM2
+</p>
+<p>
+    // 3. Set timer for 1 kHz PWM
+    write_volatile((TIM2_BASE + 0x28) as *mut u32, 71);  // PSC
+    write_volatile((TIM2_BASE + 0x2C) as *mut u32, 999); // ARR
+</p>
+<p>
+    // 4. Set 50% duty cycle
+    write_volatile((TIM2_BASE + 0x34) as *mut u32, 500); // CCR1
+</p>
+<p>
+    // 5. Configure PWM mode 1 on channel 1
+    let ccmr1 = (TIM2_BASE + 0x18) as *mut u32;
+    let val = read_volatile(ccmr1);
+    write_volatile(ccmr1, (val &amp; !(0x7 &lt;&lt; 4)) | (0x6 &lt;&lt; 4) | (1 &lt;&lt; 3)); // OC1M + OC1PE
+</p>
+<p>
+    // 6. Enable output
+    let ccer = (TIM2_BASE + 0x20) as *mut u32;
+    write_volatile(ccer, read_volatile(ccer) | (1 &lt;&lt; 0)); // CC1E
+</p>
+<p>
+    // 7. Start timer
+    let cr1 = TIM2_BASE as *mut u32;
+    write_volatile(cr1, read_volatile(cr1) | (1 &lt;&lt; 0)); // CEN
+</p>
+<p>
+    // To change duty cycle at runtime:
+    // write_volatile((TIM2_BASE + 0x34) as *mut u32, new_value); // 0 to 999
+}</code></pre></div></div>
+</p>
+<h2>Timer Types on STM32</h2>
+<table><thead><tr><th>Type</th><th>Examples</th><th>Features</th></tr></thead><tbody><tr><td>Basic</td><td>TIM6, TIM7</td><td>Count only, no I/O. Good for timebase/DAC trigger</td></tr>
+<tr><td>General-purpose</td><td>TIM2-TIM5</td><td>PWM, input capture, encoder mode, 4 channels</td></tr>
+<tr><td>Advanced</td><td>TIM1, TIM8</td><td>Dead-time insertion, break input, complementary outputs (motor control)</td></tr></tbody></table>
+<h2>References</h2>
+<ol>
+<li><a href="https://deepbluembedded.com/stm32-timers-tutorial-hardware-timers-explained/">STM32 Timers Explained Tutorial</a> — Comprehensive guide to STM32 timer hardware and registers</li>
+<li><a href="https://deepbluembedded.com/stm32-pwm-example-timer-pwm-mode-tutorial/">STM32 PWM Example Timer PWM Mode Tutorial</a> — Practical PWM configuration and duty cycle examples</li>
+<li><a href="https://wiki.st.com/stm32mcu/wiki/Getting_started_with_TIM">Getting started with TIM - STM32 MCU Wiki</a> — Official ST wiki guide for timer peripherals</li>
+<li><a href="https://www.k-space.org/Class_Info/STM32_Lec5.pdf">STM32 General-Purpose Timers Lecture</a> — Academic lecture covering timer theory and operation</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="gpio-register-level.html">GPIO Alternate Functions</a> -- connecting timer channels to pins</li>
+<li><a href="interrupt-system/index.html">Interrupt System</a> -- timer update interrupts</li>
+<li><a href="adc-and-analog.html">ADC</a> -- timers can trigger ADC conversions</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://deepbluembedded.com/stm32-timers-tutorial-hardware-timers-explained/" target="_blank" rel="noopener">STM32 Timers Explained Tutorial</a></li><li><a href="https://deepbluembedded.com/stm32-pwm-example-timer-pwm-mode-tutorial/" target="_blank" rel="noopener">STM32 PWM Example Timer PWM Mode Tutorial</a></li><li><a href="https://wiki.st.com/stm32mcu/wiki/Getting_started_with_TIM" target="_blank" rel="noopener">Getting started with TIM - STM32 MCU Wiki</a></li><li><a href="https://www.k-space.org/Class_Info/STM32_Lec5.pdf" target="_blank" rel="noopener">STM32 General-Purpose Timers Lecture</a></li></ul></div>
+      <div class="page-nav"><a href="gpio-register-level.html"><span class="nav-label">← Previous</span><span class="nav-title">GPIO at Register Level</span></a><a class="next" href="uart-serial.html"><span class="nav-label">Next →</span><span class="nav-title">UART Serial Communication</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

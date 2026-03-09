@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bare-Metal Programming — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item active" href="index.html">What Bare-Metal Means</a><a class="nav-item" href="cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="startup-code.html">Startup Code</a><a class="nav-item" href="vector-table.html">Vector Table</a><a class="nav-item" href="linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../mcu-bare-metal-programming/index.html">Bare-Metal Programming — Write Code for Bare Hardware</a><span class="sep">/</span><span>Bare-Metal Programming</span></div>
+      <h1>Bare-Metal Programming</h1>
+      <div class="tags"><span class="tag">bare-metal</span><span class="tag">embedded</span><span class="tag">arm</span><span class="tag">cortex-m</span><span class="tag">stm32</span></div>
+      <h2>What Bare-Metal Means</h2>
+<p>
+Bare-metal programming means writing code that runs directly on hardware with no operating system, no hardware abstraction layer (HAL), and no runtime environment beyond what you create yourself, as outlined in the <a href="https://github.com/cpq/bare-metal-programming-guide">Bare Metal Programming Guide</a>. Your code is the first thing that executes after the processor comes out of reset, and you are responsible for everything: initializing memory, configuring clocks, setting up peripherals, and handling interrupts.
+</p>
+<p>
+In contrast, when you use an RTOS or a vendor HAL (like STM32 HAL or Arduino), layers of software sit between your application and the hardware. Those layers are convenient but hide what actually happens at the register level.
+</p>
+<h2>Why Learn Bare-Metal</h2>
+<p>
+Understanding bare-metal programming gives you several advantages:
+</p>
+<ul>
+<li><strong>Debugging power</strong> -- when something breaks at the HAL level, you can read the registers and understand what went wrong.</li>
+<li><strong>Performance</strong> -- you can squeeze every cycle out of the hardware when you control everything.</li>
+<li><strong>Resource efficiency</strong> -- on tiny MCUs with 16 KB of flash, there is no room for a HAL or RTOS.</li>
+<li><strong>Portability of knowledge</strong> -- the concepts transfer across any ARM Cortex-M chip, regardless of vendor.</li>
+<li><strong>Interview readiness</strong> -- embedded systems interviews frequently test bare-metal concepts.</li>
+</ul>
+<p>
+The goal is not to avoid HALs forever. The goal is to understand what they do so you can use them wisely and debug them when they fail.
+</p>
+<h2>The Bare-Metal Development Workflow</h2>
+<p>
+A typical bare-metal project follows this pipeline:
+</p>
+<ol>
+<li><strong>Write source code</strong> in C (or C++) using register-level access and CMSIS headers.</li>
+<li><strong>Cross-compile</strong> with <code>arm-none-eabi-gcc</code>, targeting the specific Cortex-M core.</li>
+<li><strong>Link</strong> using a linker script that maps code and data to the MCU's flash and SRAM.</li>
+<li><strong>Convert</strong> the ELF output to a raw binary (<code>.bin</code>) or Intel HEX (<code>.hex</code>) with <code>objcopy</code>.</li>
+<li><strong>Flash</strong> the binary onto the MCU using OpenOCD, ST-Link, or a UART bootloader.</li>
+<li><strong>Debug</strong> with GDB connected through a debug probe (SWD/JTAG).</li>
+</ol>
+<p>
+The key files in any bare-metal project are:
+</p>
+<table><thead><tr><th>File</th><th>Purpose</th></tr></thead><tbody><tr><td><code>startup.c</code> / <code>startup.s</code></td><td>Vector table and pre-main initialization</td></tr>
+<tr><td><code>linker.ld</code></td><td>Memory layout and section placement</td></tr>
+<tr><td><code>main.c</code></td><td>Application entry point</td></tr>
+<tr><td><code>Makefile</code></td><td>Build automation</td></tr>
+<tr><td>CMSIS headers</td><td>Register definitions for the target MCU</td></tr></tbody></table>
+<h2>Topics in This Section</h2>
+<ul>
+<li><a href="cross-compilation-toolchain.html">Cross-Compilation Toolchain</a> -- the compiler, linker, and binary utilities</li>
+<li><a href="startup-code.html">Startup Code</a> -- what happens before <code>main()</code></li>
+<li><a href="vector-table.html">Vector Table</a> -- interrupt and exception dispatch</li>
+<li><a href="linker-scripts-in-practice.html">Linker Scripts in Practice</a> -- controlling memory layout</li>
+<li><a href="register-level-programming.html">Register-Level Programming</a> -- reading and writing hardware registers</li>
+<li><a href="volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a> -- ensuring correct hardware access</li>
+<li><a href="makefile-and-build-system.html">Makefile and Build System</a> -- automating the build-flash-debug cycle</li>
+<li><a href="boot-process-deep-dive.html">Boot Process Deep Dive</a> -- from power-on to your application</li>
+</ul>
+<h2>References</h2>
+<ol>
+<li><a href="https://github.com/cpq/bare-metal-programming-guide">Bare Metal Programming Guide (GitHub)</a> — Comprehensive guide to bare-metal ARM development workflow</li>
+<li><a href="https://vivonomicon.com/2018/04/02/bare-metal-stm32-programming-part-1-hello-arm/">Bare Metal STM32 Programming Part 1 - Vivonomicon</a> — Introductory tutorial for STM32 bare-metal programming</li>
+<li><a href="https://jacobmossberg.se/posts/2018/08/11/run-c-program-bare-metal-on-arm-cortex-m3.html">Run a C Program Bare Metal on ARM Cortex-M3</a> — Step-by-step guide to running C on Cortex-M3</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="../mcu-architecture/index.html">MCU Architecture</a> -- the hardware foundation bare-metal code runs on</li>
+<li><a href="../mcu-peripherals-and-interrupts/index.html">Peripherals and Interrupts</a> -- using peripherals at the register level</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://github.com/cpq/bare-metal-programming-guide" target="_blank" rel="noopener">Bare Metal Programming Guide (GitHub)</a></li><li><a href="https://vivonomicon.com/2018/04/02/bare-metal-stm32-programming-part-1-hello-arm/" target="_blank" rel="noopener">Bare Metal STM32 Programming Part 1 - Vivonomicon</a></li><li><a href="https://jacobmossberg.se/posts/2018/08/11/run-c-program-bare-metal-on-arm-cortex-m3.html" target="_blank" rel="noopener">Run a C Program Bare Metal on ARM Cortex-M3</a></li></ul></div>
+      <div class="page-nav"><a href="../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html"><span class="nav-label">← Previous</span><span class="nav-title">Sleep and Low-Power Modes</span></a><a class="next" href="cross-compilation-toolchain.html"><span class="nav-label">Next →</span><span class="nav-title">Cross-Compilation Toolchain</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

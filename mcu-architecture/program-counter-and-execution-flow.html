@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Program Counter and Execution Flow — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="index.html">MCU Architecture Overview</a><a class="nav-item" href="cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="registers-and-register-file.html">Registers and Register File</a><a class="nav-item active" href="program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="memory-architecture/sram.html">SRAM</a><a class="nav-item" href="memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../mcu-architecture/index.html">MCU Architecture — Understand the Machine</a><span class="sep">/</span><span>Program Counter and Execution Flow</span></div>
+      <h1>Program Counter and Execution Flow</h1>
+      <div class="tags"><span class="tag">mcu</span><span class="tag">program-counter</span><span class="tag">branching</span><span class="tag">arm</span><span class="tag">cortex-m</span></div>
+      <h2>What the Program Counter Does</h2>
+<p>
+The <strong>Program Counter (PC, R15)</strong> holds the address of the next instruction to be fetched from memory. After each fetch, the PC automatically advances to point to the following instruction. This is how the CPU moves through your program sequentially, one instruction at a time.
+</p>
+<pre><code class="language-text">  Flash Memory
+<p>
+  Address    Instruction
+  0x0800_0100:  MOV R0, #5        &lt;-- PC points here first
+  0x0800_0102:  MOV R1, #3        &lt;-- then here
+  0x0800_0104:  ADD R0, R0, R1    &lt;-- then here
+  0x0800_0106:  ...</code></pre>
+</p>
+<p>
+For 16-bit Thumb instructions, PC advances by 2. For 32-bit Thumb-2 instructions, PC advances by 4.
+</p>
+<h2>PC and the Pipeline</h2>
+<p>
+Due to the pipeline, the PC value you read in software is <strong>ahead</strong> of the instruction currently executing. On a <a href="https://embeddedprep.com/arm-cortex-m4-core-registers/">Cortex-M3/M4</a> with a 3-stage pipeline:
+</p>
+<ul>
+<li>While instruction at address <code>0x100</code> is <strong>executing</strong>, the CPU has already <strong>fetched</strong> the instruction at <code>0x108</code></li>
+<li>Reading PC during execution returns <code>current_instruction_address + 4</code></li>
+</ul>
+<p>
+This offset matters when computing PC-relative addresses (e.g., loading constants from a literal pool).
+</p>
+<h2>Sequential Execution</h2>
+<p>
+By default, the CPU executes instructions in order. The PC increments automatically:
+</p>
+<pre><code class="language-arm">@ Sequential flow
+<p>
+MOV  R0, #10       @ PC = 0x100, then PC -&gt; 0x102
+MOV  R1, #20       @ PC = 0x102, then PC -&gt; 0x104
+ADD  R2, R0, R1    @ PC = 0x104, then PC -&gt; 0x106</code></pre>
+</p>
+<p>
+No special effort is needed -- this is the default behavior.
+</p>
+<h2>Branching: Changing the Flow</h2>
+<p>
+<strong>Branch instructions</strong> break sequential flow by writing a new value into PC.
+</p>
+<h3>Unconditional Branch: B</h3>
+<pre><code class="language-arm">    MOV R0, #1
+<p>
+    B   skip          @ PC = address of "skip" label
+    MOV R0, #2        @ This line is SKIPPED
+skip:
+    MOV R0, #3        @ Execution continues here</code></pre>
+</p>
+<h3>Conditional Branches</h3>
+<p>
+Conditional branches check the status flags (N, Z, C, V) set by a previous instruction:
+</p>
+<pre><code class="language-arm">    CMP R0, #10       @ Compare: computes R0 - 10, sets flags
+<p>
+    BEQ is_ten         @ Branch if Equal (Z=1)
+    BNE not_ten        @ Branch if Not Equal (Z=0)
+    BGT greater        @ Branch if Greater Than (signed: Z=0 and N==V)
+    BLT less           @ Branch if Less Than (signed: N!=V)
+    BHI higher         @ Branch if Higher (unsigned: C=1 and Z=0)
+    BLS lower_same     @ Branch if Lower or Same (unsigned: C=0 or Z=1)</code></pre>
+</p>
+<p>
+Common condition suffixes:
+</p>
+<table><thead><tr><th>Suffix</th><th>Condition</th><th>Flags</th></tr></thead><tbody><tr><td>EQ</td><td>Equal</td><td>Z=1</td></tr>
+<tr><td>NE</td><td>Not equal</td><td>Z=0</td></tr>
+<tr><td>GT</td><td>Greater than (signed)</td><td>Z=0, N=V</td></tr>
+<tr><td>LT</td><td>Less than (signed)</td><td>N!=V</td></tr>
+<tr><td>GE</td><td>Greater or equal (signed)</td><td>N=V</td></tr>
+<tr><td>LE</td><td>Less or equal (signed)</td><td>Z=1 or N!=V</td></tr>
+<tr><td>HI</td><td>Higher (unsigned >)</td><td>C=1, Z=0</td></tr>
+<tr><td>CS/HS</td><td>Carry set / unsigned >=</td><td>C=1</td></tr>
+<tr><td>CC/LO</td><td>Carry clear / unsigned <</td><td>C=0</td></tr></tbody></table>
+<h3>Implementing an If-Else</h3>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// C code
+<p>
+if (x &gt; 0) {
+    y = 1;
+} else {
+    y = -1;
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">let y = if x &gt; 0 { 1 } else { -1 };</code></pre></div></div>
+<pre><code class="language-arm">    CMP  R0, #0         @ x in R0
+<p>
+    BGT  positive
+    MOV  R1, #-1         @ else: y = -1
+    B    done
+positive:
+    MOV  R1, #1          @ y = 1
+done:
+    @ continue...</code></pre>
+</p>
+<h3>Implementing a Loop</h3>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// C code
+<p>
+for (int i = 0; i &lt; 10; i++) { sum += i; }</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">let sum: i32 = (0..10).sum();
+<p>
+// Or with an explicit loop:
+let mut sum = 0i32;
+for i in 0..10 {
+    sum += i;
+}</code></pre></div></div>
+</p>
+<pre><code class="language-arm">    MOV  R0, #0          @ i = 0
+<p>
+    MOV  R1, #0          @ sum = 0
+loop:
+    ADD  R1, R1, R0      @ sum += i
+    ADD  R0, R0, #1      @ i++
+    CMP  R0, #10
+    BLT  loop            @ if i &lt; 10, repeat</code></pre>
+</p>
+<h2>Subroutine Calls: BL and BX LR</h2>
+<h3>BL (Branch with Link)</h3>
+<code>BL</code> does two things:
+<ol>
+<li>Saves the return address in the <strong>Link Register (LR, R14)</strong> -- this is the address of the instruction right after <code>BL</code></li>
+<li>Sets PC to the target function address</li>
+</ol>
+<pre><code class="language-arm">    BL  my_function      @ LR = next instruction address; jump to my_function
+<p>
+    @ execution resumes here after my_function returns</code></pre>
+</p>
+<h3>BX LR (Return from Subroutine)</h3>
+<pre><code class="language-arm">my_function:
+<p>
+    @ ... do work ...
+    BX  LR               @ PC = LR (return to caller)</code></pre>
+</p>
+<h3>Nested Calls: Saving LR on the Stack</h3>
+<p>
+If <code>func_a</code> calls <code>func_b</code>, <code>func_b</code>'s <code>BL</code> will overwrite LR. So <code>func_a</code> must save LR first:
+</p>
+<pre><code class="language-arm">func_a:
+<p>
+    PUSH {LR}            @ Save return address on stack
+    BL   func_b          @ LR now holds return to func_a's caller? No --
+                         @ LR = address after this BL (inside func_a)
+    POP  {PC}            @ Pop saved LR directly into PC = return to caller
+</p>
+<p>
+func_b:
+    @ leaf function (calls nothing), no need to save LR
+    BX   LR</code></pre>
+</p>
+<code>POP {PC}</code> is a common idiom: it pops the saved LR value directly into PC, which is equivalent to a return.
+<h2>BX -- Branch and Exchange</h2>
+<code>BX</code> branches to the address in a register. The lowest bit of the target address indicates the instruction set:
+<ul>
+<li>Bit 0 = 1: Thumb mode (always the case on Cortex-M)</li>
+<li>Bit 0 = 0: ARM mode (causes a HardFault on Cortex-M, which only supports Thumb)</li>
+</ul>
+<p>
+This is why function addresses in <a href="https://embeddedsecurity.io/sec-arm-arch-core">Cortex-M</a> always have bit 0 set (e.g., <code>0x0800_0101</code> instead of <code>0x0800_0100</code>).
+</p>
+<h2>How the CPU Fetches the Next Instruction</h2>
+<ol>
+<li><strong>PC</strong> is placed on the <strong>address bus</strong></li>
+<li>The <strong>bus matrix</strong> routes the request to <strong>Flash memory</strong> (or SRAM if executing from RAM)</li>
+<li>Flash returns the instruction word (2 or 4 bytes)</li>
+<li>The instruction enters the <strong>pipeline's fetch stage</strong></li>
+<li>PC is incremented automatically</li>
+<li>If a branch is taken, the pipeline is flushed and PC loads the branch target</li>
+</ol>
+<p>
+The pipeline flush on a taken branch is why branches have a small performance cost (1--3 extra cycles depending on the pipeline depth).
+</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://embeddedsecurity.io/sec-arm-arch-core">Arm M-profile architectures and Cortex-M</a> — Cortex-M execution modes, Thumb state, and branching</li>
+<li><a href="https://embeddedprep.com/arm-cortex-m4-core-registers/">ARM Cortex-M4 Core Registers</a> — PC register behavior and pipeline offset details</li>
+<li><a href="https://en.wikipedia.org/wiki/ARM_Cortex-M">ARM Cortex-M - Wikipedia</a> — General reference for Cortex-M pipeline and execution</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="registers-and-register-file.html">Registers and Register File</a> -- PC is R15 in the register file</li>
+<li><a href="stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a> -- how PUSH/POP support nested calls</li>
+<li><a href="instruction-execution/pipeline-basics.html">Pipeline Basics</a> -- why PC is ahead of the current instruction</li>
+<li><a href="instruction-execution/fetch-decode-execute.html">Fetch-Decode-Execute</a> -- the full instruction cycle</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://embeddedsecurity.io/sec-arm-arch-core" target="_blank" rel="noopener">Arm M-profile architectures and Cortex-M</a></li><li><a href="https://embeddedprep.com/arm-cortex-m4-core-registers/" target="_blank" rel="noopener">ARM Cortex-M4 Core Registers</a></li><li><a href="https://en.wikipedia.org/wiki/ARM_Cortex-M" target="_blank" rel="noopener">ARM Cortex-M - Wikipedia</a></li></ul></div>
+      <div class="page-nav"><a href="registers-and-register-file.html"><span class="nav-label">← Previous</span><span class="nav-title">Registers and Register File</span></a><a class="next" href="stack-pointer-and-call-stack.html"><span class="nav-label">Next →</span><span class="nav-title">Stack Pointer and Call Stack</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

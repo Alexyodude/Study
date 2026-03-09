@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NVIC Architecture — MCU Study Guide</title>
+  <link rel="stylesheet" href="../../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title expanded"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="index.html">Why Interrupts</a><a class="nav-item active" href="nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../../index.html">Home</a><span class="sep">/</span><a href="../../mcu-peripherals-and-interrupts/index.html">Peripherals & Interrupts — Interact with the World</a><span class="sep">/</span><a href="../../mcu-peripherals-and-interrupts/interrupt-system/index.html">Interrupt System</a><span class="sep">/</span><span>NVIC Architecture</span></div>
+      <h1>NVIC Architecture</h1>
+      <div class="tags"><span class="tag">nvic</span><span class="tag">exti</span><span class="tag">interrupts</span><span class="tag">cortex-m</span><span class="tag">stm32</span><span class="tag">registers</span></div>
+      <p>
+The <strong>NVIC (Nested Vectored Interrupt Controller)</strong> is built into every ARM Cortex-M core. It manages all external interrupts (from peripherals) and determines which ISR runs based on priority. "Nested" means a higher-priority interrupt can preempt a lower-priority one that is already running.
+</p>
+<h2>NVIC Register Groups</h2>
+<p>
+All NVIC registers are <a href="https://arm-software.github.io/CMSIS_6/v6.0.0/Core/group__NVIC__gr.html">memory-mapped starting at <code>0xE000E100</code></a>. Each register set has one bit (or byte) per interrupt line.
+</p>
+<h3>ISER -- Interrupt Set-Enable Registers</h3>
+<p>
+Address: <code>0xE000E100 - 0xE000E13C</code>
+</p>
+<p>
+Writing a <strong>1</strong> to a bit enables that interrupt. Writing 0 has no effect (write-1-to-set design).
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Enable USART2 interrupt (IRQ #38 on STM32F4)
+<p>
+NVIC-&gt;ISER[1] |= (1 &lt;&lt; (38 - 32));  // ISER[1], bit 6
+</p>
+<p>
+// Or use CMSIS helper:
+NVIC_EnableIRQ(USART2_IRQn);</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+const NVIC_ISER1: <em>mut u32 = (0xE000_E100 + 0x04) as </em>mut u32;
+</p>
+<p>
+unsafe {
+    // Enable USART2 interrupt (IRQ #38 on STM32F4)
+    write_volatile(NVIC_ISER1, read_volatile(NVIC_ISER1) | (1 &lt;&lt; (38 - 32)));
+}
+</p>
+<p>
+// Or with cortex-m crate:
+// unsafe { cortex_m::peripheral::NVIC::unmask(stm32f4::Interrupt::USART2); }</code></pre></div></div>
+</p>
+<h3>ICER -- Interrupt Clear-Enable Registers</h3>
+<p>
+Address: <code>0xE000E180 - 0xE000E1BC</code>
+</p>
+<p>
+Writing a <strong>1</strong> disables that interrupt. Symmetric to ISER.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">NVIC_DisableIRQ(USART2_IRQn);</code></pre></div>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+const NVIC_ICER1: <em>mut u32 = (0xE000_E180 + 0x04) as </em>mut u32;
+</p>
+<p>
+unsafe {
+    write_volatile(NVIC_ICER1, 1 &lt;&lt; (38 - 32)); // write-1-to-clear-enable
+}
+</p>
+<p>
+// Or with cortex-m crate:
+// cortex_m::peripheral::NVIC::mask(stm32f4::Interrupt::USART2);</code></pre></div></div>
+</p>
+<h3>ISPR / ICPR -- Set-Pending and Clear-Pending</h3>
+<p>
+Address: <code>0xE000E200</code> / <code>0xE000E280</code>
+</p>
+<ul>
+<li><strong>ISPR:</strong> Writing 1 manually pends an interrupt (useful for software-triggered interrupts)</li>
+<li><strong>ICPR:</strong> Writing 1 clears a pending interrupt</li>
+</ul>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">NVIC_SetPendingIRQ(TIM2_IRQn);    // trigger TIM2 ISR from software
+<p>
+NVIC_ClearPendingIRQ(TIM2_IRQn);  // cancel pending</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::write_volatile;
+<p>
+const NVIC_ISPR0: <em>mut u32 = 0xE000_E200 as </em>mut u32;
+const NVIC_ICPR0: <em>mut u32 = 0xE000_E280 as </em>mut u32;
+const TIM2_IRQN: u32 = 28;
+</p>
+<p>
+unsafe {
+    write_volatile(NVIC_ISPR0, 1 &lt;&lt; TIM2_IRQN);  // trigger TIM2 ISR from software
+    write_volatile(NVIC_ICPR0, 1 &lt;&lt; TIM2_IRQN);  // cancel pending
+}
+</p>
+<p>
+// Or with cortex-m crate:
+// cortex_m::peripheral::NVIC::pend(stm32f4::Interrupt::TIM2);
+// cortex_m::peripheral::NVIC::unpend(stm32f4::Interrupt::TIM2);</code></pre></div></div>
+</p>
+<h3>IPR -- Interrupt Priority Registers</h3>
+<p>
+Address: <code>0xE000E400 - 0xE000E5EC</code>
+</p>
+<p>
+Each interrupt gets <strong>8 bits</strong> for priority, but not all bits are implemented. STM32 typically implements the top 4 bits (16 priority levels). Lower value = higher priority.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Set USART2 priority to 2 (out of 0-15)
+<p>
+NVIC_SetPriority(USART2_IRQn, 2);
+</p>
+<p>
+// Under the hood: NVIC-&gt;IPR[38] = (2 &lt;&lt; 4);
+// (shifted left because only top 4 bits are used)</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::write_volatile;
+<p>
+// NVIC IPR registers: one byte per interrupt, at 0xE000E400
+const NVIC_IPR_BASE: u32 = 0xE000_E400;
+</p>
+<p>
+unsafe {
+    // Set USART2 (IRQ #38) priority to 2 (out of 0-15)
+    let ipr_addr = (NVIC_IPR_BASE + 38) as *mut u8;
+    write_volatile(ipr_addr, 2 &lt;&lt; 4); // shifted: only top 4 bits used
+}
+</p>
+<p>
+// Or with cortex-m crate:
+// unsafe { cortex_m::peripheral::NVIC::unmask(stm32f4::Interrupt::USART2); }
+// let mut nvic = unsafe { cortex_m::peripheral::NVIC::steal() };
+// unsafe { nvic.set_priority(stm32f4::Interrupt::USART2, 2); }</code></pre></div></div>
+</p>
+<h2>Number of Interrupt Lines</h2>
+<p>
+The number varies by MCU:
+</p>
+<table><thead><tr><th>Core</th><th>Max External IRQs</th></tr></thead><tbody><tr><td>Cortex-M0</td><td>32</td></tr>
+<tr><td>Cortex-M0+</td><td>32</td></tr>
+<tr><td>Cortex-M3</td><td>240</td></tr>
+<tr><td>Cortex-M4</td><td>240</td></tr>
+<tr><td>Cortex-M7</td><td>240</td></tr></tbody></table>
+<p>
+In practice, STM32F4 uses about 82 IRQ lines, STM32F1 about 60.
+</p>
+<h2>EXTI -- External Interrupt Controller</h2>
+<p>
+EXTI is a <strong>separate peripheral</strong> (not part of the NVIC) that converts GPIO pin edges into interrupt requests, as covered in the <a href="https://interrupt.memfault.com/blog/arm-cortex-m-exceptions-and-nvic">Memfault exceptions guide</a>. It sits between the GPIO pins and the NVIC.
+</p>
+<pre><code class="language-text">GPIO Pin --&gt; EXTI line --&gt; NVIC --&gt; CPU</code></pre>
+<h3>EXTI Registers</h3>
+<table><thead><tr><th>Register</th><th>Purpose</th></tr></thead><tbody><tr><td>EXTI_IMR</td><td>Interrupt mask -- enable/disable each EXTI line</td></tr>
+<tr><td>EXTI_RTSR</td><td>Rising trigger selection</td></tr>
+<tr><td>EXTI_FTSR</td><td>Falling trigger selection</td></tr>
+<tr><td>EXTI_PR</td><td>Pending register -- write 1 to clear</td></tr></tbody></table>
+<h3>Mapping GPIO Pins to EXTI Lines</h3>
+<p>
+EXTI line 0 can be PA0, PB0, PC0, etc. -- only one pin per EXTI number. The SYSCFG_EXTICRx registers select which port drives each line.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Map PA0 to EXTI line 0
+<p>
+RCC-&gt;APB2ENR |= RCC_APB2ENR_SYSCFGEN;       // enable SYSCFG clock
+SYSCFG-&gt;EXTICR[0] &amp;= ~SYSCFG_EXTICR1_EXTI0; // PA0 (0x0000)
+</p>
+<p>
+// Configure EXTI0 for rising edge
+EXTI-&gt;RTSR |= EXTI_RTSR_TR0;   // rising trigger
+EXTI-&gt;FTSR &amp;= ~EXTI_FTSR_TR0;  // not falling
+EXTI-&gt;IMR |= EXTI_IMR_MR0;     // unmask EXTI0
+</p>
+<p>
+// Enable in NVIC
+NVIC_EnableIRQ(EXTI0_IRQn);
+NVIC_SetPriority(EXTI0_IRQn, 3);</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+const RCC_APB2ENR: <em>mut u32 = (0x4002_3800 + 0x44) as </em>mut u32;
+const SYSCFG_EXTICR1: <em>mut u32 = (0x4001_3800 + 0x08) as </em>mut u32;
+const EXTI_BASE: u32 = 0x4001_3C00;
+const EXTI_IMR: <em>mut u32 = EXTI_BASE as </em>mut u32;
+const EXTI_RTSR: <em>mut u32 = (EXTI_BASE + 0x08) as </em>mut u32;
+const EXTI_FTSR: <em>mut u32 = (EXTI_BASE + 0x0C) as </em>mut u32;
+</p>
+<p>
+unsafe {
+    // Map PA0 to EXTI line 0
+    write_volatile(RCC_APB2ENR, read_volatile(RCC_APB2ENR) | (1 &lt;&lt; 14)); // SYSCFGEN
+    write_volatile(SYSCFG_EXTICR1, read_volatile(SYSCFG_EXTICR1) &amp; !0xF); // PA0
+</p>
+<p>
+    // Configure EXTI0 for rising edge
+    write_volatile(EXTI_RTSR, read_volatile(EXTI_RTSR) | (1 &lt;&lt; 0));   // rising trigger
+    write_volatile(EXTI_FTSR, read_volatile(EXTI_FTSR) &amp; !(1 &lt;&lt; 0));  // not falling
+    write_volatile(EXTI_IMR, read_volatile(EXTI_IMR) | (1 &lt;&lt; 0));     // unmask EXTI0
+</p>
+<p>
+    // Enable in NVIC
+    let nvic_iser0 = 0xE000_E100 as *mut u32;
+    write_volatile(nvic_iser0, 1 &lt;&lt; 6);  // EXTI0_IRQn = 6
+    let nvic_ipr = (0xE000_E400 + 6) as *mut u8;
+    write_volatile(nvic_ipr, 3 &lt;&lt; 4);    // priority 3
+}</code></pre></div></div>
+</p>
+<h3>EXTI ISR</h3>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">void EXTI0_IRQHandler(void) {
+<p>
+    if (EXTI-&gt;PR &amp; EXTI_PR_PR0) {
+        EXTI-&gt;PR = EXTI_PR_PR0;  // clear pending (write 1 to clear!)
+        // handle button press on PA0
+    }
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+const EXTI_PR: <em>mut u32 = (0x4001_3C00 + 0x14) as </em>mut u32;
+</p>
+<p>
+#[no_mangle]
+pub unsafe extern "C" fn EXTI0_IRQHandler() {
+    if read_volatile(EXTI_PR) &amp; (1 &lt;&lt; 0) != 0 {
+        write_volatile(EXTI_PR, 1 &lt;&lt; 0);  // clear pending (write 1 to clear!)
+        // handle button press on PA0
+    }
+}</code></pre></div></div>
+</p>
+<p>
+<strong>Important:</strong> EXTI lines 5-9 share one ISR (<code>EXTI9_5_IRQHandler</code>), and lines 10-15 share another (<code>EXTI15_10_IRQHandler</code>). You must check the pending register inside the ISR to determine which line fired.
+</p>
+<h2>The Three-Level Enable Chain</h2>
+<p>
+For a peripheral interrupt to reach the CPU, <strong>all three levels</strong> must be enabled:
+</p>
+<pre><code class="language-text">1. Peripheral level:  USART2-&gt;CR1 |= USART_CR1_RXNEIE;  // enable RXNE interrupt
+<ol>
+<li>NVIC level:        NVIC_EnableIRQ(USART2_IRQn);        // enable in NVIC</li>
+<li>Global level:      __enable_irq();                      // clear PRIMASK (usually already done)</code></pre></li>
+</ol>
+<p>
+Missing any one of these and the interrupt will never fire.
+</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://interrupt.memfault.com/blog/arm-cortex-m-exceptions-and-nvic">A Practical Guide to ARM Cortex-M Exception Handling</a> — Comprehensive guide to NVIC, EXTI, and exception flow</li>
+<li><a href="https://arm-software.github.io/CMSIS_6/v6.0.0/Core/group__NVIC__gr.html">CMSIS-Core: Interrupts and Exceptions (NVIC)</a> — Official CMSIS API reference for NVIC functions</li>
+<li><a href="https://microcontrollerslab.com/nested-vectored-interrupt-controller-nvic-arm-cortex-m/">Nested Vectored Interrupt Controller (NVIC) ARM Cortex-M</a> — NVIC register overview and interrupt enable chain</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="priority-and-preemption.html">Priority and Preemption</a> -- how priority values determine nesting</li>
+<li><a href="context-switching-mechanics.html">Context Switching</a> -- what happens when the NVIC activates an ISR</li>
+<li><a href="../gpio-register-level.html">GPIO</a> -- EXTI source pins</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://interrupt.memfault.com/blog/arm-cortex-m-exceptions-and-nvic" target="_blank" rel="noopener">A Practical Guide to ARM Cortex-M Exception Handling</a></li><li><a href="https://arm-software.github.io/CMSIS_6/v6.0.0/Core/group__NVIC__gr.html" target="_blank" rel="noopener">CMSIS-Core: Interrupts and Exceptions (NVIC)</a></li><li><a href="https://microcontrollerslab.com/nested-vectored-interrupt-controller-nvic-arm-cortex-m/" target="_blank" rel="noopener">Nested Vectored Interrupt Controller (NVIC) ARM Cortex-M</a></li></ul></div>
+      <div class="page-nav"><a href="index.html"><span class="nav-label">← Previous</span><span class="nav-title">Why Interrupts</span></a><a class="next" href="priority-and-preemption.html"><span class="nav-label">Next →</span><span class="nav-title">Priority and Preemption</span></a></div>
+    </main>
+  </div>
+  <script src="../../scripts/main.js"></script>
+</body>
+</html>

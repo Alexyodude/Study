@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Study: CH32V003 Array for Image Processing — MCU Study Guide</title>
+  <link rel="stylesheet" href="../../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title expanded"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="index.html">How to Read a Datasheet</a><a class="nav-item" href="arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="avr-architecture.html">AVR Architecture</a><a class="nav-item" href="risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item active" href="ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../../index.html">Home</a><span class="sep">/</span><a href="../../mcu-toolchain-and-practice/index.html">Toolchain & Practice — Build and Debug Real Projects</a><span class="sep">/</span><a href="../../mcu-toolchain-and-practice/mcu-families-compared/index.html">MCU Families Compared</a><span class="sep">/</span><span>Case Study: CH32V003 Array for Image Processing</span></div>
+      <h1>Case Study: CH32V003 Array for Image Processing</h1>
+      <div class="tags"><span class="tag">ch32v003</span><span class="tag">risc-v</span><span class="tag">parallel-processing</span><span class="tag">image-processing</span><span class="tag">multi-mcu</span></div>
+      <p>
+Can you build a parallel image processor from arrays of <a href="https://github.com/openwch/ch32v003">CH32V003</a> chips — a $0.10 RISC-V MCU? Yes, but the constraints are severe and shape the entire architecture. This page works through the math, the hardware design, and the real trade-offs.
+</p>
+<h2>CH32V003 Specifications — What You're Working With</h2>
+<table><thead><tr><th>Spec</th><th>Value</th><th>Implication</th></tr></thead><tbody><tr><td>Core</td><td>QingKe RV32EC @ 48 MHz</td><td>~24 MIPS, no multiply-accumulate, no FPU</td></tr>
+<tr><td>SRAM</td><td><strong>2 KB</strong> (2048 bytes)</td><td>Can hold ~2048 grayscale pixels or ~682 RGB pixels</td></tr>
+<tr><td>Flash</td><td>16 KB</td><td>Code space only — not much room for lookup tables</td></tr>
+<tr><td>GPIO</td><td>18 pins max (TSSOP20/QFN20)</td><td>8 data + control leaves ~7 pins for I/O to camera/neighbors</td></tr>
+<tr><td>DMA</td><td>7 channels</td><td>Can move data GPIO↔SRAM without CPU</td></tr>
+<tr><td>ADC</td><td>10-bit, 8 external channels</td><td>Could digitize analog video directly</td></tr>
+<tr><td>SPI</td><td>1x (up to 24 MHz)</td><td>Serial data distribution alternative</td></tr>
+<tr><td>I2C</td><td>1x</td><td>Too slow for image data, fine for configuration</td></tr>
+<tr><td>USART</td><td>1x</td><td>Up to ~2 Mbps, modest throughput</td></tr>
+<tr><td>Price</td><td>~$0.10 USD</td><td>Cost is essentially irrelevant</td></tr>
+<tr><td>Voltage</td><td>3.3V or 5V</td><td>Easy mixed-voltage systems</td></tr></tbody></table>
+<p>
+<strong>The bottleneck is the 2 KB SRAM.</strong> Everything else flows from this constraint.
+</p>
+<h2>The Fundamental Problem: 2 KB per Chip</h2>
+<p>
+Let's see how much image data 2 KB holds:
+</p>
+<table><thead><tr><th>Image Size</th><th>Grayscale (1 bpp)</th><th>RGB (3 bpp)</th><th>Fits in 2 KB?</th></tr></thead><tbody><tr><td>16 x 16</td><td>256 B</td><td>768 B</td><td>Yes</td></tr>
+<tr><td>32 x 32</td><td>1024 B</td><td>3072 B</td><td>Grayscale only</td></tr>
+<tr><td>64 x 64</td><td>4096 B</td><td>12288 B</td><td>No</td></tr>
+<tr><td>160 x 120 (QQVGA)</td><td>19.2 KB</td><td>57.6 KB</td><td>No</td></tr>
+<tr><td>320 x 240 (QVGA)</td><td>76.8 KB</td><td>230.4 KB</td><td>No</td></tr>
+<tr><td>640 x 480 (VGA)</td><td>307.2 KB</td><td>921.6 KB</td><td>No</td></tr></tbody></table>
+<p>
+But you also need SRAM for:
+</p>
+<ul>
+<li>Stack (~256-512 bytes)</li>
+<li>Variables, buffers, output data</li>
+<li>Code variables (.data, .bss)</li>
+</ul>
+<p>
+<strong>Realistic usable pixel buffer: ~1.2-1.5 KB per chip</strong>, or roughly a <strong>32x40 grayscale tile</strong>.
+</p>
+<h2>How Many CH32V003s for Common Resolutions?</h2>
+<h3>Tile-Based Decomposition</h3>
+<p>
+Split the image into tiles, one tile per chip:
+</p>
+<table><thead><tr><th>Resolution</th><th>Pixels</th><th>Tile Size (per chip)</th><th>Chips Needed</th><th>Cost</th></tr></thead><tbody><tr><td>64 x 64</td><td>4,096</td><td>16 x 16 (256 B)</td><td>16</td><td>$1.60</td></tr>
+<tr><td>160 x 120</td><td>19,200</td><td>16 x 15 (240 B)</td><td>80</td><td>$8.00</td></tr>
+<tr><td>320 x 240</td><td>76,800</td><td>20 x 15 (300 B)</td><td>256</td><td>$25.60</td></tr>
+<tr><td>640 x 480</td><td>307,200</td><td>20 x 15 (300 B)</td><td>1,024</td><td>$102.40</td></tr></tbody></table>
+<p>
+These numbers assume grayscale, ~300 bytes per tile to leave room for code variables and stack.
+</p>
+<p>
+<strong>For a QVGA (320x240) grayscale image: ~256 chips.</strong>
+</p>
+<h3>Row-Based (Streaming) Decomposition</h3>
+<p>
+Instead of tiles, process one row at a time. Each chip handles a few rows:
+</p>
+<table><thead><tr><th>Resolution</th><th>Rows</th><th>Bytes/Row</th><th>Rows per Chip</th><th>Chips (pipeline)</th></tr></thead><tbody><tr><td>160 x 120</td><td>120</td><td>160 B</td><td>8 rows (1280 B)</td><td>15</td></tr>
+<tr><td>320 x 240</td><td>240</td><td>320 B</td><td>4 rows (1280 B)</td><td>60</td></tr>
+<tr><td>640 x 480</td><td>480</td><td>640 B</td><td>2 rows (1280 B)</td><td>240</td></tr></tbody></table>
+<p>
+Row-based is more efficient for streaming operations (convolutions, edge detection) where you process sequentially.
+</p>
+<h2>Architecture Options</h2>
+<h3>Option A: Star Topology — One Controller, Many Workers</h3>
+<pre><code class="language-text">                    ┌──── Worker 0  (tile 0)
+<p>
+                    ├──── Worker 1  (tile 1)
+  Controller ───SPI─┼──── Worker 2  (tile 2)
+  (STM32F4)         ├──── Worker 3  (tile 3)
+                    ├──── ...
+                    └──── Worker N  (tile N)</code></pre>
+</p>
+<ul>
+<li><strong>Controller</strong>: a more capable MCU (STM32F4, ESP32, RP2040) captures the image from a camera, splits it into tiles, and distributes via SPI daisy-chain or parallel bus</li>
+<li><strong>Workers</strong>: CH32V003 chips, each receives one tile, processes it, returns result</li>
+<li><strong>SPI daisy-chain</strong>: connect MOSI→MISO through each chip. Data flows through the chain like a shift register</li>
+</ul>
+<p>
+<strong>Pros</strong>: simple, controller handles coordination
+<strong>Cons</strong>: SPI distribution is serial — 76.8 KB at 24 MHz SPI = ~26 ms just to distribute QVGA
+</p>
+<h3>Option B: 2D Grid — Neighbor Communication</h3>
+<pre><code class="language-text">  ┌─────┬─────┬─────┬─────┐
+<p>
+  │ 0,0 │ 0,1 │ 0,2 │ 0,3 │    Each chip talks to
+  ├─────┼─────┼─────┼─────┤    its 4 neighbors via
+  │ 1,0 │ 1,1 │ 1,2 │ 1,3 │    GPIO parallel bus
+  ├─────┼─────┼─────┼─────┤
+  │ 2,0 │ 2,1 │ 2,2 │ 2,3 │    Edge data shared for
+  ├─────┼─────┼─────┼─────┤    convolution kernels
+  │ 3,0 │ 3,1 │ 3,2 │ 3,3 │
+  └─────┴─────┴─────┴─────┘</code></pre>
+</p>
+<p>
+Each chip has GPIO connections to its north, south, east, west neighbors. This enables <strong>halo exchange</strong> — sharing border pixels needed for convolution filters.
+</p>
+<p>
+<strong>Pin budget for a grid node (TSSOP20, 18 GPIO):</strong>
+</p>
+<table><thead><tr><th>Function</th><th>Pins Used</th></tr></thead><tbody><tr><td>Data bus to north neighbor</td><td>4 pins (nibble)</td></tr>
+<tr><td>Data bus to south neighbor</td><td>4 pins (nibble)</td></tr>
+<tr><td>STROBE in / out</td><td>2 pins</td></tr>
+<tr><td>ACK in / out</td><td>2 pins</td></tr>
+<tr><td>SPI (from controller)</td><td>3 pins (SCK, MOSI, CS)</td></tr>
+<tr><td>Status / sync</td><td>1 pin</td></tr>
+<tr><td><strong>Total</strong></td><td><strong>16 pins</strong></td></tr></tbody></table>
+<p>
+Only 2 spare pins. A 4-bit nibble bus means transferring 1 byte takes 2 cycles — slower but feasible.
+</p>
+<p>
+<strong>Pros</strong>: true parallel processing, scales naturally, local communication is fast
+<strong>Cons</strong>: complex PCB routing, needs halo exchange protocol, programming/debugging 256 chips is hard
+</p>
+<h3>Option C: Pipeline — Each Stage Processes Sequentially</h3>
+<pre><code class="language-text">Camera → [Stage 1: Bayer→Gray] → [Stage 2: Gaussian blur] → [Stage 3: Edge detect] → Output
+<p>
+           CH32V003 × 4           CH32V003 × 4               CH32V003 × 4</code></pre>
+</p>
+<p>
+Each stage is a group of CH32V003s doing one operation. Data streams row-by-row through the pipeline. While stage 3 processes frame N, stage 2 processes frame N+1, stage 1 processes frame N+2.
+</p>
+<p>
+<strong>Pros</strong>: naturally maps to image processing chains, simpler data flow
+<strong>Cons</strong>: latency of N pipeline stages, each stage must match throughput
+</p>
+<h2>Data Distribution: The Real Bottleneck</h2>
+<p>
+The critical question is not compute — it's <strong>how fast you can move pixel data into and out of each chip</strong>.
+</p>
+<h3>SPI (Serial)</h3>
+<pre><code class="language-text">24 MHz SPI, 8-bit frames
+<p>
+Throughput: 3 MB/s
+Time to fill 1.2 KB buffer: 0.4 ms
+Time to distribute 320x240 grayscale: 25.6 ms → ~39 fps max (distribution only)</code></pre>
+</p>
+<h3>Parallel GPIO (8-bit bus + clock)</h3>
+<pre><code class="language-text">8 data pins + 1 clock, conservative 4 MHz clock
+<p>
+Throughput: 4 MB/s
+Time to fill 1.2 KB buffer: 0.3 ms
+Time to distribute 320x240: 19.2 ms → ~52 fps</code></pre>
+</p>
+<h3>DMA + Timer Parallel GPIO</h3>
+<p>
+Using the CH32V003's DMA and timer to <a href="../../../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">drive GPIO automatically</a>:
+</p>
+<pre><code class="language-text">Timer-triggered DMA at 12 MHz (48 MHz / 4)
+<p>
+Throughput: 12 MB/s (theoretical, 4-bit nibble = 6 MB/s effective)
+But: only 7 DMA channels, shared with other peripherals</code></pre>
+</p>
+<h3>Bottom Line</h3>
+<table><thead><tr><th>Method</th><th>QVGA Distribution Time</th><th>Achievable FPS</th></tr></thead><tbody><tr><td>SPI daisy-chain</td><td>~26 ms</td><td>~38 fps</td></tr>
+<tr><td>8-bit parallel from controller</td><td>~19 ms</td><td>~52 fps</td></tr>
+<tr><td>SPI broadcast (shared MOSI, individual CS)</td><td>~26 ms per chip, but parallel</td><td>Depends on grouping</td></tr>
+<tr><td>Pre-loaded (chips read from shared bus simultaneously)</td><td>~0.3 ms per chip</td><td>High, but complex</td></tr></tbody></table>
+<p>
+Distribution overhead dominates. The actual processing per chip at 48 MHz is fast — a 3x3 convolution on a 32x40 tile takes ~50,000 cycles = ~1 ms.
+</p>
+<h2>What Operations Can a CH32V003 Realistically Do?</h2>
+<p>
+At 48 MHz with RV32EC (no hardware multiply, compressed instructions only):
+</p>
+<table><thead><tr><th>Operation</th><th>Cycles per Pixel</th><th>Time for 1280 pixels (32x40)</th><th>Feasible?</th></tr></thead><tbody><tr><td>Threshold (compare + branch)</td><td>~5</td><td>0.13 ms</td><td>Easy</td></tr>
+<tr><td>Invert (XOR 0xFF)</td><td>~4</td><td>0.11 ms</td><td>Easy</td></tr>
+<tr><td>Brightness/contrast (add + clamp)</td><td>~10</td><td>0.27 ms</td><td>Easy</td></tr>
+<tr><td>3x3 convolution (9 multiplies + add)</td><td>~80-120*</td><td>2.1-3.2 ms</td><td>Possible</td></tr>
+<tr><td>Histogram (256-bin, 256B)</td><td>~8</td><td>0.21 ms</td><td>Easy</td></tr>
+<tr><td>Sobel edge detect (two 3x3 kernels)</td><td>~200*</td><td>5.3 ms</td><td>Slow</td></tr>
+<tr><td>Median filter 3x3 (sort 9 values)</td><td>~150</td><td>4.0 ms</td><td>Slow</td></tr>
+<tr><td>Binary morphology (dilate/erode)</td><td>~20</td><td>0.53 ms</td><td>Easy</td></tr></tbody></table>
+<p>
+*RV32EC has <strong>no hardware multiply</strong> — <code>MUL</code> is emulated in software (~30-40 cycles). This makes convolutions painful. Workaround: use shift-and-add for power-of-2 kernel coefficients (e.g., box filter, Gaussian approximation).
+</p>
+<h3>Software Multiply Workaround</h3>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// 3x3 box filter: all coefficients are 1, divide by 9
+<p>
+// Avoid multiply: sum 9 pixels, then approximate /9
+// 9 ≈ 8 + 1, so x/9 ≈ (x &gt;&gt; 3) - (x &gt;&gt; 6) + (x &gt;&gt; 9)
+uint8_t box_filter_3x3(uint8_t *pixels, int stride) {
+    uint16_t sum = 0;
+    for (int dy = -1; dy &lt;= 1; dy++)
+        for (int dx = -1; dx &lt;= 1; dx++)
+            sum += pixels[dy * stride + dx];
+    // Approximate division by 9 using shifts
+    return (uint8_t)((sum &gt;&gt; 3) + (sum &gt;&gt; 6));
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">/// 3x3 box filter: all coefficients are 1, divide by 9
+<p>
+/// Avoid multiply: sum 9 pixels, then approximate /9
+fn box_filter_3x3(pixels: &amp;[u8], center: usize, stride: usize) -&gt; u8 {
+    let offsets: [isize; 9] = [
+        -(stride as isize) - 1, -(stride as isize), -(stride as isize) + 1,
+        -1,                      0,                   1,
+         (stride as isize) - 1,  (stride as isize),  (stride as isize) + 1,
+    ];
+    let sum: u16 = offsets.iter()
+        .map(|&amp;off| pixels[(center as isize + off) as usize] as u16)
+        .sum();
+    // Approximate division by 9 using shifts
+    ((sum &gt;&gt; 3) + (sum &gt;&gt; 6)) as u8
+}</code></pre></div></div>
+</p>
+<h2>The Halo Problem</h2>
+<p>
+Convolution filters need neighboring pixels. A 3x3 kernel on the edge of a tile needs 1 pixel from the adjacent tile. Each chip must exchange <strong>border pixels</strong> (the "halo") with its neighbors.
+</p>
+<pre><code class="language-text">  Chip A tile          Halo exchange         Chip B tile
+<p>
+┌──────────┐                              ┌──────────┐
+│          │◄──── 1-pixel column ────────►│          │
+│  32 x 40 │      (40 bytes, both dirs)   │  32 x 40 │
+│          │                              │          │
+└──────────┘                              └──────────┘</code></pre>
+</p>
+<p>
+For a 3x3 kernel: exchange 1 row/column with each neighbor. For 5x5: exchange 2 rows/columns.
+</p>
+<p>
+<strong>Halo cost per chip</strong>: 4 neighbors x 40 bytes = 160 bytes transferred. At 4 MHz parallel: ~40 us. Negligible.
+</p>
+<p>
+<strong>But</strong>: the halo exchange requires synchronization — all chips must finish loading before any chip starts processing. This is a <strong>barrier synchronization</strong> problem.
+</p>
+<h3>Barrier Sync with a Shared Signal</h3>
+<pre><code class="language-text">Controller raises SYNC pin → all chips begin processing
+<p>
+All chips finish → each asserts DONE pin
+Controller detects all DONE → raises SYNC for next phase</code></pre>
+</p>
+<p>
+With 256 chips, wire-AND the DONE pins (open-drain, one pull-up). When all chips release, the line goes high — single-wire barrier completion.
+</p>
+<h2>Adding External Shared RAM</h2>
+<p>
+The 2 KB SRAM bottleneck changes dramatically with <a href="../../memory-management-in-practice/external-shared-ram.html">external shared RAM</a>. An SPI SRAM chip like the 23LC1024 (128 KB, ~$0.60) gives the array a shared memory pool 64x larger than a single chip's internal RAM.
+</p>
+<h3>Revised Architecture with Shared SPI SRAM</h3>
+<pre><code class="language-text">                          23LC1024         23LC1024
+<p>
+  Camera ── Controller    (128 KB)         (128 KB)
+             (STM32F4)   SPI bus #0        SPI bus #1
+                 │        │  │  │  │        │  │  │  │
+                 │       W0  W1 W2 W3      W4  W5 W6 W7
+                 │       CH32V003 ×4       CH32V003 ×4
+                 │
+                 ├── SYNC pin (broadcast to all workers)
+                 └── reads DONE pins (wire-AND)</code></pre>
+</p>
+<p>
+<strong>Workflow with shared SRAM</strong>:
+</p>
+<ol>
+<li>Controller captures QVGA frame (76.8 KB) into two 23LC1024 chips (38.4 KB each)</li>
+<li>Controller writes tile assignments to mailbox regions</li>
+<li>Each worker acquires the SPI token, reads its tile (~1.3 KB), releases the token</li>
+<li>Workers process locally in their 2 KB internal SRAM — all in parallel</li>
+<li>Workers acquire token one at a time, write results back to shared SRAM</li>
+<li>Controller reads results from shared SRAM</li>
+</ol>
+<p>
+<strong>Revised count</strong>: with shared SRAM holding the full frame, you need far fewer workers — limited only by compute throughput, not memory. <strong>8 workers with 2 shared SRAMs</strong> can process QVGA at ~15-22 fps for simple filters. Total BOM: ~$2 in chips.
+</p>
+<p>
+See <a href="../../memory-management-in-practice/external-shared-ram.html">External Shared RAM</a> for full details on arbitration, memory maps, and throughput analysis.
+</p>
+<h2>Practical Design Considerations</h2>
+<h3>PCB Complexity</h3>
+<p>
+256 CH32V003 chips on a PCB:
+</p>
+<ul>
+<li><strong>Power</strong>: 256 × ~5 mA (active) = 1.28 A at 3.3V = 4.2W. Manageable with proper decoupling.</li>
+<li><strong>Decoupling caps</strong>: 256 × 100nF = 256 capacitors minimum</li>
+<li><strong>Routing</strong>: if grid topology, each chip connects to 4 neighbors + SPI bus + sync. Multilayer PCB required (4+ layers).</li>
+<li><strong>Board size</strong>: QFN20 is 3x3mm. With spacing: ~8x8mm per chip. 16x16 grid = 128mm x 128mm (~5" x 5"). Achievable.</li>
+</ul>
+<h3>Programming and Debugging</h3>
+<p>
+Flashing 256 chips individually via single-wire debug is impractical. Solutions:
+</p>
+<ul>
+<li><strong>SPI bootloader</strong>: controller broadcasts firmware update over the shared SPI bus. Each chip has a small bootloader in protected flash.</li>
+<li><strong>Shared flash image</strong>: all chips run identical firmware. Tile coordinates are set via hard-wired address pins (3-4 GPIO pins encoding chip ID) or assigned at boot via SPI command.</li>
+</ul>
+<h3>Clock Synchronization</h3>
+<p>
+Each chip runs its own 48 MHz internal RC oscillator (±1% accuracy). Over 1 ms of processing, clocks can drift by ~10 ns. For image processing, this is fine — synchronization points (barriers) re-align execution.
+</p>
+<p>
+For tighter sync, distribute a common external clock to all chips. The CH32V003 supports an external 4-25 MHz oscillator input.
+</p>
+<h3>Cost Comparison</h3>
+<table><thead><tr><th>Approach</th><th>Parts Cost</th><th>Processing Power</th></tr></thead><tbody><tr><td>256× CH32V003</td><td>~$30 (chips + passives)</td><td>256 × 24 MIPS = 6,144 MIPS total</td></tr>
+<tr><td>1× STM32F407</td><td>~$8</td><td>210 MIPS, 192 KB SRAM</td></tr>
+<tr><td>1× ESP32-S3</td><td>~$3</td><td>480 MIPS (dual core), 512 KB SRAM, SIMD</td></tr>
+<tr><td>1× RP2040</td><td>~$1</td><td>266 MIPS (dual core), 264 KB SRAM</td></tr>
+<tr><td>1× FPGA (iCE40)</td><td>~$5</td><td>True pixel-level parallelism</td></tr></tbody></table>
+<p>
+<strong>The CH32V003 array wins on raw aggregate MIPS but loses badly on practical throughput</strong> because of data distribution overhead and the lack of hardware multiply. A single STM32F4 with 192 KB SRAM can hold an entire QVGA frame and process it with hardware multiply and DSP instructions.
+</p>
+<h2>When This Approach Actually Makes Sense</h2>
+<p>
+The CH32V003 array is compelling in a few specific scenarios:
+</p>
+<ol>
+<li><strong>Sensor arrays</strong> — each chip reads its own local sensor (photodiode, ADC) and processes locally. No distribution bottleneck because data is generated in-place.</li>
+</ol>
+<ol>
+<li><strong>Binary image processing</strong> — thresholding, morphology, connected-component labeling. These are cheap operations that don't need multiply.</li>
+</ol>
+<ol>
+<li><strong>Pixel-level neural network inference</strong> — each chip runs a tiny classifier on its tile. Results are 1 bit (detected / not detected). Output bandwidth is trivial.</li>
+</ol>
+<ol>
+<li><strong>Learning exercise</strong> — building a multi-MCU parallel computer is an excellent way to learn about distributed computing, synchronization, and hardware design.</li>
+</ol>
+<ol>
+<li><strong>Art / installations</strong> — LED matrix controllers where each chip drives a small section with local animation logic.</li>
+</ol>
+<h3>If You Actually Want to Process Images on MCUs</h3>
+<p>
+Use a single more capable chip:
+</p>
+<ul>
+<li><strong>ESP32-S3</strong>: 512 KB SRAM, SIMD instructions, camera interface, ~$3</li>
+<li><strong>STM32H7</strong>: 1 MB SRAM, Cortex-M7 with FPU+DSP, 480 MHz</li>
+<li><strong>RP2040</strong>: PIO state machines can implement custom parallel camera interfaces</li>
+</ul>
+<p>
+Or combine: one capable MCU captures the image + a few CH32V003s for specific parallel subtasks.
+</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://github.com/openwch/ch32v003">CH32V003 Official GitHub</a> — Datasheets, reference manual, and examples for the CH32V003</li>
+<li><a href="https://components101.com/ics/ch32v003-32-bit-general-purpose-risc-v-mcu">CH32V003 Specifications and Pinout</a> — Complete pin, peripheral, and package details</li>
+<li><a href="https://github.com/cnlohr/ch32fun">ch32fun - Open Source Minimal Stack</a> — Bare-metal development framework for CH32V003</li>
+<li><a href="https://hackaday.com/tag/parallel-processing/">Parallel Processing Projects - Hackaday</a> — Community projects including MCU clusters</li>
+<li><a href="https://www.st.com/resource/en/application_note/an4666-parallel-synchronous-transmission-using-gpio-and-dma-stmicroelectronics.pdf">AN4666: Parallel Synchronous Transmission Using GPIO and DMA</a> — DMA-driven parallel data transfer technique</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="risc-v-microcontrollers.html">RISC-V Microcontrollers</a> — CH32V003 architecture and ISA context</li>
+<li><a href="choosing-an-mcu.html">Choosing an MCU</a> — Decision framework for picking the right chip</li>
+<li><a href="../../../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a> — GPIO handshake and sync techniques</li>
+<li><a href="../../memory-management-in-practice/dma-controller.html">DMA Controller</a> — DMA-driven data transfers</li>
+<li><a href="../../memory-management-in-practice/external-shared-ram.html">External Shared RAM</a> — SPI SRAM, dual-port RAM, and shared memory patterns</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://github.com/openwch/ch32v003" target="_blank" rel="noopener">CH32V003 - Ultra-Cheap RISC-V MCU (Official GitHub)</a></li><li><a href="https://components101.com/ics/ch32v003-32-bit-general-purpose-risc-v-mcu" target="_blank" rel="noopener">CH32V003 Specifications and Pinout</a></li><li><a href="https://github.com/cnlohr/ch32fun" target="_blank" rel="noopener">ch32fun - Open Source Minimal Stack for CH32V</a></li><li><a href="https://hackaday.com/tag/parallel-processing/" target="_blank" rel="noopener">Parallel Processing Projects - Hackaday</a></li><li><a href="https://www.st.com/resource/en/application_note/an4666-parallel-synchronous-transmission-using-gpio-and-dma-stmicroelectronics.pdf" target="_blank" rel="noopener">AN4666: Parallel Synchronous Transmission Using GPIO and DMA</a></li></ul></div>
+      <div class="page-nav"><a href="choosing-an-mcu.html"><span class="nav-label">← Previous</span><span class="nav-title">Choosing an MCU</span></a></div>
+    </main>
+  </div>
+  <script src="../../scripts/main.js"></script>
+</body>
+</html>

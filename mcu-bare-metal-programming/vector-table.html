@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vector Table — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="index.html">What Bare-Metal Means</a><a class="nav-item" href="cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="startup-code.html">Startup Code</a><a class="nav-item active" href="vector-table.html">Vector Table</a><a class="nav-item" href="linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../mcu-bare-metal-programming/index.html">Bare-Metal Programming — Write Code for Bare Hardware</a><span class="sep">/</span><span>Vector Table</span></div>
+      <h1>Vector Table</h1>
+      <div class="tags"><span class="tag">vector-table</span><span class="tag">interrupts</span><span class="tag">exceptions</span><span class="tag">cortex-m</span><span class="tag">NVIC</span><span class="tag">VTOR</span></div>
+      <h2>What the Vector Table Is</h2>
+<p>
+The <a href="https://allthingsembedded.com/post/2019-01-03-arm-cortex-m-startup-code-for-c-and-c/">vector table</a> is an array of 32-bit values stored at the very beginning of flash memory. Each entry is either an address of an exception/interrupt handler function or the initial stack pointer value. When an exception or interrupt fires, the processor looks up the corresponding entry in the vector table and branches to that address.
+</p>
+<p>
+On ARM Cortex-M, the vector table must start at address <code>0x00000000</code> (or wherever the VTOR register points). It is the first thing the processor reads after reset.
+</p>
+<h2>Structure: Array of Function Pointers</h2>
+<p>
+Conceptually, the vector table is just an array:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">typedef void (*vector_fn)(void);
+<p>
+vector_fn vector_table[] = {
+    (vector_fn) &amp;_estack,     /<em> Entry 0: Initial SP </em>/
+    Reset_Handler,             /<em> Entry 1: Reset </em>/
+    NMI_Handler,               /<em> Entry 2: NMI </em>/
+    HardFault_Handler,         /<em> Entry 3: Hard Fault </em>/
+    /<em> ... more entries ... </em>/
+};</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// In Rust, cortex-m-rt defines the vector table via attributes.
+<p>
+// Exception handlers are declared with #[exception]:
+use cortex_m_rt::{entry, exception};
+</p>
+<p>
+#[exception]
+unsafe fn HardFault(_frame: &amp;cortex_m_rt::ExceptionFrame) -&gt; ! {
+    loop {}
+}
+</p>
+<p>
+#[exception]
+fn SysTick() {
+    // SysTick handler
+}
+</p>
+<p>
+// For a manual vector table without cortex-m-rt:
+#[link_section = ".isr_vector"]
+#[no_mangle]
+pub static VECTOR_TABLE: [unsafe extern "C" fn(); 4] = [
+    // Entry 0: Initial SP (cast from address)
+    unsafe { core::mem::transmute::&lt;u32, unsafe extern "C" fn()&gt;(0x2000_5000) },
+    Reset_Handler,
+    NMI_Handler,
+    HardFault_Handler,
+];</code></pre></div></div>
+</p>
+<h2>Entry 0: Initial Stack Pointer</h2>
+<p>
+The first entry is special -- it is not a function pointer. It holds the initial value of the stack pointer (SP). On Cortex-M, the stack grows downward, so this is typically set to the top of SRAM:
+</p>
+<pre><code class="language-text">Entry 0:  0x2000_5000   &lt;-- top of 20 KB SRAM (0x2000_0000 + 0x5000)</code></pre>
+<p>
+When the processor resets, it loads this value into the SP register before executing any code. You never need to set SP manually in your startup code.
+</p>
+<h2>Entry 1: Reset_Handler Address</h2>
+<p>
+The second entry is the address of the <code>Reset_Handler</code> function. After loading the SP, the processor fetches this address and branches to it. This is the true entry point of your firmware.
+</p>
+<h2>System Exceptions (Entries 2-15)</h2>
+<p>
+Entries 2 through 15 are ARM-defined system exceptions, identical across all Cortex-M devices:
+</p>
+<table><thead><tr><th>Entry</th><th>IRQ #</th><th>Exception</th><th>Description</th></tr></thead><tbody><tr><td>0</td><td>--</td><td>--</td><td>Initial Stack Pointer</td></tr>
+<tr><td>1</td><td>-15</td><td>Reset</td><td>Reset vector</td></tr>
+<tr><td>2</td><td>-14</td><td>NMI</td><td>Non-Maskable Interrupt</td></tr>
+<tr><td>3</td><td>-13</td><td>HardFault</td><td>All fault classes (if others disabled)</td></tr>
+<tr><td>4</td><td>-12</td><td>MemManage</td><td>Memory protection fault (M3/M4/M7)</td></tr>
+<tr><td>5</td><td>-11</td><td>BusFault</td><td>Bus error (M3/M4/M7)</td></tr>
+<tr><td>6</td><td>-10</td><td>UsageFault</td><td>Undefined instruction, alignment (M3/M4/M7)</td></tr>
+<tr><td>7-10</td><td>--</td><td>Reserved</td><td>--</td></tr>
+<tr><td>11</td><td>-5</td><td>SVCall</td><td>Supervisor call (SVC instruction)</td></tr>
+<tr><td>12</td><td>-4</td><td>DebugMonitor</td><td>Debug monitor (M3/M4/M7)</td></tr>
+<tr><td>13</td><td>--</td><td>Reserved</td><td>--</td></tr>
+<tr><td>14</td><td>-2</td><td>PendSV</td><td>Pendable request for system service</td></tr>
+<tr><td>15</td><td>-1</td><td>SysTick</td><td>System tick timer</td></tr></tbody></table>
+<p>
+Cortex-M0/M0+ only implement HardFault (entries 4-6 and 12 are reserved).
+</p>
+<h2>External Interrupts (Entry 16+)</h2>
+<p>
+Starting at entry 16, the vector table contains peripheral-specific interrupt handlers. These are defined by the chip vendor, not by ARM. For example, on STM32F103:
+</p>
+<table><thead><tr><th>Entry</th><th>IRQ #</th><th>Handler</th><th>Source</th></tr></thead><tbody><tr><td>16</td><td>0</td><td>WWDG_IRQHandler</td><td>Window Watchdog</td></tr>
+<tr><td>17</td><td>1</td><td>PVD_IRQHandler</td><td>Power voltage detect</td></tr>
+<tr><td>18</td><td>2</td><td>TAMPER_IRQHandler</td><td>Tamper detection</td></tr>
+<tr><td>...</td><td>...</td><td>...</td><td>...</td></tr>
+<tr><td>43</td><td>27</td><td>USART1_IRQHandler</td><td>USART1 global</td></tr></tbody></table>
+<p>
+The total number of external interrupts varies by chip -- typically 16 to 240.
+</p>
+<h2>VTOR Register: Relocating the Vector Table</h2>
+<p>
+By default, the processor expects the vector table at address <code>0x00000000</code>. The <a href="https://metebalci.com/blog/demystifying-arm-cortex-m33-bare-metal-startup/"><strong>Vector Table Offset Register</strong> (VTOR)</a> at address <code>0xE000ED08</code> lets you move it:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">/<em> Relocate vector table to start of SRAM </em>/
+<p>
+SCB-&gt;VTOR = 0x20000000;</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// Relocate vector table to start of SRAM
+<p>
+unsafe {
+    let scb = &amp;*cortex_m::peripheral::SCB::PTR;
+    scb.vtor.write(0x2000_0000);
+}</code></pre></div></div>
+</p>
+<p>
+Common reasons to relocate the vector table:
+</p>
+<ul>
+<li><strong>Bootloader to application jump</strong> -- the application's vector table is at a flash offset (e.g., <code>0x08008000</code>), not at <code>0x08000000</code>.</li>
+<li><strong>RAM-based vector table</strong> -- faster to update at runtime, useful for dynamically changing interrupt handlers.</li>
+</ul>
+<p>
+The VTOR value must be aligned to the next power-of-two that is greater than or equal to the table size. For most devices, 256-byte or 512-byte alignment is required.
+</p>
+<h2>Weak Aliases and the Override Pattern</h2>
+<p>
+The standard pattern uses <strong>weak</strong> function attributes so that default handlers can be overridden:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">/<em> Default handler: infinite loop </em>/
+<p>
+void Default_Handler(void) {
+    while (1);
+}
+</p>
+<p>
+/<em> Declare all handlers as weak aliases of Default_Handler </em>/
+void NMI_Handler(void)       __attribute__((weak, alias("Default_Handler")));
+void HardFault_Handler(void) __attribute__((weak, alias("Default_Handler")));
+void SVC_Handler(void)       __attribute__((weak, alias("Default_Handler")));
+void PendSV_Handler(void)    __attribute__((weak, alias("Default_Handler")));
+void SysTick_Handler(void)   __attribute__((weak, alias("Default_Handler")));
+void USART1_IRQHandler(void) __attribute__((weak, alias("Default_Handler")));
+/<em> ... all other IRQ handlers ... </em>/</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// In Rust with cortex-m-rt, the weak alias pattern is built in.
+<p>
+// cortex-m-rt provides DefaultHandler as a catch-all.
+// Override specific handlers with the #[exception] or #[interrupt] attribute:
+</p>
+<p>
+use cortex_m_rt::exception;
+</p>
+<p>
+// Default handler for all unhandled exceptions/interrupts
+#[exception]
+unsafe fn DefaultHandler(_irqn: i16) {
+    loop {} // Halt on unhandled interrupt
+}
+</p>
+<p>
+// Override a specific system exception (replaces weak alias)
+#[exception]
+fn SysTick() {
+    // Your SysTick handler
+}
+</p>
+<p>
+// Override a specific peripheral interrupt
+use stm32f1::stm32f103::interrupt;
+</p>
+<p>
+#[interrupt]
+fn USART1() {
+    // Your USART1 handler
+}</code></pre></div></div>
+</p>
+<p>
+How this works:
+</p>
+<ol>
+<li>By default, every interrupt vector points to <code>Default_Handler</code> (an infinite loop).</li>
+<li>When you define <code>void USART1_IRQHandler(void) { ... }</code> in your application code, the linker uses your <strong>strong</strong> definition instead of the weak alias.</li>
+<li>Any unhandled interrupt safely traps in the default loop instead of crashing unpredictably.</li>
+</ol>
+<h2>Example: Complete Vector Table in C (STM32F103)</h2>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">#include &lt;stdint.h&gt;
+<p>
+/<em> Linker-provided symbol </em>/
+extern uint32_t _estack;
+</p>
+<p>
+/<em> Reset handler (defined in startup.c) </em>/
+void Reset_Handler(void);
+</p>
+<p>
+/<em> Default handler for unimplemented interrupts </em>/
+void Default_Handler(void) {
+    while (1);
+}
+</p>
+<p>
+/<em> System exception handlers -- weak aliases </em>/
+void NMI_Handler(void)        __attribute__((weak, alias("Default_Handler")));
+void HardFault_Handler(void)  __attribute__((weak, alias("Default_Handler")));
+void MemManage_Handler(void)  __attribute__((weak, alias("Default_Handler")));
+void BusFault_Handler(void)   __attribute__((weak, alias("Default_Handler")));
+void UsageFault_Handler(void) __attribute__((weak, alias("Default_Handler")));
+void SVC_Handler(void)        __attribute__((weak, alias("Default_Handler")));
+void PendSV_Handler(void)     __attribute__((weak, alias("Default_Handler")));
+void SysTick_Handler(void)    __attribute__((weak, alias("Default_Handler")));
+</p>
+<p>
+/<em> External interrupt handlers -- weak aliases (subset shown) </em>/
+void USART1_IRQHandler(void)  __attribute__((weak, alias("Default_Handler")));
+void TIM2_IRQHandler(void)    __attribute__((weak, alias("Default_Handler")));
+void EXTI0_IRQHandler(void)   __attribute__((weak, alias("Default_Handler")));
+</p>
+<p>
+/<em> Vector table -- placed in .isr_vector by linker script </em>/
+__attribute__((section(".isr_vector")))
+const uint32_t g_pfnVectors[] = {
+    (uint32_t) &amp;_estack,           /<em> Initial SP </em>/
+    (uint32_t) Reset_Handler,      /<em> Reset </em>/
+    (uint32_t) NMI_Handler,        /<em> NMI </em>/
+    (uint32_t) HardFault_Handler,  /<em> Hard Fault </em>/
+    (uint32_t) MemManage_Handler,  /<em> Mem Manage </em>/
+    (uint32_t) BusFault_Handler,   /<em> Bus Fault </em>/
+    (uint32_t) UsageFault_Handler, /<em> Usage Fault </em>/
+    0, 0, 0, 0,                    /<em> Reserved </em>/
+    (uint32_t) SVC_Handler,        /<em> SVCall </em>/
+    0, 0,                          /<em> Reserved </em>/
+    (uint32_t) PendSV_Handler,     /<em> PendSV </em>/
+    (uint32_t) SysTick_Handler,    /<em> SysTick </em>/
+    /<em> External interrupts (IRQ 0...) </em>/
+    (uint32_t) EXTI0_IRQHandler,   /<em> EXTI Line 0 </em>/
+    /<em> ... additional IRQ handlers ... </em>/
+    (uint32_t) USART1_IRQHandler,  /<em> USART1 </em>/
+    (uint32_t) TIM2_IRQHandler,    /<em> TIM2 </em>/
+};</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// With cortex-m-rt, the vector table is generated automatically.
+<p>
+// You only define the handlers you need — all others default to
+// DefaultHandler (an infinite loop, unless you override it).
+</p>
+<p>
+#![no_std]
+#![no_main]
+</p>
+<p>
+use cortex_m_rt::{entry, exception};
+use stm32f1::stm32f103::interrupt;
+use panic_halt as _;
+</p>
+<p>
+#[entry]
+fn main() -&gt; ! {
+    loop {}
+}
+</p>
+<p>
+// System exceptions — override only the ones you handle
+#[exception]
+unsafe fn HardFault(_frame: &amp;cortex_m_rt::ExceptionFrame) -&gt; ! {
+    loop {}
+}
+</p>
+<p>
+#[exception]
+fn SysTick() {
+    // SysTick handler
+}
+</p>
+<p>
+// Peripheral interrupts — override only the ones you handle
+#[interrupt]
+fn USART1() {
+    // USART1 handler
+}
+</p>
+<p>
+#[interrupt]
+fn TIM2() {
+    // TIM2 handler
+}
+</p>
+<p>
+// cortex-m-rt places the vector table in .vector_table section
+// automatically with all the correct entries and weak defaults.</code></pre></div></div>
+</p>
+<p>
+The <code>__attribute__((section(".isr_vector")))</code> places the table in a named section. The linker script uses <code>KEEP()</code> to prevent it from being garbage-collected, and places it at the very start of flash.
+</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://allthingsembedded.com/post/2019-01-03-arm-cortex-m-startup-code-for-c-and-c/">ARM Cortex-M Startup Code for C and C++ - AllThingsEmbedded</a> — Vector table layout and weak alias pattern for handlers</li>
+<li><a href="https://github.com/cpq/bare-metal-programming-guide">Bare Metal Programming Guide - GitHub</a> — Practical example of vector table implementation in C</li>
+<li><a href="https://developer.arm.com/documentation/100941/latest/Barriers">ARM Documentation - Barriers</a> — ARM reference on memory barriers used with VTOR</li>
+<li><a href="https://metebalci.com/blog/demystifying-arm-cortex-m33-bare-metal-startup/">Demystifying ARM Cortex-M33 Bare Metal Startup</a> — VTOR relocation and startup on newer Cortex-M cores</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="startup-code.html">Startup Code</a> -- the Reset_Handler that the vector table points to</li>
+<li><a href="linker-scripts-in-practice.html">Linker Scripts in Practice</a> -- how <code>.isr_vector</code> gets placed at address 0</li>
+<li><a href="boot-process-deep-dive.html">Boot Process Deep Dive</a> -- the full reset sequence</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://allthingsembedded.com/post/2019-01-03-arm-cortex-m-startup-code-for-c-and-c/" target="_blank" rel="noopener">ARM Cortex-M Startup Code for C and C++ - AllThingsEmbedded</a></li><li><a href="https://github.com/cpq/bare-metal-programming-guide" target="_blank" rel="noopener">Bare Metal Programming Guide - GitHub</a></li><li><a href="https://developer.arm.com/documentation/100941/latest/Barriers" target="_blank" rel="noopener">ARM Documentation - Barriers</a></li><li><a href="https://metebalci.com/blog/demystifying-arm-cortex-m33-bare-metal-startup/" target="_blank" rel="noopener">Demystifying ARM Cortex-M33 Bare Metal Startup</a></li></ul></div>
+      <div class="page-nav"><a href="startup-code.html"><span class="nav-label">← Previous</span><span class="nav-title">Startup Code</span></a><a class="next" href="linker-scripts-in-practice.html"><span class="nav-label">Next →</span><span class="nav-title">Linker Scripts in Practice</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

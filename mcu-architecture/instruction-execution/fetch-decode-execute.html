@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fetch-Decode-Execute Cycle — MCU Study Guide</title>
+  <link rel="stylesheet" href="../../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../index.html">MCU Architecture Overview</a><a class="nav-item" href="../cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title expanded"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="index.html">The Instruction Cycle</a><a class="nav-item active" href="fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../../index.html">Home</a><span class="sep">/</span><a href="../../mcu-architecture/index.html">MCU Architecture — Understand the Machine</a><span class="sep">/</span><a href="../../mcu-architecture/instruction-execution/index.html">Instruction Execution</a><span class="sep">/</span><span>Fetch-Decode-Execute Cycle</span></div>
+      <h1>Fetch-Decode-Execute Cycle</h1>
+      <div class="tags"><span class="tag">mcu</span><span class="tag">fetch</span><span class="tag">decode</span><span class="tag">execute</span><span class="tag">pipeline</span><span class="tag">arm</span><span class="tag">cortex-m</span></div>
+      <h2>Overview</h2>
+<p>
+Every instruction the CPU processes goes through three fundamental stages: <strong>fetch</strong>, <strong>decode</strong>, and <strong>execute</strong>. This cycle is at the heart of how <a href="https://s-o-c.org/what-is-instruction-pipeline-in-arm-cortex-m-series/">ARM Cortex-M pipelines</a> operate. Understanding these stages helps you reason about timing, pipeline behavior, and why certain operations cost more cycles than others.
+</p>
+<h2>Stage 1: Fetch</h2>
+<p>
+The fetch stage retrieves the next instruction from memory.
+</p>
+<p>
+<strong>What happens:</strong>
+</p>
+<ol>
+<li>The <strong>Program Counter (PC)</strong> value is placed on the <strong>address bus</strong></li>
+<li>The bus matrix routes the request to <strong>flash memory</strong> (or SRAM if executing from RAM)</li>
+<li>Flash returns the instruction bytes (2 bytes for 16-bit Thumb, 4 bytes for 32-bit Thumb-2)</li>
+<li>The instruction is loaded into the <strong>instruction register</strong></li>
+<li>PC is incremented (by 2 or 4) to point to the next instruction</li>
+</ol>
+<pre><code class="language-text">  PC: 0x0800_0100
+<p>
+       |
+       v
+  Address Bus ---&gt; Flash Memory
+                       |
+                       v
+                   Instruction: 0x1840  (ADDS R0, R0, R1)
+                       |
+                       v
+                   Instruction Register</code></pre>
+</p>
+<h3>Fetch Bottlenecks</h3>
+<ul>
+<li><strong>Flash wait states</strong>: at high clock speeds, flash can't respond in 1 cycle. The CPU stalls until flash is ready. The prefetch buffer and instruction cache (ART Accelerator on STM32F4) mitigate this.</li>
+<li><strong>Branch instructions</strong>: when a branch is taken, the already-fetched instruction in the pipeline is wrong and must be discarded (pipeline flush).</li>
+</ul>
+<h2>Stage 2: Decode</h2>
+<p>
+The decode stage interprets the instruction and prepares the operands.
+</p>
+<p>
+<strong>What happens:</strong>
+</p>
+<ol>
+<li>The <strong>opcode</strong> (operation code) is extracted from the instruction bits</li>
+<li>The decoder identifies the operation type (ADD, LDR, B, etc.)</li>
+<li><strong>Source register</strong> numbers are extracted and used to read values from the register file</li>
+<li><strong>Immediate values</strong> are extracted and sign-extended if needed</li>
+<li><strong>Control signals</strong> are generated for the ALU, memory interface, and write-back logic</li>
+</ol>
+<h3>Example: Decoding <code>ADDS R0, R1, R2</code> (encoding: <code>0x1888</code>)</h3>
+<pre><code class="language-text">  Instruction bits: 0001 1000 1000 1000
+<p>
+                    ^^^^ ^^             = opcode (ADD, register)
+                           ^^^ ^^^      = Rm (R2), Rn (R1)
+                                  ^^^   = Rd (R0)
+</p>
+<p>
+  Decoder output:
+    Operation:  ADD
+    Source A:   R1 (value from register file)
+    Source B:   R2 (value from register file)
+    Destination: R0
+    Update flags: Yes (S suffix)</code></pre>
+</p>
+<h2>Stage 3: Execute</h2>
+<p>
+The execute stage performs the actual operation and writes the result.
+</p>
+<p>
+<strong>What happens depends on the instruction type:</strong>
+</p>
+<h3>Data Processing (e.g., ADD, AND, MOV)</h3>
+<ol>
+<li>ALU receives two operands from the register file</li>
+<li>ALU performs the operation (add, subtract, AND, OR, shift, etc.)</li>
+<li>Result is written to the destination register</li>
+<li>Status flags (N, Z, C, V) are updated if the <code>S</code> suffix is present</li>
+</ol>
+<h3>Memory Access (e.g., LDR, STR)</h3>
+<ol>
+<li>ALU computes the effective address (base register + offset)</li>
+<li>For <strong>LDR</strong>: address goes on the bus, data returns from memory into a register</li>
+<li>For <strong>STR</strong>: register value is sent to memory at the computed address</li>
+<li>Memory operations take additional cycles (1--2 extra for SRAM, more for flash)</li>
+</ol>
+<h3>Branch (e.g., B, BL, BX)</h3>
+<ol>
+<li>ALU computes the target address (PC + offset, or from a register)</li>
+<li>For conditional branches: check the condition flags first</li>
+<li>If branch is taken: load target address into PC, flush the pipeline</li>
+<li>For BL: also save the return address in LR</li>
+</ol>
+<h2>Visual Walkthrough: <code>ADDS R0, R1, R2</code></h2>
+<p>
+Assume R1 = 5, R2 = 3.
+</p>
+<pre><code class="language-text">  Cycle 1: FETCH
+<p>
+  +--------+    +------------------+    +------------------+
+  | PC:    |---&gt;| Address Bus      |---&gt;| Flash @ 0x100    |
+  | 0x100  |    |                  |    | Returns: 0x1888  |
+  +--------+    +------------------+    +------------------+
+                                              |
+  PC incremented to 0x102                     v
+                                        Instruction Reg: 0x1888
+</p>
+<p>
+  Cycle 2: DECODE
+  +------------------+    +------------------+
+  | Instruction Reg  |---&gt;| Decoder          |
+  | 0x1888           |    | Op: ADD          |
+  +------------------+    | Src: R1, R2      |
+                          | Dst: R0          |
+                          | Flags: Yes       |
+                          +------------------+
+                               |        |
+                          +----+    +---+
+                          v         v
+                    R1 -&gt; 5    R2 -&gt; 3
+                    (from register file)
+</p>
+<p>
+  Cycle 3: EXECUTE
+  +----------+         +----------+
+  | Operand A|---&gt; 5   |          |
+  |          |         |   ALU    |---&gt; Result: 8 ---&gt; R0
+  | Operand B|---&gt; 3   |  (ADD)   |
+  +----------+         +----------+
+                            |
+                       Flags: N=0, Z=0, C=0, V=0</code></pre>
+</p>
+<p>
+<strong>Result:</strong> R0 = 8, no flags set (result is positive, non-zero, no carry, no overflow).
+</p>
+<h2>Multi-Cycle Instructions</h2>
+<p>
+Not all instructions complete in one execute cycle:
+</p>
+<table><thead><tr><th>Instruction Type</th><th>Typical Cycles</th><th>Why</th></tr></thead><tbody><tr><td>Register ALU (ADD, MOV)</td><td>1</td><td>Single ALU operation</td></tr>
+<tr><td>Multiply (MUL)</td><td>1 (M3/M4)</td><td>Hardware multiplier</td></tr>
+<tr><td>Load (LDR)</td><td>2</td><td>Memory access takes extra cycle</td></tr>
+<tr><td>Store (STR)</td><td>2</td><td>Memory access takes extra cycle</td></tr>
+<tr><td>Branch (taken)</td><td>1 + pipeline refill</td><td>Pipeline flush costs 1-3 cycles</td></tr>
+<tr><td>Divide (SDIV, UDIV)</td><td>2--12 (M3/M4)</td><td>Iterative algorithm</td></tr>
+<tr><td>Load Multiple (LDM)</td><td>1 + N</td><td>N = number of registers loaded</td></tr></tbody></table>
+<h2>Walkthrough: LDR R0, [R1, #4]</h2>
+<p>
+This load instruction reads a word from memory at address (R1 + 4) into R0.
+</p>
+<pre><code class="language-text">  Cycle 1: FETCH
+<p>
+    Fetch instruction from flash
+</p>
+<p>
+  Cycle 2: DECODE + Address Calculation
+    Decode: LDR, base=R1, offset=4
+    ALU computes: effective_address = R1 + 4
+</p>
+<p>
+  Cycle 3: MEMORY ACCESS
+    Put effective_address on data bus
+    Wait for SRAM to return the 32-bit word
+</p>
+<p>
+  Cycle 4: WRITE-BACK
+    Store the loaded value into R0</code></pre>
+</p>
+<p>
+In a pipelined processor, some of these stages overlap with the next instruction's fetch/decode, so the effective penalty is often less than the total cycle count suggests.
+</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://s-o-c.org/what-is-instruction-pipeline-in-arm-cortex-m-series/">Instruction Pipeline in ARM Cortex-M Series</a> — Detailed explanation of pipeline stages in Cortex-M</li>
+<li><a href="https://embeddedsecurity.io/sec-arm-arch-core">Arm M-profile architectures and Cortex-M</a> — Cortex-M core architecture and instruction processing</li>
+<li><a href="https://en.wikipedia.org/wiki/ARM_Cortex-M">ARM Cortex-M - Wikipedia</a> — Cortex-M instruction cycle and multi-cycle operations</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="../cpu-core-and-alu.html">CPU Core and ALU</a> -- ALU operations in the execute stage</li>
+<li><a href="pipeline-basics.html">Pipeline Basics</a> -- how stages overlap</li>
+<li><a href="clock-cycles-and-timing.html">Clock Cycles and Timing</a> -- CPI for different instruction types</li>
+<li><a href="../program-counter-and-execution-flow.html">Program Counter and Execution Flow</a> -- PC drives the fetch stage</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://s-o-c.org/what-is-instruction-pipeline-in-arm-cortex-m-series/" target="_blank" rel="noopener">Instruction Pipeline in ARM Cortex-M Series</a></li><li><a href="https://embeddedsecurity.io/sec-arm-arch-core" target="_blank" rel="noopener">Arm M-profile architectures and Cortex-M</a></li><li><a href="https://en.wikipedia.org/wiki/ARM_Cortex-M" target="_blank" rel="noopener">ARM Cortex-M - Wikipedia</a></li></ul></div>
+      <div class="page-nav"><a href="index.html"><span class="nav-label">← Previous</span><span class="nav-title">The Instruction Cycle</span></a><a class="next" href="clock-cycles-and-timing.html"><span class="nav-label">Next →</span><span class="nav-title">Clock Cycles and Timing</span></a></div>
+    </main>
+  </div>
+  <script src="../../scripts/main.js"></script>
+</body>
+</html>

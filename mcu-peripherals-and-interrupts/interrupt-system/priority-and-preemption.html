@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Priority and Preemption — MCU Study Guide</title>
+  <link rel="stylesheet" href="../../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title expanded"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="index.html">Why Interrupts</a><a class="nav-item" href="nvic-architecture.html">NVIC Architecture</a><a class="nav-item active" href="priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../../index.html">Home</a><span class="sep">/</span><a href="../../mcu-peripherals-and-interrupts/index.html">Peripherals & Interrupts — Interact with the World</a><span class="sep">/</span><a href="../../mcu-peripherals-and-interrupts/interrupt-system/index.html">Interrupt System</a><span class="sep">/</span><span>Priority and Preemption</span></div>
+      <h1>Priority and Preemption</h1>
+      <div class="tags"><span class="tag">interrupts</span><span class="tag">priority</span><span class="tag">preemption</span><span class="tag">nvic</span><span class="tag">cortex-m</span></div>
+      <p>
+Every interrupt on Cortex-M has a <strong>priority value</strong>. When two interrupts are pending at the same time, the one with the <strong>lower numeric value</strong> (= higher urgency) runs first. A higher-priority interrupt can also <strong>preempt</strong> (interrupt) a lower-priority ISR that is already running.
+</p>
+<h2>Priority Bits</h2>
+<p>
+Each interrupt has an 8-bit priority field, but <strong>not all bits are implemented</strong>. The number of implemented bits varies by chip:
+</p>
+<table><thead><tr><th>MCU</th><th>Implemented Bits</th><th>Priority Levels</th></tr></thead><tbody><tr><td>Cortex-M0/M0+</td><td>2</td><td>4 (0, 1, 2, 3)</td></tr>
+<tr><td>STM32F1 (Cortex-M3)</td><td>4</td><td>16 (0-15)</td></tr>
+<tr><td>STM32F4 (Cortex-M4)</td><td>4</td><td>16 (0-15)</td></tr>
+<tr><td>Some Cortex-M7</td><td>4-8</td><td>16-256</td></tr></tbody></table>
+<p>
+<strong>Critical rule:</strong> As explained in the <a href="https://community.arm.com/iot/embedded/b/embedded-blog/posts/cutting-through-the-confusion-with-arm-cortex-m-interrupt-priorities">ARM community blog post on interrupt priorities</a>, the implemented bits are always the <strong>most significant</strong> bits. On a 4-bit implementation, priority 0 is stored as <code>0x00</code> and priority 15 as <code>0xF0</code>. The CMSIS <code>NVIC_SetPriority()</code> function handles the shifting for you.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">NVIC_SetPriority(USART2_IRQn, 2);  // priority 2 out of 0-15
+<p>
+// Internally writes 0x20 to the priority register</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::write_volatile;
+<p>
+const NVIC_IPR_BASE: u32 = 0xE000_E400;
+const USART2_IRQN: u32 = 38;
+</p>
+<p>
+unsafe {
+    let ipr_addr = (NVIC_IPR_BASE + USART2_IRQN) as *mut u8;
+    write_volatile(ipr_addr, 2 &lt;&lt; 4);  // priority 2, internally writes 0x20
+}</code></pre></div></div>
+</p>
+<h2>Priority Grouping: Preemption vs Sub-Priority</h2>
+<p>
+The priority field is <a href="https://www.ocfreaks.com/interrupt-priority-grouping-arm-cortex-m-nvic/">split into two parts</a>:
+</p>
+<ul>
+<li><strong>Preemption priority (group priority):</strong> Determines whether one interrupt can preempt another</li>
+<li><strong>Sub-priority:</strong> Breaks ties when multiple interrupts with the same preemption priority are pending simultaneously</li>
+</ul>
+<p>
+The split point is configured by the <strong>PRIGROUP</strong> field in <code>SCB->AIRCR</code>.
+</p>
+<h3>PRIGROUP Settings (4 implemented bits example)</h3>
+<table><thead><tr><th>PRIGROUP</th><th>Preemption Bits</th><th>Sub-Priority Bits</th><th>Preemption Levels</th><th>Sub Levels</th></tr></thead><tbody><tr><td>3</td><td>4</td><td>0</td><td>16</td><td>1</td></tr>
+<tr><td>4</td><td>3</td><td>1</td><td>8</td><td>2</td></tr>
+<tr><td>5</td><td>2</td><td>2</td><td>4</td><td>4</td></tr>
+<tr><td>6</td><td>1</td><td>3</td><td>2</td><td>8</td></tr>
+<tr><td>7</td><td>0</td><td>4</td><td>1</td><td>16</td></tr></tbody></table>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Set priority grouping: 3 bits preemption, 1 bit sub-priority
+<p>
+// PRIGROUP = 4 (for 4 implemented bits)
+NVIC_SetPriorityGrouping(4);
+</p>
+<p>
+// Or directly:
+SCB-&gt;AIRCR = (SCB-&gt;AIRCR &amp; ~SCB_AIRCR_PRIGROUP_Msk)
+            | (4 &lt;&lt; SCB_AIRCR_PRIGROUP_Pos)
+            | (0x5FA &lt;&lt; SCB_AIRCR_VECTKEY_Pos);  // key required for write</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+const SCB_AIRCR: <em>mut u32 = 0xE000_ED0C as </em>mut u32;
+const PRIGROUP_POS: u32 = 8;
+const PRIGROUP_MSK: u32 = 0x7 &lt;&lt; PRIGROUP_POS;
+const VECTKEY: u32 = 0x05FA &lt;&lt; 16;
+</p>
+<p>
+unsafe {
+    // Set priority grouping: 3 bits preemption, 1 bit sub-priority
+    let aircr = read_volatile(SCB_AIRCR);
+    write_volatile(SCB_AIRCR,
+        (aircr &amp; !PRIGROUP_MSK &amp; 0x0000_FFFF)  // preserve non-key bits
+        | (4 &lt;&lt; PRIGROUP_POS)                    // PRIGROUP = 4
+        | VECTKEY);                              // key required for write
+}</code></pre></div></div>
+</p>
+<h2>How Preemption Works</h2>
+<p>
+<strong>Rule 1:</strong> An ISR can only be preempted by an interrupt with a <strong>numerically lower preemption priority</strong>.
+</p>
+<p>
+<strong>Rule 2:</strong> If two pending interrupts have the <strong>same preemption priority</strong>, the one with the lower sub-priority runs first -- but it does <strong>not</strong> preempt the other. They run back-to-back.
+</p>
+<p>
+<strong>Rule 3:</strong> If both preemption and sub-priority are the same, the interrupt with the <strong>lower IRQ number</strong> (earlier in the vector table) wins.
+</p>
+<h2>Example: UART Preempting Timer</h2>
+<p>
+Scenario: You want UART RX to preempt a timer ISR (because losing a byte is worse than a slightly delayed timer tick).
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Setup: PRIGROUP = 3 (all 4 bits are preemption, no sub-priority)
+<p>
+NVIC_SetPriorityGrouping(3);
+</p>
+<p>
+// Timer interrupt: lower urgency (higher number)
+NVIC_SetPriority(TIM2_IRQn, 5);
+NVIC_EnableIRQ(TIM2_IRQn);
+</p>
+<p>
+// UART interrupt: higher urgency (lower number)
+NVIC_SetPriority(USART2_IRQn, 2);
+NVIC_EnableIRQ(USART2_IRQn);</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::write_volatile;
+<p>
+const NVIC_IPR_BASE: u32 = 0xE000_E400;
+const NVIC_ISER0: <em>mut u32 = 0xE000_E100 as </em>mut u32;
+const NVIC_ISER1: <em>mut u32 = (0xE000_E100 + 0x04) as </em>mut u32;
+const TIM2_IRQN: u32 = 28;
+const USART2_IRQN: u32 = 38;
+</p>
+<p>
+unsafe {
+    // Setup: PRIGROUP = 3 (all 4 bits are preemption, no sub-priority)
+    // (see AIRCR write example above)
+</p>
+<p>
+    // Timer interrupt: lower urgency (higher number)
+    write_volatile((NVIC_IPR_BASE + TIM2_IRQN) as *mut u8, 5 &lt;&lt; 4);
+    write_volatile(NVIC_ISER0, 1 &lt;&lt; TIM2_IRQN);
+</p>
+<p>
+    // UART interrupt: higher urgency (lower number)
+    write_volatile((NVIC_IPR_BASE + USART2_IRQN) as *mut u8, 2 &lt;&lt; 4);
+    write_volatile(NVIC_ISER1, 1 &lt;&lt; (USART2_IRQN - 32));
+}</code></pre></div></div>
+</p>
+<p>
+What happens at runtime:
+</p>
+<pre><code class="language-text">Time --&gt;
+<p>
+  [main code running]
+       |
+       +-- TIM2 interrupt fires, priority 5
+       |   [TIM2_IRQHandler executing...]
+       |        |
+       |        +-- USART2 interrupt fires, priority 2
+       |        |   Priority 2 &lt; 5, so USART2 PREEMPTS TIM2
+       |        |   [USART2_IRQHandler executes]
+       |        |   [USART2_IRQHandler returns]
+       |        |
+       |        +-- TIM2_IRQHandler resumes
+       |   [TIM2_IRQHandler returns]
+       |
+  [main code resumes]</code></pre>
+</p>
+<h2>Nesting Depth</h2>
+<p>
+Interrupts can nest multiple levels deep. Each nesting level pushes 8 registers (32 bytes) onto the stack. With many nested interrupts, <strong>stack overflow</strong> is a real risk.
+</p>
+<p>
+<strong>Practical advice:</strong>
+</p>
+<ul>
+<li>Keep the total number of preemption levels small (2-4 is typical)</li>
+<li>Size your stack to handle worst-case nesting</li>
+<li>Use sub-priority for ordering rather than preemption when possible</li>
+</ul>
+<h2>Special Priority Values</h2>
+<p>
+Some system exceptions have <strong>fixed priorities</strong> that cannot be changed:
+</p>
+<table><thead><tr><th>Exception</th><th>Priority</th></tr></thead><tbody><tr><td>Reset</td><td>-3 (highest, fixed)</td></tr>
+<tr><td>NMI</td><td>-2 (fixed)</td></tr>
+<tr><td>HardFault</td><td>-1 (fixed)</td></tr>
+<tr><td>All others</td><td>Configurable</td></tr></tbody></table>
+<p>
+This means HardFault always preempts any configurable interrupt, and NMI preempts everything except Reset.
+</p>
+<h2>Common Mistakes</h2>
+<ol>
+<li><strong>Forgetting that lower number = higher priority.</strong> Priority 0 is the most urgent. Priority 15 is the least.</li>
+</ol>
+<ol>
+<li><strong>Not setting PRIGROUP.</strong> The default grouping may not be what you expect. Set it explicitly at startup.</li>
+</ol>
+<ol>
+<li><strong>Using raw register writes without the shift.</strong> On a 4-bit implementation, priority 2 must be written as <code>0x20</code> (shifted left by 4). Use <code>NVIC_SetPriority()</code> to avoid this pitfall.</li>
+</ol>
+<ol>
+<li><strong>Assigning priority 0 to everything.</strong> If all interrupts have the same priority, none can preempt another -- you lose the benefit of nesting.</li>
+</ol>
+<h2>References</h2>
+<ol>
+<li><a href="https://www.ocfreaks.com/interrupt-priority-grouping-arm-cortex-m-nvic/">Interrupt Priority Grouping in ARM Cortex-M NVIC</a> — Detailed walkthrough of PRIGROUP and priority splitting</li>
+<li><a href="https://community.arm.com/iot/embedded/b/embedded-blog/posts/cutting-through-the-confusion-with-arm-cortex-m-interrupt-priorities">Cutting Through the Confusion with Cortex-M Interrupt Priorities</a> — ARM blog clarifying common priority misconceptions</li>
+<li><a href="https://developer.arm.com/documentation/dui0646/latest/The-Cortex-M7-Processor/Exception-model/Interrupt-priority-grouping">Interrupt Priority Grouping - Cortex-M7</a> — Official ARM documentation on priority grouping</li>
+<li><a href="https://interrupt.memfault.com/blog/arm-cortex-m-exceptions-and-nvic">A Practical Guide to ARM Cortex-M Exception Handling</a> — Practical guide covering priority levels and preemption</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="nvic-architecture.html">NVIC Architecture</a> -- the registers that hold these priority values</li>
+<li><a href="context-switching-mechanics.html">Context Switching</a> -- what actually happens during preemption</li>
+<li><a href="isr-design-patterns.html">ISR Design Patterns</a> -- keeping ISRs short enough that priorities matter less</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://www.ocfreaks.com/interrupt-priority-grouping-arm-cortex-m-nvic/" target="_blank" rel="noopener">Interrupt Priority Grouping in ARM Cortex-M NVIC</a></li><li><a href="https://community.arm.com/iot/embedded/b/embedded-blog/posts/cutting-through-the-confusion-with-arm-cortex-m-interrupt-priorities" target="_blank" rel="noopener">Cutting Through the Confusion with Cortex-M Interrupt Priorities</a></li><li><a href="https://developer.arm.com/documentation/dui0646/latest/The-Cortex-M7-Processor/Exception-model/Interrupt-priority-grouping" target="_blank" rel="noopener">Interrupt Priority Grouping - Cortex-M7</a></li><li><a href="https://interrupt.memfault.com/blog/arm-cortex-m-exceptions-and-nvic" target="_blank" rel="noopener">A Practical Guide to ARM Cortex-M Exception Handling</a></li></ul></div>
+      <div class="page-nav"><a href="nvic-architecture.html"><span class="nav-label">← Previous</span><span class="nav-title">NVIC Architecture</span></a><a class="next" href="isr-design-patterns.html"><span class="nav-label">Next →</span><span class="nav-title">ISR Design Patterns</span></a></div>
+    </main>
+  </div>
+  <script src="../../scripts/main.js"></script>
+</body>
+</html>

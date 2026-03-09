@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Static Allocation Patterns — MCU Study Guide</title>
+  <link rel="stylesheet" href="../../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title expanded"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="dma-controller.html">DMA Controller</a><a class="nav-item" href="mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item active" href="static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../../index.html">Home</a><span class="sep">/</span><a href="../../mcu-toolchain-and-practice/index.html">Toolchain & Practice — Build and Debug Real Projects</a><span class="sep">/</span><a href="../../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory Management in Practice</a><span class="sep">/</span><span>Static Allocation Patterns</span></div>
+      <h1>Static Allocation Patterns</h1>
+      <div class="tags"><span class="tag">memory-pool</span><span class="tag">ring-buffer</span><span class="tag">static-allocation</span><span class="tag">embedded</span><span class="tag">patterns</span></div>
+      <p>
+When <code>malloc()</code> is off the table, embedded developers use a set of well-established patterns for managing memory at compile time. These patterns provide the flexibility of dynamic allocation without the risks of fragmentation and non-deterministic timing.
+</p>
+<h2>Why No Malloc</h2>
+<p>
+A quick recap of why dynamic allocation is avoided in most embedded systems:
+</p>
+<ul>
+<li><strong>Fragmentation</strong> -- after many alloc/free cycles, free memory becomes scattered. With 4 KB of heap, a few hundred-byte fragments can make the system unusable.</li>
+<li><strong>Non-determinism</strong> -- <code>malloc()</code> search time depends on heap state, violating real-time guarantees.</li>
+<li><strong>No recovery</strong> -- when <code>malloc()</code> returns NULL on an MCU, there is usually no fallback path.</li>
+<li><strong>Certification</strong> -- safety standards (MISRA C, DO-178C, IEC 62304) ban or restrict dynamic allocation.</li>
+</ul>
+<p>
+The patterns below solve the same problem -- giving code "temporary ownership" of memory -- using only fixed, pre-allocated structures.
+</p>
+<h2>Memory Pools</h2>
+<p>
+A <a href="https://embedded-code-patterns.readthedocs.io/en/latest/pool/">memory pool</a> is a pre-allocated array of fixed-size blocks. Code "allocates" by taking a free block and "frees" by returning it. Since all blocks are the same size, there is zero external fragmentation.
+</p>
+<h3>Implementation</h3>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">#include &lt;stdint.h&gt;
+<p>
+#include &lt;stdbool.h&gt;
+</p>
+<p>
+#define POOL_BLOCK_SIZE  64    // Bytes per block
+#define POOL_BLOCK_COUNT 16    // Number of blocks
+</p>
+<p>
+typedef struct {
+    uint8_t  data[POOL_BLOCK_COUNT][POOL_BLOCK_SIZE];
+    bool     used[POOL_BLOCK_COUNT];
+    uint16_t free_count;
+} MemPool;
+</p>
+<p>
+static MemPool pool;
+</p>
+<p>
+void pool_init(MemPool *p) {
+    for (int i = 0; i &lt; POOL_BLOCK_COUNT; i++) {
+        p-&gt;used[i] = false;
+    }
+    p-&gt;free_count = POOL_BLOCK_COUNT;
+}
+</p>
+<p>
+void <em>pool_alloc(MemPool </em>p) {
+    for (int i = 0; i &lt; POOL_BLOCK_COUNT; i++) {
+        if (!p-&gt;used[i]) {
+            p-&gt;used[i] = true;
+            p-&gt;free_count--;
+            return p-&gt;data[i];
+        }
+    }
+    return NULL;  // Pool exhausted
+}
+</p>
+<p>
+void pool_free(MemPool <em>p, void </em>ptr) {
+    // Find which block this pointer belongs to
+    for (int i = 0; i &lt; POOL_BLOCK_COUNT; i++) {
+        if (ptr == p-&gt;data[i]) {
+            p-&gt;used[i] = false;
+            p-&gt;free_count++;
+            return;
+        }
+    }
+    // ptr was not from this pool -- bug!
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">const POOL_BLOCK_SIZE: usize = 64;
+<p>
+const POOL_BLOCK_COUNT: usize = 16;
+</p>
+<p>
+struct MemPool {
+    data: [[u8; POOL_BLOCK_SIZE]; POOL_BLOCK_COUNT],
+    used: [bool; POOL_BLOCK_COUNT],
+    free_count: u16,
+}
+</p>
+<p>
+impl MemPool {
+    const fn new() -&gt; Self {
+        Self {
+            data: [[0; POOL_BLOCK_SIZE]; POOL_BLOCK_COUNT],
+            used: [false; POOL_BLOCK_COUNT],
+            free_count: POOL_BLOCK_COUNT as u16,
+        }
+    }
+</p>
+<p>
+    fn init(&amp;mut self) {
+        self.used = [false; POOL_BLOCK_COUNT];
+        self.free_count = POOL_BLOCK_COUNT as u16;
+    }
+</p>
+<p>
+    fn alloc(&amp;mut self) -&gt; Option&lt;&amp;mut [u8; POOL_BLOCK_SIZE]&gt; {
+        for i in 0..POOL_BLOCK_COUNT {
+            if !self.used[i] {
+                self.used[i] = true;
+                self.free_count -= 1;
+                return Some(&amp;mut self.data[i]);
+            }
+        }
+        None // Pool exhausted
+    }
+</p>
+<p>
+    fn free(&amp;mut self, ptr: *const u8) {
+        for i in 0..POOL_BLOCK_COUNT {
+            if core::ptr::eq(ptr, self.data[i].as_ptr()) {
+                self.used[i] = false;
+                self.free_count += 1;
+                return;
+            }
+        }
+        // ptr was not from this pool -- bug!
+    }
+}
+</p>
+<p>
+static mut POOL: MemPool = MemPool::new();</code></pre></div></div>
+</p>
+<h3>Optimized Version with Free List</h3>
+<p>
+The O(n) search above can be replaced with an O(1) free list. Each free block stores a pointer to the next free block:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">typedef struct {
+<p>
+    uint8_t   data[POOL_BLOCK_COUNT][POOL_BLOCK_SIZE];
+    uint8_t  *free_list;  // Points to first free block
+} MemPoolFast;
+</p>
+<p>
+void pool_fast_init(MemPoolFast *p) {
+    // Chain free blocks together using first bytes as next-pointer
+    for (int i = 0; i &lt; POOL_BLOCK_COUNT - 1; i++) {
+        <em>(uint8_t </em>*)p-&gt;data[i] = p-&gt;data[i + 1];
+    }
+    <em>(uint8_t </em>*)p-&gt;data[POOL_BLOCK_COUNT - 1] = NULL;
+    p-&gt;free_list = p-&gt;data[0];
+}
+</p>
+<p>
+void <em>pool_fast_alloc(MemPoolFast </em>p) {
+    if (p-&gt;free_list == NULL) return NULL;
+    void *block = p-&gt;free_list;
+    p-&gt;free_list = <em>(uint8_t </em>*)block;  // Advance to next free
+    return block;
+}
+</p>
+<p>
+void pool_fast_free(MemPoolFast <em>p, void </em>ptr) {
+    <em>(uint8_t </em>*)ptr = p-&gt;free_list;  // Point to current head
+    p-&gt;free_list = ptr;                // New head
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">/// O(1) memory pool using an intrusive free list.
+<p>
+/// Each free block stores a pointer to the next free block in its first bytes.
+struct MemPoolFast {
+    data: [[u8; POOL_BLOCK_SIZE]; POOL_BLOCK_COUNT],
+    free_list: Option&lt;usize&gt;, // Index of first free block
+}
+</p>
+<p>
+impl MemPoolFast {
+    fn init(&amp;mut self) {
+        // Chain free blocks: each stores the index of the next free block
+        for i in 0..POOL_BLOCK_COUNT - 1 {
+            self.data[i][0] = (i + 1) as u8; // next-free index
+        }
+        self.data[POOL_BLOCK_COUNT - 1][0] = 0xFF; // sentinel (no next)
+        self.free_list = Some(0);
+    }
+</p>
+<p>
+    fn alloc(&amp;mut self) -&gt; Option&lt;&amp;mut [u8; POOL_BLOCK_SIZE]&gt; {
+        let idx = self.free_list?;
+        let next = self.data[idx][0] as usize;
+        self.free_list = if next == 0xFF { None } else { Some(next) };
+        Some(&amp;mut self.data[idx])
+    }
+</p>
+<p>
+    fn free(&amp;mut self, idx: usize) {
+        self.data[idx][0] = self.free_list.unwrap_or(0xFF) as u8;
+        self.free_list = Some(idx);
+    }
+}</code></pre></div></div>
+</p>
+<h3>When to Use</h3>
+<ul>
+<li>Fixed-size messages in a protocol stack</li>
+<li>Network packet buffers (all the same MTU size)</li>
+<li>RTOS task control blocks</li>
+<li>Any scenario where you need N objects of the same size</li>
+</ul>
+<h2>Ring Buffers (Circular Buffers)</h2>
+<p>
+A <a href="https://embeddedartistry.com/blog/2017/05/17/creating-a-circular-buffer-in-c-and-c/">ring buffer</a> is a fixed-size FIFO (First In, First Out) queue. It is the standard pattern for buffering streaming data between a producer and a consumer -- for example, between an ISR that receives UART bytes and the main loop that processes them.
+</p>
+<h3>How It Works</h3>
+<pre><code class="language-text">Write (head)             Read (tail)
+<p>
+    |                       |
+    v                       v
+[  ][  ][D3][D4][D5][D6][  ][  ]
+  0   1   2   3   4   5   6   7
+</p>
+<p>
+head = 7 (next write position)
+tail = 2 (next read position)
+Items in buffer: (head - tail) % size = 5</code></pre>
+</p>
+<p>
+The head advances when data is written; the tail advances when data is read. When either index reaches the end of the array, it wraps around to zero.
+</p>
+<h3>Implementation</h3>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">#include &lt;stdint.h&gt;
+<p>
+#include &lt;stdbool.h&gt;
+</p>
+<p>
+#define RING_SIZE 256  // Must be power of 2 for mask trick
+</p>
+<p>
+typedef struct {
+    uint8_t  buf[RING_SIZE];
+    volatile uint16_t head;  // Write index (producer)
+    volatile uint16_t tail;  // Read index (consumer)
+} RingBuffer;
+</p>
+<p>
+void ring_init(RingBuffer *rb) {
+    rb-&gt;head = 0;
+    rb-&gt;tail = 0;
+}
+</p>
+<p>
+bool ring_is_empty(RingBuffer *rb) {
+    return rb-&gt;head == rb-&gt;tail;
+}
+</p>
+<p>
+bool ring_is_full(RingBuffer *rb) {
+    return ((rb-&gt;head + 1) &amp; (RING_SIZE - 1)) == rb-&gt;tail;
+}
+</p>
+<p>
+// Returns false if buffer is full
+bool ring_put(RingBuffer *rb, uint8_t byte) {
+    uint16_t next_head = (rb-&gt;head + 1) &amp; (RING_SIZE - 1);
+    if (next_head == rb-&gt;tail) {
+        return false;  // Full
+    }
+    rb-&gt;buf[rb-&gt;head] = byte;
+    rb-&gt;head = next_head;
+    return true;
+}
+</p>
+<p>
+// Returns false if buffer is empty
+bool ring_get(RingBuffer <em>rb, uint8_t </em>byte) {
+    if (rb-&gt;head == rb-&gt;tail) {
+        return false;  // Empty
+    }
+    *byte = rb-&gt;buf[rb-&gt;tail];
+    rb-&gt;tail = (rb-&gt;tail + 1) &amp; (RING_SIZE - 1);
+    return true;
+}
+</p>
+<p>
+uint16_t ring_count(RingBuffer *rb) {
+    return (rb-&gt;head - rb-&gt;tail) &amp; (RING_SIZE - 1);
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::sync::atomic::{AtomicU16, Ordering};
+<p>
+const RING_SIZE: usize = 256; // Must be power of 2 for mask trick
+</p>
+<p>
+struct RingBuffer {
+    buf: [u8; RING_SIZE],
+    head: AtomicU16, // Write index (producer)
+    tail: AtomicU16, // Read index (consumer)
+}
+</p>
+<p>
+impl RingBuffer {
+    const fn new() -&gt; Self {
+        Self {
+            buf: [0; RING_SIZE],
+            head: AtomicU16::new(0),
+            tail: AtomicU16::new(0),
+        }
+    }
+</p>
+<p>
+    fn is_empty(&amp;self) -&gt; bool {
+        self.head.load(Ordering::Acquire) == self.tail.load(Ordering::Acquire)
+    }
+</p>
+<p>
+    fn is_full(&amp;self) -&gt; bool {
+        let next = (self.head.load(Ordering::Acquire) + 1) &amp; (RING_SIZE as u16 - 1);
+        next == self.tail.load(Ordering::Acquire)
+    }
+</p>
+<p>
+    /// Returns false if buffer is full
+    fn put(&amp;mut self, byte: u8) -&gt; bool {
+        let head = self.head.load(Ordering::Relaxed);
+        let next_head = (head + 1) &amp; (RING_SIZE as u16 - 1);
+        if next_head == self.tail.load(Ordering::Acquire) {
+            return false; // Full
+        }
+        self.buf[head as usize] = byte;
+        self.head.store(next_head, Ordering::Release);
+        true
+    }
+</p>
+<p>
+    /// Returns None if buffer is empty
+    fn get(&amp;mut self) -&gt; Option&lt;u8&gt; {
+        let tail = self.tail.load(Ordering::Relaxed);
+        if self.head.load(Ordering::Acquire) == tail {
+            return None; // Empty
+        }
+        let byte = self.buf[tail as usize];
+        self.tail.store((tail + 1) &amp; (RING_SIZE as u16 - 1), Ordering::Release);
+        Some(byte)
+    }
+</p>
+<p>
+    fn count(&amp;self) -&gt; u16 {
+        (self.head.load(Ordering::Acquire)
+            .wrapping_sub(self.tail.load(Ordering::Acquire)))
+            &amp; (RING_SIZE as u16 - 1)
+    }
+}</code></pre></div></div>
+</p>
+<h3>Key Design Decisions</h3>
+<ul>
+<li><strong>Power-of-2 size</strong> -- using <code>& (SIZE - 1)</code> instead of <code>% SIZE</code> avoids an expensive division on CPUs without hardware divide (Cortex-M0).</li>
+<li><strong>One slot wasted</strong> -- the buffer holds <code>SIZE - 1</code> items, because <code>head == tail</code> means empty. The alternative is a separate <code>count</code> variable, but that requires atomic access from ISR and main loop.</li>
+<li><strong>Volatile indices</strong> -- <code>head</code> and <code>tail</code> are <code>volatile</code> because they are accessed from both ISR context and the main loop.</li>
+</ul>
+<h3>Thread Safety</h3>
+<p>
+A ring buffer is <strong>safe without locks</strong> if there is exactly one producer and one consumer, and the size is a power of 2. This is because:
+</p>
+<ul>
+<li>Only the producer modifies <code>head</code></li>
+<li>Only the consumer modifies <code>tail</code></li>
+<li>Both are read atomically (single 16/32-bit load)</li>
+</ul>
+<p>
+If you have multiple producers or multiple consumers, you need a mutex or critical section.
+</p>
+<h3>When to Use</h3>
+<ul>
+<li>UART RX/TX buffering</li>
+<li>ADC sample queues</li>
+<li>Inter-task communication (producer/consumer pattern)</li>
+<li>Audio sample buffers</li>
+</ul>
+<h2>Object Pools</h2>
+<p>
+An object pool is a specialized memory pool for a specific struct type. It combines the memory pool pattern with type safety:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">typedef struct {
+<p>
+    uint16_t id;
+    uint8_t  data[32];
+    uint8_t  len;
+} Packet;
+</p>
+<p>
+#define MAX_PACKETS 8
+</p>
+<p>
+static Packet packet_pool[MAX_PACKETS];
+static bool   packet_used[MAX_PACKETS];
+</p>
+<p>
+Packet *packet_alloc(void) {
+    for (int i = 0; i &lt; MAX_PACKETS; i++) {
+        if (!packet_used[i]) {
+            packet_used[i] = true;
+            return &amp;packet_pool[i];
+        }
+    }
+    return NULL;
+}
+</p>
+<p>
+void packet_free(Packet *pkt) {
+    int idx = pkt - packet_pool;  // Pointer arithmetic
+    if (idx &gt;= 0 &amp;&amp; idx &lt; MAX_PACKETS) {
+        packet_used[idx] = false;
+    }
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">struct Packet {
+<p>
+    id: u16,
+    data: [u8; 32],
+    len: u8,
+}
+</p>
+<p>
+const MAX_PACKETS: usize = 8;
+</p>
+<p>
+struct PacketPool {
+    pool: [Packet; MAX_PACKETS],
+    used: [bool; MAX_PACKETS],
+}
+</p>
+<p>
+impl PacketPool {
+    fn alloc(&amp;mut self) -&gt; Option&lt;&amp;mut Packet&gt; {
+        for i in 0..MAX_PACKETS {
+            if !self.used[i] {
+                self.used[i] = true;
+                return Some(&amp;mut self.pool[i]);
+            }
+        }
+        None
+    }
+</p>
+<p>
+    fn free(&amp;mut self, idx: usize) {
+        if idx &lt; MAX_PACKETS {
+            self.used[idx] = false;
+        }
+    }
+}</code></pre></div></div>
+</p>
+<h2>Compile-Time Allocation with static and const</h2>
+<p>
+The simplest "allocation" is no allocation at all:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Lookup table in flash (const -&gt; .rodata -&gt; flash)
+<p>
+static const uint16_t crc_table[256] = { /<em> ... </em>/ };
+</p>
+<p>
+// Persistent state in SRAM (static -&gt; .bss or .data)
+static uint32_t uptime_seconds = 0;
+</p>
+<p>
+// Fixed buffer in SRAM
+static uint8_t uart_tx_buf[128];</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// Lookup table in flash (const -&gt; .rodata -&gt; flash)
+<p>
+static CRC_TABLE: [u16; 256] = [ /<em> ... </em>/ ];
+</p>
+<p>
+// Persistent state in SRAM (static mut -&gt; .bss or .data)
+static mut UPTIME_SECONDS: u32 = 0;
+</p>
+<p>
+// Fixed buffer in SRAM
+static mut UART_TX_BUF: [u8; 128] = [0; 128];</code></pre></div></div>
+</p>
+<p>
+<strong><code>const</code></strong> data lives in flash and costs zero SRAM. Use it for lookup tables, strings, configuration data, and calibration values.
+</p>
+<p>
+<strong><code>static</code></strong> variables in functions persist across calls and have a fixed address known at link time.
+</p>
+<h2>Summary Table</h2>
+<table><thead><tr><th>Pattern</th><th>Allocation Time</th><th>Fragmentation</th><th>Use Case</th></tr></thead><tbody><tr><td>Static global</td><td>Compile-time</td><td>None</td><td>Known-size buffers, state</td></tr>
+<tr><td>Memory pool</td><td>O(1) with free list</td><td>None</td><td>Fixed-size objects</td></tr>
+<tr><td>Ring buffer</td><td>O(1)</td><td>None</td><td>Streaming data FIFO</td></tr>
+<tr><td>Object pool</td><td>O(n) or O(1)</td><td>None</td><td>Typed, reusable objects</td></tr>
+<tr><td><code>const</code> in flash</td><td>None (ROM)</td><td>None</td><td>Lookup tables, strings</td></tr></tbody></table>
+<h2>References</h2>
+<ol>
+<li><a href="https://embeddedartistry.com/blog/2017/05/17/creating-a-circular-buffer-in-c-and-c/">Creating a Circular Buffer in C and C++ - Embedded Artistry</a> — Thorough ring buffer implementation walkthrough</li>
+<li><a href="https://embedded-code-patterns.readthedocs.io/en/latest/pool/">Memory Allocation Using Pool - Embedded Code Patterns</a> — Memory pool pattern documentation and examples</li>
+<li><a href="https://www.informit.com/articles/article.aspx?p=30309&seqNum=4">Fixed Sized Buffer Pattern - Real-Time Design Patterns</a> — Design pattern for fixed-size buffer allocation</li>
+<li><a href="https://theembeddedgeorge.github.io/theEmbeddedNewTestament.github.io/Embedded_C/Memory_Management.html">Memory Management in Embedded Systems</a> — Overview of embedded memory management techniques</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="stack-vs-heap.html">Stack vs Heap</a> -- why these patterns exist</li>
+<li><a href="dma-controller.html">DMA Controller</a> -- DMA buffers are typically statically allocated ring buffers</li>
+<li><a href="index.html">Memory Management Overview</a> -- the big picture of embedded memory strategies</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://embeddedartistry.com/blog/2017/05/17/creating-a-circular-buffer-in-c-and-c/" target="_blank" rel="noopener">Creating a Circular Buffer in C and C++ - Embedded Artistry</a></li><li><a href="https://embedded-code-patterns.readthedocs.io/en/latest/pool/" target="_blank" rel="noopener">Memory Allocation Using Pool - Embedded Code Patterns</a></li><li><a href="https://www.informit.com/articles/article.aspx?p=30309&seqNum=4" target="_blank" rel="noopener">Fixed Sized Buffer Pattern - Real-Time Design Patterns</a></li><li><a href="https://theembeddedgeorge.github.io/theEmbeddedNewTestament.github.io/Embedded_C/Memory_Management.html" target="_blank" rel="noopener">Memory Management in Embedded Systems</a></li></ul></div>
+      <div class="page-nav"><a href="mpu-memory-protection.html"><span class="nav-label">← Previous</span><span class="nav-title">MPU Memory Protection</span></a><a class="next" href="external-shared-ram.html"><span class="nav-label">Next →</span><span class="nav-title">External Shared RAM</span></a></div>
+    </main>
+  </div>
+  <script src="../../scripts/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stack Pointer and Call Stack — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="index.html">MCU Architecture Overview</a><a class="nav-item" href="cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item active" href="stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="memory-architecture/sram.html">SRAM</a><a class="nav-item" href="memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../mcu-architecture/index.html">MCU Architecture — Understand the Machine</a><span class="sep">/</span><span>Stack Pointer and Call Stack</span></div>
+      <h1>Stack Pointer and Call Stack</h1>
+      <div class="tags"><span class="tag">mcu</span><span class="tag">stack</span><span class="tag">stack-pointer</span><span class="tag">msp</span><span class="tag">psp</span><span class="tag">arm</span><span class="tag">cortex-m</span></div>
+      <h2>What the Stack Is</h2>
+<p>
+The <strong>stack</strong> is a region of SRAM used for temporary storage during program execution. It holds:
+</p>
+<ul>
+<li>Return addresses (so functions know where to go back)</li>
+<li>Saved register values (when a function needs to use registers that the caller is also using)</li>
+<li>Local variables (when they don't fit in registers)</li>
+<li>Interrupt context (registers saved automatically when an interrupt fires)</li>
+</ul>
+<p>
+The stack follows a <strong>Last In, First Out (LIFO)</strong> discipline. The last value pushed is the first value popped.
+</p>
+<h2>Full-Descending Stack</h2>
+<p>
+<a href="https://embeddedsecurity.io/sec-arm-arch-core">ARM Cortex-M</a> uses a <strong>full-descending</strong> stack:
+</p>
+<ul>
+<li><strong>Full</strong>: The stack pointer points to the <strong>last item pushed</strong> (not the next empty slot)</li>
+<li><strong>Descending</strong>: The stack grows from <strong>high addresses toward low addresses</strong></li>
+</ul>
+<pre><code class="language-text">  High address
+<p>
+  0x2000_1000  +----------+  &lt;-- Initial SP (top of RAM)
+               |  (empty) |
+               +----------+
+  0x2000_0FF8  | saved LR |  &lt;-- SP after PUSH {LR}
+               +----------+
+  0x2000_0FF4  | saved R4 |  &lt;-- SP after PUSH {R4, LR}
+               +----------+
+               |   ...    |      Stack grows DOWNWARD
+  Low address</code></pre>
+</p>
+<h2>PUSH and POP Operations</h2>
+<h3>PUSH</h3>
+<code>PUSH</code> decrements SP, then stores register values at the new SP address:
+<pre><code class="language-arm">PUSH {R4, R5, LR}    @ SP -= 12 (3 registers x 4 bytes)
+<p>
+                      @ Store R4 at [SP], R5 at [SP+4], LR at [SP+8]</code></pre>
+</p>
+<p>
+Registers are always stored in numerical order regardless of the order you write them.
+</p>
+<h3>POP</h3>
+<code>POP</code> loads register values from the stack, then increments SP:
+<pre><code class="language-arm">POP {R4, R5, PC}     @ R4 = [SP], R5 = [SP+4], PC = [SP+8]
+<p>
+                      @ SP += 12</code></pre>
+</p>
+<p>
+Notice <code>POP {PC}</code> -- popping into PC is a common way to return from a function (the saved LR value goes directly into PC).
+</p>
+<h2>MSP vs PSP</h2>
+<p>
+The Cortex-M has <strong>two stack pointers</strong>, but only one is active at any time:
+</p>
+<h3>Main Stack Pointer (MSP)</h3>
+<ul>
+<li>Used by default after reset</li>
+<li>Always used in <strong>Handler Mode</strong> (interrupt/exception handlers)</li>
+<li>Typically used by the OS kernel or bare-metal code</li>
+</ul>
+<h3>Process Stack Pointer (PSP)</h3>
+<ul>
+<li>Used in <strong>Thread Mode</strong> when <code>CONTROL.SPSEL = 1</code></li>
+<li>Assigned to application tasks in an RTOS</li>
+<li>Each RTOS task gets its own PSP value (pointing to its own stack area)</li>
+</ul>
+<h3>Why Two Stack Pointers?</h3>
+<p>
+Separation provides <strong>memory isolation</strong>. If a user task overflows its stack, it corrupts its own PSP-based stack -- not the kernel's MSP-based stack. The RTOS can catch this and kill the offending task rather than crashing the entire system.
+</p>
+<pre><code class="language-text">  SRAM Layout with RTOS
+<p>
+  +------------------+ 0x2000_1000
+  |   MSP Stack      |  (Kernel + interrupts)
+  +------------------+ 0x2000_0C00
+  |   Task 1 Stack   |  (PSP for Task 1)
+  +------------------+ 0x2000_0800
+  |   Task 2 Stack   |  (PSP for Task 2)
+  +------------------+ 0x2000_0400
+  |   Heap / Data    |
+  +------------------+ 0x2000_0000</code></pre>
+</p>
+<h3>Switching Stack Pointers</h3>
+<pre><code class="language-arm">@ Switch to PSP in Thread Mode
+<p>
+MRS  R0, CONTROL
+ORR  R0, R0, #0x02    @ Set SPSEL bit
+MSR  CONTROL, R0
+ISB                    @ Required after CONTROL write
+</p>
+<p>
+@ Set PSP value
+LDR  R0, =0x20000C00
+MSR  PSP, R0</code></pre>
+</p>
+<h2>Stack Frames</h2>
+<p>
+When a function is called, a <strong>stack frame</strong> is created containing everything needed to return to the caller.
+</p>
+<h3>Typical Stack Frame (Function Call)</h3>
+<pre><code class="language-arm">my_func:
+<p>
+    PUSH {R4-R7, LR}      @ Save callee-saved registers + return address
+    SUB  SP, SP, #16       @ Reserve 16 bytes for local variables
+    @ ... function body ...
+    ADD  SP, SP, #16       @ Release local variable space
+    POP  {R4-R7, PC}       @ Restore registers and return</code></pre>
+</p>
+<p>
+Stack during <code>my_func</code>:
+</p>
+<pre><code class="language-text">  +------------------+
+<p>
+  |   Caller's frame |
+  +------------------+  &lt;-- SP before call
+  |   LR (return)    |
+  |   R7             |
+  |   R6             |
+  |   R5             |
+  |   R4             |
+  +------------------+  &lt;-- SP after PUSH
+  |  local var 3     |
+  |  local var 2     |
+  |  local var 1     |
+  |  local var 0     |
+  +------------------+  &lt;-- SP after SUB (current SP)</code></pre>
+</p>
+<h3>Exception Stack Frame (Automatic Hardware Stacking)</h3>
+<p>
+When an interrupt fires, the Cortex-M hardware <strong>automatically</strong> pushes 8 registers onto the stack before entering the handler:
+</p>
+<pre><code class="language-text">  +------------------+
+<p>
+  |      xPSR        |  &lt;-- highest address (pushed first)
+  |      PC          |
+  |      LR          |
+  |      R12         |
+  |      R3          |
+  |      R2          |
+  |      R1          |
+  |      R0          |
+  +------------------+  &lt;-- SP when handler starts</code></pre>
+</p>
+<p>
+This is why interrupt handlers on Cortex-M can be written as normal C functions -- the hardware handles the save/restore.
+</p>
+<h2>Stack Overflow Risks in Embedded</h2>
+<p>
+Stack overflow is one of the most common and dangerous bugs in embedded systems.
+</p>
+<h3>Why It Is Dangerous</h3>
+<ul>
+<li>There is <strong>no virtual memory</strong> or MMU on most Cortex-M chips -- the stack just silently overwrites whatever is below it (globals, heap, other stacks)</li>
+<li>Symptoms are unpredictable: corrupted variables, HardFaults, mysterious resets</li>
+</ul>
+<h3>Common Causes</h3>
+<ol>
+<li><strong>Deep call chains</strong> -- calling functions that call functions, many levels deep</li>
+<li><strong>Large local arrays</strong> -- <code>char buffer[1024]</code> in a function uses 1 KB of stack per call</li>
+<li><strong>Recursive functions</strong> -- each recursive call adds a stack frame</li>
+<li><strong>Interrupt nesting</strong> -- each nested interrupt stacks 32+ bytes automatically</li>
+</ol>
+<h3>Prevention Strategies</h3>
+<table><thead><tr><th>Strategy</th><th>How</th></tr></thead><tbody><tr><td><strong>Static analysis</strong></td><td>Use <code>-fstack-usage</code> (GCC) to see each function's stack usage</td></tr>
+<tr><td><strong>Stack painting</strong></td><td>Fill stack with a pattern (e.g., <code>0xDEADBEEF</code>) at startup; check later how much was overwritten</td></tr>
+<tr><td><strong>MPU guard region</strong></td><td>Configure the MPU to fault on access below the stack bottom</td></tr>
+<tr><td><strong>Limit recursion</strong></td><td>Avoid recursion; use iterative algorithms</td></tr>
+<tr><td><strong>Size appropriately</strong></td><td>Start with a generous stack size, then measure and trim</td></tr></tbody></table>
+<h3>Checking Stack Usage (GCC)</h3>
+<pre><code class="language-bash">arm-none-eabi-gcc -fstack-usage -c main.c
+<h1>Produces main.su file:</h1>
+<h1>main.c:10:5:main    48    static</h1>
+<h1>main.c:25:6:init    16    static</code></pre></h1>
+<p>
+The <code>.su</code> file tells you each function's stack consumption, helping you calculate the worst-case stack depth.
+</p>
+<h2>Stack in the Linker Script</h2>
+<p>
+The <a href="https://blog.thea.codes/the-most-thoroughly-commented-linker-script/">linker script</a> reserves stack space and sets <code>_estack</code> (end of stack = initial SP value):
+</p>
+<pre><code class="language-ld">_estack = ORIGIN(RAM) + LENGTH(RAM);    /<em> Top of RAM </em>/
+<p>
+.stack (NOLOAD) :
+{
+    . = ALIGN(8);
+    . = . + _Min_Stack_Size;    /<em> e.g., 0x400 = 1 KB </em>/
+} &gt;RAM</code></pre>
+</p>
+<p>
+The vector table's first entry is the initial MSP value, loaded from <code>_estack</code> at reset.
+</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://embeddedprep.com/arm-cortex-m4-core-registers/">ARM Cortex-M4 Core Registers</a> — MSP and PSP register details and stack pointer behavior</li>
+<li><a href="https://embeddedsecurity.io/sec-arm-arch-core">Arm M-profile architectures and Cortex-M</a> — Exception stack frame and hardware stacking mechanism</li>
+<li><a href="https://blog.thea.codes/the-most-thoroughly-commented-linker-script/">The Most Thoroughly Commented Linker Script</a> — Stack allocation in linker scripts with detailed annotations</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="registers-and-register-file.html">Registers and Register File</a> -- SP is R13, LR is R14</li>
+<li><a href="program-counter-and-execution-flow.html">Program Counter and Execution Flow</a> -- BL/BX LR and subroutine calls</li>
+<li><a href="memory-architecture/sram.html">SRAM</a> -- where the stack physically lives</li>
+<li><a href="memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a> -- how stack space is reserved</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://embeddedprep.com/arm-cortex-m4-core-registers/" target="_blank" rel="noopener">ARM Cortex-M4 Core Registers</a></li><li><a href="https://embeddedsecurity.io/sec-arm-arch-core" target="_blank" rel="noopener">Arm M-profile architectures and Cortex-M</a></li><li><a href="https://blog.thea.codes/the-most-thoroughly-commented-linker-script/" target="_blank" rel="noopener">The Most Thoroughly Commented Linker Script</a></li></ul></div>
+      <div class="page-nav"><a href="program-counter-and-execution-flow.html"><span class="nav-label">← Previous</span><span class="nav-title">Program Counter and Execution Flow</span></a><a class="next" href="memory-architecture/index.html"><span class="nav-label">Next →</span><span class="nav-title">Memory Architecture Overview</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

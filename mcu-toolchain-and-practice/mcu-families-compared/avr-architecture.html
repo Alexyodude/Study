@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AVR Architecture — MCU Study Guide</title>
+  <link rel="stylesheet" href="../../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title expanded"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="index.html">How to Read a Datasheet</a><a class="nav-item" href="arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item active" href="avr-architecture.html">AVR Architecture</a><a class="nav-item" href="risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../../index.html">Home</a><span class="sep">/</span><a href="../../mcu-toolchain-and-practice/index.html">Toolchain & Practice — Build and Debug Real Projects</a><span class="sep">/</span><a href="../../mcu-toolchain-and-practice/mcu-families-compared/index.html">MCU Families Compared</a><span class="sep">/</span><span>AVR Architecture</span></div>
+      <h1>AVR Architecture</h1>
+      <div class="tags"><span class="tag">avr</span><span class="tag">atmega</span><span class="tag">arduino</span><span class="tag">8-bit</span><span class="tag">embedded</span></div>
+      <p>
+AVR is an 8-bit microcontroller architecture designed by Atmel (now Microchip). It became massively popular through the Arduino platform, which uses the ATmega328P. Despite the rise of 32-bit ARM cores, AVR remains relevant for simple, low-cost applications where 8 bits is more than enough.
+</p>
+<h2>Architecture Overview</h2>
+<p>
+AVR uses a <a href="https://www.arnabkumardas.com/arduino-tutorial/avr-architecture/"><strong>modified Harvard architecture</strong></a> with separate buses and address spaces for program memory (flash) and data memory (SRAM). This allows the CPU to fetch the next instruction while executing the current one.
+</p>
+<pre><code class="language-text">+-------+     +--------+     +--------+
+<p>
+| Flash | --&gt; | CPU    | &lt;-&gt; | SRAM   |
+| (pgm) |     | (ALU,  |     | (data) |
+|       |     |  regs) |     |        |
++-------+     +--------+     +--------+
+   16-bit        8-bit          8-bit
+  address       data bus       data bus</code></pre>
+</p>
+<p>
+Key characteristics:
+</p>
+<ul>
+<li><strong>8-bit data path</strong> -- ALU operates on 8-bit values</li>
+<li><strong>16-bit instructions</strong> -- most instructions are 16 bits wide (some are 32 bits)</li>
+<li><strong>Single-cycle execution</strong> -- most instructions execute in one clock cycle</li>
+<li><strong>RISC design</strong> -- load/store architecture, fixed instruction width</li>
+<li><strong>In-system programmable</strong> -- flash can be reprogrammed via ISP or bootloader</li>
+</ul>
+<h2>Register File</h2>
+<p>
+AVR has <strong>32 general-purpose 8-bit registers</strong> (R0-R31), all directly connected to the ALU. This is unusually generous for an 8-bit architecture.
+</p>
+<pre><code class="language-text">R0  - R15   General purpose (some restrictions)
+<p>
+R16 - R25   General purpose (full access to immediate instructions)
+R26:R27     X register (16-bit pointer)
+R28:R29     Y register (16-bit pointer)
+R30:R31     Z register (16-bit pointer, also used for LPM)</code></pre>
+</p>
+<p>
+The upper six registers can be combined into three 16-bit <strong>pointer registers</strong> (X, Y, Z) for indirect addressing, which is essential for accessing arrays and data structures with only an 8-bit ALU.
+</p>
+<h3>Status Register (SREG)</h3>
+<pre><code class="language-text">Bit 7: I  - Global Interrupt Enable
+<p>
+Bit 6: T  - Bit Copy Storage
+Bit 5: H  - Half Carry Flag
+Bit 4: S  - Sign Flag
+Bit 3: V  - Overflow Flag
+Bit 2: N  - Negative Flag
+Bit 1: Z  - Zero Flag
+Bit 0: C  - Carry Flag</code></pre>
+</p>
+<p>
+The <code>I</code> bit is particularly important -- it is the global interrupt enable/disable flag, equivalent to <code>CPSIE/CPSID</code> on ARM.
+</p>
+<h2>Memory Architecture</h2>
+<h3>ATmega328P Memory Map (as reference)</h3>
+<table><thead><tr><th>Memory</th><th>Size</th><th>Address Range</th><th>Purpose</th></tr></thead><tbody><tr><td>Flash</td><td>32 KB</td><td>0x0000 - 0x3FFF (word)</td><td>Program storage</td></tr>
+<tr><td>SRAM</td><td>2 KB</td><td>0x0100 - 0x08FF</td><td>Runtime data</td></tr>
+<tr><td>EEPROM</td><td>1 KB</td><td>Separate address space</td><td>Non-volatile data</td></tr>
+<tr><td>I/O Registers</td><td>64</td><td>0x0020 - 0x005F</td><td>Peripheral control</td></tr>
+<tr><td>Extended I/O</td><td>160</td><td>0x0060 - 0x00FF</td><td>Additional peripherals</td></tr></tbody></table>
+<p>
+Note: addresses 0x0000-0x001F in data space map to registers R0-R31.
+</p>
+<h3>Program Memory</h3>
+<p>
+Flash stores the program code and is organized in 16-bit words. The reset vector is at address 0x0000 (word address), and interrupt vectors follow in a fixed order.
+</p>
+<pre><code class="language-text">0x0000  RESET vector
+<p>
+0x0001  INT0 (External Interrupt 0)
+0x0002  INT1 (External Interrupt 1)
+0x0003  PCINT0 (Pin Change Interrupt)
+...
+0x0019  SPM_READY</code></pre>
+</p>
+<h3>Data Memory (SRAM)</h3>
+<p>
+SRAM holds variables, the stack, and the heap. On the ATmega328P, the stack starts at the top of SRAM (0x08FF) and grows downward, just like on ARM.
+</p>
+<h2>I/O Ports and Pin Registers</h2>
+<p>
+AVR uses three registers per GPIO port:
+</p>
+<table><thead><tr><th>Register</th><th>Purpose</th><th>Example</th></tr></thead><tbody><tr><td><strong>DDRx</strong></td><td>Data Direction -- 0 = input, 1 = output</td><td><code>DDRB \</td><td>= (1 << 5);</code> // PB5 output</td></tr>
+<tr><td><strong>PORTx</strong></td><td>Output data (or pull-up enable for inputs)</td><td><code>PORTB \</td><td>= (1 << 5);</code> // PB5 high</td></tr>
+<tr><td><strong>PINx</strong></td><td>Input data (read pin state)</td><td><code>if (PINB & (1 << 3))</code> // Read PB3</td></tr></tbody></table>
+<p>
+<strong>Example: Blink LED on PB5 (Arduino pin 13)</strong>:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button><button class="code-tab" data-lang="cpp">C++</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">#include &lt;avr/io.h&gt;
+<p>
+#include &lt;util/delay.h&gt;
+</p>
+<p>
+int main(void) {
+    DDRB |= (1 &lt;&lt; PB5);      // Set PB5 as output
+</p>
+<p>
+    while (1) {
+        PORTB ^= (1 &lt;&lt; PB5); // Toggle PB5
+        _delay_ms(500);
+    }
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// Rust AVR — using avr-hal crate (e.g., arduino-hal)
+<p>
+#![no_std]
+#![no_main]
+</p>
+<p>
+use arduino_hal::prelude::*;
+</p>
+<p>
+#[arduino_hal::entry]
+fn main() -&gt; ! {
+    let dp = arduino_hal::Peripherals::take().unwrap();
+    let pins = arduino_hal::pins!(dp);
+</p>
+<p>
+    // Set PB5 (Arduino pin 13) as output
+    let mut led = pins.d13.into_output();
+</p>
+<p>
+    loop {
+        led.toggle();
+        arduino_hal::delay_ms(500);
+    }
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="cpp"><pre><code class="language-cpp">// C++ with avr-g++ — uses the same registers but with type-safe wrappers
+<p>
+#include &lt;avr/io.h&gt;
+#include &lt;util/delay.h&gt;
+</p>
+<p>
+// Minimal type-safe GPIO wrapper
+template &lt;volatile uint8_t &amp;Port, volatile uint8_t &amp;DDR, uint8_t Pin&gt;
+struct OutputPin {
+    static void init()   { DDR |= (1 &lt;&lt; Pin); }
+    static void toggle() { Port ^= (1 &lt;&lt; Pin); }
+};
+</p>
+<p>
+using Led = OutputPin&lt;PORTB, DDRB, PB5&gt;;
+</p>
+<p>
+int main() {
+    Led::init();
+    while (true) {
+        Led::toggle();
+        _delay_ms(500);
+    }
+}</code></pre></div></div>
+</p>
+<p>
+This is the "bare metal" equivalent of the Arduino <code>digitalWrite()</code> call, but executes in 2 clock cycles instead of ~50.
+</p>
+<h2>Fuse Bits</h2>
+<p>
+Fuse bits are special non-volatile configuration bits that control fundamental MCU behavior. They are <strong>not</strong> part of the flash program -- they are programmed separately through the ISP interface.
+</p>
+<h3>ATmega328P Fuse Bytes</h3>
+<p>
+<strong>Low Fuse Byte</strong> (clock configuration):
+</p>
+<ul>
+<li><strong>CKSEL[3:0]</strong> -- clock source selection (internal RC, external crystal, external clock)</li>
+<li><strong>SUT[1:0]</strong> -- startup time</li>
+<li><strong>CKOUT</strong> -- output clock on pin</li>
+<li><strong>CKDIV8</strong> -- divide clock by 8 (enabled by default on new chips!)</li>
+</ul>
+<p>
+<strong>High Fuse Byte</strong> (boot/reset):
+</p>
+<ul>
+<li><strong>BOOTRST</strong> -- reset vector location (application or bootloader)</li>
+<li><strong>BOOTSZ[1:0]</strong> -- bootloader section size</li>
+<li><strong>EESAVE</strong> -- preserve EEPROM on chip erase</li>
+<li><strong>WDTON</strong> -- watchdog always on</li>
+<li><strong>SPIEN</strong> -- SPI programming enable (do not disable this!)</li>
+</ul>
+<p>
+<strong>Extended Fuse Byte</strong>:
+</p>
+<ul>
+<li><strong>BODLEVEL[2:0]</strong> -- brown-out detection level</li>
+</ul>
+<h3>Common Fuse Pitfall</h3>
+<p>
+<a href="https://circuitdigest.com/microcontroller-projects/understanding-fuse-bits-in-atmega328p-to-enhance-arduino-programming-skills">Fuse bits are active-low</a> (0 = enabled, 1 = disabled). A new ATmega328P ships with <code>CKDIV8 = 0</code> (enabled), meaning it runs at 1 MHz (8 MHz / 8) instead of the expected 8 MHz. Many beginners are confused by this.
+</p>
+<pre><code class="language-bash"># Read fuses with avrdude
+<p>
+avrdude -c usbasp -p m328p -U lfuse:r:-:h
+</p>
+<h1>Set fuses for 8 MHz internal RC, no divide</h1>
+<p>
+avrdude -c usbasp -p m328p -U lfuse:w:0xE2:m</code></pre>
+</p>
+<p>
+<strong>Warning</strong>: Incorrect fuse settings can brick the chip (e.g., selecting a clock source that does not exist). Always use a fuse calculator before programming.
+</p>
+<h2>AVR Toolchain</h2>
+<pre><code class="language-bash"># Compile
+<p>
+avr-gcc -mmcu=atmega328p -Os -o main.elf main.c
+</p>
+<h1>Convert to Intel HEX</h1>
+<p>
+avr-objcopy -O ihex main.elf main.hex
+</p>
+<h1>Flash via ISP programmer</h1>
+<p>
+avrdude -c usbasp -p m328p -U flash:w:main.hex</code></pre>
+</p>
+<p>
+The <code>-mmcu=</code> flag is critical -- it tells the compiler which chip to target, affecting register definitions, memory sizes, and instruction availability.
+</p>
+<h2>AVR vs ARM: When 8-Bit Still Makes Sense</h2>
+<table><thead><tr><th>Factor</th><th>AVR (ATmega)</th><th>ARM (Cortex-M0)</th></tr></thead><tbody><tr><td>Bit width</td><td>8-bit</td><td>32-bit</td></tr>
+<tr><td>Clock speed</td><td>1-20 MHz</td><td>24-64 MHz</td></tr>
+<tr><td>Flash</td><td>2-256 KB</td><td>16-256 KB</td></tr>
+<tr><td>SRAM</td><td>128 B - 16 KB</td><td>2-32 KB</td></tr>
+<tr><td>Price (1K qty)</td><td>$0.50-3.00</td><td>$0.50-2.00</td></tr>
+<tr><td>Power (active)</td><td>~0.3 mA/MHz</td><td>~0.1-0.3 mA/MHz</td></tr>
+<tr><td>Ecosystem</td><td>Mature, huge Arduino community</td><td>Growing, professional tools</td></tr>
+<tr><td>Debugging</td><td>Limited (debugWIRE, JTAG on larger chips)</td><td>SWD on all chips</td></tr></tbody></table>
+<p>
+<strong>AVR still makes sense when</strong>:
+</p>
+<ul>
+<li>You have an existing AVR codebase or product</li>
+<li>The application is truly simple (a few GPIO, a timer, maybe UART)</li>
+<li>You need specific AVR peripherals (e.g., the precise timer control on ATtiny)</li>
+<li>Arduino compatibility is a hard requirement</li>
+</ul>
+<p>
+<strong>ARM is better when</strong>:
+</p>
+<ul>
+<li>You need 32-bit math, DMA, or DSP</li>
+<li>You want proper debug support (SWD, breakpoints)</li>
+<li>You are starting a new design with no legacy constraints</li>
+<li>Price-competitive at the same capability level</li>
+</ul>
+<h2>References</h2>
+<ol>
+<li><a href="https://web.mit.edu/6.111/volume2/www/f2018/handouts/ATmega328P.pdf">ATmega328/P Datasheet Complete - Microchip/MIT</a> — Full ATmega328P datasheet with register descriptions</li>
+<li><a href="https://circuitdigest.com/microcontroller-projects/understanding-fuse-bits-in-atmega328p-to-enhance-arduino-programming-skills">Understanding Fuse Bits in ATmega328P</a> — Guide to AVR fuse bit configuration</li>
+<li><a href="https://www.arnabkumardas.com/arduino-tutorial/avr-architecture/">AVR Architecture: Arduino / ATmega328P</a> — Walkthrough of AVR architecture fundamentals</li>
+<li><a href="https://en.wikipedia.org/wiki/Atmel_AVR_instruction_set">Atmel AVR Instruction Set - Wikipedia</a> — Reference for the AVR instruction set</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="arm-cortex-m.html">ARM Cortex-M</a> -- the 32-bit alternative</li>
+<li><a href="risc-v-microcontrollers.html">RISC-V Microcontrollers</a> -- another competitor</li>
+<li><a href="choosing-an-mcu.html">Choosing an MCU</a> -- decision framework</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://web.mit.edu/6.111/volume2/www/f2018/handouts/ATmega328P.pdf" target="_blank" rel="noopener">ATmega328/P Datasheet Complete - Microchip/MIT</a></li><li><a href="https://circuitdigest.com/microcontroller-projects/understanding-fuse-bits-in-atmega328p-to-enhance-arduino-programming-skills" target="_blank" rel="noopener">Understanding Fuse Bits in ATmega328P</a></li><li><a href="https://www.arnabkumardas.com/arduino-tutorial/avr-architecture/" target="_blank" rel="noopener">AVR Architecture: Arduino / ATmega328P</a></li><li><a href="https://en.wikipedia.org/wiki/Atmel_AVR_instruction_set" target="_blank" rel="noopener">Atmel AVR Instruction Set - Wikipedia</a></li></ul></div>
+      <div class="page-nav"><a href="arm-cortex-m.html"><span class="nav-label">← Previous</span><span class="nav-title">ARM Cortex-M Family</span></a><a class="next" href="risc-v-microcontrollers.html"><span class="nav-label">Next →</span><span class="nav-title">RISC-V Microcontrollers</span></a></div>
+    </main>
+  </div>
+  <script src="../../scripts/main.js"></script>
+</body>
+</html>

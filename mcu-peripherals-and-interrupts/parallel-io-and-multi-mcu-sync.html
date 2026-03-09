@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parallel I/O and Multi-MCU Synchronization — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="uart-serial.html">UART Serial Communication</a><a class="nav-item" href="spi-protocol.html">SPI Protocol</a><a class="nav-item" href="i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="adc-and-analog.html">ADC and Analog</a><a class="nav-item active" href="parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../mcu-peripherals-and-interrupts/index.html">Peripherals & Interrupts — Interact with the World</a><span class="sep">/</span><span>Parallel I/O and Multi-MCU Synchronization</span></div>
+      <h1>Parallel I/O and Multi-MCU Synchronization</h1>
+      <div class="tags"><span class="tag">parallel-io</span><span class="tag">synchronization</span><span class="tag">multi-mcu</span><span class="tag">handshake</span><span class="tag">gpio</span><span class="tag">bus</span></div>
+      <p>
+Yes — you can absolutely synchronize multiple MCUs using parallel I/O. This page covers how to build parallel data buses between MCUs, the synchronization techniques that make them reliable, and when to use parallel I/O versus serial protocols.
+</p>
+<h2>What is Parallel I/O?</h2>
+<p>
+Parallel I/O means transferring multiple bits <strong>simultaneously</strong> over multiple GPIO pins, as opposed to serial protocols (UART, SPI, I2C) that send bits one at a time.
+</p>
+<pre><code class="language-text">Serial (UART):     ──┤D0├┤D1├┤D2├┤D3├┤D4├┤D5├┤D6├┤D7├──   1 pin, 8 clocks
+<p>
+Parallel (8-bit):  Pin 0  ──┤D0├──
+                   Pin 1  ──┤D1├──
+                   Pin 2  ──┤D2├──                           8 pins, 1 clock
+                   Pin 3  ──┤D3├──
+                   Pin 4  ──┤D4├──
+                   Pin 5  ──┤D5├──
+                   Pin 6  ──┤D6├──
+                   Pin 7  ──┤D7├──
+                   CLK    ──┤──├──</code></pre>
+</p>
+<p>
+<strong>Trade-off</strong>: parallel uses more pins but transfers data faster per clock cycle.
+</p>
+<h2>Building a Parallel Bus Between Two MCUs</h2>
+<h3>Minimum Signals</h3>
+<table><thead><tr><th>Signal</th><th>Direction</th><th>Purpose</th></tr></thead><tbody><tr><td>D0-D7 (or D0-D15)</td><td>Bidirectional</td><td>Data lines</td></tr>
+<tr><td>CLK / STROBE</td><td>Sender → Receiver</td><td>"Data is valid — read now"</td></tr>
+<tr><td>ACK / READY</td><td>Receiver → Sender</td><td>"I've read it — send next"</td></tr>
+<tr><td>DIR (optional)</td><td>Either</td><td>Direction control for bidirectional bus</td></tr></tbody></table>
+<h3>Hardware Connection</h3>
+<pre><code class="language-text">    MCU A                              MCU B
+<p>
+  ┌─────────┐                      ┌─────────┐
+  │  PA0-PA7 ├──── D0-D7 ─────────┤ PB0-PB7  │  8-bit data bus
+  │          │                      │          │
+  │     PC0  ├──── STROBE ────────►│ PC0 (EXTI)│  "data ready" signal
+  │          │                      │          │
+  │ PC1(EXTI)│◄─── ACK ───────────┤ PC1      │  "data received" signal
+  │          │                      │          │
+  │     GND  ├──── GND ───────────┤ GND      │  common ground (essential!)
+  └─────────┘                      └─────────┘</code></pre>
+</p>
+<p>
+<strong>Critical</strong>: both MCUs must share a common ground. Without it, voltage levels are meaningless.
+</p>
+<h2>Synchronization Method 1: Strobe Handshake</h2>
+<p>
+The simplest and most reliable method. The sender pulses a strobe line to say "data is valid"; the receiver acknowledges with an ACK pulse.
+</p>
+<h3>Sender (MCU A)</h3>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">#define DATA_PORT   GPIOA
+<p>
+#define STROBE_PIN  GPIO_PIN_0   // PC0
+#define ACK_PIN     GPIO_PIN_1   // PC1 (input, EXTI)
+#define CTRL_PORT   GPIOC
+</p>
+<p>
+void parallel_send(uint8_t data) {
+    // 1. Put data on the bus
+    DATA_PORT-&gt;ODR = (DATA_PORT-&gt;ODR &amp; 0xFF00) | data;
+</p>
+<p>
+    // 2. Pulse STROBE high — tells receiver "data is valid"
+    CTRL_PORT-&gt;BSRR = STROBE_PIN;          // STROBE = 1
+</p>
+<p>
+    // 3. Wait for ACK from receiver
+    while (!(CTRL_PORT-&gt;IDR &amp; ACK_PIN));    // wait for ACK = 1
+</p>
+<p>
+    // 4. Release STROBE
+    CTRL_PORT-&gt;BSRR = STROBE_PIN &lt;&lt; 16;    // STROBE = 0
+</p>
+<p>
+    // 5. Wait for ACK to drop (receiver ready for next byte)
+    while (CTRL_PORT-&gt;IDR &amp; ACK_PIN);       // wait for ACK = 0
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+const GPIOA_ODR: <em>mut u32 = (0x4002_0000 + 0x14) as </em>mut u32;
+const GPIOC_BSRR: <em>mut u32 = (0x4002_0800 + 0x18) as </em>mut u32;
+const GPIOC_IDR: <em>const u32 = (0x4002_0800 + 0x10) as </em>const u32;
+const STROBE_PIN: u32 = 1 &lt;&lt; 0;  // PC0
+const ACK_PIN: u32 = 1 &lt;&lt; 1;     // PC1
+</p>
+<p>
+unsafe fn parallel_send(data: u8) {
+    // 1. Put data on the bus
+    let odr = read_volatile(GPIOA_ODR);
+    write_volatile(GPIOA_ODR, (odr &amp; 0xFF00) | data as u32);
+</p>
+<p>
+    // 2. Pulse STROBE high
+    write_volatile(GPIOC_BSRR, STROBE_PIN);           // STROBE = 1
+</p>
+<p>
+    // 3. Wait for ACK from receiver
+    while read_volatile(GPIOC_IDR) &amp; ACK_PIN == 0 {}   // wait for ACK = 1
+</p>
+<p>
+    // 4. Release STROBE
+    write_volatile(GPIOC_BSRR, STROBE_PIN &lt;&lt; 16);     // STROBE = 0
+</p>
+<p>
+    // 5. Wait for ACK to drop
+    while read_volatile(GPIOC_IDR) &amp; ACK_PIN != 0 {}   // wait for ACK = 0
+}</code></pre></div></div>
+</p>
+<h3>Receiver (MCU B)</h3>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">volatile uint8_t rx_data;
+<p>
+volatile uint8_t data_ready = 0;
+</p>
+<p>
+// EXTI ISR — fires on STROBE rising edge
+void EXTI0_IRQHandler(void) {
+    if (EXTI-&gt;PR &amp; EXTI_PR_PR0) {
+        EXTI-&gt;PR = EXTI_PR_PR0;             // clear pending
+</p>
+<p>
+        // 1. Read data from bus
+        rx_data = (DATA_PORT-&gt;IDR &amp; 0xFF);
+</p>
+<p>
+        // 2. Pulse ACK to sender
+        CTRL_PORT-&gt;BSRR = ACK_PIN;          // ACK = 1
+        data_ready = 1;
+</p>
+<p>
+        // Small delay for sender to see ACK
+        for (volatile int i = 0; i &lt; 10; i++);
+</p>
+<p>
+        CTRL_PORT-&gt;BSRR = ACK_PIN &lt;&lt; 16;    // ACK = 0
+    }
+}
+</p>
+<p>
+// Main loop processes received data
+void main_loop(void) {
+    while (1) {
+        if (data_ready) {
+            process(rx_data);
+            data_ready = 0;
+        }
+    }
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+use core::sync::atomic::{AtomicBool, AtomicU8, Ordering};
+</p>
+<p>
+static RX_DATA: AtomicU8 = AtomicU8::new(0);
+static DATA_READY: AtomicBool = AtomicBool::new(false);
+</p>
+<p>
+const EXTI_PR: <em>mut u32 = (0x4001_3C00 + 0x14) as </em>mut u32;
+const GPIOB_IDR: <em>const u32 = (0x4002_0400 + 0x10) as </em>const u32;  // DATA_PORT
+const GPIOC_BSRR: <em>mut u32 = (0x4002_0800 + 0x18) as </em>mut u32;
+const ACK_PIN: u32 = 1 &lt;&lt; 1;
+</p>
+<p>
+// EXTI ISR — fires on STROBE rising edge
+#[no_mangle]
+pub unsafe extern "C" fn EXTI0_IRQHandler() {
+    if read_volatile(EXTI_PR) &amp; (1 &lt;&lt; 0) != 0 {
+        write_volatile(EXTI_PR, 1 &lt;&lt; 0);            // clear pending
+</p>
+<p>
+        // 1. Read data from bus
+        let data = (read_volatile(GPIOB_IDR) &amp; 0xFF) as u8;
+        RX_DATA.store(data, Ordering::Release);
+</p>
+<p>
+        // 2. Pulse ACK to sender
+        write_volatile(GPIOC_BSRR, ACK_PIN);        // ACK = 1
+        DATA_READY.store(true, Ordering::Release);
+</p>
+<p>
+        // Small delay for sender to see ACK
+        for _ in 0..10 { core::hint::black_box(()); }
+</p>
+<p>
+        write_volatile(GPIOC_BSRR, ACK_PIN &lt;&lt; 16);  // ACK = 0
+    }
+}
+</p>
+<p>
+// Main loop processes received data
+fn main_loop() -&gt; ! {
+    loop {
+        if DATA_READY.load(Ordering::Acquire) {
+            process(RX_DATA.load(Ordering::Acquire));
+            DATA_READY.store(false, Ordering::Release);
+        }
+    }
+}</code></pre></div></div>
+</p>
+<h3>Timing Diagram</h3>
+<pre><code class="language-text">Data Bus:  ══╤════════════╤════════════╤══
+<p>
+             │  Byte 0    │  Byte 1    │
+STROBE:   ___/‾‾‾‾‾‾‾‾‾‾‾\___________/‾‾‾
+ACK:      ________/‾‾‾‾\______________/‾‾
+                  ↑                   ↑
+            Receiver reads      Receiver reads</code></pre>
+</p>
+<h2>Synchronization Method 2: Clock-Synchronized (Fastest)</h2>
+<p>
+Instead of a handshake, use a shared clock. The sender drives data and clock; the receiver samples data on clock edges. This is essentially <strong>a custom synchronous parallel bus</strong> — similar to how the 8080 bus works.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Sender: output data, then pulse clock
+<p>
+void parallel_send_clocked(uint8_t *buf, uint32_t len) {
+    for (uint32_t i = 0; i &lt; len; i++) {
+        DATA_PORT-&gt;ODR = (DATA_PORT-&gt;ODR &amp; 0xFF00) | buf[i];
+        __NOP(); __NOP();                    // setup time
+        CLK_PORT-&gt;BSRR = CLK_PIN;           // CLK rising edge
+        __NOP(); __NOP();                    // hold time
+        CLK_PORT-&gt;BSRR = CLK_PIN &lt;&lt; 16;     // CLK falling edge
+    }
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::arch::asm;
+<p>
+use core::ptr::{read_volatile, write_volatile};
+</p>
+<p>
+unsafe fn parallel_send_clocked(buf: &amp;[u8]) {
+    for &amp;byte in buf {
+        let odr = read_volatile(DATA_PORT_ODR);
+        write_volatile(DATA_PORT_ODR, (odr &amp; 0xFF00) | byte as u32);
+        asm!("nop"); asm!("nop");                     // setup time
+        write_volatile(CLK_PORT_BSRR, CLK_PIN);      // CLK rising edge
+        asm!("nop"); asm!("nop");                     // hold time
+        write_volatile(CLK_PORT_BSRR, CLK_PIN &lt;&lt; 16); // CLK falling edge
+    }
+}</code></pre></div></div>
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Receiver: EXTI on CLK rising edge, or use timer input capture
+<p>
+void EXTI_CLK_IRQHandler(void) {
+    EXTI-&gt;PR = EXTI_PR_CLK;
+    buffer[buf_idx++] = DATA_PORT-&gt;IDR &amp; 0xFF;
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+static mut BUFFER: [u8; 256] = [0; 256];
+static mut BUF_IDX: usize = 0;
+</p>
+<p>
+// Receiver: EXTI on CLK rising edge
+#[no_mangle]
+pub unsafe extern "C" fn EXTI_CLK_IRQHandler() {
+    write_volatile(EXTI_PR, EXTI_PR_CLK_BIT);
+    BUFFER[BUF_IDX] = (read_volatile(DATA_PORT_IDR) &amp; 0xFF) as u8;
+    BUF_IDX += 1;
+}</code></pre></div></div>
+</p>
+<p>
+<strong>Speed</strong>: with DMA + timer-driven GPIO, <a href="https://www.st.com/resource/en/application_note/an4666-parallel-synchronous-transmission-using-gpio-and-dma-stmicroelectronics.pdf">ST's AN4666</a> demonstrates parallel transfers up to several MHz — far faster than UART or I2C.
+</p>
+<h2>Synchronization Method 3: Shared Memory with Flag</h2>
+<p>
+If two MCUs share external SRAM (via a parallel bus), they can exchange data through predetermined memory addresses with flag-based synchronization:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Shared memory layout (both MCUs agree on this)
+<p>
+#define SHARED_BASE     0x60000000   // external SRAM via FSMC
+#define FLAG_A_TO_B     (<em>(volatile uint32_t</em>)(SHARED_BASE + 0x000))
+#define DATA_A_TO_B     (<em>(volatile uint32_t</em>)(SHARED_BASE + 0x004))
+#define FLAG_B_TO_A     (<em>(volatile uint32_t</em>)(SHARED_BASE + 0x100))
+#define DATA_B_TO_A     (<em>(volatile uint32_t</em>)(SHARED_BASE + 0x104))
+</p>
+<p>
+// MCU A writes, MCU B reads
+void mcu_a_send(uint32_t value) {
+    while (FLAG_A_TO_B != 0);   // wait until B has consumed previous data
+    DATA_A_TO_B = value;
+    FLAG_A_TO_B = 1;            // signal: new data available
+}
+</p>
+<p>
+// MCU B polls for data
+uint32_t mcu_b_receive(void) {
+    while (FLAG_A_TO_B == 0);   // wait for new data
+    uint32_t val = DATA_A_TO_B;
+    FLAG_A_TO_B = 0;            // signal: data consumed
+    return val;
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+const SHARED_BASE: u32 = 0x6000_0000; // external SRAM via FSMC
+const FLAG_A_TO_B: <em>mut u32 = SHARED_BASE as </em>mut u32;
+const DATA_A_TO_B: <em>mut u32 = (SHARED_BASE + 0x004) as </em>mut u32;
+// FLAG_B_TO_A and DATA_B_TO_A at +0x100, +0x104
+</p>
+<p>
+// MCU A writes, MCU B reads
+unsafe fn mcu_a_send(value: u32) {
+    while read_volatile(FLAG_A_TO_B) != 0 {}  // wait until B consumed
+    write_volatile(DATA_A_TO_B, value);
+    write_volatile(FLAG_A_TO_B, 1);            // signal: new data available
+}
+</p>
+<p>
+// MCU B polls for data
+unsafe fn mcu_b_receive() -&gt; u32 {
+    while read_volatile(FLAG_A_TO_B) == 0 {}   // wait for new data
+    let val = read_volatile(DATA_A_TO_B);
+    write_volatile(FLAG_A_TO_B, 0);            // signal: data consumed
+    val
+}</code></pre></div></div>
+</p>
+<p>
+This is the approach <a href="https://www.physicsforums.com/threads/recommend-architecture-protocol-to-sync-data-between-mcus.1078243/">described by a Bell Labs engineer</a> for multi-MCU industrial systems — certain MCUs write to specific addresses, all MCUs can read any parameter.
+</p>
+<h2>Bidirectional Parallel Bus</h2>
+<p>
+For two-way communication, you need direction control. Both MCUs can't drive the data lines simultaneously (bus contention → short circuit).
+</p>
+<h3>Using a Direction Pin</h3>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">typedef enum { DIR_SEND, DIR_RECEIVE } BusDir_t;
+<p>
+void set_bus_direction(BusDir_t dir) {
+    if (dir == DIR_SEND) {
+        // Configure D0-D7 as outputs
+        GPIOA-&gt;MODER &amp;= ~0xFFFF;
+        GPIOA-&gt;MODER |=  0x5555;   // 01 for each pin = output
+    } else {
+        // Configure D0-D7 as inputs
+        GPIOA-&gt;MODER &amp;= ~0xFFFF;   // 00 for each pin = input
+    }
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+const GPIOA_MODER: <em>mut u32 = 0x4002_0000 as </em>mut u32;
+</p>
+<p>
+#[derive(PartialEq)]
+enum BusDir { Send, Receive }
+</p>
+<p>
+unsafe fn set_bus_direction(dir: BusDir) {
+    let moder = read_volatile(GPIOA_MODER) &amp; !0xFFFF; // clear D0-D7
+    if dir == BusDir::Send {
+        write_volatile(GPIOA_MODER, moder | 0x5555);  // 01 per pin = output
+    } else {
+        write_volatile(GPIOA_MODER, moder);            // 00 per pin = input
+    }
+}</code></pre></div></div>
+</p>
+<h3>Protocol</h3>
+<ol>
+<li>MCU A wants to send → asserts DIR pin, puts data, pulses STROBE</li>
+<li>MCU B reads data, ACKs</li>
+<li>MCU B wants to send → asserts DIR pin (or a separate REQ line), MCU A switches to input</li>
+<li>Now MCU B drives data, pulses STROBE</li>
+<li>MCU A reads, ACKs</li>
+</ol>
+<h2>When to Use Parallel vs Serial</h2>
+<table><thead><tr><th>Factor</th><th>Parallel GPIO</th><th>SPI</th><th>UART</th><th>I2C</th></tr></thead><tbody><tr><td>Speed</td><td>Very fast (MHz with DMA)</td><td>Fast (up to 50 MHz)</td><td>Moderate (up to ~1 Mbps)</td><td>Slow (100-400 kHz)</td></tr>
+<tr><td>Pin count</td><td>10-18 pins</td><td>3-4 pins</td><td>2 pins</td><td>2 pins (shared bus)</td></tr>
+<tr><td>Complexity</td><td>Medium</td><td>Low</td><td>Low</td><td>Medium</td></tr>
+<tr><td>Multi-device</td><td>Hard (needs CS per device)</td><td>Easy (CS per device)</td><td>Point-to-point</td><td>Easy (addressing)</td></tr>
+<tr><td>Distance</td><td>Short (<30 cm)</td><td>Short-medium</td><td>Long (with RS-485)</td><td>Short</td></tr>
+<tr><td>Best for</td><td>High-speed bulk data, LCD, FPGA</td><td>Sensors, flash, ADC</td><td>Debug, config, logging</td><td>Sensors, EEPROMs</td></tr></tbody></table>
+<h3>Use parallel I/O when:</h3>
+<ul>
+<li>You need <strong>maximum throughput</strong> between two MCUs</li>
+<li>You have <strong>spare GPIO pins</strong> (8-16 data + 2-3 control)</li>
+<li>The MCUs are <strong>physically close</strong> (same board)</li>
+<li>You're interfacing with <strong>parallel devices</strong> (LCDs, external SRAM, FPGAs)</li>
+</ul>
+<h3>Use serial (SPI/UART) instead when:</h3>
+<ul>
+<li>Pins are scarce</li>
+<li>MCUs are far apart</li>
+<li>You need to connect many devices</li>
+<li>Throughput requirements are modest</li>
+</ul>
+<h2>DMA-Accelerated Parallel I/O</h2>
+<p>
+For maximum speed, use DMA to transfer data between memory and GPIO without CPU involvement:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Timer triggers DMA at fixed intervals
+<p>
+// DMA reads from buffer[] and writes to GPIOA-&gt;ODR
+// Result: parallel data output at timer frequency
+</p>
+<p>
+// Configure DMA: memory → GPIO (peripheral)
+DMA1_Stream5-&gt;PAR = (uint32_t)&amp;GPIOA-&gt;ODR;   // destination: GPIO port
+DMA1_Stream5-&gt;M0AR = (uint32_t)tx_buffer;      // source: memory buffer
+DMA1_Stream5-&gt;NDTR = BUFFER_SIZE;              // transfer count
+DMA1_Stream5-&gt;CR = DMA_SxCR_DIR_0              // memory → peripheral
+                 | DMA_SxCR_MINC               // increment memory pointer
+                 | DMA_SxCR_CIRC               // circular mode
+                 | DMA_SxCR_EN;                // enable
+</p>
+<p>
+// Timer generates DMA requests at desired data rate
+TIM2-&gt;PSC = 0;
+TIM2-&gt;ARR = 72 - 1;                           // 1 MHz at 72 MHz clock
+TIM2-&gt;DIER = TIM_DIER_UDE;                    // update event → DMA request
+TIM2-&gt;CR1 = TIM_CR1_CEN;                      // start timer</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::write_volatile;
+<p>
+const DMA1_STREAM5_BASE: u32 = 0x4002_6000 + 0x10 + 5 * 0x18;
+const DMA1_S5_PAR: <em>mut u32 = (DMA1_STREAM5_BASE + 0x08) as </em>mut u32;
+const DMA1_S5_M0AR: <em>mut u32 = (DMA1_STREAM5_BASE + 0x0C) as </em>mut u32;
+const DMA1_S5_NDTR: <em>mut u32 = (DMA1_STREAM5_BASE + 0x04) as </em>mut u32;
+const DMA1_S5_CR: <em>mut u32 = DMA1_STREAM5_BASE as </em>mut u32;
+const GPIOA_ODR: u32 = 0x4002_0000 + 0x14;
+</p>
+<p>
+const TIM2_BASE: u32 = 0x4000_0000;
+</p>
+<p>
+static TX_BUFFER: [u8; BUFFER_SIZE] = [0; BUFFER_SIZE];
+</p>
+<p>
+unsafe {
+    // Configure DMA: memory -&gt; GPIO (peripheral)
+    write_volatile(DMA1_S5_PAR, GPIOA_ODR);                // destination: GPIO port
+    write_volatile(DMA1_S5_M0AR, TX_BUFFER.as_ptr() as u32); // source: memory buffer
+    write_volatile(DMA1_S5_NDTR, BUFFER_SIZE as u32);       // transfer count
+    write_volatile(DMA1_S5_CR,
+          (1 &lt;&lt; 6)    // DIR: memory -&gt; peripheral
+        | (1 &lt;&lt; 10)   // MINC: increment memory pointer
+        | (1 &lt;&lt; 8)    // CIRC: circular mode
+        | (1 &lt;&lt; 0));  // EN: enable
+</p>
+<p>
+    // Timer generates DMA requests at desired data rate
+    write_volatile((TIM2_BASE + 0x28) as *mut u32, 0);     // PSC = 0
+    write_volatile((TIM2_BASE + 0x2C) as *mut u32, 72 - 1); // ARR: 1 MHz at 72 MHz
+    write_volatile((TIM2_BASE + 0x0C) as *mut u32, 1 &lt;&lt; 8); // DIER: UDE
+    write_volatile(TIM2_BASE as *mut u32, 1 &lt;&lt; 0);          // CR1: CEN
+}</code></pre></div></div>
+</p>
+<p>
+This produces a continuous 1 MHz parallel output — <a href="https://www.st.com/resource/en/application_note/an4666-parallel-synchronous-transmission-using-gpio-and-dma-stmicroelectronics.pdf">ST's AN4666</a> describes this exact technique for GPIO-based parallel transmission.
+</p>
+<h2>Multi-MCU Synchronization Patterns</h2>
+<h3>Pattern 1: Master-Slave with Interrupt</h3>
+<p>
+One MCU is the master; it initiates all transfers. Slaves respond.
+</p>
+<pre><code class="language-text">Master MCU                        Slave MCU
+<p>
+    │                                 │
+    ├── DATA on bus ──────────────────┤
+    ├── STROBE pulse ─────► EXTI ISR ─┤
+    │                     reads data  │
+    │◄── ACK pulse ───── sends ACK ──┤
+    │                                 │</code></pre>
+</p>
+<h3>Pattern 2: Token-Passing (Multiple Slaves)</h3>
+<p>
+A shared bus with multiple MCUs. A "token" signal determines who can drive the bus:
+</p>
+<pre><code class="language-text">         ┌─────── DATA BUS (shared) ──────┐
+<p>
+         │                                 │
+    MCU A (master)    MCU B (slave)    MCU C (slave)
+      CS_B ──────────► CS (input)
+      CS_C ──────────────────────────► CS (input)</code></pre>
+</p>
+<p>
+Only the MCU whose CS is asserted responds. Others keep their data pins as inputs (high-impedance).
+</p>
+<h3>Pattern 3: Dual-Port RAM</h3>
+<p>
+For tight synchronization, use dedicated dual-port SRAM (like IDT7130). Both MCUs have independent access ports — no bus contention. Hardware arbitration handles simultaneous access.
+</p>
+<h3>Pattern 4: HSEM (Hardware Semaphore)</h3>
+<p>
+Dual-core MCUs like the STM32H7 have <a href="https://community.st.com/t5/stm32-mcus/how-to-implement-inter-processor-communication-in-an-stm32h7/ta-p/715704">hardware semaphores (HSEM)</a> — atomic lock/unlock at the register level for inter-core synchronization without disabling interrupts.
+</p>
+<h2>Common Pitfalls</h2>
+<ol>
+<li><strong>Bus contention</strong> — two MCUs driving the same line simultaneously. Always ensure only one drives at a time (use direction control or open-drain with pull-ups)</li>
+<li><strong>Missing common ground</strong> — voltage levels are relative. Without shared ground, logic levels are undefined</li>
+<li><strong>Timing violations</strong> — data must be stable before the clock/strobe edge (setup time) and remain stable after (hold time). Add <code>__NOP()</code> instructions if needed</li>
+<li><strong>Signal integrity</strong> — long wires pick up noise. Keep parallel connections short (<30 cm), use ground wires between data lines for longer runs</li>
+<li><strong>Voltage mismatch</strong> — if MCUs run at different voltages (3.3V vs 5V), use level shifters or voltage-tolerant pins</li>
+</ol>
+<h2>References</h2>
+<ol>
+<li><a href="https://www.st.com/resource/en/application_note/an4666-parallel-synchronous-transmission-using-gpio-and-dma-stmicroelectronics.pdf">AN4666: Parallel Synchronous Transmission Using GPIO and DMA</a> — ST application note on DMA-driven parallel GPIO transfers</li>
+<li><a href="https://circuitlabs.net/parallel-io-pario-interface/">Parallel IO (ParIO) Interface</a> — Overview of parallel bus signals, timing, and protocols</li>
+<li><a href="https://www.physicsforums.com/threads/recommend-architecture-protocol-to-sync-data-between-mcus.1078243/">Recommend Architecture/Protocol to Sync Data Between MCUs</a> — Practical advice on shared memory and hardware handshaking between MCUs</li>
+<li><a href="https://community.st.com/t5/stm32-mcus/how-to-implement-inter-processor-communication-in-an-stm32h7/ta-p/715704">Inter-Processor Communication in STM32H7</a> — HSEM and mailbox-based IPC on dual-core STM32</li>
+<li><a href="https://workforce.libretexts.org/Bookshelves/Information_Technology/Information_Technology_Hardware/Advanced_Computer_Organization_Architecture_(Njoroge">Fundamentals I/O: Handshake and Buffering</a>/04:_Strategies_and_Interface_I_O/4.01:_Fundamentals_I_O-_handshake_and_buffering) — Strobe vs handshake synchronization theory</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="gpio-register-level.html">GPIO at Register Level</a> — configuring pins as input/output for the data bus</li>
+<li><a href="timers-and-counters.html">Timers and Counters</a> — generating clock signals for synchronous parallel transfers</li>
+<li><a href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a> — DMA-driven GPIO for maximum throughput</li>
+<li><a href="interrupt-system/index.html">Interrupt System</a> — EXTI for strobe/clock edge detection</li>
+<li><a href="spi-protocol.html">SPI Protocol</a> — serial alternative when pins are limited</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://www.st.com/resource/en/application_note/an4666-parallel-synchronous-transmission-using-gpio-and-dma-stmicroelectronics.pdf" target="_blank" rel="noopener">AN4666: Parallel Synchronous Transmission Using GPIO and DMA</a></li><li><a href="https://circuitlabs.net/parallel-io-pario-interface/" target="_blank" rel="noopener">Parallel IO (ParIO) Interface</a></li><li><a href="https://www.physicsforums.com/threads/recommend-architecture-protocol-to-sync-data-between-mcus.1078243/" target="_blank" rel="noopener">Recommend Architecture/Protocol to Sync Data Between MCUs</a></li><li><a href="https://community.st.com/t5/stm32-mcus/how-to-implement-inter-processor-communication-in-an-stm32h7/ta-p/715704" target="_blank" rel="noopener">Inter-Processor Communication in STM32H7</a></li><li><a href="https://workforce.libretexts.org/Bookshelves/Information_Technology/Information_Technology_Hardware/Advanced_Computer_Organization_Architecture_(Njoroge)/04:_Strategies_and_Interface_I_O/4.01:_Fundamentals_I_O-_handshake_and_buffering" target="_blank" rel="noopener">Fundamentals I/O: Handshake and Buffering</a></li></ul></div>
+      <div class="page-nav"><a href="adc-and-analog.html"><span class="nav-label">← Previous</span><span class="nav-title">ADC and Analog</span></a><a class="next" href="interrupt-system/index.html"><span class="nav-label">Next →</span><span class="nav-title">Why Interrupts</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

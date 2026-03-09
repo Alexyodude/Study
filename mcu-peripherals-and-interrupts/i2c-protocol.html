@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I2C Protocol — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="uart-serial.html">UART Serial Communication</a><a class="nav-item" href="spi-protocol.html">SPI Protocol</a><a class="nav-item active" href="i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../mcu-peripherals-and-interrupts/index.html">Peripherals & Interrupts — Interact with the World</a><span class="sep">/</span><span>I2C Protocol</span></div>
+      <h1>I2C Protocol</h1>
+      <div class="tags"><span class="tag">i2c</span><span class="tag">serial</span><span class="tag">communication</span><span class="tag">stm32</span><span class="tag">cortex-m</span><span class="tag">peripheral</span></div>
+      <p>
+I2C (Inter-Integrated Circuit, pronounced "I-squared-C") is a <strong>two-wire</strong> bus for connecting low-speed peripherals like temperature sensors, EEPROMs, and displays. Unlike SPI, it supports <strong>multiple masters and slaves on the same two wires</strong> using device addresses.
+</p>
+<h2>Bus Signals</h2>
+<table><thead><tr><th>Signal</th><th>Description</th></tr></thead><tbody><tr><td>SDA</td><td>Serial Data -- bidirectional data line</td></tr>
+<tr><td>SCL</td><td>Serial Clock -- driven by the master</td></tr></tbody></table>
+<p>
+Both lines are <strong>open-drain</strong> with external pull-up resistors (typically 4.7k ohm to VCC). Devices can only pull the line LOW -- they release it to go HIGH via the pull-up. See the <a href="https://wiki.st.com/stm32mcu/wiki/Getting_started_with_I2C">STM32 MCU Wiki I2C guide</a> for hardware setup details.
+</p>
+<pre><code class="language-text">VCC ----+--------+--------+
+<p>
+        |        |        |
+       [R]      [R]      (pull-up resistors, ~4.7k)
+        |        |
+SDA ----+--------+------- Master + Slaves
+SCL ----+--------+------- Master + Slaves</code></pre>
+</p>
+<h3>Speed Modes</h3>
+<table><thead><tr><th>Mode</th><th>Speed</th></tr></thead><tbody><tr><td>Standard</td><td>100 kbit/s</td></tr>
+<tr><td>Fast</td><td>400 kbit/s</td></tr>
+<tr><td>Fast-mode Plus</td><td>1 Mbit/s</td></tr>
+<tr><td>High-speed</td><td>3.4 Mbit/s</td></tr></tbody></table>
+<h2>7-Bit Addressing</h2>
+<p>
+Each slave has a unique 7-bit address (set by the chip design and sometimes address pins). The first byte after a START condition is always: <code>[7-bit address][R/W bit]</code>.
+</p>
+<ul>
+<li><strong>R/W = 0</strong> --> Master will write to slave</li>
+<li><strong>R/W = 1</strong> --> Master will read from slave</li>
+</ul>
+<pre><code class="language-text">START | A6 A5 A4 A3 A2 A1 A0 | R/W | ACK |  DATA  | ACK | ... | STOP
+<p>
+      |     7-bit address     |     |     |        |     |     |</code></pre>
+</p>
+<h2>Start and Stop Conditions</h2>
+<ul>
+<li><strong>START:</strong> SDA goes LOW while SCL is HIGH</li>
+<li><strong>STOP:</strong> SDA goes HIGH while SCL is HIGH</li>
+<li>During normal data transfer, SDA only changes while SCL is LOW</li>
+</ul>
+<h2>ACK/NACK</h2>
+<p>
+After every 8 bits, the <strong>receiver</strong> pulls SDA LOW during the 9th clock cycle to acknowledge. If the receiver does not pull SDA LOW, it is a NACK (not acknowledged):
+</p>
+<ul>
+<li>Slave NACK on address byte --> no device at that address</li>
+<li>Master NACK after last read byte --> tells slave to stop sending</li>
+</ul>
+<h2>Key Registers (STM32F4 I2C)</h2>
+<table><thead><tr><th>Register</th><th>Purpose</th></tr></thead><tbody><tr><td>I2C_CR1</td><td>Enable, START, STOP, ACK control</td></tr>
+<tr><td>I2C_CR2</td><td>Peripheral clock frequency, DMA/interrupt enable</td></tr>
+<tr><td>I2C_OAR1</td><td>Own address (when acting as slave)</td></tr>
+<tr><td>I2C_DR</td><td>Data register for send/receive</td></tr>
+<tr><td>I2C_SR1</td><td>Status: SB, ADDR, TXE, RXNE, BTF, AF</td></tr>
+<tr><td>I2C_SR2</td><td>Status: BUSY, MSL, TRA (reading clears ADDR flag)</td></tr>
+<tr><td>I2C_CCR</td><td>Clock control -- sets SCL frequency</td></tr>
+<tr><td>I2C_TRISE</td><td>Maximum rise time configuration</td></tr></tbody></table>
+<h3>Important SR1 Flags</h3>
+<table><thead><tr><th>Flag</th><th>Meaning</th></tr></thead><tbody><tr><td>SB</td><td>Start bit generated</td></tr>
+<tr><td>ADDR</td><td>Address sent and acknowledged</td></tr>
+<tr><td>TXE</td><td>TX register empty -- ready for next byte</td></tr>
+<tr><td>RXNE</td><td>RX register not empty -- byte received</td></tr>
+<tr><td>BTF</td><td>Byte transfer finished</td></tr>
+<tr><td>AF</td><td>Acknowledge failure (NACK received)</td></tr></tbody></table>
+<h2>Master Transmit Sequence</h2>
+<pre><code class="language-text">1. Wait until bus is not busy (SR2 BUSY flag)
+<ol>
+<li>Generate START condition (CR1 START bit)</li>
+<li>Wait for SB flag in SR1</li>
+<li>Write slave address + W bit (0) to DR</li>
+<li>Wait for ADDR flag, then read SR1+SR2 to clear it</li>
+<li>Write data byte to DR</li>
+<li>Wait for TXE (or BTF) before writing next byte</li>
+<li>After last byte, generate STOP (CR1 STOP bit)</code></pre></li>
+</ol>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">void i2c_write(uint8_t addr, uint8_t reg, uint8_t data) {
+<p>
+    while (I2C1-&gt;SR2 &amp; I2C_SR2_BUSY) { }     // wait for bus free
+</p>
+<p>
+    I2C1-&gt;CR1 |= I2C_CR1_START;               // generate START
+    while (!(I2C1-&gt;SR1 &amp; I2C_SR1_SB)) { }     // wait for SB
+</p>
+<p>
+    I2C1-&gt;DR = (addr &lt;&lt; 1) | 0;               // address + write
+    while (!(I2C1-&gt;SR1 &amp; I2C_SR1_ADDR)) { }   // wait for ADDR
+    (void)I2C1-&gt;SR1; (void)I2C1-&gt;SR2;          // clear ADDR flag
+</p>
+<p>
+    I2C1-&gt;DR = reg;                            // register address
+    while (!(I2C1-&gt;SR1 &amp; I2C_SR1_TXE)) { }
+</p>
+<p>
+    I2C1-&gt;DR = data;                           // data byte
+    while (!(I2C1-&gt;SR1 &amp; I2C_SR1_BTF)) { }
+</p>
+<p>
+    I2C1-&gt;CR1 |= I2C_CR1_STOP;                // generate STOP
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+const I2C1_BASE: u32 = 0x4000_5400;
+const I2C1_CR1: <em>mut u32 = I2C1_BASE as </em>mut u32;
+const I2C1_DR: <em>mut u32 = (I2C1_BASE + 0x10) as </em>mut u32;
+const I2C1_SR1: <em>const u32 = (I2C1_BASE + 0x14) as </em>const u32;
+const I2C1_SR2: <em>const u32 = (I2C1_BASE + 0x18) as </em>const u32;
+</p>
+<p>
+unsafe fn i2c_write(addr: u8, reg: u8, data: u8) {
+    // Wait for bus free
+    while read_volatile(I2C1_SR2) &amp; (1 &lt;&lt; 1) != 0 {}  // BUSY
+</p>
+<p>
+    // Generate START
+    write_volatile(I2C1_CR1, read_volatile(I2C1_CR1 as *const u32) | (1 &lt;&lt; 8));
+    while read_volatile(I2C1_SR1) &amp; (1 &lt;&lt; 0) == 0 {}  // SB
+</p>
+<p>
+    // Address + write
+    write_volatile(I2C1_DR, ((addr as u32) &lt;&lt; 1) | 0);
+    while read_volatile(I2C1_SR1) &amp; (1 &lt;&lt; 1) == 0 {}  // ADDR
+    let _ = read_volatile(I2C1_SR1);                   // clear ADDR
+    let _ = read_volatile(I2C1_SR2);
+</p>
+<p>
+    // Register address
+    write_volatile(I2C1_DR, reg as u32);
+    while read_volatile(I2C1_SR1) &amp; (1 &lt;&lt; 7) == 0 {}  // TXE
+</p>
+<p>
+    // Data byte
+    write_volatile(I2C1_DR, data as u32);
+    while read_volatile(I2C1_SR1) &amp; (1 &lt;&lt; 2) == 0 {}  // BTF
+</p>
+<p>
+    // Generate STOP
+    write_volatile(I2C1_CR1, read_volatile(I2C1_CR1 as *const u32) | (1 &lt;&lt; 9));
+}</code></pre></div></div>
+</p>
+<h2>Master Receive Sequence</h2>
+<p>
+Reading requires a <strong>restart</strong> between the write (register address) and the read phase, as described in the <a href="https://hackaday.com/2022/05/11/bare-metal-stm32-using-the-i2c-bus-in-master-transceiver-mode/">bare-metal I2C master transceiver guide</a>:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">uint8_t i2c_read(uint8_t addr, uint8_t reg) {
+<p>
+    // --- Write phase: send register address ---
+    while (I2C1-&gt;SR2 &amp; I2C_SR2_BUSY) { }
+    I2C1-&gt;CR1 |= I2C_CR1_START;
+    while (!(I2C1-&gt;SR1 &amp; I2C_SR1_SB)) { }
+</p>
+<p>
+    I2C1-&gt;DR = (addr &lt;&lt; 1) | 0;               // address + write
+    while (!(I2C1-&gt;SR1 &amp; I2C_SR1_ADDR)) { }
+    (void)I2C1-&gt;SR1; (void)I2C1-&gt;SR2;
+</p>
+<p>
+    I2C1-&gt;DR = reg;                            // register to read
+    while (!(I2C1-&gt;SR1 &amp; I2C_SR1_BTF)) { }
+</p>
+<p>
+    // --- Read phase: restart and read data ---
+    I2C1-&gt;CR1 |= I2C_CR1_START;               // repeated START
+    while (!(I2C1-&gt;SR1 &amp; I2C_SR1_SB)) { }
+</p>
+<p>
+    I2C1-&gt;DR = (addr &lt;&lt; 1) | 1;               // address + read
+    I2C1-&gt;CR1 &amp;= ~I2C_CR1_ACK;                // NACK after 1 byte
+    while (!(I2C1-&gt;SR1 &amp; I2C_SR1_ADDR)) { }
+    (void)I2C1-&gt;SR1; (void)I2C1-&gt;SR2;
+</p>
+<p>
+    I2C1-&gt;CR1 |= I2C_CR1_STOP;                // prepare STOP
+    while (!(I2C1-&gt;SR1 &amp; I2C_SR1_RXNE)) { }
+    return I2C1-&gt;DR;
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+const I2C1_BASE: u32 = 0x4000_5400;
+const I2C1_CR1: <em>mut u32 = I2C1_BASE as </em>mut u32;
+const I2C1_DR: <em>mut u32 = (I2C1_BASE + 0x10) as </em>mut u32;
+const I2C1_SR1: <em>const u32 = (I2C1_BASE + 0x14) as </em>const u32;
+const I2C1_SR2: <em>const u32 = (I2C1_BASE + 0x18) as </em>const u32;
+</p>
+<p>
+unsafe fn i2c_read(addr: u8, reg: u8) -&gt; u8 {
+    // --- Write phase: send register address ---
+    while read_volatile(I2C1_SR2) &amp; (1 &lt;&lt; 1) != 0 {}    // BUSY
+    write_volatile(I2C1_CR1, read_volatile(I2C1_CR1 as *const u32) | (1 &lt;&lt; 8)); // START
+    while read_volatile(I2C1_SR1) &amp; (1 &lt;&lt; 0) == 0 {}    // SB
+</p>
+<p>
+    write_volatile(I2C1_DR, ((addr as u32) &lt;&lt; 1) | 0);  // address + write
+    while read_volatile(I2C1_SR1) &amp; (1 &lt;&lt; 1) == 0 {}    // ADDR
+    let _ = read_volatile(I2C1_SR1);
+    let _ = read_volatile(I2C1_SR2);
+</p>
+<p>
+    write_volatile(I2C1_DR, reg as u32);                 // register to read
+    while read_volatile(I2C1_SR1) &amp; (1 &lt;&lt; 2) == 0 {}    // BTF
+</p>
+<p>
+    // --- Read phase: restart and read data ---
+    write_volatile(I2C1_CR1, read_volatile(I2C1_CR1 as *const u32) | (1 &lt;&lt; 8)); // repeated START
+    while read_volatile(I2C1_SR1) &amp; (1 &lt;&lt; 0) == 0 {}    // SB
+</p>
+<p>
+    write_volatile(I2C1_DR, ((addr as u32) &lt;&lt; 1) | 1);  // address + read
+    write_volatile(I2C1_CR1, read_volatile(I2C1_CR1 as *const u32) &amp; !(1 &lt;&lt; 10)); // NACK
+    while read_volatile(I2C1_SR1) &amp; (1 &lt;&lt; 1) == 0 {}    // ADDR
+    let _ = read_volatile(I2C1_SR1);
+    let _ = read_volatile(I2C1_SR2);
+</p>
+<p>
+    write_volatile(I2C1_CR1, read_volatile(I2C1_CR1 as *const u32) | (1 &lt;&lt; 9)); // STOP
+    while read_volatile(I2C1_SR1) &amp; (1 &lt;&lt; 6) == 0 {}    // RXNE
+    read_volatile(I2C1_DR as *const u32) as u8
+}</code></pre></div></div>
+</p>
+<h2>Example: Reading Temperature from LM75</h2>
+<p>
+The LM75 temperature sensor has I2C address 0x48 (with A0-A2 grounded). The temperature register is at address 0x00, 2 bytes wide, with 0.5C resolution.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">int16_t read_temperature(void) {
+<p>
+    // Read 2 bytes from register 0x00
+    uint8_t msb = i2c_read(0x48, 0x00);
+    uint8_t lsb = i2c_read(0x48, 0x01);
+</p>
+<p>
+    // Temperature = MSB (integer part) + bit 7 of LSB (0.5 degree)
+    int16_t temp = (int16_t)(msb &lt;&lt; 8 | lsb) &gt;&gt; 5;
+    // Each LSB = 0.125 C for 11-bit resolution
+    return temp;  // divide by 8 to get degrees C
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">unsafe fn read_temperature() -&gt; i16 {
+<p>
+    // Read 2 bytes from register 0x00
+    let msb = i2c_read(0x48, 0x00);
+    let lsb = i2c_read(0x48, 0x01);
+</p>
+<p>
+    // Temperature = MSB (integer part) + bit 7 of LSB (0.5 degree)
+    let raw = ((msb as u16) &lt;&lt; 8 | lsb as u16) as i16;
+    let temp = raw &gt;&gt; 5;
+    // Each LSB = 0.125 C for 11-bit resolution
+    temp  // divide by 8 to get degrees C
+}</code></pre></div></div>
+</p>
+<h2>Clock Stretching</h2>
+<p>
+A slave can hold SCL LOW to pause the master while it processes data. The master must wait for SCL to be released before continuing. This is handled automatically by the STM32 I2C hardware -- but some bit-banged I2C implementations do not support it.
+</p>
+<h2>Common Pitfalls</h2>
+<ul>
+<li><strong>Missing pull-up resistors:</strong> I2C will not work without them. Symptoms: SDA/SCL stuck LOW.</li>
+<li><strong>Wrong address:</strong> I2C addresses are sometimes stated as 8-bit (including R/W bit) in datasheets. Always check whether you need to shift.</li>
+<li><strong>ADDR flag not cleared:</strong> On STM32, you must read both SR1 and SR2 to clear the ADDR flag. Forgetting this hangs the bus.</li>
+<li><strong>Bus lockup:</strong> If a slave holds SDA LOW (crashed mid-transfer), toggle SCL manually to clock it out.</li>
+</ul>
+<h2>References</h2>
+<ol>
+<li><a href="https://controllerstech.com/stm32-i2c-configuration-using-registers/">STM32 I2C Register Configuration Tutorial</a> — Step-by-step I2C register setup for master mode</li>
+<li><a href="https://hackaday.com/2022/05/11/bare-metal-stm32-using-the-i2c-bus-in-master-transceiver-mode/">Bare-Metal STM32: Using The I2C Bus In Master-Transceiver Mode</a> — Bare-metal I2C master transmit and receive implementation</li>
+<li><a href="https://wiki.st.com/stm32mcu/wiki/Getting_started_with_I2C">Getting started with I2C - STM32 MCU Wiki</a> — Official ST guide covering I2C hardware and configuration</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="gpio-register-level.html">GPIO Configuration</a> -- open-drain + AF mode for SDA/SCL</li>
+<li><a href="spi-protocol.html">SPI Protocol</a> -- faster alternative when wiring is not constrained</li>
+<li><a href="interrupt-system/index.html">Interrupt System</a> -- I2C event and error interrupts</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://controllerstech.com/stm32-i2c-configuration-using-registers/" target="_blank" rel="noopener">STM32 I2C Register Configuration Tutorial</a></li><li><a href="https://hackaday.com/2022/05/11/bare-metal-stm32-using-the-i2c-bus-in-master-transceiver-mode/" target="_blank" rel="noopener">Bare-Metal STM32: Using The I2C Bus In Master-Transceiver Mode</a></li><li><a href="https://wiki.st.com/stm32mcu/wiki/Getting_started_with_I2C" target="_blank" rel="noopener">Getting started with I2C - STM32 MCU Wiki</a></li></ul></div>
+      <div class="page-nav"><a href="spi-protocol.html"><span class="nav-label">← Previous</span><span class="nav-title">SPI Protocol</span></a><a class="next" href="adc-and-analog.html"><span class="nav-label">Next →</span><span class="nav-title">ADC and Analog</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

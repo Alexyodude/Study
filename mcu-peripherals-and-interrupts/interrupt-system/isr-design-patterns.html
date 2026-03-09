@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ISR Design Patterns — MCU Study Guide</title>
+  <link rel="stylesheet" href="../../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title expanded"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="index.html">Why Interrupts</a><a class="nav-item" href="nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="priority-and-preemption.html">Priority and Preemption</a><a class="nav-item active" href="isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../../index.html">Home</a><span class="sep">/</span><a href="../../mcu-peripherals-and-interrupts/index.html">Peripherals & Interrupts — Interact with the World</a><span class="sep">/</span><a href="../../mcu-peripherals-and-interrupts/interrupt-system/index.html">Interrupt System</a><span class="sep">/</span><span>ISR Design Patterns</span></div>
+      <h1>ISR Design Patterns</h1>
+      <div class="tags"><span class="tag">isr</span><span class="tag">interrupts</span><span class="tag">design-patterns</span><span class="tag">ring-buffer</span><span class="tag">cortex-m</span></div>
+      <p>
+Writing good ISRs (Interrupt Service Routines) is one of the most important skills in embedded programming. A poorly written ISR can cause missed interrupts, data corruption, or system lockups. The core principle, as emphasized in the <a href="https://interrupt.memfault.com/blog/arm-cortex-m-exceptions-and-nvic">Memfault exception handling guide</a>: <strong>get in, do the minimum, get out</strong>.
+</p>
+<h2>Rule 1: Keep ISRs Short</h2>
+<p>
+The ISR should do the <strong>absolute minimum</strong> necessary:
+</p>
+<ol>
+<li>Clear the interrupt flag</li>
+<li>Read or write hardware registers</li>
+<li>Set a flag or enqueue data</li>
+<li>Return</li>
+</ol>
+<p>
+All heavy processing belongs in the main loop.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// GOOD: ISR sets flag, main loop does work
+<p>
+volatile uint8_t button_pressed = 0;
+</p>
+<p>
+void EXTI0_IRQHandler(void) {
+    EXTI-&gt;PR = EXTI_PR_PR0;      // clear flag
+    button_pressed = 1;           // signal main loop
+}
+</p>
+<p>
+int main(void) {
+    while (1) {
+        if (button_pressed) {
+            button_pressed = 0;
+            handle_button();      // heavy processing here
+        }
+        __WFI();                  // sleep until next interrupt
+    }
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+use core::sync::atomic::{AtomicBool, Ordering};
+</p>
+<p>
+static BUTTON_PRESSED: AtomicBool = AtomicBool::new(false);
+</p>
+<p>
+const EXTI_PR: <em>mut u32 = (0x4001_3C00 + 0x14) as </em>mut u32;
+</p>
+<p>
+#[no_mangle]
+pub unsafe extern "C" fn EXTI0_IRQHandler() {
+    write_volatile(EXTI_PR, 1 &lt;&lt; 0);              // clear flag
+    BUTTON_PRESSED.store(true, Ordering::Release); // signal main loop
+}
+</p>
+<p>
+fn main() -&gt; ! {
+    loop {
+        if BUTTON_PRESSED.load(Ordering::Acquire) {
+            BUTTON_PRESSED.store(false, Ordering::Release);
+            handle_button();      // heavy processing here
+        }
+        unsafe { core::arch::asm!("wfi"); }  // sleep until next interrupt
+    }
+}</code></pre></div></div>
+</p>
+<h2>Rule 2: Use <code>volatile</code> for Shared Variables</h2>
+<p>
+Any variable written in an ISR and read in main code (or vice versa) <strong>must</strong> be declared <code>volatile</code>. Without it, the compiler may optimize away the read, caching the value in a register.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">volatile uint32_t tick_count = 0;   // volatile: modified by ISR
+<p>
+void SysTick_Handler(void) {
+    tick_count++;
+}
+</p>
+<p>
+void delay_ms(uint32_t ms) {
+    uint32_t start = tick_count;
+    while ((tick_count - start) &lt; ms) { }  // would be optimized to infinite
+                                            // loop without volatile
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::sync::atomic::{AtomicU32, Ordering};
+<p>
+static TICK_COUNT: AtomicU32 = AtomicU32::new(0);  // atomic: modified by ISR
+</p>
+<p>
+#[no_mangle]
+pub unsafe extern "C" fn SysTick_Handler() {
+    TICK_COUNT.fetch_add(1, Ordering::Relaxed);
+}
+</p>
+<p>
+fn delay_ms(ms: u32) {
+    let start = TICK_COUNT.load(Ordering::Relaxed);
+    while TICK_COUNT.load(Ordering::Relaxed).wrapping_sub(start) &lt; ms {}
+}</code></pre></div></div>
+</p>
+<p>
+<strong>Important:</strong> <code>volatile</code> prevents compiler reordering but does NOT guarantee atomicity. A 32-bit read on Cortex-M is atomic, but multi-step operations (read-modify-write) are not.
+</p>
+<h2>Ring Buffer for Data Streams</h2>
+<p>
+A ring buffer (circular buffer) is the standard pattern for passing data between an ISR and main code. It is lock-free for a single producer / single consumer.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">#define BUF_SIZE 64  // must be power of 2 for mask trick
+<p>
+volatile uint8_t rx_buf[BUF_SIZE];
+volatile uint16_t rx_head = 0;  // ISR writes here
+volatile uint16_t rx_tail = 0;  // main reads here
+</p>
+<p>
+void USART2_IRQHandler(void) {
+    if (USART2-&gt;SR &amp; USART_SR_RXNE) {
+        uint8_t byte = USART2-&gt;DR;
+        uint16_t next = (rx_head + 1) &amp; (BUF_SIZE - 1);  // wrap around
+        if (next != rx_tail) {        // not full
+            rx_buf[rx_head] = byte;
+            rx_head = next;
+        }
+        // if full: byte is dropped (overflow)
+    }
+}
+</p>
+<p>
+int uart_read(void) {
+    if (rx_head == rx_tail) return -1;  // empty
+    uint8_t byte = rx_buf[rx_tail];
+    rx_tail = (rx_tail + 1) &amp; (BUF_SIZE - 1);
+    return byte;
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::read_volatile;
+<p>
+use core::sync::atomic::{AtomicU16, Ordering};
+</p>
+<p>
+const BUF_SIZE: usize = 64;  // must be power of 2 for mask trick
+</p>
+<p>
+static mut RX_BUF: [u8; BUF_SIZE] = [0; BUF_SIZE];
+static RX_HEAD: AtomicU16 = AtomicU16::new(0);  // ISR writes here
+static RX_TAIL: AtomicU16 = AtomicU16::new(0);  // main reads here
+</p>
+<p>
+const USART2_SR: <em>const u32 = 0x4000_4400 as </em>const u32;
+const USART2_DR: <em>const u32 = (0x4000_4400 + 0x04) as </em>const u32;
+</p>
+<p>
+#[no_mangle]
+pub unsafe extern "C" fn USART2_IRQHandler() {
+    if read_volatile(USART2_SR) &amp; (1 &lt;&lt; 5) != 0 {  // RXNE
+        let byte = read_volatile(USART2_DR) as u8;
+        let head = RX_HEAD.load(Ordering::Relaxed);
+        let next = (head + 1) &amp; (BUF_SIZE as u16 - 1);  // wrap around
+        if next != RX_TAIL.load(Ordering::Acquire) {     // not full
+            RX_BUF[head as usize] = byte;
+            RX_HEAD.store(next, Ordering::Release);
+        }
+        // if full: byte is dropped (overflow)
+    }
+}
+</p>
+<p>
+fn uart_read() -&gt; Option&lt;u8&gt; {
+    let head = RX_HEAD.load(Ordering::Acquire);
+    let tail = RX_TAIL.load(Ordering::Relaxed);
+    if head == tail { return None; }  // empty
+    let byte = unsafe { RX_BUF[tail as usize] };
+    RX_TAIL.store((tail + 1) &amp; (BUF_SIZE as u16 - 1), Ordering::Release);
+    Some(byte)
+}</code></pre></div></div>
+</p>
+<p>
+<strong>Why ring buffer?</strong> No mutex needed. ISR only writes <code>rx_head</code>, main only writes <code>rx_tail</code>. As long as buffer size is a power of 2, the wrap-around is a simple bitmask.
+</p>
+<h2>Double Buffering</h2>
+<p>
+For bulk data (ADC DMA, audio), use two buffers. While the ISR/DMA fills one buffer, main code processes the other.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">volatile uint16_t adc_buf_a[256];
+<p>
+volatile uint16_t adc_buf_b[256];
+volatile uint8_t active_buf = 0;   // 0 = filling A, 1 = filling B
+volatile uint8_t buf_ready = 0;
+</p>
+<p>
+void DMA1_Stream0_IRQHandler(void) {
+    // DMA transfer complete
+    clear_dma_flag();
+    active_buf ^= 1;          // swap buffers
+    buf_ready = 1;             // signal main loop
+    // reconfigure DMA to point to the other buffer
+}
+</p>
+<p>
+int main(void) {
+    while (1) {
+        if (buf_ready) {
+            buf_ready = 0;
+            uint16_t *data = (active_buf == 0) ? adc_buf_b : adc_buf_a;
+            process_audio(data, 256);  // process the completed buffer
+        }
+    }
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::sync::atomic::{AtomicBool, AtomicU8, Ordering};
+<p>
+static mut ADC_BUF_A: [u16; 256] = [0; 256];
+static mut ADC_BUF_B: [u16; 256] = [0; 256];
+static ACTIVE_BUF: AtomicU8 = AtomicU8::new(0);   // 0 = filling A, 1 = filling B
+static BUF_READY: AtomicBool = AtomicBool::new(false);
+</p>
+<p>
+#[no_mangle]
+pub unsafe extern "C" fn DMA1_Stream0_IRQHandler() {
+    // DMA transfer complete
+    clear_dma_flag();
+    ACTIVE_BUF.fetch_xor(1, Ordering::Release);     // swap buffers
+    BUF_READY.store(true, Ordering::Release);        // signal main loop
+    // reconfigure DMA to point to the other buffer
+}
+</p>
+<p>
+fn main() -&gt; ! {
+    loop {
+        if BUF_READY.load(Ordering::Acquire) {
+            BUF_READY.store(false, Ordering::Release);
+            let data = unsafe {
+                if ACTIVE_BUF.load(Ordering::Acquire) == 0 {
+                    &amp;ADC_BUF_B
+                } else {
+                    &amp;ADC_BUF_A
+                }
+            };
+            process_audio(data, 256);  // process the completed buffer
+        }
+    }
+}</code></pre></div></div>
+</p>
+<h2>Deferred Processing Pattern</h2>
+<p>
+For complex interrupt responses, use a two-stage approach:
+</p>
+<pre><code class="language-text">ISR (fast):              Main Loop (slow):
+<p>
+  1. Clear flag            1. Check event flags
+  2. Capture data          2. Process data
+  3. Set event flag        3. Update state
+  4. Return                4. Sleep (WFI)</code></pre>
+</p>
+<p>
+This keeps ISR time short and predictable while allowing arbitrarily complex processing in the main loop.
+</p>
+<h2>What to AVOID in ISRs</h2>
+<h3>Never Use <code>printf</code> or Logging Functions</h3>
+<code>printf</code> is slow (hundreds to thousands of cycles), often uses dynamic memory, and is usually not reentrant. It will cause missed interrupts and potential crashes.
+<h3>Never Use <code>malloc</code> / <code>free</code></h3>
+<p>
+Dynamic memory allocation is slow, non-deterministic, and not reentrant. If <code>malloc</code> is interrupted by another ISR that also calls <code>malloc</code>, the heap is corrupted.
+</p>
+<h3>Never Use Long Loops or Blocking Waits</h3>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// BAD: blocking delay in ISR
+<p>
+void TIM2_IRQHandler(void) {
+    TIM2-&gt;SR &amp;= ~TIM_SR_UIF;
+    for (volatile int i = 0; i &lt; 100000; i++);  // blocks all lower-priority ISRs!
+    toggle_led();
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+// BAD: blocking delay in ISR
+#[no_mangle]
+pub unsafe extern "C" fn TIM2_IRQHandler() {
+    let tim2_sr = 0x4000_0010 as *mut u32;
+    write_volatile(tim2_sr, read_volatile(tim2_sr) &amp; !(1 &lt;&lt; 0)); // clear UIF
+    for _ in 0..100_000 { core::hint::black_box(()); }  // blocks all lower-priority ISRs!
+    toggle_led();
+}</code></pre></div></div>
+</p>
+<h3>Never Forget to Clear the Interrupt Flag</h3>
+<p>
+If you do not clear the flag, the ISR will fire again immediately after returning, creating an infinite loop.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">void TIM2_IRQHandler(void) {
+<p>
+    // TIM2-&gt;SR &amp;= ~TIM_SR_UIF;  // FORGETTING THIS = infinite ISR loop
+    do_something();
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">#[no_mangle]
+<p>
+pub unsafe extern "C" fn TIM2_IRQHandler() {
+    // write_volatile(tim2_sr, ...);  // FORGETTING THIS = infinite ISR loop
+    do_something();
+}</code></pre></div></div>
+</p>
+<h2>Protecting Shared Multi-Byte Data</h2>
+<p>
+For data larger than a single word that is shared between ISR and main:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Option 1: Disable interrupts briefly
+<p>
+__disable_irq();
+uint32_t snapshot_low = shared_data.low;
+uint32_t snapshot_high = shared_data.high;
+__enable_irq();
+</p>
+<p>
+// Option 2: Read twice and check consistency
+do {
+    uint32_t a = shared_counter;
+    uint32_t b = shared_counter;
+} while (a != b);</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::arch::asm;
+<p>
+use core::ptr::read_volatile;
+</p>
+<p>
+// Option 1: Disable interrupts briefly (cortex-m critical section)
+unsafe {
+    asm!("cpsid i");  // disable interrupts
+    let snapshot_low = read_volatile(&amp;shared_data.low);
+    let snapshot_high = read_volatile(&amp;shared_data.high);
+    asm!("cpsie i");  // enable interrupts
+}
+</p>
+<p>
+// Option 2: Read twice and check consistency
+let val = loop {
+    let a = unsafe { read_volatile(&amp;shared_counter) };
+    let b = unsafe { read_volatile(&amp;shared_counter) };
+    if a == b { break a; }
+};
+</p>
+<p>
+// Idiomatic Rust: use the cortex-m crate's critical_section
+// cortex_m::interrupt::free(|_| {
+//     let snapshot_low = shared_data.low;
+//     let snapshot_high = shared_data.high;
+// });</code></pre></div></div>
+</p>
+<p>
+Keep the critical section (interrupts disabled) as short as possible.
+</p>
+<h2>Summary Table</h2>
+<table><thead><tr><th>Pattern</th><th>Use Case</th><th>Key Benefit</th></tr></thead><tbody><tr><td>Flag + main loop</td><td>Button press, periodic events</td><td>Simplest</td></tr>
+<tr><td>Ring buffer</td><td>UART RX, streaming data</td><td>Lock-free, no data loss</td></tr>
+<tr><td>Double buffer</td><td>DMA audio, high-speed ADC</td><td>Zero-copy processing</td></tr>
+<tr><td>Deferred processing</td><td>Complex event handling</td><td>Predictable ISR time</td></tr></tbody></table>
+<h2>References</h2>
+<ol>
+<li><a href="https://interrupt.memfault.com/blog/arm-cortex-m-exceptions-and-nvic">A Practical Guide to ARM Cortex-M Exception Handling</a> — Best practices for ISR design and interrupt handling</li>
+<li><a href="https://embetronicx.com/tutorials/microcontrollers/stm32/vectored-interrupt-controller-nested-vectored-interrupt-controller-vic-nvic/">Vectored and Nested Vectored Interrupt Controller</a> — Tutorial on VIC/NVIC and ISR implementation patterns</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="nvic-architecture.html">NVIC Architecture</a> -- enabling and clearing interrupts</li>
+<li><a href="priority-and-preemption.html">Priority and Preemption</a> -- why short ISRs matter for nesting</li>
+<li><a href="../uart-serial.html">UART Serial</a> -- ring buffer for UART RX example</li>
+<li><a href="context-switching-mechanics.html">Context Switching</a> -- the hardware overhead of each ISR entry</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://interrupt.memfault.com/blog/arm-cortex-m-exceptions-and-nvic" target="_blank" rel="noopener">A Practical Guide to ARM Cortex-M Exception Handling</a></li><li><a href="https://embetronicx.com/tutorials/microcontrollers/stm32/vectored-interrupt-controller-nested-vectored-interrupt-controller-vic-nvic/" target="_blank" rel="noopener">Vectored and Nested Vectored Interrupt Controller</a></li></ul></div>
+      <div class="page-nav"><a href="priority-and-preemption.html"><span class="nav-label">← Previous</span><span class="nav-title">Priority and Preemption</span></a><a class="next" href="context-switching-mechanics.html"><span class="nav-label">Next →</span><span class="nav-title">Context Switching Mechanics</span></a></div>
+    </main>
+  </div>
+  <script src="../../scripts/main.js"></script>
+</body>
+</html>

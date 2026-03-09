@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Peripherals and Interrupts — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item active" href="index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="uart-serial.html">UART Serial Communication</a><a class="nav-item" href="spi-protocol.html">SPI Protocol</a><a class="nav-item" href="i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../mcu-peripherals-and-interrupts/index.html">Peripherals & Interrupts — Interact with the World</a><span class="sep">/</span><span>Peripherals and Interrupts</span></div>
+      <h1>Peripherals and Interrupts</h1>
+      <div class="tags"><span class="tag">mcu</span><span class="tag">peripherals</span><span class="tag">interrupts</span><span class="tag">stm32</span><span class="tag">cortex-m</span></div>
+      <h2>What Are Peripherals?</h2>
+<p>
+Peripherals are <strong>hardware engines built into the microcontroller</strong> that handle specific tasks -- GPIO, timers, UART, SPI, I2C, ADC, and more. The CPU controls them by reading and writing to <strong>memory-mapped registers</strong> at fixed addresses.
+</p>
+<p>
+Think of each peripheral as a small co-processor. You configure it by writing to its control registers, start it, and it runs independently. The CPU can then do other work or sleep.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Example: enabling GPIOA clock on STM32F4
+<p>
+RCC-&gt;AHB1ENR |= RCC_AHB1ENR_GPIOAEN;  // flip one bit, hardware does the rest</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+const RCC_AHB1ENR: <em>mut u32 = (0x4002_3800 + 0x30) as </em>mut u32;
+</p>
+<p>
+unsafe {
+    write_volatile(RCC_AHB1ENR, read_volatile(RCC_AHB1ENR) | (1 &lt;&lt; 0)); // GPIOAEN
+}</code></pre></div></div>
+</p>
+<h2>How Peripherals Connect to the CPU</h2>
+<p>
+The CPU does not talk to peripherals directly. They are connected through a <strong>bus system</strong> based on ARM's <a href="https://en.wikipedia.org/wiki/Advanced_Microcontroller_Bus_Architecture">AMBA (Advanced Microcontroller Bus Architecture)</a>.
+</p>
+<h3>Bus Hierarchy</h3>
+<pre><code class="language-text">CPU Core
+<p>
+  |
+  +-- AHB (Advanced High-performance Bus) -- high speed, 72-180 MHz
+  |     |-- Flash memory
+  |     |-- SRAM
+  |     |-- DMA controllers
+  |     |-- GPIO ports
+  |     |
+  |     +-- AHB-APB Bridge
+  |           |
+  |           +-- APB2 (higher speed, up to 72-90 MHz)
+  |           |     |-- USART1, SPI1, TIM1, TIM8, ADC, SYSCFG
+  |           |
+  |           +-- APB1 (lower speed, up to 36-45 MHz)
+  |                 |-- USART2-5, SPI2/3, I2C1-3, TIM2-7, DAC
+  |
+  +-- Bus Matrix (arbitrates between CPU, DMA, etc.)</code></pre>
+</p>
+<p>
+<strong>Key takeaway:</strong> Before using any peripheral, you must enable its clock through the RCC (Reset and Clock Control) registers. The clock gate is on the specific bus the peripheral sits on.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">RCC-&gt;APB1ENR |= RCC_APB1ENR_USART2EN;  // USART2 is on APB1
+<p>
+RCC-&gt;APB2ENR |= RCC_APB2ENR_SPI1EN;    // SPI1 is on APB2
+RCC-&gt;AHB1ENR |= RCC_AHB1ENR_GPIOAEN;   // GPIOA is on AHB1</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+const RCC_BASE: u32 = 0x4002_3800;
+const RCC_APB1ENR: <em>mut u32 = (RCC_BASE + 0x40) as </em>mut u32;
+const RCC_APB2ENR: <em>mut u32 = (RCC_BASE + 0x44) as </em>mut u32;
+const RCC_AHB1ENR: <em>mut u32 = (RCC_BASE + 0x30) as </em>mut u32;
+</p>
+<p>
+unsafe {
+    write_volatile(RCC_APB1ENR, read_volatile(RCC_APB1ENR) | (1 &lt;&lt; 17)); // USART2EN
+    write_volatile(RCC_APB2ENR, read_volatile(RCC_APB2ENR) | (1 &lt;&lt; 12)); // SPI1EN
+    write_volatile(RCC_AHB1ENR, read_volatile(RCC_AHB1ENR) | (1 &lt;&lt; 0));  // GPIOAEN
+}</code></pre></div></div>
+</p>
+<h2>Three Ways to Move Data</h2>
+<h3>1. Polling (Simplest)</h3>
+<p>
+The CPU repeatedly checks a status flag in a loop.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">while (!(USART2-&gt;SR &amp; USART_SR_RXNE)) { }  // spin until data arrives
+<p>
+char c = USART2-&gt;DR;</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::read_volatile;
+<p>
+const USART2_SR: <em>const u32 = 0x4000_4400 as </em>const u32;
+const USART2_DR: <em>const u32 = (0x4000_4400 + 0x04) as </em>const u32;
+</p>
+<p>
+unsafe {
+    while read_volatile(USART2_SR) &amp; (1 &lt;&lt; 5) == 0 {}  // spin until RXNE
+    let c = read_volatile(USART2_DR) as u8;
+}</code></pre></div></div>
+</p>
+<p>
+<strong>Pros:</strong> Simple to write and debug.
+<strong>Cons:</strong> Wastes CPU cycles. CPU cannot do anything else while waiting.
+</p>
+<h3>2. Interrupt-Driven</h3>
+<p>
+The peripheral signals the CPU when something happens. The CPU jumps to an ISR (Interrupt Service Routine), handles the event, and returns.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">void USART2_IRQHandler(void) {
+<p>
+    if (USART2-&gt;SR &amp; USART_SR_RXNE) {
+        rx_buffer[rx_head++] = USART2-&gt;DR;
+    }
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::read_volatile;
+<p>
+static mut RX_BUFFER: [u8; 256] = [0; 256];
+static mut RX_HEAD: usize = 0;
+</p>
+<p>
+const USART2_SR: <em>const u32 = 0x4000_4400 as </em>const u32;
+const USART2_DR: <em>const u32 = (0x4000_4400 + 0x04) as </em>const u32;
+</p>
+<p>
+#[no_mangle]
+pub unsafe extern "C" fn USART2_IRQHandler() {
+    if read_volatile(USART2_SR) &amp; (1 &lt;&lt; 5) != 0 {  // RXNE
+        RX_BUFFER[RX_HEAD] = read_volatile(USART2_DR) as u8;
+        RX_HEAD += 1;
+    }
+}</code></pre></div></div>
+</p>
+<p>
+<strong>Pros:</strong> CPU is free between events.
+<strong>Cons:</strong> ISR overhead for every byte; complex at high data rates.
+</p>
+<h3>3. DMA (Direct Memory Access)</h3>
+<p>
+A dedicated DMA controller transfers data between peripheral and memory <strong>without CPU involvement</strong>.
+</p>
+<pre><code class="language-text">Peripheral &lt;---&gt; DMA Channel &lt;---&gt; Memory Buffer</code></pre>
+<p>
+<strong>Pros:</strong> Zero CPU overhead during transfer. Best for high-throughput or continuous streams.
+<strong>Cons:</strong> More complex setup. DMA channels are a shared resource.
+</p>
+<h2>Choosing the Right Approach</h2>
+<table><thead><tr><th>Scenario</th><th>Best Method</th></tr></thead><tbody><tr><td>Read one ADC value on button press</td><td>Polling</td></tr>
+<tr><td>Receive UART commands at moderate rate</td><td>Interrupt</td></tr>
+<tr><td>Stream audio samples to DAC at 44.1 kHz</td><td>DMA</td></tr>
+<tr><td>Blink an LED</td><td>Polling (or timer interrupt)</td></tr></tbody></table>
+<h2>Child Pages</h2>
+<ul>
+<li><a href="gpio-register-level.html">GPIO at Register Level</a> -- pins, modes, and atomic bit manipulation</li>
+<li><a href="timers-and-counters.html">Timers and Counters</a> -- counting, PWM, input capture</li>
+<li><a href="uart-serial.html">UART Serial Communication</a> -- asynchronous data frames</li>
+<li><a href="spi-protocol.html">SPI Protocol</a> -- fast synchronous full-duplex bus</li>
+<li><a href="i2c-protocol.html">I2C Protocol</a> -- two-wire addressed bus</li>
+<li><a href="adc-and-analog.html">ADC and Analog</a> -- converting the real world to numbers</li>
+<li><a href="interrupt-system/index.html">Interrupt System</a> -- NVIC, priorities, ISR design, faults</li>
+</ul>
+<h2>References</h2>
+<ol>
+<li><a href="https://deepbluembedded.com/getting-started-with-stm32-arm-cortex-mcus/">Getting Started With STM32 ARM Cortex MCUs</a> — Overview of STM32 peripherals and getting started guide</li>
+<li><a href="https://www.compilenrun.com/docs/iot/stm32/stm32-fundamentals/stm32-bus-architecture/">STM32 Bus Architecture</a> — Detailed explanation of AHB and APB bus hierarchy</li>
+<li><a href="https://en.wikipedia.org/wiki/Advanced_Microcontroller_Bus_Architecture">Advanced Microcontroller Bus Architecture - Wikipedia</a> — Reference on the AMBA bus standard used in ARM chips</li>
+</ol>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://deepbluembedded.com/getting-started-with-stm32-arm-cortex-mcus/" target="_blank" rel="noopener">Getting Started With STM32 ARM Cortex MCUs</a></li><li><a href="https://www.compilenrun.com/docs/iot/stm32/stm32-fundamentals/stm32-bus-architecture/" target="_blank" rel="noopener">STM32 Bus Architecture</a></li><li><a href="https://en.wikipedia.org/wiki/Advanced_Microcontroller_Bus_Architecture" target="_blank" rel="noopener">Advanced Microcontroller Bus Architecture - Wikipedia</a></li></ul></div>
+      <div class="page-nav"><a href="../mcu-bare-metal-programming/flash-programming-from-firmware.html"><span class="nav-label">← Previous</span><span class="nav-title">Flash Programming from Firmware</span></a><a class="next" href="gpio-register-level.html"><span class="nav-label">Next →</span><span class="nav-title">GPIO at Register Level</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CPU Core and ALU — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="index.html">MCU Architecture Overview</a><a class="nav-item active" href="cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="memory-architecture/sram.html">SRAM</a><a class="nav-item" href="memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../mcu-architecture/index.html">MCU Architecture — Understand the Machine</a><span class="sep">/</span><span>CPU Core and ALU</span></div>
+      <h1>CPU Core and ALU</h1>
+      <div class="tags"><span class="tag">mcu</span><span class="tag">alu</span><span class="tag">cpu-core</span><span class="tag">arm</span><span class="tag">cortex-m</span><span class="tag">arithmetic</span></div>
+      <h2>What the ALU Does</h2>
+<p>
+The <strong>Arithmetic Logic Unit (ALU)</strong> is the part of the CPU that performs calculations. Every time your code adds two numbers, compares a sensor reading to a threshold, or toggles a bit in a register, the ALU does the actual work.
+</p>
+<p>
+The <a href="https://en.wikipedia.org/wiki/ARM_Cortex-M">ARM Cortex-M</a> ALU is 32 bits wide -- it operates on 32-bit values in a single step.
+</p>
+<h2>ALU Operations</h2>
+<h3>Arithmetic Operations</h3>
+<table><thead><tr><th>Instruction</th><th>Operation</th><th>Example</th></tr></thead><tbody><tr><td><code>ADD R0, R1, R2</code></td><td>R0 = R1 + R2</td><td>Addition</td></tr>
+<tr><td><code>ADDS R0, R1, R2</code></td><td>R0 = R1 + R2, update flags</td><td>Addition with flags</td></tr>
+<tr><td><code>SUB R0, R1, R2</code></td><td>R0 = R1 - R2</td><td>Subtraction</td></tr>
+<tr><td><code>MUL R0, R1, R2</code></td><td>R0 = R1 * R2</td><td>Multiplication</td></tr>
+<tr><td><code>SDIV R0, R1, R2</code></td><td>R0 = R1 / R2 (signed)</td><td>Division (M3/M4 only)</td></tr></tbody></table>
+<h3>Logic Operations</h3>
+<table><thead><tr><th>Instruction</th><th>Operation</th><th>Example Use</th></tr></thead><tbody><tr><td><code>AND R0, R1, R2</code></td><td>R0 = R1 & R2</td><td>Mask specific bits</td></tr>
+<tr><td><code>ORR R0, R1, R2</code></td><td>R0 = R1 \</td><td>R2</td><td>Set specific bits</td></tr>
+<tr><td><code>EOR R0, R1, R2</code></td><td>R0 = R1 ^ R2</td><td>Toggle bits</td></tr>
+<tr><td><code>BIC R0, R1, R2</code></td><td>R0 = R1 & ~R2</td><td>Clear specific bits</td></tr>
+<tr><td><code>MVN R0, R1</code></td><td>R0 = ~R1</td><td>Bitwise NOT</td></tr></tbody></table>
+<h3>Shift Operations</h3>
+<table><thead><tr><th>Instruction</th><th>Operation</th><th>Effect</th></tr></thead><tbody><tr><td><code>LSL R0, R1, #3</code></td><td>R0 = R1 << 3</td><td>Multiply by 8</td></tr>
+<tr><td><code>LSR R0, R1, #2</code></td><td>R0 = R1 >> 2 (unsigned)</td><td>Divide by 4</td></tr>
+<tr><td><code>ASR R0, R1, #1</code></td><td>R0 = R1 >> 1 (signed)</td><td>Signed divide by 2</td></tr>
+<tr><td><code>ROR R0, R1, #4</code></td><td>Rotate R1 right by 4</td><td>Circular shift</td></tr></tbody></table>
+<h2>Data Path: From Registers Through the ALU</h2>
+<p>
+When the CPU executes <code>ADDS R0, R1, R2</code>, this is what happens inside:
+</p>
+<pre><code class="language-text">  Register File
+<p>
+  +--------+
+  | R1: 5  |----&gt; Operand A ----+
+  +--------+                    |    +---------+
+  | R2: 3  |----&gt; Operand B ---+---&gt;|   ALU   |---&gt; Result (8) ---&gt; R0
+  +--------+                        |  ADD op |
+                                    +---------+
+                                        |
+                                    Status Flags
+                                    N=0, Z=0, C=0, V=0</code></pre>
+</p>
+<ol>
+<li>The <strong>decode stage</strong> identifies the source registers (R1, R2) and the operation (ADD)</li>
+<li>The <strong>register file</strong> outputs the values of R1 and R2 onto internal buses</li>
+<li>The <strong>ALU</strong> receives both operands, performs addition, and produces the result</li>
+<li>The result is written back to the <strong>destination register</strong> (R0)</li>
+<li>If the <code>S</code> suffix is present (<code>ADDS</code>), the <strong>status flags</strong> are updated</li>
+</ol>
+<h2>Status Flags (Condition Flags)</h2>
+<p>
+The ALU can optionally update four status flags in the <strong>APSR</strong> (Application Program Status Register). These flags are used by conditional instructions to make decisions.
+</p>
+<table><thead><tr><th>Flag</th><th>Name</th><th>Set When</th></tr></thead><tbody><tr><td><strong>N</strong></td><td>Negative</td><td>Result bit 31 is 1 (result is negative in signed math)</td></tr>
+<tr><td><strong>Z</strong></td><td>Zero</td><td>Result is exactly zero</td></tr>
+<tr><td><strong>C</strong></td><td>Carry</td><td>Unsigned overflow (add), or no borrow (subtract)</td></tr>
+<tr><td><strong>V</strong></td><td>Overflow</td><td>Signed overflow (result doesn't fit in 32 bits)</td></tr></tbody></table>
+<h3>Flag Examples</h3>
+<pre><code class="language-arm">@ Example 1: Zero flag
+<p>
+MOVS R0, #5
+SUBS R0, R0, #5    @ R0 = 0, Z=1, N=0, C=1, V=0
+</p>
+<p>
+@ Example 2: Negative flag
+MOVS R0, #3
+SUBS R0, R0, #10   @ R0 = -7 (0xFFFFFFF9), Z=0, N=1
+</p>
+<p>
+@ Example 3: Carry flag
+MOVS R0, #0xFFFFFFFF
+ADDS R0, R0, #1    @ R0 = 0, C=1, Z=1 (unsigned overflow)
+</p>
+<p>
+@ Example 4: Overflow flag
+MOV  R0, #0x7FFFFFFF   @ Max positive signed 32-bit
+ADDS R0, R0, #1        @ R0 = 0x80000000, V=1 (signed overflow)</code></pre>
+</p>
+<h3>Using Flags for Conditional Execution</h3>
+<p>
+Flags drive conditional branches. The pattern is: perform an operation that sets flags, then branch based on the result.
+</p>
+<pre><code class="language-arm">CMP R0, R1          @ Computes R0 - R1, sets flags (discards result)
+<p>
+BEQ equal_label     @ Branch if Z=1 (R0 == R1)
+BGT greater_label   @ Branch if Z=0 and N==V (R0 &gt; R1, signed)
+BCC less_unsigned   @ Branch if C=0 (R0 &lt; R1, unsigned)</code></pre>
+</p>
+<code>CMP</code> is essentially <code>SUBS</code> but it throws away the result -- it only updates flags.
+<h2>Cortex-M Specific: Saturating Arithmetic and DSP</h2>
+<p>
+<a href="https://microcontrollerslab.com/arm-cortex-m4-architecture/">Cortex-M4 and M7</a> add DSP-oriented ALU instructions:
+</p>
+<ul>
+<li><strong>QADD, QSUB</strong> -- saturating add/subtract (clamp to max/min instead of wrapping)</li>
+<li><strong>SMLAL</strong> -- signed multiply-accumulate (64-bit result)</li>
+<li><strong>USAT, SSAT</strong> -- unsigned/signed saturation</li>
+</ul>
+<p>
+The <strong>Q flag</strong> in APSR is set when a saturating operation clips the result. This is useful in audio and motor control where overflow would produce dangerous glitches.
+</p>
+<pre><code class="language-arm">@ Saturating add: if R1 + R2 &gt; 0x7FFFFFFF, result clamps to 0x7FFFFFFF
+<p>
+QADD R0, R1, R2</code></pre>
+</p>
+<h2>Practical Example: Setting a GPIO Pin</h2>
+<p>
+Even a simple "turn on an LED" involves the ALU:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// C code
+<p>
+GPIOA-&gt;ODR |= (1 &lt;&lt; 5);  // Set bit 5 of output data register</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// Using PAC (read-modify-write via register API)
+<p>
+let gpioa = unsafe { &amp;*pac::GPIOA::ptr() };
+gpioa.odr.modify(|r, w| unsafe { w.bits(r.bits() | (1 &lt;&lt; 5)) });
+</p>
+<p>
+// Using HAL (type-safe, no bit manipulation needed)
+let mut led = gpioa.pa5.into_push_pull_output();
+led.set_high();</code></pre></div></div>
+</p>
+<p>
+The compiler generates something like:
+</p>
+<pre><code class="language-arm">LDR  R0, =0x40020014    @ Load address of GPIOA-&gt;ODR
+<p>
+LDR  R1, [R0]           @ Read current value
+ORR  R1, R1, #0x20      @ ALU sets bit 5 (OR with 0x20)
+STR  R1, [R0]           @ Write back modified value</code></pre>
+</p>
+<p>
+The ALU performs the <code>ORR</code> -- a logic operation that sets one bit while preserving all others.
+</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://embeddedsecurity.io/sec-arm-arch-core">Arm M-profile architectures and Cortex-M</a> — Overview of Cortex-M core internals and data path</li>
+<li><a href="https://en.wikipedia.org/wiki/ARM_Cortex-M">ARM Cortex-M - Wikipedia</a> — General reference for Cortex-M ALU capabilities</li>
+<li><a href="https://microcontrollerslab.com/arm-cortex-m4-architecture/">ARM Cortex-M4 Architecture</a> — Cortex-M4 DSP instructions and saturating arithmetic details</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="registers-and-register-file.html">Registers and Register File</a> -- where the ALU gets its operands</li>
+<li><a href="instruction-execution/instruction-set-overview.html">Instruction Set Overview</a> -- the full instruction catalog</li>
+<li><a href="instruction-execution/fetch-decode-execute.html">Fetch-Decode-Execute</a> -- the ALU's role in the execution stage</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://embeddedsecurity.io/sec-arm-arch-core" target="_blank" rel="noopener">Arm M-profile architectures and Cortex-M</a></li><li><a href="https://en.wikipedia.org/wiki/ARM_Cortex-M" target="_blank" rel="noopener">ARM Cortex-M - Wikipedia</a></li><li><a href="https://microcontrollerslab.com/arm-cortex-m4-architecture/" target="_blank" rel="noopener">ARM Cortex-M4 Architecture</a></li></ul></div>
+      <div class="page-nav"><a href="index.html"><span class="nav-label">← Previous</span><span class="nav-title">MCU Architecture Overview</span></a><a class="next" href="registers-and-register-file.html"><span class="nav-label">Next →</span><span class="nav-title">Registers and Register File</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

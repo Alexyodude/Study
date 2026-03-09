@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SRAM — MCU Study Guide</title>
+  <link rel="stylesheet" href="../../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../index.html">MCU Architecture Overview</a><a class="nav-item" href="../cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title expanded"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="index.html">Memory Architecture Overview</a><a class="nav-item" href="flash-memory.html">Flash Memory</a><a class="nav-item active" href="sram.html">SRAM</a><a class="nav-item" href="eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../../index.html">Home</a><span class="sep">/</span><a href="../../mcu-architecture/index.html">MCU Architecture — Understand the Machine</a><span class="sep">/</span><a href="../../mcu-architecture/memory-architecture/index.html">Memory Architecture</a><span class="sep">/</span><span>SRAM</span></div>
+      <h1>SRAM</h1>
+      <div class="tags"><span class="tag">mcu</span><span class="tag">sram</span><span class="tag">memory</span><span class="tag">data-section</span><span class="tag">bss</span><span class="tag">stack</span><span class="tag">heap</span></div>
+      <h2>What SRAM Is</h2>
+<p>
+<strong>Static RAM (SRAM)</strong> is the fast, volatile memory inside an MCU used for runtime data. "Volatile" means it loses its contents when power is removed. "Static" means each bit is held by a flip-flop circuit that retains its value as long as power is applied -- no periodic refresh needed.
+</p>
+<p>
+On STM32 devices, SRAM starts at address <code>0x2000_0000</code>.
+</p>
+<h2>SRAM vs DRAM</h2>
+<p>
+Desktop computers use <strong>DRAM</strong> (Dynamic RAM). MCUs use <strong>SRAM</strong>. Here's why:
+</p>
+<table><thead><tr><th>Feature</th><th>SRAM</th><th>DRAM</th></tr></thead><tbody><tr><td>Cell structure</td><td>6 transistors (flip-flop)</td><td>1 transistor + 1 capacitor</td></tr>
+<tr><td>Refresh needed</td><td>No</td><td>Yes (every few ms)</td></tr>
+<tr><td>Speed</td><td>Very fast (0 wait states)</td><td>Fast but needs refresh cycles</td></tr>
+<tr><td>Density</td><td>Low (larger cells)</td><td>High (smaller cells)</td></tr>
+<tr><td>Cost per bit</td><td>Expensive</td><td>Cheap</td></tr>
+<tr><td>Typical MCU size</td><td>2 KB -- 512 KB</td><td>Not used in MCUs</td></tr>
+<tr><td>Typical PC size</td><td>CPU cache (MB)</td><td>Main memory (GB)</td></tr></tbody></table>
+<p>
+SRAM is used in MCUs because it's simple (no refresh controller needed), fast (the CPU can read/write in a single cycle), and the quantities are small enough that cost isn't prohibitive.
+</p>
+<h2>What Lives in SRAM</h2>
+<p>
+SRAM holds four main types of data, each placed in a specific <a href="https://blog.thea.codes/the-most-thoroughly-commented-linker-script/"><strong>linker section</strong></a>:
+</p>
+<h3>.data Section (Initialized Globals)</h3>
+<p>
+Global and static variables with explicit initial values.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">int counter = 42;           // .data -- stored in SRAM, initialized to 42
+<p>
+static float scale = 3.14f; // .data</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">static mut COUNTER: i32 = 42;        // .data -- stored in SRAM, initialized to 42
+<p>
+static mut SCALE: f32 = 3.14;        // .data
+// Note: accessing <code>static mut</code> requires <code>unsafe</code> in Rust</code></pre></div></div>
+</p>
+<p>
+The initial values are stored in <strong>flash</strong> (since SRAM is empty at power-on). The startup code copies them from flash to SRAM before <code>main()</code> runs.
+</p>
+<h3>.bss Section (Zero-Initialized Globals)</h3>
+<p>
+Global and static variables that are zero or have no explicit initializer.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">int error_count;             // .bss -- zero-initialized
+<p>
+static char buffer[256];     // .bss -- zero-initialized</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">static mut ERROR_COUNT: i32 = 0;          // .bss -- zero-initialized
+<p>
+static mut BUFFER: [u8; 256] = [0; 256];  // .bss -- zero-initialized</code></pre></div></div>
+</p>
+<p>
+The <code>.bss</code> section doesn't occupy space in flash -- the linker just records its size. The startup code fills this region with zeros.
+</p>
+<h3>Stack</h3>
+<p>
+The call stack for function calls, local variables, and interrupt context. Grows downward from the top of SRAM.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">void process(void) {
+<p>
+    uint8_t local_buf[64];   // 64 bytes on the stack
+    int result;              // 4 bytes on the stack
+    // ...
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">fn process() {
+<p>
+    let local_buf: [u8; 64] = [0; 64];  // 64 bytes on the stack
+    let result: i32;                      // 4 bytes on the stack
+    // ...
+}</code></pre></div></div>
+</p>
+<p>
+See: <a href="../stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a>
+</p>
+<h3>Heap</h3>
+<p>
+Dynamically allocated memory (<code>malloc</code>, <code>calloc</code>). Grows upward from the end of <code>.bss</code>.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">char *p = malloc(128);       // 128 bytes from heap</code></pre></div>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// Heap allocation in embedded Rust requires a global allocator
+<p>
+// (e.g., embedded-alloc crate) and #![feature(alloc)] or alloc crate:
+extern crate alloc;
+use alloc::vec;
+</p>
+<p>
+let p = vec![0u8; 128];     // 128 bytes from heap
+</p>
+<p>
+// Most embedded Rust projects avoid heap allocation entirely,
+// preferring stack-allocated buffers or static pools.</code></pre></div></div>
+</p>
+<p>
+In embedded systems, heap usage is often avoided or carefully controlled because <code>malloc</code> can fragment memory and fail unpredictably.
+</p>
+<h2>SRAM Layout in Memory</h2>
+<pre><code class="language-text">  0x2000_0000  +------------------+
+<p>
+               |     .data        |  Initialized globals (copied from flash)
+               +------------------+
+               |     .bss         |  Zero-initialized globals
+               +------------------+
+               |     Heap  --&gt;    |  Grows upward (malloc)
+               |                  |
+               |   (free space)   |
+               |                  |
+               |     &lt;-- Stack    |  Grows downward (PUSH)
+  0x2000_XXXX  +------------------+  &lt;-- Initial SP (_estack)</code></pre>
+</p>
+<p>
+If the heap and stack grow toward each other and collide, you get memory corruption with no warning (unless you use an MPU or stack canary).
+</p>
+<h2>Typical SRAM Sizes</h2>
+<table><thead><tr><th>MCU</th><th>SRAM</th><th>Flash</th><th>Notes</th></tr></thead><tbody><tr><td>STM32F030F4</td><td>4 KB</td><td>16 KB</td><td>Ultra low-cost Cortex-M0</td></tr>
+<tr><td>STM32F103C8</td><td>20 KB</td><td>64 KB</td><td>Popular "Blue Pill"</td></tr>
+<tr><td>STM32F401RE</td><td>96 KB</td><td>512 KB</td><td>Mid-range Cortex-M4</td></tr>
+<tr><td>STM32F407VG</td><td>192 KB</td><td>1 MB</td><td>High-performance Cortex-M4</td></tr>
+<tr><td>STM32H743</td><td>1 MB</td><td>2 MB</td><td>Cortex-M7, includes TCM</td></tr></tbody></table>
+<p>
+Some MCUs have <strong>multiple SRAM banks</strong> (SRAM1, SRAM2, CCM) at different addresses, allowing simultaneous access by the CPU and DMA without bus contention.
+</p>
+<h2>Zero Wait State Access</h2>
+<p>
+SRAM operates at the full CPU clock speed with <strong>zero wait states</strong>. This is a major advantage over flash at high clock speeds:
+</p>
+<pre><code class="language-text">  Instruction in Flash (168 MHz, 5 wait states):
+<p>
+    Fetch takes ~6 cycles (mitigated by cache/prefetch)
+</p>
+<p>
+  Data in SRAM (168 MHz, 0 wait states):
+    Load/store takes 1 cycle</code></pre>
+</p>
+<p>
+This is why performance-critical data (lookup tables, buffers, DMA targets) should be in SRAM, and why some developers copy critical code to SRAM for execution.
+</p>
+<h2>Startup Code: Initializing SRAM</h2>
+<p>
+At reset, SRAM contains random garbage. The <a href="https://hackaday.com/2020/12/23/bare-metal-stm32-exploring-memory-mapped-i-o-and-linker-scripts/">startup code</a> (typically in a file called <code>startup_stm32xxxx.s</code> or <code>crt0.s</code>) runs before <code>main()</code> to prepare SRAM:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Pseudocode of what startup code does:
+<p>
+// 1. Copy .data from flash (LMA) to SRAM (VMA)
+extern uint32_t _sidata;  // Source: flash address (LMA)
+extern uint32_t _sdata;   // Destination start: SRAM address
+extern uint32_t _edata;   // Destination end
+</p>
+<p>
+uint32_t *src = &amp;_sidata;
+uint32_t *dst = &amp;_sdata;
+while (dst &lt; &amp;_edata) {
+    <em>dst++ = </em>src++;
+}
+</p>
+<p>
+// 2. Zero out .bss
+extern uint32_t _sbss;
+extern uint32_t _ebss;
+</p>
+<p>
+dst = &amp;_sbss;
+while (dst &lt; &amp;_ebss) {
+    *dst++ = 0;
+}
+</p>
+<p>
+// 3. Call main()
+main();</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// In Rust embedded (#![no_std] + cortex-m-rt), the startup code is
+<p>
+// provided by the cortex-m-rt crate. It handles .data copy and .bss
+// zeroing automatically before calling your #[entry] function.
+</p>
+<p>
+// You just write:
+use cortex_m_rt::entry;
+</p>
+<p>
+#[entry]
+fn main() -&gt; ! {
+    // .data is already copied, .bss is already zeroed
+    // by cortex-m-rt's Reset handler
+    loop {}
+}
+</p>
+<p>
+// The linker script (memory.x) defines _sidata, _sdata, _edata,
+// _sbss, _ebss -- cortex-m-rt's assembly startup reads these.</code></pre></div></div>
+</p>
+<p>
+These symbols (<code>_sidata</code>, <code>_sdata</code>, <code>_edata</code>, <code>_sbss</code>, <code>_ebss</code>) are defined by the linker script.
+</p>
+<h2>Backup SRAM</h2>
+<p>
+Some STM32 devices (F4, F7, H7) include a small <strong>Backup SRAM</strong> (typically 4 KB) powered by the VBAT pin. This SRAM retains its contents during standby mode or even when the main power supply is removed (if a battery is connected to VBAT). Useful for storing critical state across resets.
+</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://blog.thea.codes/the-most-thoroughly-commented-linker-script/">The Most Thoroughly Commented Linker Script</a> — Linker section placement and SRAM initialization explained</li>
+<li><a href="https://hackaday.com/2020/12/23/bare-metal-stm32-exploring-memory-mapped-i-o-and-linker-scripts/">Bare-Metal STM32: Memory-Mapped I/O And Linker Scripts</a> — Startup code and SRAM data initialization on STM32</li>
+<li><a href="https://embeddedsecurity.io/sec-arm-arch-core">Arm M-profile architectures and Cortex-M</a> — Memory model and SRAM addressing in Cortex-M</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="flash-memory.html">Flash Memory</a> -- where .data initial values are stored</li>
+<li><a href="memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a> -- how sections are placed</li>
+<li><a href="../stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a> -- stack lives in SRAM</li>
+<li><a href="memory-mapped-io.html">Memory-Mapped I/O</a> -- peripheral registers in a different address range</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://blog.thea.codes/the-most-thoroughly-commented-linker-script/" target="_blank" rel="noopener">The Most Thoroughly Commented Linker Script</a></li><li><a href="https://hackaday.com/2020/12/23/bare-metal-stm32-exploring-memory-mapped-i-o-and-linker-scripts/" target="_blank" rel="noopener">Bare-Metal STM32: Memory-Mapped I/O And Linker Scripts</a></li><li><a href="https://embeddedsecurity.io/sec-arm-arch-core" target="_blank" rel="noopener">Arm M-profile architectures and Cortex-M</a></li></ul></div>
+      <div class="page-nav"><a href="flash-memory.html"><span class="nav-label">← Previous</span><span class="nav-title">Flash Memory</span></a><a class="next" href="eeprom-and-nvm.html"><span class="nav-label">Next →</span><span class="nav-title">EEPROM and Non-Volatile Memory</span></a></div>
+    </main>
+  </div>
+  <script src="../../scripts/main.js"></script>
+</body>
+</html>

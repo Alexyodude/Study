@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Volatile and Compiler Barriers — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="index.html">What Bare-Metal Means</a><a class="nav-item" href="cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="startup-code.html">Startup Code</a><a class="nav-item" href="vector-table.html">Vector Table</a><a class="nav-item" href="linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="register-level-programming.html">Register-Level Programming</a><a class="nav-item active" href="volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../mcu-bare-metal-programming/index.html">Bare-Metal Programming — Write Code for Bare Hardware</a><span class="sep">/</span><span>Volatile and Compiler Barriers</span></div>
+      <h1>Volatile and Compiler Barriers</h1>
+      <div class="tags"><span class="tag">volatile</span><span class="tag">memory-barriers</span><span class="tag">DMB</span><span class="tag">DSB</span><span class="tag">ISB</span><span class="tag">optimization</span><span class="tag">MMIO</span></div>
+      <h2>Why Volatile Matters</h2>
+<p>
+The C compiler is aggressive about optimization. If it sees code like this:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">uint32_t <em>status = (uint32_t </em>)0x40020010;
+<p>
+while (*status == 0) {
+    /<em> Wait for hardware to set a flag </em>/
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// BUG: without volatile, the compiler may optimize this to an infinite loop
+<p>
+let status = 0x4002_0010 as *const u32;
+unsafe {
+    while *status == 0 {  // May be hoisted out of loop!
+        // Wait for hardware to set a flag
+    }
+}</code></pre></div></div>
+</p>
+<p>
+The compiler may reason: "The value at <code>*status</code> never changes inside this loop, so I can read it once and cache the result in a register." The optimized code becomes an infinite loop that never re-reads the hardware register.
+</p>
+<p>
+The <code>volatile</code> keyword tells the compiler: "This value can change at any time without your knowledge. You must read from memory every single time."
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">volatile uint32_t <em>status = (volatile uint32_t </em>)0x40020010;
+<p>
+while (*status == 0) {
+    /<em> Compiler will re-read the register on every iteration </em>/
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::read_volatile;
+<p>
+let status = 0x4002_0010 as *const u32;
+unsafe {
+    while read_volatile(status) == 0 {
+        // read_volatile forces a re-read on every iteration
+    }
+}</code></pre></div></div>
+</p>
+<p>
+Every memory-mapped I/O (MMIO) register access in embedded code must use <code>volatile</code>.
+</p>
+<h2>What Volatile Does</h2>
+<code>volatile</code> guarantees:
+<ol>
+<li><strong>Every read in the source code produces a load instruction.</strong> The compiler will not cache the value in a CPU register across statements.</li>
+<li><strong>Every write in the source code produces a store instruction.</strong> The compiler will not eliminate "redundant" writes.</li>
+<li><strong>Volatile accesses are not reordered with respect to other volatile accesses.</strong> If you write register A before register B in your source, the compiler emits the stores in that order.</li>
+</ol>
+<h2>What Volatile Does NOT Guarantee</h2>
+<code>volatile</code> does <strong>not</strong> guarantee:
+<ol>
+<li><strong>Hardware memory ordering.</strong> The CPU or bus can still reorder memory transactions, especially on more complex ARM cores with write buffers.</li>
+<li><strong>Atomicity.</strong> A volatile read/write is not atomic. On Cortex-M, 32-bit aligned accesses are atomic by the bus architecture, but read-modify-write sequences (like <code>|=</code>) are never atomic.</li>
+<li><strong>Ordering with respect to non-volatile accesses.</strong> The compiler may freely reorder non-volatile code around volatile accesses.</li>
+</ol>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">volatile uint32_t <em>reg = (volatile uint32_t </em>)0x40020000;
+<p>
+int local_var = 0;
+</p>
+<p>
+<em>reg = 0x01;         /</em> volatile write */
+local_var = 42;      /<em> non-volatile -- compiler may move this before the write </em>/
+<em>reg = 0x02;         /</em> volatile write -- guaranteed after the first one */</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::write_volatile;
+<p>
+let reg = 0x4002_0000 as *mut u32;
+let mut local_var: i32 = 0;
+</p>
+<p>
+unsafe {
+    write_volatile(reg, 0x01);    // volatile write
+    local_var = 42;                // non-volatile -- compiler may reorder
+    write_volatile(reg, 0x02);    // volatile write -- guaranteed after first
+}</code></pre></div></div>
+</p>
+<h2>Memory Barriers: DMB, DSB, ISB</h2>
+<p>
+ARM Cortex-M provides <a href="https://developer.arm.com/documentation/100941/latest/Barriers">three barrier instructions</a> to enforce ordering at the hardware level:
+</p>
+<h3>DMB -- Data Memory Barrier</h3>
+<p>
+Ensures that all memory accesses before the DMB complete before any memory access after it. The processor can continue executing non-memory instructions.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">__DMB();  /<em> CMSIS intrinsic </em>/</code></pre></div>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">cortex_m::asm::dmb(); // Data Memory Barrier</code></pre></div></div>
+<p>
+<strong>When to use:</strong> After writing to a peripheral register that affects another peripheral. For example, after enabling a peripheral clock (RCC), use DMB before accessing that peripheral's registers.
+</p>
+<h3>DSB -- Data Synchronization Barrier</h3>
+<p>
+Stronger than DMB. The processor stalls until all outstanding memory accesses complete. No further instructions execute until the barrier finishes.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">__DSB();  /<em> CMSIS intrinsic </em>/</code></pre></div>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">cortex_m::asm::dsb(); // Data Synchronization Barrier</code></pre></div></div>
+<p>
+<strong>When to use:</strong>
+</p>
+<ul>
+<li>After modifying the vector table (VTOR)</li>
+<li>After enabling/disabling interrupts</li>
+<li>Before <code>WFI</code> (Wait For Interrupt) to ensure all memory writes are complete</li>
+</ul>
+<h3>ISB -- Instruction Synchronization Barrier</h3>
+<p>
+Flushes the instruction pipeline. All instructions after the ISB are fetched fresh from memory.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">__ISB();  /<em> CMSIS intrinsic </em>/</code></pre></div>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">cortex_m::asm::isb(); // Instruction Synchronization Barrier</code></pre></div></div>
+<p>
+<strong>When to use:</strong>
+</p>
+<ul>
+<li>After modifying control registers that affect instruction execution (e.g., enabling the FPU)</li>
+<li>After updating the vector table offset (VTOR)</li>
+<li>After changing memory protection settings (MPU)</li>
+</ul>
+<h3>Typical Barrier Patterns</h3>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">/<em> Enable GPIOA clock, then access GPIOA registers </em>/
+<p>
+RCC-&gt;AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
+__DSB();                              /<em> Ensure clock is enabled </em>/
+GPIOA-&gt;MODER |= (1 &lt;&lt; 10);           /<em> Now safe to access GPIOA </em>/
+</p>
+<p>
+/<em> Relocate vector table </em>/
+SCB-&gt;VTOR = 0x08004000;
+__DSB();                              /<em> Complete the write </em>/
+__ISB();                              /<em> Flush pipeline to use new table </em>/</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+use cortex_m::asm::{dsb, isb};
+</p>
+<p>
+unsafe {
+    // Enable GPIOA clock, then access GPIOA registers
+    let rcc_ahb1enr = 0x4002_3830 as *mut u32;
+    write_volatile(rcc_ahb1enr, read_volatile(rcc_ahb1enr) | (1 &lt;&lt; 0));
+    dsb();                                  // Ensure clock is enabled
+    let gpioa_moder = 0x4002_0000 as *mut u32;
+    write_volatile(gpioa_moder, read_volatile(gpioa_moder) | (1 &lt;&lt; 10));
+</p>
+<p>
+    // Relocate vector table
+    let scb = &amp;*cortex_m::peripheral::SCB::PTR;
+    scb.vtor.write(0x0800_4000);
+    dsb();                                  // Complete the write
+    isb();                                  // Flush pipeline to use new table
+}</code></pre></div></div>
+</p>
+<h2>Compiler Barriers</h2>
+<p>
+A compiler barrier prevents the compiler from reordering code across it, without generating any actual CPU instruction:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">__asm volatile ("" ::: "memory");</code></pre></div>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// Rust equivalent: compiler fence (no CPU instruction emitted)
+<p>
+core::sync::atomic::compiler_fence(core::sync::atomic::Ordering::SeqCst);
+</p>
+<p>
+// Or using the cortex-m crate:
+// cortex_m::asm::nop() is NOT the same — it emits an instruction.
+// compiler_fence is the correct equivalent of asm volatile("" ::: "memory").</code></pre></div></div>
+</p>
+<p>
+This tells GCC: "I may have changed any memory location. Reload everything you had cached in registers."
+</p>
+<p>
+This is lighter than a hardware barrier -- it only affects the compiler, not the CPU. Useful when you need ordering guarantees in a single-core system where hardware reordering is not a concern (which is most Cortex-M0/M3 scenarios with strongly-ordered memory).
+</p>
+<p>
+CMSIS also provides <code>__COMPILER_BARRIER()</code> on some toolchains.
+</p>
+<h2>Common Bugs from Missing Volatile</h2>
+<h3>Bug 1: Polling Loop Never Exits</h3>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">/<em> BUG: Missing volatile </em>/
+<p>
+uint32_t <em>uart_status = (uint32_t </em>)0x40011000;
+while (!(<em>uart_status &amp; (1 &lt;&lt; 7)));  /</em> Optimized to infinite loop at -O2 */</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// BUG: Using normal dereference instead of read_volatile
+<p>
+let uart_status = 0x4001_1000 as *const u32;
+unsafe {
+    while *uart_status &amp; (1 &lt;&lt; 7) == 0 {}  // Optimized away at release!
+}
+</p>
+<p>
+// FIX: Use read_volatile
+unsafe {
+    while core::ptr::read_volatile(uart_status) &amp; (1 &lt;&lt; 7) == 0 {}
+}</code></pre></div></div>
+</p>
+<h3>Bug 2: Register Write Eliminated</h3>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">/<em> BUG: Missing volatile </em>/
+<p>
+uint32_t <em>led_reg = (uint32_t </em>)0x40020014;
+<em>led_reg = 0xFF;   /</em> Turn LEDs on */
+<em>led_reg = 0x00;   /</em> Turn LEDs off -- compiler may remove the first write */</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// BUG: Using normal write instead of write_volatile
+<p>
+let led_reg = 0x4002_0014 as *mut u32;
+unsafe {
+    *led_reg = 0xFF;   // Compiler may eliminate this write!
+    *led_reg = 0x00;
+}
+</p>
+<p>
+// FIX: Use write_volatile — both writes are preserved
+unsafe {
+    core::ptr::write_volatile(led_reg, 0xFF);
+    core::ptr::write_volatile(led_reg, 0x00);
+}</code></pre></div></div>
+</p>
+<p>
+The compiler sees two writes to the same location and optimizes away the first one. With <code>volatile</code>, both writes are preserved because each one has a visible side effect on the hardware.
+</p>
+<h3>Bug 3: Peripheral Access After Clock Enable Fails</h3>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">RCC-&gt;AHB1ENR |= (1 &lt;&lt; 0);   /<em> Enable GPIOA clock </em>/
+<p>
+/<em> BUG: No barrier -- the clock enable may not have taken effect yet </em>/
+GPIOA-&gt;MODER = 0x01;         /<em> May fault or be ignored </em>/</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">unsafe {
+<p>
+    let rcc = 0x4002_3830 as *mut u32;
+    write_volatile(rcc, read_volatile(rcc) | (1 &lt;&lt; 0)); // Enable GPIOA clock
+    // BUG: No barrier — clock enable may not have propagated yet
+    let moder = 0x4002_0000 as *mut u32;
+    write_volatile(moder, 0x01); // May fault or be ignored
+</p>
+<p>
+    // FIX: Add a DSB after clock enable
+    // cortex_m::asm::dsb();
+}</code></pre></div></div>
+</p>
+<p>
+The bus write to RCC may still be in a <a href="https://www.embedded.com/dealing-with-memory-access-ordering-in-complex-embedded-designs/">write buffer</a> when the GPIOA access executes. A <code>__DSB()</code> after the clock enable fixes this.
+</p>
+<h3>Bug 4: Interrupt Flag Not Seen</h3>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">volatile int flag = 0;    /<em> Set to 1 in ISR </em>/
+<p>
+void ISR_Handler(void) {
+    flag = 1;
+}
+</p>
+<p>
+int main(void) {
+    while (!flag);   /<em> Works because flag is volatile </em>/
+    do_something();
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::sync::atomic::{AtomicBool, Ordering};
+<p>
+// In Rust, use atomics for ISR-to-main communication
+// (volatile alone is not idiomatic for shared flags)
+static FLAG: AtomicBool = AtomicBool::new(false);
+</p>
+<p>
+#[interrupt]
+fn ISR_Handler() {
+    FLAG.store(true, Ordering::Release);
+}
+</p>
+<p>
+#[entry]
+fn main() -&gt; ! {
+    while !FLAG.load(Ordering::Acquire) {
+        // Spin — atomic ensures no caching
+    }
+    do_something();
+    loop {}
+}</code></pre></div></div>
+</p>
+<p>
+Without <code>volatile</code> on <code>flag</code>, the compiler caches <code>flag</code> in a register in <code>main()</code> and never sees the ISR's update.
+</p>
+<h2>Quick Reference</h2>
+<table><thead><tr><th>Problem</th><th>Solution</th></tr></thead><tbody><tr><td>Compiler caches MMIO reads</td><td>Use <code>volatile</code></td></tr>
+<tr><td>Compiler removes "redundant" MMIO writes</td><td>Use <code>volatile</code></td></tr>
+<tr><td>Compiler reorders code across MMIO</td><td><code>volatile</code> handles volatile-to-volatile ordering</td></tr>
+<tr><td>Need non-volatile ordering with volatile</td><td>Compiler barrier: <code>__asm volatile("" ::: "memory")</code></td></tr>
+<tr><td>Hardware write buffer delays propagation</td><td><code>__DSB()</code></td></tr>
+<tr><td>Need to refetch instructions after config change</td><td><code>__ISB()</code></td></tr>
+<tr><td>Need ordered memory accesses at hardware level</td><td><code>__DMB()</code></td></tr></tbody></table>
+<h2>References</h2>
+<ol>
+<li><a href="https://developer.arm.com/documentation/100941/latest/Barriers">ARM Documentation - Barriers</a> — Official ARM reference for DMB, DSB, and ISB instructions</li>
+<li><a href="https://documentation-service.arm.com/static/5efefb97dbdee951c1cd5aaf">ARM Cortex-M Programming Guide to Memory Barrier Instructions</a> — ARM application note on when barriers are needed</li>
+<li><a href="https://medium.com/@levinet.nicolai/the-role-of-memory-barriers-for-different-memory-types-3ac990e1944a">ARM Memory Barriers: DMB, DSB, ISB</a> — Explains barrier roles for different memory types</li>
+<li><a href="https://www.embedded.com/dealing-with-memory-access-ordering-in-complex-embedded-designs/">Dealing with Memory Access Ordering in Complex Embedded Designs</a> — Write buffer and memory ordering issues in practice</li>
+<li><a href="https://blog.feabhas.com/2019/01/peripheral-register-access-using-c-structs-part-1/">Peripheral Register Access Using C Structs - Feabhas</a> — Volatile usage in struct-based peripheral access</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="register-level-programming.html">Register-Level Programming</a> -- applying volatile to real peripheral access</li>
+<li><a href="startup-code.html">Startup Code</a> -- barriers may be needed during early initialization</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://developer.arm.com/documentation/100941/latest/Barriers" target="_blank" rel="noopener">ARM Documentation - Barriers</a></li><li><a href="https://documentation-service.arm.com/static/5efefb97dbdee951c1cd5aaf" target="_blank" rel="noopener">ARM DAI 0321A - ARM Cortex-M Programming Guide to Memory Barrier Instructions</a></li><li><a href="https://medium.com/@levinet.nicolai/the-role-of-memory-barriers-for-different-memory-types-3ac990e1944a" target="_blank" rel="noopener">ARM Memory Barriers: DMB, DSB, ISB</a></li><li><a href="https://www.embedded.com/dealing-with-memory-access-ordering-in-complex-embedded-designs/" target="_blank" rel="noopener">Dealing with Memory Access Ordering in Complex Embedded Designs</a></li><li><a href="https://blog.feabhas.com/2019/01/peripheral-register-access-using-c-structs-part-1/" target="_blank" rel="noopener">Peripheral Register Access Using C Structs - Feabhas</a></li></ul></div>
+      <div class="page-nav"><a href="register-level-programming.html"><span class="nav-label">← Previous</span><span class="nav-title">Register-Level Programming</span></a><a class="next" href="makefile-and-build-system.html"><span class="nav-label">Next →</span><span class="nav-title">Makefile and Build System</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

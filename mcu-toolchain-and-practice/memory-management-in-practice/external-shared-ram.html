@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>External Shared RAM — MCU Study Guide</title>
+  <link rel="stylesheet" href="../../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title expanded"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="dma-controller.html">DMA Controller</a><a class="nav-item" href="mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item active" href="external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../../index.html">Home</a><span class="sep">/</span><a href="../../mcu-toolchain-and-practice/index.html">Toolchain & Practice — Build and Debug Real Projects</a><span class="sep">/</span><a href="../../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory Management in Practice</a><span class="sep">/</span><span>External Shared RAM</span></div>
+      <h1>External Shared RAM</h1>
+      <div class="tags"><span class="tag">external-ram</span><span class="tag">shared-memory</span><span class="tag">spi-sram</span><span class="tag">dual-port</span><span class="tag">parallel-bus</span><span class="tag">multi-mcu</span></div>
+      <p>
+When an MCU's internal SRAM is too small — like the CH32V003's 2 KB — external RAM chips solve the problem. When <strong>multiple MCUs</strong> need access to the same data, that external RAM becomes <strong>shared memory</strong>, and arbitration becomes the central challenge.
+</p>
+<h2>Three Approaches to External Shared RAM</h2>
+<table><thead><tr><th>Approach</th><th>Speed</th><th>Pin Count</th><th>Arbitration</th><th>Cost</th><th>Complexity</th></tr></thead><tbody><tr><td>SPI SRAM (time-shared)</td><td>~3 MB/s</td><td>4 per MCU</td><td>Software (CS gating)</td><td>~$0.50</td><td>Low</td></tr>
+<tr><td>Parallel SRAM (bus-shared)</td><td>~10-50 MB/s</td><td>20-30 shared</td><td>Hardware (bus arbiter)</td><td>~$1-3</td><td>Medium</td></tr>
+<tr><td>Dual-port SRAM</td><td>~50 MB/s per port</td><td>20-30 per port</td><td>Built-in hardware</td><td>~$5-15</td><td>Low (hardware handles it)</td></tr></tbody></table>
+<h2>Approach 1: SPI SRAM (Simplest)</h2>
+<h3>How It Works</h3>
+<p>
+SPI SRAM chips like the <a href="https://www.microchip.com/en-us/product/23lc1024">Microchip 23LC1024</a> (128 KB) or 23LC512 (64 KB) use the standard SPI bus. Multiple MCUs share the MOSI, MISO, and SCK lines but use <strong>separate CS (chip select) pins</strong> to take turns.
+</p>
+<pre><code class="language-text">  MCU 0 ──┐  SCK  ──────────────┐
+<p>
+  MCU 1 ──┤  MOSI ──────────────┤──── 23LC1024
+  MCU 2 ──┤  MISO ──────────────┤    (128 KB)
+  MCU 3 ──┘                     │
+           CS0 ────────────────►│ CS
+           CS1 (active = this MCU has the bus)
+           CS2
+           CS3</code></pre>
+</p>
+<p>
+<strong>Problem</strong>: SPI is single-master. Only one MCU can access the SRAM at a time.
+</p>
+<h3>Software Arbitration with a Token Pin</h3>
+<p>
+Use a dedicated GPIO pin as a "bus grant" token. Only the MCU holding the token drives the SPI bus:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">#define TOKEN_PIN   GPIO_PIN_4   // shared open-drain wire
+<p>
+// Wait for bus access
+void sram_acquire(void) {
+    // Wait until token line is high (released)
+    while (!(GPIOC-&gt;IDR &amp; TOKEN_PIN));
+</p>
+<p>
+    // Claim it by driving low
+    GPIOC-&gt;BSRR = TOKEN_PIN &lt;&lt; 16;   // drive low = "I have it"
+}
+</p>
+<p>
+void sram_release(void) {
+    // Release by going high-impedance (open-drain pulls up)
+    GPIOC-&gt;BSRR = TOKEN_PIN;         // release
+}
+</p>
+<p>
+void sram_write_byte(uint32_t addr, uint8_t data) {
+    sram_acquire();
+</p>
+<p>
+    CS_LOW();
+    spi_send(0x02);               // WRITE command
+    spi_send((addr &gt;&gt; 16) &amp; 0xFF); // address byte 2
+    spi_send((addr &gt;&gt; 8) &amp; 0xFF);  // address byte 1
+    spi_send(addr &amp; 0xFF);         // address byte 0
+    spi_send(data);
+    CS_HIGH();
+</p>
+<p>
+    sram_release();
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+const TOKEN_PIN: u32 = 1 &lt;&lt; 4; // GPIO pin 4
+</p>
+<p>
+fn sram_acquire() {
+    unsafe {
+        let gpioc_idr = 0x4001_1010 as *const u32; // GPIOC IDR
+        let gpioc_bsrr = 0x4001_1018 as *mut u32;  // GPIOC BSRR
+</p>
+<p>
+        // Wait until token line is high (released)
+        while read_volatile(gpioc_idr) &amp; TOKEN_PIN == 0 {}
+</p>
+<p>
+        // Claim it by driving low
+        write_volatile(gpioc_bsrr, TOKEN_PIN &lt;&lt; 16); // drive low
+    }
+}
+</p>
+<p>
+fn sram_release() {
+    unsafe {
+        let gpioc_bsrr = 0x4001_1018 as *mut u32;
+        write_volatile(gpioc_bsrr, TOKEN_PIN); // release (high)
+    }
+}
+</p>
+<p>
+fn sram_write_byte(addr: u32, data: u8) {
+    sram_acquire();
+</p>
+<p>
+    cs_low();
+    spi_send(0x02);                        // WRITE command
+    spi_send(((addr &gt;&gt; 16) &amp; 0xFF) as u8); // address byte 2
+    spi_send(((addr &gt;&gt; 8) &amp; 0xFF) as u8);  // address byte 1
+    spi_send((addr &amp; 0xFF) as u8);         // address byte 0
+    spi_send(data);
+    cs_high();
+</p>
+<p>
+    sram_release();
+}</code></pre></div></div>
+</p>
+<h3>Sequential Mode for Bulk Transfers</h3>
+<p>
+The 23LC1024 supports <a href="https://www.pjrc.com/teensy/23LC1024.pdf">sequential mode</a> — after sending the address, you can stream data continuously without re-sending the address for each byte. This dramatically improves throughput:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">void sram_write_block(uint32_t addr, uint8_t *buf, uint32_t len) {
+<p>
+    sram_acquire();
+</p>
+<p>
+    CS_LOW();
+    spi_send(0x02);                    // WRITE command
+    spi_send((addr &gt;&gt; 16) &amp; 0xFF);
+    spi_send((addr &gt;&gt; 8) &amp; 0xFF);
+    spi_send(addr &amp; 0xFF);
+    for (uint32_t i = 0; i &lt; len; i++) {
+        spi_send(buf[i]);              // sequential — no re-addressing
+    }
+    CS_HIGH();
+</p>
+<p>
+    sram_release();
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">fn sram_write_block(addr: u32, buf: &amp;[u8]) {
+<p>
+    sram_acquire();
+</p>
+<p>
+    cs_low();
+    spi_send(0x02);                        // WRITE command
+    spi_send(((addr &gt;&gt; 16) &amp; 0xFF) as u8);
+    spi_send(((addr &gt;&gt; 8) &amp; 0xFF) as u8);
+    spi_send((addr &amp; 0xFF) as u8);
+    for &amp;byte in buf {
+        spi_send(byte);                    // sequential — no re-addressing
+    }
+    cs_high();
+</p>
+<p>
+    sram_release();
+}</code></pre></div></div>
+</p>
+<h3>SPI SRAM Specs</h3>
+<table><thead><tr><th>Chip</th><th>Size</th><th>Max SPI Clock</th><th>Modes</th><th>Price</th></tr></thead><tbody><tr><td>23LC512</td><td>64 KB</td><td>20 MHz</td><td>SPI, SDI (2-bit), SQI (4-bit)</td><td>~$0.40</td></tr>
+<tr><td>23LC1024</td><td>128 KB</td><td>20 MHz</td><td>SPI, SDI, SQI</td><td>~$0.60</td></tr>
+<tr><td>23LCV512</td><td>64 KB</td><td>20 MHz</td><td>+ battery backup</td><td>~$0.50</td></tr>
+<tr><td>23LCV1024</td><td>128 KB</td><td>20 MHz</td><td>+ battery backup</td><td>~$0.70</td></tr>
+<tr><td>IS62WVS2568</td><td>256 KB</td><td>45 MHz (QSPI)</td><td>SPI, SQI</td><td>~$0.80</td></tr></tbody></table>
+<p>
+<strong>Throughput</strong>: at 20 MHz SPI, ~2.5 MB/s (accounting for command/address overhead). With SQI (quad mode), ~8 MB/s.
+</p>
+<h3>Pin Budget for CH32V003</h3>
+<p>
+The CH32V003 has 1 SPI peripheral and 18 GPIO. Using SPI SRAM:
+</p>
+<table><thead><tr><th>Function</th><th>Pins</th></tr></thead><tbody><tr><td>SPI (SCK, MOSI, MISO)</td><td>3</td></tr>
+<tr><td>CS to SRAM</td><td>1</td></tr>
+<tr><td>Token / arbitration</td><td>1</td></tr>
+<tr><td>Remaining for other I/O</td><td>13</td></tr></tbody></table>
+<p>
+Plenty of pins left. This is the most practical option for the CH32V003.
+</p>
+<h2>Approach 2: Parallel SRAM (Fastest with Standard Parts)</h2>
+<h3>How It Works</h3>
+<p>
+Parallel SRAM (like IS62WV25616, 256K x 16-bit) connects via an address bus, data bus, and control signals. Much faster than SPI because you transfer 8 or 16 bits per clock cycle.
+</p>
+<pre><code class="language-text">           Address Bus (A0-A17)
+<p>
+  MCU ─────────────────────────────── Parallel SRAM
+           Data Bus (D0-D7 or D0-D15)    (IS62WV25616)
+           /CE  (chip enable)              256K x 16-bit
+           /OE  (output enable)
+           /WE  (write enable)</code></pre>
+</p>
+<h3>Sharing Between Multiple MCUs: Bus Arbitration</h3>
+<p>
+When multiple MCUs share a parallel SRAM, you need <strong>bus arbitration</strong> — only one MCU may drive the address and data buses at a time. Others must tri-state their pins.
+</p>
+<h4>Hardware Arbiter</h4>
+<p>
+Use a priority encoder or round-robin arbiter:
+</p>
+<pre><code class="language-text">  MCU 0 ──── REQ0 ──┐
+<p>
+  MCU 1 ──── REQ1 ──┤── Bus Arbiter ──── GRANT0, GRANT1, GRANT2, GRANT3
+  MCU 2 ──── REQ2 ──┤   (74HC148 +      (/CE to SRAM from granted MCU)
+  MCU 3 ──── REQ3 ──┘    logic)
+                              │
+                         Bus Buffers (74HC245)
+                         enable only granted MCU's data lines</code></pre>
+</p>
+<p>
+Each MCU connects to the shared bus through <strong>tri-state bus buffers</strong> (74HC245). The arbiter enables only one buffer at a time.
+</p>
+<h4>Bus Buffer Detail</h4>
+<pre><code class="language-text">  MCU 0 data pins ── 74HC245 ──┐
+<p>
+  MCU 1 data pins ── 74HC245 ──┤── Shared Data Bus ── SRAM D0-D7
+  MCU 2 data pins ── 74HC245 ──┤
+  MCU 3 data pins ── 74HC245 ──┘
+</p>
+<p>
+  Each 245's /OE pin is controlled by the arbiter's GRANT signal
+  Only the granted MCU's buffer is enabled; others are high-impedance</code></pre>
+</p>
+<h3>Software-Only Arbitration (No Extra Hardware)</h3>
+<p>
+If only 2 MCUs share the bus, you can use a simple GPIO handshake:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// MCU A wants to access shared SRAM
+<p>
+void bus_acquire(void) {
+    // 1. Assert REQUEST
+    GPIOC-&gt;BSRR = REQ_PIN;
+</p>
+<p>
+    // 2. Wait for GRANT (other MCU releases bus)
+    while (GPIOC-&gt;IDR &amp; BUSY_PIN);
+</p>
+<p>
+    // 3. Configure data pins as outputs
+    set_data_bus_output();
+}
+</p>
+<p>
+void bus_release(void) {
+    // Configure data pins as inputs (high-Z)
+    set_data_bus_input();
+</p>
+<p>
+    // Deassert REQUEST
+    GPIOC-&gt;BSRR = REQ_PIN &lt;&lt; 16;
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+unsafe fn bus_acquire() {
+    let gpioc_bsrr = 0x4001_1018 as *mut u32;
+    let gpioc_idr = 0x4001_1010 as *const u32;
+</p>
+<p>
+    // 1. Assert REQUEST
+    write_volatile(gpioc_bsrr, REQ_PIN);
+</p>
+<p>
+    // 2. Wait for GRANT (other MCU releases bus)
+    while read_volatile(gpioc_idr) &amp; BUSY_PIN != 0 {}
+</p>
+<p>
+    // 3. Configure data pins as outputs
+    set_data_bus_output();
+}
+</p>
+<p>
+unsafe fn bus_release() {
+    // Configure data pins as inputs (high-Z)
+    set_data_bus_input();
+</p>
+<p>
+    // Deassert REQUEST
+    let gpioc_bsrr = 0x4001_1018 as *mut u32;
+    write_volatile(gpioc_bsrr, REQ_PIN &lt;&lt; 16);
+}</code></pre></div></div>
+</p>
+<h3>Pin Budget Problem for CH32V003</h3>
+<p>
+Parallel SRAM requires many pins:
+</p>
+<table><thead><tr><th>Signal</th><th>Pins Needed</th></tr></thead><tbody><tr><td>Address (A0-A14 for 32 KB)</td><td>15</td></tr>
+<tr><td>Data (D0-D7)</td><td>8</td></tr>
+<tr><td>/CE, /OE, /WE</td><td>3</td></tr>
+<tr><td><strong>Total</strong></td><td><strong>26</strong></td></tr></tbody></table>
+<p>
+The CH32V003 only has <strong>18 GPIO</strong>. This is not enough for a parallel SRAM interface without address latching.
+</p>
+<h4>Solution: Address Latch (74HC573)</h4>
+<p>
+Multiplex the address and data lines. Use a latch to capture the address, then reuse those pins for data:
+</p>
+<pre><code class="language-text">  CH32V003 PA0-PA7 ──┬── 74HC573 Latch ──── SRAM A0-A7 (low address)
+<p>
+                     │                       SRAM A8-A14 (from other pins)
+                     └── (direct)  ──────── SRAM D0-D7 (data)
+</p>
+<p>
+  ALE (address latch enable) ────────────── 74HC573 /LE</code></pre>
+</p>
+<p>
+This reduces the pin count to:
+</p>
+<table><thead><tr><th>Signal</th><th>Pins</th></tr></thead><tbody><tr><td>Multiplexed addr/data (AD0-AD7)</td><td>8</td></tr>
+<tr><td>High address (A8-A14)</td><td>7</td></tr>
+<tr><td>/CE, /OE, /WE, ALE</td><td>4</td></tr>
+<tr><td><strong>Total</strong></td><td><strong>19</strong></td></tr></tbody></table>
+<p>
+Still one pin over the CH32V003's 18 GPIO limit. You'd need to reduce the address range (5 high-address pins = 8 KB addressable) or use a smaller SRAM.
+</p>
+<p>
+<strong>Verdict</strong>: parallel SRAM is impractical on the CH32V003 due to pin constraints. Use SPI SRAM instead.
+</p>
+<h2>Approach 3: True Dual-Port SRAM (Best for Shared Access)</h2>
+<h3>What Dual-Port SRAM Is</h3>
+<p>
+A <a href="https://www.analog.com/en/resources/design-notes/dual-port-ram.html">dual-port SRAM</a> has <strong>two completely independent sets of address, data, and control pins</strong>. Two MCUs can read and write simultaneously without any external arbitration — the chip handles contention internally.
+</p>
+<pre><code class="language-text">  Port A (MCU 0)                        Port B (MCU 1)
+<p>
+  A0-A9 ──────┐                  ┌────── A0-A9
+  D0-D7 ──────┤    Dual-Port    ├────── D0-D7
+  /CE_A ──────┤      SRAM       ├────── /CE_B
+  /OE_A ──────┤   (IDT7132)     ├────── /OE_B
+  /WE_A ──────┤    1K x 8-bit   ├────── /WE_B
+  /BUSY_A ◄───┤                 ├───► /BUSY_B
+              └─────────────────┘</code></pre>
+</p>
+<h3>Contention Resolution</h3>
+<p>
+When both ports access the <strong>same address</strong> simultaneously:
+</p>
+<ul>
+<li><strong>Both reading</strong>: no conflict, both get the data</li>
+<li><strong>One reading, one writing</strong>: the reader gets either old or new data (both are valid). The writer succeeds.</li>
+<li><strong>Both writing</strong>: the chip asserts the <strong>/BUSY</strong> flag on the port that "loses" arbitration. That port must retry.</li>
+</ul>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Write with contention check
+<p>
+void dpram_write(uint16_t addr, uint8_t data) {
+    do {
+        set_address(addr);
+        set_data(data);
+        WE_LOW();
+        __NOP();
+        WE_HIGH();
+    } while (BUSY_PIN_ACTIVE());   // retry if contention
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">unsafe fn dpram_write(addr: u16, data: u8) {
+<p>
+    loop {
+        set_address(addr);
+        set_data(data);
+        we_low();
+        cortex_m::asm::nop();
+        we_high();
+        if !busy_pin_active() {
+            break; // no contention, write succeeded
+        }
+    }
+}</code></pre></div></div>
+</p>
+<h3>Interrupt Signaling Between Ports</h3>
+<p>
+Many dual-port SRAMs have <strong>interrupt/semaphore registers</strong> — special addresses that trigger an interrupt on the other port when written. This enables event-driven communication:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// MCU A: signal MCU B that new data is ready
+<p>
+dpram_write(SEMAPHORE_ADDR, 0x01);   // triggers INT on port B
+</p>
+<p>
+// MCU B: ISR fires
+void EXTI_DPRAM_IRQHandler(void) {
+    uint8_t signal = dpram_read(SEMAPHORE_ADDR);
+    if (signal == 0x01) {
+        // New data available — process it
+        read_shared_buffer();
+    }
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// MCU A: signal MCU B that new data is ready
+<p>
+unsafe { dpram_write(SEMAPHORE_ADDR, 0x01); } // triggers INT on port B
+</p>
+<p>
+// MCU B: ISR fires
+#[interrupt]
+fn EXTI_DPRAM() {
+    unsafe {
+        let signal = dpram_read(SEMAPHORE_ADDR);
+        if signal == 0x01 {
+            // New data available — process it
+            read_shared_buffer();
+        }
+    }
+}</code></pre></div></div>
+</p>
+<h3>Available Dual-Port SRAMs</h3>
+<table><thead><tr><th>Chip</th><th>Size</th><th>Access Time</th><th>Package</th><th>Price</th><th>Notes</th></tr></thead><tbody><tr><td>IDT7132</td><td>2 KB (1K x 8)</td><td>35-55 ns</td><td>DIP-48</td><td>~$8</td><td>Classic, still available</td></tr>
+<tr><td>IDT7134</td><td>4 KB (2K x 8)</td><td>35-55 ns</td><td>DIP-48</td><td>~$10</td></tr>
+<tr><td>IDT70V28</td><td>32 KB (16K x 16)</td><td>12-15 ns</td><td>TSSOP-44</td><td>~$12</td><td>16-bit data bus</td></tr>
+<tr><td>CY7C136</td><td>2 KB (1K x 8)</td><td>25 ns</td><td>DIP-48</td><td>~$6</td><td>Cypress/Infineon</td></tr>
+<tr><td>IS61SDPE...</td><td>256 KB+</td><td>8 ns</td><td>BGA</td><td>~$15+</td><td>Synchronous, high speed</td></tr></tbody></table>
+<p>
+<strong>Pin count problem again</strong>: IDT7132 needs 10 address + 8 data + 4 control = <strong>22 pins per port</strong>. Too many for CH32V003. Dual-port SRAMs are better suited to MCUs with more pins (STM32, RP2040) or FPGAs.
+</p>
+<h2>Best Option for CH32V003: SPI SRAM Shared Pool</h2>
+<p>
+Given the CH32V003's 18-pin limit, the practical architecture is:
+</p>
+<pre><code class="language-text">                    ┌──── CH32V003 (worker 0)
+<p>
+  23LC1024 ── SPI ──┼──── CH32V003 (worker 1)
+  (128 KB)          ├──── CH32V003 (worker 2)
+                    └──── CH32V003 (worker 3)
+                           │
+                    Token wire (open-drain, one at a time)</code></pre>
+</p>
+<h3>Memory Map Convention</h3>
+<p>
+All MCUs agree on a shared memory layout:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Shared SRAM memory map (128 KB = 0x00000 - 0x1FFFF)
+<p>
+#define REGION_IMAGE     0x00000   // 76800 bytes: 320x240 grayscale image
+#define REGION_RESULT    0x12C00   // 76800 bytes: processed output
+#define REGION_MAILBOX   0x1F800   // 2048 bytes: inter-MCU communication
+</p>
+<p>
+// Mailbox structure (per MCU)
+// Offset 0x00: command (written by controller, read by worker)
+// Offset 0x04: status  (written by worker, read by controller)
+// Offset 0x08: tile_x  (column index of assigned tile)
+// Offset 0x0C: tile_y  (row index of assigned tile)
+</p>
+<p>
+#define MAILBOX(n)  (REGION_MAILBOX + (n) * 64)</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// Shared SRAM memory map (128 KB = 0x00000 - 0x1FFFF)
+<p>
+const REGION_IMAGE: u32   = 0x00000;  // 76800 bytes: 320x240 grayscale image
+const REGION_RESULT: u32  = 0x12C00;  // 76800 bytes: processed output
+const REGION_MAILBOX: u32 = 0x1F800;  // 2048 bytes: inter-MCU communication
+</p>
+<p>
+// Mailbox structure (per MCU)
+// Offset 0x00: command (written by controller, read by worker)
+// Offset 0x04: status  (written by worker, read by controller)
+// Offset 0x08: tile_x  (column index of assigned tile)
+// Offset 0x0C: tile_y  (row index of assigned tile)
+</p>
+<p>
+const fn mailbox(n: u32) -&gt; u32 {
+    REGION_MAILBOX + n * 64
+}</code></pre></div></div>
+</p>
+<h3>Complete Workflow</h3>
+<pre><code class="language-text">1. Controller writes image data into REGION_IMAGE
+<ol>
+<li>Controller writes tile assignments into each MCU's mailbox</li>
+<li>Controller releases token</li>
+</ol>
+<ol>
+<li>Worker 0 acquires token</li>
+</ol>   - Reads its mailbox: "process tile (2,3)"
+<p>
+   - Reads 1280 bytes of tile data from REGION_IMAGE
+   - Releases token
+   - Processes tile locally in internal 2 KB SRAM
+   - Acquires token
+   - Writes result to REGION_RESULT
+   - Updates mailbox status = DONE
+   - Releases token
+</p>
+<ol>
+<li>Workers 1, 2, 3 do the same (round-robin token passing)</li>
+</ol>
+<ol>
+<li>Controller polls mailboxes. When all DONE → frame complete.</code></pre></li>
+</ol>
+<h3>Throughput Analysis</h3>
+<pre><code class="language-text">SPI @ 20 MHz, 128 KB shared SRAM
+<p>
+Read 1280 bytes (one tile): ~70 us (including address overhead)
+Write 1280 bytes (result):  ~70 us
+Mailbox read/write:         ~5 us
+</p>
+<p>
+Per worker per frame:       ~145 us bus time
+4 workers sequential:       ~580 us total bus time
+Processing per tile (3x3):  ~3 ms
+</p>
+<p>
+Frame time = 580 us (bus) + 3 ms (compute, parallel) ≈ 3.6 ms
+For 320x240 / 4 workers = tiles/worker varies, pipeline limited by bus</code></pre>
+</p>
+<p>
+With 60 tiles and 4 workers doing 15 tiles each:
+</p>
+<ul>
+<li>Bus time: 15 × 145 us × 4 = 8.7 ms (sequential access)</li>
+<li>Compute: 15 × 3 ms = 45 ms (parallel across workers)</li>
+<li>Total: ~45 ms per frame → <strong>~22 fps for QVGA 3x3 convolution</strong></li>
+</ul>
+<p>
+Adding more workers speeds up compute but doesn't help bus contention (still one-at-a-time SPI).
+</p>
+<h3>Scaling: Multiple SPI SRAMs</h3>
+<p>
+To reduce bus contention, add more SRAM chips — each shared by a subset of workers:
+</p>
+<pre><code class="language-text">  23LC1024 #0 ── SPI ── Workers 0-3    (each 4-worker group
+<p>
+  23LC1024 #1 ── SPI ── Workers 4-7     shares one SRAM)
+  23LC1024 #2 ── SPI ── Workers 8-11
+  23LC1024 #3 ── SPI ── Workers 12-15</code></pre>
+</p>
+<p>
+4 groups of 4 workers each, bus contention reduced 4x. The controller distributes image tiles to each SRAM.
+</p>
+<h2>Memory Map Design Patterns</h2>
+<h3>Partitioned Regions (No Contention)</h3>
+<p>
+Assign each MCU a non-overlapping write region. Any MCU can read anywhere, but only writes to its own region:
+</p>
+<pre><code class="language-text">  MCU 0 writes: 0x00000 - 0x07FFF
+<p>
+  MCU 1 writes: 0x08000 - 0x0FFFF
+  MCU 2 writes: 0x10000 - 0x17FFF
+  MCU 3 writes: 0x18000 - 0x1FFFF
+</p>
+<p>
+  All MCUs can read any region</code></pre>
+</p>
+<p>
+This eliminates write-write contention entirely.
+</p>
+<h3>Producer-Consumer with Flags</h3>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">#define FLAG_EMPTY  0x00
+<p>
+#define FLAG_FULL   0xFF
+</p>
+<p>
+// Producer writes data, then sets flag
+void produce(uint32_t slot_addr, uint8_t *data, uint32_t len) {
+    sram_acquire();
+    sram_write_block(slot_addr + 4, data, len);
+    sram_write_byte(slot_addr, FLAG_FULL);       // flag at offset 0
+    sram_release();
+}
+</p>
+<p>
+// Consumer polls flag, reads data, clears flag
+int consume(uint32_t slot_addr, uint8_t *data, uint32_t len) {
+    sram_acquire();
+    uint8_t flag = sram_read_byte(slot_addr);
+    if (flag != FLAG_FULL) {
+        sram_release();
+        return 0;   // nothing to consume
+    }
+    sram_read_block(slot_addr + 4, data, len);
+    sram_write_byte(slot_addr, FLAG_EMPTY);
+    sram_release();
+    return 1;
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">const FLAG_EMPTY: u8 = 0x00;
+<p>
+const FLAG_FULL: u8  = 0xFF;
+</p>
+<p>
+// Producer writes data, then sets flag
+fn produce(slot_addr: u32, data: &amp;[u8]) {
+    sram_acquire();
+    sram_write_block(slot_addr + 4, data);
+    sram_write_byte(slot_addr, FLAG_FULL);       // flag at offset 0
+    sram_release();
+}
+</p>
+<p>
+// Consumer polls flag, reads data, clears flag
+fn consume(slot_addr: u32, data: &amp;mut [u8]) -&gt; bool {
+    sram_acquire();
+    let flag = sram_read_byte(slot_addr);
+    if flag != FLAG_FULL {
+        sram_release();
+        return false; // nothing to consume
+    }
+    sram_read_block(slot_addr + 4, data);
+    sram_write_byte(slot_addr, FLAG_EMPTY);
+    sram_release();
+    true
+}</code></pre></div></div>
+</p>
+<h3>Ring Buffer in Shared SRAM</h3>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Shared ring buffer header (in SRAM)
+<p>
+// Offset 0: write_idx (producer updates)
+// Offset 4: read_idx  (consumer updates)
+// Offset 8: data[RING_SIZE]
+</p>
+<p>
+#define RING_BASE    0x1F000
+#define RING_SIZE    1024
+#define RING_WIDX    (RING_BASE + 0)
+#define RING_RIDX    (RING_BASE + 4)
+#define RING_DATA    (RING_BASE + 8)
+</p>
+<p>
+void ring_push(uint8_t val) {
+    sram_acquire();
+    uint32_t widx = sram_read_word(RING_WIDX);
+    sram_write_byte(RING_DATA + (widx % RING_SIZE), val);
+    sram_write_word(RING_WIDX, widx + 1);
+    sram_release();
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// Shared ring buffer header (in SRAM)
+<p>
+// Offset 0: write_idx (producer updates)
+// Offset 4: read_idx  (consumer updates)
+// Offset 8: data[RING_SIZE]
+</p>
+<p>
+const RING_BASE: u32 = 0x1F000;
+const RING_SIZE: u32 = 1024;
+const RING_WIDX: u32 = RING_BASE;
+const RING_RIDX: u32 = RING_BASE + 4;
+const RING_DATA: u32 = RING_BASE + 8;
+</p>
+<p>
+fn ring_push(val: u8) {
+    sram_acquire();
+    let widx = sram_read_word(RING_WIDX);
+    sram_write_byte(RING_DATA + (widx % RING_SIZE), val);
+    sram_write_word(RING_WIDX, widx + 1);
+    sram_release();
+}</code></pre></div></div>
+</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://www.microchip.com/en-us/product/23lc1024">23LC1024 - Microchip 1Mbit SPI Serial SRAM</a> — Product page with specs and documentation</li>
+<li><a href="https://www.pjrc.com/teensy/23LC1024.pdf">23LC1024 Datasheet</a> — Command set, sequential mode, SQI interface details</li>
+<li><a href="https://www.analog.com/en/resources/design-notes/dual-port-ram.html">Dual Port RAM - Analog Devices</a> — How dual-port SRAM arbitration works</li>
+<li><a href="https://www.renesas.com/en/products/memory-logic/multi-port-memory/asynchronous-dual-port-rams">Asynchronous Dual-Port RAMs - Renesas</a> — Product family and contention resolution</li>
+<li><a href="https://community.infineon.com/t5/SRAM/Memory-sharing-Between-two-microcontrollers/td-p/345889">Memory Sharing Between Two Microcontrollers - Infineon</a> — Community discussion of shared memory approaches</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="../../mcu-architecture/memory-architecture/sram.html">SRAM</a> — How SRAM works at the cell level</li>
+<li><a href="../../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a> — SPI bus fundamentals for serial SRAM access</li>
+<li><a href="dma-controller.html">DMA Controller</a> — Accelerating SPI transfers with DMA</li>
+<li><a href="static-allocation-patterns.html">Static Allocation Patterns</a> — Ring buffers and memory pools</li>
+<li><a href="../mcu-families-compared/ch32v003-parallel-image-processing.html">CH32V003 Parallel Image Processing</a> — Applying shared RAM to the multi-MCU image processing case study</li>
+<li><a href="../../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a> — GPIO-level synchronization techniques</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://www.microchip.com/en-us/product/23lc1024" target="_blank" rel="noopener">23LC1024 - 1Mbit SPI Serial SRAM</a></li><li><a href="https://www.analog.com/en/resources/design-notes/dual-port-ram.html" target="_blank" rel="noopener">Dual Port RAM - Analog Devices</a></li><li><a href="https://www.renesas.com/en/products/memory-logic/multi-port-memory/asynchronous-dual-port-rams" target="_blank" rel="noopener">Asynchronous Dual-Port RAMs - Renesas</a></li><li><a href="https://community.infineon.com/t5/SRAM/Memory-sharing-Between-two-microcontrollers/td-p/345889" target="_blank" rel="noopener">Memory Sharing Between Two Microcontrollers - Infineon</a></li><li><a href="https://www.pjrc.com/teensy/23LC1024.pdf" target="_blank" rel="noopener">23LC1024 Datasheet</a></li></ul></div>
+      <div class="page-nav"><a href="static-allocation-patterns.html"><span class="nav-label">← Previous</span><span class="nav-title">Static Allocation Patterns</span></a><a class="next" href="../mcu-families-compared/index.html"><span class="nav-label">Next →</span><span class="nav-title">How to Read a Datasheet</span></a></div>
+    </main>
+  </div>
+  <script src="../../scripts/main.js"></script>
+</body>
+</html>

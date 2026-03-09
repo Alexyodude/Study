@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cross-Compilation Toolchain — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="index.html">What Bare-Metal Means</a><a class="nav-item active" href="cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="startup-code.html">Startup Code</a><a class="nav-item" href="vector-table.html">Vector Table</a><a class="nav-item" href="linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../mcu-bare-metal-programming/index.html">Bare-Metal Programming — Write Code for Bare Hardware</a><span class="sep">/</span><span>Cross-Compilation Toolchain</span></div>
+      <h1>Cross-Compilation Toolchain</h1>
+      <div class="tags"><span class="tag">toolchain</span><span class="tag">gcc</span><span class="tag">arm-none-eabi</span><span class="tag">cross-compilation</span><span class="tag">newlib</span><span class="tag">binutils</span></div>
+      <h2>What Cross-Compilation Is</h2>
+<p>
+When you compile code on your PC (the <strong>host</strong>) to run on your PC, that is native compilation. When you compile code on your PC to run on a different processor (the <strong>target</strong>), that is cross-compilation.
+</p>
+<p>
+Your laptop has an x86-64 CPU. Your STM32 has an ARM Cortex-M CPU. They use completely different instruction sets. You need a compiler that runs on x86-64 but produces ARM machine code.
+</p>
+<pre><code class="language-text">Host (x86-64 PC)          Target (ARM Cortex-M)
+<p>
+  gcc main.c -o main     --&gt; runs on PC only
+  arm-none-eabi-gcc       --&gt; produces ARM binary</code></pre>
+</p>
+<h2>The GNU ARM Toolchain: arm-none-eabi-gcc</h2>
+<p>
+The standard open-source toolchain for bare-metal ARM development is <a href="https://developer.arm.com/downloads/-/gnu-rm"><code>arm-none-eabi-gcc</code></a>. The name encodes what it targets:
+</p>
+<table><thead><tr><th>Part</th><th>Meaning</th></tr></thead><tbody><tr><td><code>arm</code></td><td>ARM architecture</td></tr>
+<tr><td><code>none</code></td><td>No operating system (bare-metal)</td></tr>
+<tr><td><code>eabi</code></td><td>Embedded Application Binary Interface</td></tr></tbody></table>
+<p>
+The toolchain includes:
+</p>
+<ul>
+<li><code>arm-none-eabi-gcc</code> -- C/C++ compiler</li>
+<li><code>arm-none-eabi-as</code> -- assembler</li>
+<li><code>arm-none-eabi-ld</code> -- linker</li>
+<li><code>arm-none-eabi-objcopy</code> -- binary format converter</li>
+<li><code>arm-none-eabi-objdump</code> -- disassembler</li>
+<li><code>arm-none-eabi-size</code> -- section size reporter</li>
+<li><code>arm-none-eabi-gdb</code> -- debugger</li>
+</ul>
+<h2>Key Compiler Flags</h2>
+<h3>CPU and Architecture</h3>
+<pre><code class="language-bash">-mcpu=cortex-m4        # Target a specific core (m0, m0plus, m3, m4, m7, m33...)
+<p>
+-mthumb                # Generate Thumb instruction set (all Cortex-M use Thumb)</code></pre>
+</p>
+<p>
+Always specify <code>-mcpu</code> so the compiler can use the right instruction set and select the correct <code>libgcc</code>.
+</p>
+<h3>Floating Point</h3>
+<pre><code class="language-bash">-mfloat-abi=soft       # Software floating point (no FPU)
+<p>
+-mfloat-abi=softfp     # Hardware FPU, but soft-float calling convention
+-mfloat-abi=hard       # Hardware FPU with hardware calling convention
+-mfpu=fpv4-sp-d16      # Specify FPU type (for Cortex-M4F)</code></pre>
+</p>
+<p>
+Cortex-M0/M3 have no FPU -- use <code>soft</code>. Cortex-M4F/M7 typically use <code>hard</code> with the appropriate <code>-mfpu</code>.
+</p>
+<h3>Optimization</h3>
+<pre><code class="language-bash">-O0     # No optimization (best for debugging)
+<p>
+-O1     # Basic optimization
+-O2     # Full optimization (good for release)
+-Os     # Optimize for size (common for flash-constrained MCUs)
+-Og     # Optimize for debugging (balances debug info and speed)</code></pre>
+</p>
+<p>
+For most embedded projects, <code>-Os</code> is the default choice because flash space is limited.
+</p>
+<h3>Section Control</h3>
+<pre><code class="language-bash">-ffunction-sections    # Place each function in its own section
+<p>
+-fdata-sections        # Place each global variable in its own section</code></pre>
+</p>
+<p>
+Combined with the linker flag <code>--gc-sections</code>, these allow the linker to discard unused functions and data, significantly reducing binary size.
+</p>
+<h2>Newlib vs Newlib-Nano</h2>
+<p>
+Bare-metal programs still need a C library for functions like <code>memcpy</code>, <code>printf</code>, and <code>malloc</code>. The standard choice is <strong>newlib</strong>, an open-source C library designed for embedded systems. The <a href="https://mcuoneclipse.com/2023/01/28/which-embedded-gcc-standard-library-newlib-newlib-nano/">newlib vs newlib-nano comparison</a> explains the tradeoffs in detail.
+</p>
+<table><thead><tr><th>Feature</th><th>newlib</th><th>newlib-nano</th></tr></thead><tbody><tr><td>Flash usage</td><td>~50 KB+</td><td>~15 KB</td></tr>
+<tr><td>RAM usage</td><td>~25 KB</td><td>~2.5 KB</td></tr>
+<tr><td>printf float support</td><td>Yes</td><td>No (unless enabled)</td></tr>
+<tr><td>Wide character support</td><td>Yes</td><td>No</td></tr>
+<tr><td>Spec file</td><td>(default)</td><td><code>-specs=nano.specs</code></td></tr></tbody></table>
+<p>
+To use newlib-nano, add this to your link flags:
+</p>
+<pre><code class="language-bash">arm-none-eabi-gcc ... -specs=nano.specs -specs=nosys.specs</code></pre>
+<code>nosys.specs</code> provides stub implementations of system calls (<code>_read</code>, <code>_write</code>, <code>_sbrk</code>, etc.) that would normally be provided by an OS.
+<h2>Binary Utilities</h2>
+<h3>objcopy -- Format Conversion</h3>
+<p>
+Most flash tools need raw binary or Intel HEX, not ELF:
+</p>
+<pre><code class="language-bash"># ELF to raw binary
+<p>
+arm-none-eabi-objcopy -O binary firmware.elf firmware.bin
+</p>
+<h1>ELF to Intel HEX</h1>
+<p>
+arm-none-eabi-objcopy -O ihex firmware.elf firmware.hex</code></pre>
+</p>
+<h3>objdump -- Disassembly and Inspection</h3>
+<pre><code class="language-bash"># Disassemble with source interleaved
+<p>
+arm-none-eabi-objdump -dS firmware.elf
+</p>
+<h1>Show section headers</h1>
+<p>
+arm-none-eabi-objdump -h firmware.elf</code></pre>
+</p>
+<p>
+Invaluable for verifying that the vector table is at the right address or that a function was properly inlined.
+</p>
+<h3>size -- Section Size Report</h3>
+<pre><code class="language-bash">arm-none-eabi-size firmware.elf
+<h1>   text    data     bss     dec     hex filename</h1>
+<h1>   3240      12     284    3536     dd0 firmware.elf</code></pre></h1>
+<ul>
+<li><strong>text</strong> = code + constants (lives in flash)</li>
+<li><strong>data</strong> = initialized globals (stored in flash, copied to RAM)</li>
+<li><strong>bss</strong> = zero-initialized globals (lives in RAM)</li>
+<li><strong>dec</strong> = text + data + bss (total)</li>
+</ul>
+<h2>Installing the Toolchain</h2>
+<h3>Linux (Debian/Ubuntu)</h3>
+<pre><code class="language-bash">sudo apt install gcc-arm-none-eabi</code></pre>
+<h3>macOS (Homebrew)</h3>
+<pre><code class="language-bash">brew install arm-none-eabi-gcc</code></pre>
+<h3>Windows</h3>
+<p>
+Download the installer from <a href="https://developer.arm.com/downloads/-/gnu-rm">ARM Developer</a> or use the package manager:
+</p>
+<pre><code class="language-bash"># With Scoop
+<p>
+scoop install gcc-arm-none-eabi
+</p>
+<h1>With Chocolatey</h1>
+<p>
+choco install gcc-arm-embedded</code></pre>
+</p>
+<h3>Verify Installation</h3>
+<pre><code class="language-bash">arm-none-eabi-gcc --version
+<p>
+arm-none-eabi-size --version</code></pre>
+</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://developer.arm.com/downloads/-/gnu-rm">GNU Arm Embedded Toolchain Downloads - ARM Developer</a> — Official ARM toolchain download page</li>
+<li><a href="https://gcc.gnu.org/onlinedocs/gcc/ARM-Options.html">ARM Options - GCC Documentation</a> — GCC reference for ARM-specific compiler flags</li>
+<li><a href="https://mcuoneclipse.com/2023/01/28/which-embedded-gcc-standard-library-newlib-newlib-nano/">Which Embedded GCC Standard Library? newlib, newlib-nano</a> — Comparison of newlib and newlib-nano tradeoffs</li>
+<li><a href="https://interrupt.memfault.com/blog/boostrapping-libc-with-newlib">From Zero to main(): Bootstrapping libc with Newlib - Memfault</a> — Walkthrough of integrating newlib in bare-metal projects</li>
+<li><a href="https://metebalci.com/blog/demystifying-arm-gnu-toolchain-specs-nano-and-nosys/">Demystifying Arm GNU Toolchain Specs: nano and nosys</a> — Explains spec files for nano and nosys linking</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="makefile-and-build-system.html">Makefile and Build System</a> -- putting the toolchain to work</li>
+<li><a href="linker-scripts-in-practice.html">Linker Scripts in Practice</a> -- the linker script the toolchain needs</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://developer.arm.com/downloads/-/gnu-rm" target="_blank" rel="noopener">GNU Arm Embedded Toolchain Downloads - ARM Developer</a></li><li><a href="https://gcc.gnu.org/onlinedocs/gcc/ARM-Options.html" target="_blank" rel="noopener">ARM Options - GCC Documentation</a></li><li><a href="https://mcuoneclipse.com/2023/01/28/which-embedded-gcc-standard-library-newlib-newlib-nano/" target="_blank" rel="noopener">Which Embedded GCC Standard Library? newlib, newlib-nano</a></li><li><a href="https://interrupt.memfault.com/blog/boostrapping-libc-with-newlib" target="_blank" rel="noopener">From Zero to main(): Bootstrapping libc with Newlib - Memfault</a></li><li><a href="https://metebalci.com/blog/demystifying-arm-gnu-toolchain-specs-nano-and-nosys/" target="_blank" rel="noopener">Demystifying Arm GNU Toolchain Specs: nano and nosys</a></li></ul></div>
+      <div class="page-nav"><a href="index.html"><span class="nav-label">← Previous</span><span class="nav-title">What Bare-Metal Means</span></a><a class="next" href="startup-code.html"><span class="nav-label">Next →</span><span class="nav-title">Startup Code</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

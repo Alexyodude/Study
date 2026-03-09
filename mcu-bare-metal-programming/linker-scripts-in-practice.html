@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linker Scripts in Practice — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="index.html">What Bare-Metal Means</a><a class="nav-item" href="cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="startup-code.html">Startup Code</a><a class="nav-item" href="vector-table.html">Vector Table</a><a class="nav-item active" href="linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../mcu-bare-metal-programming/index.html">Bare-Metal Programming — Write Code for Bare Hardware</a><span class="sep">/</span><span>Linker Scripts in Practice</span></div>
+      <h1>Linker Scripts in Practice</h1>
+      <div class="tags"><span class="tag">linker-script</span><span class="tag">memory-layout</span><span class="tag">sections</span><span class="tag">flash</span><span class="tag">sram</span><span class="tag">gnu-ld</span></div>
+      <h2>Why You Need a Linker Script</h2>
+<p>
+The linker combines all your compiled object files (<code>.o</code>) into a single executable. On a desktop OS, the linker uses a default script because every program has the same memory layout. On a bare-metal MCU, every chip has different flash and SRAM addresses and sizes. You must tell the linker exactly where to put everything.
+</p>
+<p>
+As explained in <a href="https://dev.to/ripan030/linker-scripts-explained-controlling-memory-layout-on-bare-metal-3ocb">Linker Scripts Explained</a>, a linker script answers two questions:
+</p>
+<ol>
+<li><strong>What memory regions exist?</strong> (flash at what address, SRAM at what address, how big)</li>
+<li><strong>What goes where?</strong> (code in flash, variables in SRAM, vector table at the start)</li>
+</ol>
+<h2>MEMORY Command: Defining Flash and SRAM</h2>
+<p>
+The <code>MEMORY</code> block declares the physical memory regions of your MCU:
+</p>
+<pre><code class="language-ld">MEMORY
+<p>
+{
+    FLASH (rx)  : ORIGIN = 0x08000000, LENGTH = 64K
+    SRAM  (rwx) : ORIGIN = 0x20000000, LENGTH = 20K
+}</code></pre>
+</p>
+<p>
+Each entry specifies:
+</p>
+<ul>
+<li><strong>Name</strong> -- an arbitrary label (FLASH, SRAM, RAM, etc.)</li>
+<li><strong>Attributes</strong> -- <code>r</code> (read), <code>w</code> (write), <code>x</code> (execute)</li>
+<li><strong>ORIGIN</strong> -- the starting physical address</li>
+<li><strong>LENGTH</strong> -- the size of the region</li>
+</ul>
+<p>
+These values come directly from your MCU's datasheet. For <a href="https://medium.com/@csrohit/writing-linker-script-for-stm32-arm-cortex-m3-%EF%B8%8F-fdc2acaaddcc">STM32F103C8T6</a> (the "Blue Pill"):
+</p>
+<ul>
+<li>Flash: 64 KB starting at <code>0x0800_0000</code></li>
+<li>SRAM: 20 KB starting at <code>0x2000_0000</code></li>
+</ul>
+<h2>SECTIONS Command: Placing Code and Data</h2>
+<p>
+The <code>SECTIONS</code> block maps input sections from object files to output sections and assigns them to memory regions:
+</p>
+<pre><code class="language-ld">SECTIONS
+<p>
+{
+    .isr_vector : {
+        KEEP(*(.isr_vector))
+    } &gt; FLASH
+</p>
+<p>
+    .text : {
+        *(.text)
+        <em>(.text</em>)
+    } &gt; FLASH
+</p>
+<p>
+    .rodata : {
+        *(.rodata)
+        <em>(.rodata</em>)
+    } &gt; FLASH
+</p>
+<p>
+    .data : {
+        *(.data)
+        <em>(.data</em>)
+    } &gt; SRAM AT &gt; FLASH
+</p>
+<p>
+    .bss : {
+        *(.bss)
+        <em>(.bss</em>)
+        *(COMMON)
+    } &gt; SRAM
+}</code></pre>
+</p>
+<p>
+The syntax <code>> SRAM AT > FLASH</code> means: the <code>.data</code> section lives in SRAM at runtime (VMA) but is stored in FLASH initially (LMA). The startup code copies it from flash to SRAM.
+</p>
+<h2>KEEP() for the Vector Table</h2>
+<p>
+When you compile with <code>-ffunction-sections -fdata-sections</code> and link with <code>--gc-sections</code>, the linker removes any section not reachable from the entry point. The vector table is referenced by hardware, not by code, so the linker might discard it.
+</p>
+<code>KEEP()</code> tells the linker to never garbage-collect the specified section:
+<pre><code class="language-ld">.isr_vector : {
+<p>
+    . = ALIGN(4);
+    KEEP(*(.isr_vector))
+    . = ALIGN(4);
+} &gt; FLASH</code></pre>
+</p>
+<h2>Linker Symbols: _sidata, _sdata, _edata, _sbss, _ebss</h2>
+<p>
+The startup code needs to know where sections start and end so it can copy <code>.data</code> and zero <code>.bss</code>. The linker script defines these boundary symbols:
+</p>
+<pre><code class="language-ld">.data : {
+<p>
+    . = ALIGN(4);
+    _sdata = .;          /<em> Start of .data in SRAM </em>/
+    *(.data)
+    <em>(.data</em>)
+    . = ALIGN(4);
+    _edata = .;          /<em> End of .data in SRAM </em>/
+} &gt; SRAM AT &gt; FLASH
+</p>
+<p>
+_sidata = LOADADDR(.data);  /<em> Start of .data in FLASH (LMA) </em>/
+</p>
+<p>
+.bss : {
+    . = ALIGN(4);
+    _sbss = .;           /<em> Start of .bss </em>/
+    *(.bss)
+    <em>(.bss</em>)
+    *(COMMON)
+    . = ALIGN(4);
+    _ebss = .;           /<em> End of .bss </em>/
+} &gt; SRAM</code></pre>
+</p>
+<p>
+These symbols have no storage -- they are just addresses. In C, you declare them as <code>extern</code> and take their address:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">extern uint32_t _sidata, _sdata, _edata, _sbss, _ebss;</code></pre></div>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// In Rust, linker symbols are declared as extern statics
+<p>
+// Their address (not value) is what matters
+extern "C" {
+    static _sidata: u32;
+    static _sdata: u32;
+    static _edata: u32;
+    static _sbss: u32;
+    static _ebss: u32;
+}</code></pre></div></div>
+</p>
+<h2>ALIGN and Padding</h2>
+<code>ALIGN(n)</code> rounds the location counter up to the next <code>n</code>-byte boundary. ARM Cortex-M requires word-aligned (4-byte) access for most operations:
+<pre><code class="language-ld">. = ALIGN(4);    /<em> Ensure 4-byte alignment </em>/</code></pre>
+<p>
+Without proper alignment, you risk hard faults from unaligned memory access (especially on Cortex-M0 which does not support unaligned access).
+</p>
+<h2>Stack Pointer Symbol</h2>
+<p>
+The linker script also defines the initial stack pointer, typically at the top of SRAM:
+</p>
+<pre><code class="language-ld">_estack = ORIGIN(SRAM) + LENGTH(SRAM);</code></pre>
+<p>
+This value becomes entry 0 of the vector table.
+</p>
+<h2>Full Example: Linker Script for STM32F103</h2>
+<pre><code class="language-ld">/<em> STM32F103C8T6: 64K Flash, 20K SRAM </em>/
+<p>
+ENTRY(Reset_Handler)
+</p>
+<p>
+_estack = ORIGIN(SRAM) + LENGTH(SRAM);
+</p>
+<p>
+MEMORY
+{
+    FLASH (rx)  : ORIGIN = 0x08000000, LENGTH = 64K
+    SRAM  (rwx) : ORIGIN = 0x20000000, LENGTH = 20K
+}
+</p>
+<p>
+SECTIONS
+{
+    /<em> Vector table -- must be first in flash </em>/
+    .isr_vector : {
+        . = ALIGN(4);
+        KEEP(*(.isr_vector))
+        . = ALIGN(4);
+    } &gt; FLASH
+</p>
+<p>
+    /<em> Program code </em>/
+    .text : {
+        . = ALIGN(4);
+        *(.text)
+        <em>(.text</em>)
+        <em>(.glue_7)         /</em> ARM/Thumb interworking */
+        *(.glue_7t)
+        . = ALIGN(4);
+        _etext = .;
+    } &gt; FLASH
+</p>
+<p>
+    /<em> Read-only data (constants, strings) </em>/
+    .rodata : {
+        . = ALIGN(4);
+        *(.rodata)
+        <em>(.rodata</em>)
+        . = ALIGN(4);
+    } &gt; FLASH
+</p>
+<p>
+    /<em> C++ constructor/destructor tables </em>/
+    .init_array : {
+        PROVIDE_HIDDEN(__init_array_start = .);
+        KEEP(<em>(SORT(.init_array.</em>)))
+        KEEP(*(.init_array))
+        PROVIDE_HIDDEN(__init_array_end = .);
+    } &gt; FLASH
+</p>
+<p>
+    /<em> Initialized data: stored in flash, copied to SRAM </em>/
+    _sidata = LOADADDR(.data);
+    .data : {
+        . = ALIGN(4);
+        _sdata = .;
+        *(.data)
+        <em>(.data</em>)
+        . = ALIGN(4);
+        _edata = .;
+    } &gt; SRAM AT &gt; FLASH
+</p>
+<p>
+    /<em> Zero-initialized data </em>/
+    .bss : {
+        . = ALIGN(4);
+        _sbss = .;
+        *(.bss)
+        <em>(.bss</em>)
+        *(COMMON)
+        . = ALIGN(4);
+        _ebss = .;
+    } &gt; SRAM
+</p>
+<p>
+    /<em> Heap and stack: fill remaining SRAM </em>/
+    ._user_heap_stack : {
+        . = ALIGN(8);
+        PROVIDE(end = .);          /<em> Used by _sbrk for malloc </em>/
+        PROVIDE(_heap_start = .);
+        . = . + 0x200;            /<em> Min heap: 512 bytes </em>/
+        . = . + 0x400;            /<em> Min stack: 1024 bytes </em>/
+        . = ALIGN(8);
+    } &gt; SRAM
+}</code></pre>
+</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li><strong>Forgetting <code>KEEP</code> on the vector table</strong> -- the linker discards it, and the MCU boots into garbage.</li>
+<li><strong>Wrong ORIGIN/LENGTH</strong> -- the binary appears to flash correctly but the MCU hard-faults because code is at the wrong address.</li>
+<li><strong>Missing <code>AT > FLASH</code> on <code>.data</code></strong> -- initialized variables are not stored in flash, so they have no initial values after reset.</li>
+<li><strong>Forgetting <code>*(COMMON)</code></strong> -- uninitialized globals declared without <code>static</code> in C go into the COMMON section, not <code>.bss</code>.</li>
+</ul>
+<h2>References</h2>
+<ol>
+<li><a href="https://dev.to/ripan030/linker-scripts-explained-controlling-memory-layout-on-bare-metal-3ocb">Linker Scripts Explained: Controlling Memory Layout on Bare Metal</a> — Beginner-friendly overview of linker script concepts</li>
+<li><a href="https://medium.com/@csrohit/writing-linker-script-for-stm32-arm-cortex-m3-%EF%B8%8F-fdc2acaaddcc">Writing Linker Script for STM32 (Arm Cortex M3)</a> — STM32-specific linker script walkthrough with examples</li>
+<li><a href="https://vivonomicon.com/2018/04/20/bare-metal-stm32-programming-part-2-making-it-to-main/">Bare Metal STM32 Programming Part 2: Making it to Main</a> — Practical linker script and startup code tutorial</li>
+<li><a href="https://stm32world.com/wiki/STM32_Bare_Metal_Development">STM32 Bare Metal Development - STM32World Wiki</a> — Wiki covering bare-metal development on STM32</li>
+<li><a href="https://www.stf12.org/developers/freerots_ec-linker_script.html">GCC Linker Script and STM32 - A Tutorial</a> — In-depth tutorial on GNU linker scripts for STM32</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="startup-code.html">Startup Code</a> -- uses the symbols defined here</li>
+<li><a href="vector-table.html">Vector Table</a> -- placed by the <code>.isr_vector</code> section</li>
+<li><a href="../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout</a> -- the hardware memory map these scripts describe</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://dev.to/ripan030/linker-scripts-explained-controlling-memory-layout-on-bare-metal-3ocb" target="_blank" rel="noopener">Linker Scripts Explained: Controlling Memory Layout on Bare Metal</a></li><li><a href="https://medium.com/@csrohit/writing-linker-script-for-stm32-arm-cortex-m3-%EF%B8%8F-fdc2acaaddcc" target="_blank" rel="noopener">Writing Linker Script for STM32 (Arm Cortex M3)</a></li><li><a href="https://vivonomicon.com/2018/04/20/bare-metal-stm32-programming-part-2-making-it-to-main/" target="_blank" rel="noopener">Bare Metal STM32 Programming Part 2: Making it to Main</a></li><li><a href="https://stm32world.com/wiki/STM32_Bare_Metal_Development" target="_blank" rel="noopener">STM32 Bare Metal Development - STM32World Wiki</a></li><li><a href="https://www.stf12.org/developers/freerots_ec-linker_script.html" target="_blank" rel="noopener">GCC Linker Script and STM32 - A Tutorial</a></li></ul></div>
+      <div class="page-nav"><a href="vector-table.html"><span class="nav-label">← Previous</span><span class="nav-title">Vector Table</span></a><a class="next" href="register-level-programming.html"><span class="nav-label">Next →</span><span class="nav-title">Register-Level Programming</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

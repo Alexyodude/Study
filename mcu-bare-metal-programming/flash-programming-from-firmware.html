@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flash Programming from Firmware — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="index.html">What Bare-Metal Means</a><a class="nav-item" href="cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="startup-code.html">Startup Code</a><a class="nav-item" href="vector-table.html">Vector Table</a><a class="nav-item" href="linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item active" href="flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../mcu-bare-metal-programming/index.html">Bare-Metal Programming — Write Code for Bare Hardware</a><span class="sep">/</span><span>Flash Programming from Firmware</span></div>
+      <h1>Flash Programming from Firmware</h1>
+      <div class="tags"><span class="tag">flash</span><span class="tag">self-programming</span><span class="tag">registers</span><span class="tag">erase</span><span class="tag">write</span><span class="tag">FLASH_CR</span><span class="tag">bare-metal</span></div>
+      <p>
+Sometimes your running firmware needs to write to its own flash memory — to store configuration, implement a bootloader, or update calibration data. This is called <strong>self-programming</strong>. It requires direct control of the flash memory controller registers.
+</p>
+<h2>Why Flash is Different from SRAM</h2>
+<p>
+You cannot write to flash the same way you write to SRAM. A simple <code><em>(uint32_t</em>)0x08010000 = 42;</code> will trigger a <strong>HardFault</strong>.
+</p>
+<p>
+Flash memory has fundamental physical constraints:
+</p>
+<ul>
+<li><strong>Reads</strong> work like SRAM — just dereference the address</li>
+<li><strong>Writes</strong> require the flash controller to apply high voltage (~12V internally) to program cells</li>
+<li><strong>Erasing</strong> must happen before writing — you can only change bits from 1→0, never 0→1</li>
+<li><strong>Erase granularity</strong> is large — you erase entire sectors or pages, not individual bytes</li>
+</ul>
+<p>
+This is why the <a href="../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory Controller</a> exists — it mediates between the CPU and the flash array.
+</p>
+<h2>Flash Controller Registers (STM32F4)</h2>
+<p>
+The flash interface lives at base address <code>0x40023C00</code> on STM32F4:
+</p>
+<table><thead><tr><th>Register</th><th>Offset</th><th>Purpose</th></tr></thead><tbody><tr><td>FLASH_ACR</td><td>0x00</td><td>Access control (wait states, prefetch)</td></tr>
+<tr><td>FLASH_KEYR</td><td>0x04</td><td>Key register (unlock sequence)</td></tr>
+<tr><td>FLASH_OPTKEYR</td><td>0x08</td><td>Option key register</td></tr>
+<tr><td>FLASH_SR</td><td>0x0C</td><td>Status register (busy, errors)</td></tr>
+<tr><td>FLASH_CR</td><td>0x10</td><td>Control register (erase, program, lock)</td></tr></tbody></table>
+<h3>FLASH_CR — Control Register Bits</h3>
+<table><thead><tr><th>Bit</th><th>Name</th><th>Description</th></tr></thead><tbody><tr><td>0</td><td>PG</td><td>Programming enable — set before writing</td></tr>
+<tr><td>1</td><td>SER</td><td>Sector erase — set before erasing a sector</td></tr>
+<tr><td>2</td><td>MER</td><td>Mass erase — erases entire flash</td></tr>
+<tr><td>3:6</td><td>SNB</td><td>Sector number to erase (0-11)</td></tr>
+<tr><td>8:9</td><td>PSIZE</td><td>Program parallelism (00=8-bit, 01=16-bit, 10=32-bit, 11=64-bit)</td></tr>
+<tr><td>16</td><td>STRT</td><td>Start erase operation</td></tr>
+<tr><td>31</td><td>LOCK</td><td>Write-protect the flash controller</td></tr></tbody></table>
+<h3>FLASH_SR — Status Register Bits</h3>
+<table><thead><tr><th>Bit</th><th>Name</th><th>Description</th></tr></thead><tbody><tr><td>0</td><td>EOP</td><td>End of operation</td></tr>
+<tr><td>4</td><td>WRPERR</td><td>Write protection error</td></tr>
+<tr><td>5</td><td>PGAERR</td><td>Programming alignment error</td></tr>
+<tr><td>6</td><td>PGPERR</td><td>Programming parallelism error</td></tr>
+<tr><td>7</td><td>PGSERR</td><td>Programming sequence error</td></tr>
+<tr><td>16</td><td>BSY</td><td>Busy — flash operation in progress</td></tr></tbody></table>
+<h2>Step 1: Unlock the Flash</h2>
+<p>
+The flash controller is <strong>locked by default</strong> to prevent accidental writes. <a href="https://blog.embeddedexpert.io/?p=1716">Unlocking requires writing two magic keys</a> to FLASH_KEYR in sequence:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">#define FLASH_KEY1  0x45670123U
+<p>
+#define FLASH_KEY2  0xCDEF89ABU
+</p>
+<p>
+void flash_unlock(void) {
+    if (FLASH-&gt;CR &amp; FLASH_CR_LOCK) {
+        FLASH-&gt;KEYR = FLASH_KEY1;
+        FLASH-&gt;KEYR = FLASH_KEY2;
+    }
+}
+</p>
+<p>
+void flash_lock(void) {
+    FLASH-&gt;CR |= FLASH_CR_LOCK;
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+const FLASH_BASE: u32 = 0x4002_3C00;
+const FLASH_KEYR: <em>mut u32 = (FLASH_BASE + 0x04) as </em>mut u32;
+const FLASH_CR: <em>mut u32 = (FLASH_BASE + 0x10) as </em>mut u32;
+</p>
+<p>
+const FLASH_KEY1: u32 = 0x4567_0123;
+const FLASH_KEY2: u32 = 0xCDEF_89AB;
+const FLASH_CR_LOCK: u32 = 1 &lt;&lt; 31;
+</p>
+<p>
+unsafe fn flash_unlock() {
+    if read_volatile(FLASH_CR) &amp; FLASH_CR_LOCK != 0 {
+        write_volatile(FLASH_KEYR, FLASH_KEY1);
+        write_volatile(FLASH_KEYR, FLASH_KEY2);
+    }
+}
+</p>
+<p>
+unsafe fn flash_lock() {
+    let cr = read_volatile(FLASH_CR);
+    write_volatile(FLASH_CR, cr | FLASH_CR_LOCK);
+}</code></pre></div></div>
+</p>
+<p>
+<strong>Always lock the flash when done.</strong> Leaving it unlocked means a bug could corrupt your firmware.
+</p>
+<h2>Step 2: Erase Before Writing</h2>
+<p>
+You <strong>must</strong> erase a sector before writing to it. Erasing sets all bits to 1 (0xFF bytes). Then programming changes selected bits to 0.
+</p>
+<h3>Sector Erase (STM32F4)</h3>
+<p>
+STM32F4 flash is divided into sectors of varying sizes:
+</p>
+<table><thead><tr><th>Sector</th><th>Address Range</th><th>Size</th></tr></thead><tbody><tr><td>0</td><td>0x08000000 - 0x08003FFF</td><td>16 KB</td></tr>
+<tr><td>1</td><td>0x08004000 - 0x08007FFF</td><td>16 KB</td></tr>
+<tr><td>2</td><td>0x08008000 - 0x0800BFFF</td><td>16 KB</td></tr>
+<tr><td>3</td><td>0x0800C000 - 0x0800FFFF</td><td>16 KB</td></tr>
+<tr><td>4</td><td>0x08010000 - 0x0801FFFF</td><td>64 KB</td></tr>
+<tr><td>5</td><td>0x08020000 - 0x0803FFFF</td><td>128 KB</td></tr>
+<tr><td>6</td><td>0x08040000 - 0x0805FFFF</td><td>128 KB</td></tr>
+<tr><td>7</td><td>0x08060000 - 0x0807FFFF</td><td>128 KB</td></tr></tbody></table>
+<p>
+<strong>Warning</strong>: erasing sector 0 destroys your vector table and firmware entry point. Never erase sectors containing your running code.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">void flash_erase_sector(uint8_t sector) {
+<p>
+    // Wait for any ongoing operation
+    while (FLASH-&gt;SR &amp; FLASH_SR_BSY);
+</p>
+<p>
+    // Clear previous error flags
+    FLASH-&gt;SR = FLASH_SR_EOP | FLASH_SR_WRPERR |
+                FLASH_SR_PGAERR | FLASH_SR_PGPERR | FLASH_SR_PGSERR;
+</p>
+<p>
+    // Configure: sector erase, select sector number, 32-bit parallelism
+    FLASH-&gt;CR &amp;= ~(FLASH_CR_SNB_Msk);              // clear sector bits
+    FLASH-&gt;CR |= FLASH_CR_SER                       // sector erase mode
+              |  (sector &lt;&lt; FLASH_CR_SNB_Pos)       // sector number
+              |  FLASH_CR_PSIZE_1;                   // 32-bit parallelism
+</p>
+<p>
+    // Start the erase
+    FLASH-&gt;CR |= FLASH_CR_STRT;
+</p>
+<p>
+    // Wait for completion
+    while (FLASH-&gt;SR &amp; FLASH_SR_BSY);
+</p>
+<p>
+    // Clear the SER bit
+    FLASH-&gt;CR &amp;= ~FLASH_CR_SER;
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+const FLASH_SR: <em>mut u32 = (0x4002_3C00 + 0x0C) as </em>mut u32;
+const FLASH_CR: <em>mut u32 = (0x4002_3C00 + 0x10) as </em>mut u32;
+</p>
+<p>
+const FLASH_SR_BSY: u32 = 1 &lt;&lt; 16;
+const FLASH_CR_SER: u32 = 1 &lt;&lt; 1;
+const FLASH_CR_SNB_POS: u32 = 3;
+const FLASH_CR_SNB_MSK: u32 = 0xF &lt;&lt; FLASH_CR_SNB_POS;
+const FLASH_CR_PSIZE_1: u32 = 1 &lt;&lt; 9; // 32-bit parallelism
+const FLASH_CR_STRT: u32 = 1 &lt;&lt; 16;
+</p>
+<p>
+unsafe fn flash_erase_sector(sector: u8) {
+    // Wait for any ongoing operation
+    while read_volatile(FLASH_SR) &amp; FLASH_SR_BSY != 0 {}
+</p>
+<p>
+    // Clear previous error flags (write-1-to-clear)
+    write_volatile(FLASH_SR, 0x0000_00F1);
+</p>
+<p>
+    // Configure: sector erase, select sector number, 32-bit parallelism
+    let mut cr = read_volatile(FLASH_CR);
+    cr &amp;= !FLASH_CR_SNB_MSK;
+    cr |= FLASH_CR_SER
+        | ((sector as u32) &lt;&lt; FLASH_CR_SNB_POS)
+        | FLASH_CR_PSIZE_1;
+    write_volatile(FLASH_CR, cr);
+</p>
+<p>
+    // Start the erase
+    let cr = read_volatile(FLASH_CR);
+    write_volatile(FLASH_CR, cr | FLASH_CR_STRT);
+</p>
+<p>
+    // Wait for completion
+    while read_volatile(FLASH_SR) &amp; FLASH_SR_BSY != 0 {}
+</p>
+<p>
+    // Clear the SER bit
+    let cr = read_volatile(FLASH_CR);
+    write_volatile(FLASH_CR, cr &amp; !FLASH_CR_SER);
+}</code></pre></div></div>
+</p>
+<h3>Page Erase (STM32F0/F1/L0)</h3>
+<p>
+Smaller MCUs use uniform page-based flash (typically 1 KB or 2 KB pages):
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">void flash_erase_page(uint32_t page_address) {
+<p>
+    while (FLASH-&gt;SR &amp; FLASH_SR_BSY);
+</p>
+<p>
+    FLASH-&gt;CR |= FLASH_CR_PER;           // page erase mode
+    FLASH-&gt;AR = page_address;             // page address
+    FLASH-&gt;CR |= FLASH_CR_STRT;          // start erase
+</p>
+<p>
+    while (FLASH-&gt;SR &amp; FLASH_SR_BSY);
+</p>
+<p>
+    FLASH-&gt;CR &amp;= ~FLASH_CR_PER;
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">unsafe fn flash_erase_page(page_address: u32) {
+<p>
+    use core::ptr::{read_volatile, write_volatile};
+</p>
+<p>
+    const FLASH_SR: <em>mut u32 = (0x4002_2000 + 0x0C) as </em>mut u32;
+    const FLASH_CR: <em>mut u32 = (0x4002_2000 + 0x10) as </em>mut u32;
+    const FLASH_AR: <em>mut u32 = (0x4002_2000 + 0x14) as </em>mut u32;
+    const FLASH_SR_BSY: u32 = 1 &lt;&lt; 0;
+    const FLASH_CR_PER: u32 = 1 &lt;&lt; 1;
+    const FLASH_CR_STRT: u32 = 1 &lt;&lt; 6;
+</p>
+<p>
+    while read_volatile(FLASH_SR) &amp; FLASH_SR_BSY != 0 {}
+</p>
+<p>
+    let cr = read_volatile(FLASH_CR);
+    write_volatile(FLASH_CR, cr | FLASH_CR_PER);      // page erase mode
+    write_volatile(FLASH_AR, page_address);             // page address
+    let cr = read_volatile(FLASH_CR);
+    write_volatile(FLASH_CR, cr | FLASH_CR_STRT);      // start erase
+</p>
+<p>
+    while read_volatile(FLASH_SR) &amp; FLASH_SR_BSY != 0 {}
+</p>
+<p>
+    let cr = read_volatile(FLASH_CR);
+    write_volatile(FLASH_CR, cr &amp; !FLASH_CR_PER);
+}</code></pre></div></div>
+</p>
+<h2>Step 3: Write Data to Flash</h2>
+<p>
+After erasing, you can program the flash. The <a href="https://blog.embeddedexpert.io/?p=1716">write procedure</a> involves setting the PG (programming) bit, writing to the target address, and waiting for completion.
+</p>
+<h3>32-bit Write (STM32F4)</h3>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">void flash_write_word(uint32_t address, uint32_t data) {
+<p>
+    // Wait for any ongoing operation
+    while (FLASH-&gt;SR &amp; FLASH_SR_BSY);
+</p>
+<p>
+    // Set 32-bit parallelism and enable programming
+    FLASH-&gt;CR &amp;= ~(FLASH_CR_PSIZE_Msk);
+    FLASH-&gt;CR |= FLASH_CR_PSIZE_1       // PSIZE = 10 → 32-bit
+              |  FLASH_CR_PG;            // programming mode
+</p>
+<p>
+    // Write the word — this triggers the flash controller
+    <em>(volatile uint32_t</em>)address = data;
+</p>
+<p>
+    // Wait for completion
+    while (FLASH-&gt;SR &amp; FLASH_SR_BSY);
+</p>
+<p>
+    // Check for errors
+    if (FLASH-&gt;SR &amp; (FLASH_SR_WRPERR | FLASH_SR_PGAERR |
+                     FLASH_SR_PGPERR | FLASH_SR_PGSERR)) {
+        // Handle error — clear flags
+        FLASH-&gt;SR = FLASH-&gt;SR;  // write 1 to clear
+    }
+</p>
+<p>
+    // Disable programming mode
+    FLASH-&gt;CR &amp;= ~FLASH_CR_PG;
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">use core::ptr::{read_volatile, write_volatile};
+<p>
+const FLASH_SR: <em>mut u32 = (0x4002_3C00 + 0x0C) as </em>mut u32;
+const FLASH_CR: <em>mut u32 = (0x4002_3C00 + 0x10) as </em>mut u32;
+const FLASH_SR_BSY: u32 = 1 &lt;&lt; 16;
+const FLASH_CR_PG: u32 = 1 &lt;&lt; 0;
+const FLASH_CR_PSIZE_MSK: u32 = 0x3 &lt;&lt; 8;
+const FLASH_CR_PSIZE_1: u32 = 1 &lt;&lt; 9;
+const FLASH_SR_ERR_MASK: u32 = 0xF0; // WRPERR | PGAERR | PGPERR | PGSERR
+</p>
+<p>
+unsafe fn flash_write_word(address: u32, data: u32) {
+    // Wait for any ongoing operation
+    while read_volatile(FLASH_SR) &amp; FLASH_SR_BSY != 0 {}
+</p>
+<p>
+    // Set 32-bit parallelism and enable programming
+    let mut cr = read_volatile(FLASH_CR);
+    cr &amp;= !FLASH_CR_PSIZE_MSK;
+    cr |= FLASH_CR_PSIZE_1 | FLASH_CR_PG;
+    write_volatile(FLASH_CR, cr);
+</p>
+<p>
+    // Write the word — this triggers the flash controller
+    write_volatile(address as *mut u32, data);
+</p>
+<p>
+    // Wait for completion
+    while read_volatile(FLASH_SR) &amp; FLASH_SR_BSY != 0 {}
+</p>
+<p>
+    // Check for errors
+    let sr = read_volatile(FLASH_SR);
+    if sr &amp; FLASH_SR_ERR_MASK != 0 {
+        // Clear error flags (write-1-to-clear)
+        write_volatile(FLASH_SR, sr);
+    }
+</p>
+<p>
+    // Disable programming mode
+    let cr = read_volatile(FLASH_CR);
+    write_volatile(FLASH_CR, cr &amp; !FLASH_CR_PG);
+}</code></pre></div></div>
+</p>
+<h3>16-bit Write (STM32F0/F1)</h3>
+<p>
+On F0/F1 series, flash <a href="https://www.eevblog.com/forum/microcontrollers/programming-flash-memory-stm32-bare-metal/">must be written as half-words (16-bit)</a>. Writing a 32-bit value causes a HardFault:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">void flash_write_halfword(uint32_t address, uint16_t data) {
+<p>
+    while (FLASH-&gt;SR &amp; FLASH_SR_BSY);
+</p>
+<p>
+    FLASH-&gt;CR |= FLASH_CR_PG;
+</p>
+<p>
+    // MUST use 16-bit pointer — 32-bit write causes HardFault!
+    <em>(volatile uint16_t</em>)address = data;
+</p>
+<p>
+    while (FLASH-&gt;SR &amp; FLASH_SR_BSY);
+</p>
+<p>
+    FLASH-&gt;CR &amp;= ~FLASH_CR_PG;
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">unsafe fn flash_write_halfword(address: u32, data: u16) {
+<p>
+    use core::ptr::{read_volatile, write_volatile};
+</p>
+<p>
+    const FLASH_SR: <em>mut u32 = (0x4002_2000 + 0x0C) as </em>mut u32;
+    const FLASH_CR: <em>mut u32 = (0x4002_2000 + 0x10) as </em>mut u32;
+    const FLASH_SR_BSY: u32 = 1 &lt;&lt; 0;
+    const FLASH_CR_PG: u32 = 1 &lt;&lt; 0;
+</p>
+<p>
+    while read_volatile(FLASH_SR) &amp; FLASH_SR_BSY != 0 {}
+</p>
+<p>
+    let cr = read_volatile(FLASH_CR);
+    write_volatile(FLASH_CR, cr | FLASH_CR_PG);
+</p>
+<p>
+    // MUST use 16-bit pointer — 32-bit write causes HardFault!
+    write_volatile(address as *mut u16, data);
+</p>
+<p>
+    while read_volatile(FLASH_SR) &amp; FLASH_SR_BSY != 0 {}
+</p>
+<p>
+    let cr = read_volatile(FLASH_CR);
+    write_volatile(FLASH_CR, cr &amp; !FLASH_CR_PG);
+}</code></pre></div></div>
+</p>
+<h3>Writing a Block of Data</h3>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">void flash_write_buffer(uint32_t start_address, uint32_t *data, uint32_t word_count) {
+<p>
+    flash_unlock();
+</p>
+<p>
+    for (uint32_t i = 0; i &lt; word_count; i++) {
+        flash_write_word(start_address + (i * 4), data[i]);
+    }
+</p>
+<p>
+    flash_lock();
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">unsafe fn flash_write_buffer(start_address: u32, data: &amp;[u32]) {
+<p>
+    flash_unlock();
+</p>
+<p>
+    for (i, &amp;word) in data.iter().enumerate() {
+        flash_write_word(start_address + (i as u32 * 4), word);
+    }
+</p>
+<p>
+    flash_lock();
+}</code></pre></div></div>
+</p>
+<h2>Complete Example: Store and Read Configuration</h2>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">#define CONFIG_SECTOR    7                  // last 128KB sector
+<p>
+#define CONFIG_ADDR      0x08060000U        // sector 7 base address
+</p>
+<p>
+typedef struct {
+    uint32_t magic;          // 0xDEADBEEF if valid
+    uint32_t baud_rate;
+    uint32_t adc_calibration;
+    uint32_t device_id;
+} Config_t;
+</p>
+<p>
+void config_save(const Config_t *cfg) {
+    flash_unlock();
+    flash_erase_sector(CONFIG_SECTOR);
+</p>
+<p>
+    const uint32_t <em>words = (const uint32_t</em>)cfg;
+    uint32_t count = sizeof(Config_t) / 4;
+</p>
+<p>
+    for (uint32_t i = 0; i &lt; count; i++) {
+        flash_write_word(CONFIG_ADDR + (i * 4), words[i]);
+    }
+</p>
+<p>
+    flash_lock();
+}
+</p>
+<p>
+Config_t config_load(void) {
+    // Reading flash is just a pointer dereference — no unlock needed
+    return <em>(const Config_t</em>)CONFIG_ADDR;
+}
+</p>
+<p>
+void config_init(void) {
+    Config_t cfg = config_load();
+    if (cfg.magic != 0xDEADBEEF) {
+        // First boot or corrupted — write defaults
+        Config_t defaults = {
+            .magic = 0xDEADBEEF,
+            .baud_rate = 115200,
+            .adc_calibration = 2048,
+            .device_id = 0x0001
+        };
+        config_save(&amp;defaults);
+    }
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">const CONFIG_SECTOR: u8 = 7;
+<p>
+const CONFIG_ADDR: u32 = 0x0806_0000;
+</p>
+<p>
+#[repr(C)]
+#[derive(Clone, Copy)]
+struct Config {
+    magic: u32,           // 0xDEAD_BEEF if valid
+    baud_rate: u32,
+    adc_calibration: u32,
+    device_id: u32,
+}
+</p>
+<p>
+unsafe fn config_save(cfg: &amp;Config) {
+    flash_unlock();
+    flash_erase_sector(CONFIG_SECTOR);
+</p>
+<p>
+    let words = core::slice::from_raw_parts(
+        cfg as <em>const Config as </em>const u32,
+        core::mem::size_of::&lt;Config&gt;() / 4,
+    );
+</p>
+<p>
+    for (i, &amp;word) in words.iter().enumerate() {
+        flash_write_word(CONFIG_ADDR + (i as u32 * 4), word);
+    }
+</p>
+<p>
+    flash_lock();
+}
+</p>
+<p>
+unsafe fn config_load() -&gt; Config {
+    // Reading flash is just a pointer dereference — no unlock needed
+    core::ptr::read_volatile(CONFIG_ADDR as *const Config)
+}
+</p>
+<p>
+unsafe fn config_init() {
+    let cfg = config_load();
+    if cfg.magic != 0xDEAD_BEEF {
+        // First boot or corrupted — write defaults
+        let defaults = Config {
+            magic: 0xDEAD_BEEF,
+            baud_rate: 115200,
+            adc_calibration: 2048,
+            device_id: 0x0001,
+        };
+        config_save(&amp;defaults);
+    }
+}</code></pre></div></div>
+</p>
+<h2>Parallelism and Supply Voltage</h2>
+<p>
+The PSIZE field in FLASH_CR must match your supply voltage:
+</p>
+<table><thead><tr><th>PSIZE</th><th>Access Width</th><th>Required VCC</th></tr></thead><tbody><tr><td>00</td><td>8-bit (byte)</td><td>1.8V - 3.6V</td></tr>
+<tr><td>01</td><td>16-bit (half-word)</td><td>2.1V - 3.6V</td></tr>
+<tr><td>10</td><td>32-bit (word)</td><td>2.7V - 3.6V</td></tr>
+<tr><td>11</td><td>64-bit (double-word)</td><td>2.7V - 3.6V + VPP</td></tr></tbody></table>
+<p>
+If your board runs at 3.3V, use PSIZE = 10 (32-bit) for best speed. Using a wider parallelism than your voltage supports causes <strong>programming errors</strong>.
+</p>
+<h2>Critical Pitfalls</h2>
+<h3>1. Don't Execute from Flash While Writing to It</h3>
+<p>
+The CPU fetches instructions from flash. If you erase/write to the same flash bank the CPU is running from, it stalls or crashes. Solutions:
+</p>
+<ul>
+<li><strong>Run flash routines from RAM</strong> — copy the function to SRAM and call it there</li>
+<li><strong>Use a dual-bank MCU</strong> — write to bank 2 while executing from bank 1</li>
+</ul>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">// Place function in RAM using linker attribute
+<p>
+__attribute__((section(".RamFunc")))
+void flash_erase_from_ram(uint8_t sector) {
+    // ... same erase code, but runs from SRAM
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// In Rust, place a function in RAM using a linker section attribute
+<p>
+#[link_section = ".RamFunc"]
+unsafe fn flash_erase_from_ram(sector: u8) {
+    // ... same erase code, but runs from SRAM
+}</code></pre></div></div>
+</p>
+<h3>2. Interrupts During Flash Operations</h3>
+<p>
+Disable interrupts before flash erase/write. If an ISR fires and tries to read flash while it's being erased, the CPU stalls until the operation completes — or worse, reads garbage.
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">__disable_irq();
+<p>
+flash_erase_sector(7);
+flash_write_word(CONFIG_ADDR, 0xDEADBEEF);
+__enable_irq();</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">unsafe {
+<p>
+    cortex_m::interrupt::disable();
+    flash_erase_sector(7);
+    flash_write_word(CONFIG_ADDR, 0xDEAD_BEEF);
+    cortex_m::interrupt::enable();
+}
+</p>
+<p>
+// Idiomatic Rust: use critical_section for scoped interrupt disable
+cortex_m::interrupt::free(|_cs| unsafe {
+    flash_erase_sector(7);
+    flash_write_word(CONFIG_ADDR, 0xDEAD_BEEF);
+});</code></pre></div></div>
+</p>
+<h3>3. Wear Leveling</h3>
+<p>
+Flash sectors have a limited number of erase cycles (~10,000 for STM32). If you write config frequently, implement wear leveling — cycle through multiple locations within a sector before erasing.
+</p>
+<h3>4. Alignment</h3>
+<p>
+Writes must be aligned to the parallelism width. Writing a 32-bit word to an address not divisible by 4 triggers PGAERR (programming alignment error).
+</p>
+<h3>5. Clear Error Flags First</h3>
+<p>
+Always clear FLASH_SR error flags before starting a new operation. Old error flags persist and can be misleading.
+</p>
+<h2>Flash Programming on Other Architectures</h2>
+<h3>AVR (ATmega)</h3>
+<p>
+AVR uses a <strong>Self-Programming Mode (SPM)</strong> instruction. The bootloader section has special permissions to write to flash. Application code cannot write to flash directly — only bootloader code can.
+</p>
+<h3>RISC-V (GD32VF103)</h3>
+<p>
+Similar unlock-erase-program sequence but with different register names and addresses. The principle is identical: unlock → erase → program → lock.
+</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://blog.embeddedexpert.io/?p=1716">Writing to Internal Flash of STM32Fxxx - EmbeddedExpertIO</a> — Register-level unlock, write, and lock procedures</li>
+<li><a href="https://nebkelectronics.wordpress.com/2016/10/15/writing-to-stm32-flash/">Writing to STM32 Flash - Nebk Electronics</a> — Practical walkthrough with error handling</li>
+<li><a href="https://www.eevblog.com/forum/microcontrollers/programming-flash-memory-stm32-bare-metal/">Programming Flash Memory STM32 Bare Metal - EEVblog</a> — Community discussion of pointer width pitfalls and HardFault causes</li>
+<li><a href="https://embeddive.wordpress.com/2018/04/14/arm-cortex-architecture-flash-memory-controller/">ARM Cortex Architecture: Flash Memory Controller</a> — How the flash controller mediates between CPU and flash cells</li>
+<li><a href="https://controllerstech.com/flash-programming-in-stm32/">STM32 Flash Programming Guide</a> — HAL and register-level erase/write/read procedures</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a> — How NOR flash works at the cell level</li>
+<li><a href="../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a> — Why volatile pointers are needed</li>
+<li><a href="../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and NVM</a> — Flash EEPROM emulation for frequent writes</li>
+<li><a href="boot-process-deep-dive.html">Boot Process Deep Dive</a> — Custom bootloaders that use flash self-programming</li>
+<li><a href="flashing-firmware.html">Flashing Firmware onto an MCU</a> — External programming methods</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://blog.embeddedexpert.io/?p=1716" target="_blank" rel="noopener">Writing to Internal Flash of STM32Fxxx - EmbeddedExpertIO</a></li><li><a href="https://nebkelectronics.wordpress.com/2016/10/15/writing-to-stm32-flash/" target="_blank" rel="noopener">Writing to STM32 Flash - Nebk Electronics</a></li><li><a href="https://www.eevblog.com/forum/microcontrollers/programming-flash-memory-stm32-bare-metal/" target="_blank" rel="noopener">Programming Flash Memory STM32 Bare Metal - EEVblog Forum</a></li><li><a href="https://embeddive.wordpress.com/2018/04/14/arm-cortex-architecture-flash-memory-controller/" target="_blank" rel="noopener">ARM Cortex Architecture: Flash Memory Controller</a></li><li><a href="https://controllerstech.com/flash-programming-in-stm32/" target="_blank" rel="noopener">STM32 Flash Programming Guide</a></li></ul></div>
+      <div class="page-nav"><a href="flashing-firmware.html"><span class="nav-label">← Previous</span><span class="nav-title">Flashing Firmware onto an MCU</span></a><a class="next" href="../mcu-peripherals-and-interrupts/index.html"><span class="nav-label">Next →</span><span class="nav-title">Peripherals as Hardware Engines</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

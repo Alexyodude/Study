@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instruction Set Overview — MCU Study Guide</title>
+  <link rel="stylesheet" href="../../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../index.html">MCU Architecture Overview</a><a class="nav-item" href="../cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title expanded"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="index.html">The Instruction Cycle</a><a class="nav-item" href="fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="pipeline-basics.html">Pipeline Basics</a><a class="nav-item active" href="instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../../index.html">Home</a><span class="sep">/</span><a href="../../mcu-architecture/index.html">MCU Architecture — Understand the Machine</a><span class="sep">/</span><a href="../../mcu-architecture/instruction-execution/index.html">Instruction Execution</a><span class="sep">/</span><span>Instruction Set Overview</span></div>
+      <h1>Instruction Set Overview</h1>
+      <div class="tags"><span class="tag">mcu</span><span class="tag">isa</span><span class="tag">thumb</span><span class="tag">thumb-2</span><span class="tag">risc</span><span class="tag">cisc</span><span class="tag">arm</span><span class="tag">cortex-m</span></div>
+      <h2>RISC vs CISC Philosophy</h2>
+<p>
+Two fundamental approaches to instruction set design:
+</p>
+<h3>CISC (Complex Instruction Set Computing)</h3>
+<ul>
+<li>Many instructions, some very powerful (e.g., x86 <code>MOVSB</code> copies a string in one instruction)</li>
+<li>Instructions vary widely in length (1 to 15 bytes on x86)</li>
+<li>One instruction can do memory access + computation</li>
+<li>Fewer instructions needed per program, but each may take many cycles</li>
+</ul>
+<h3>RISC (Reduced Instruction Set Computing)</h3>
+<ul>
+<li>Fewer, simpler instructions -- each does one thing well</li>
+<li>Fixed-length instructions (easier to decode, better for pipelining)</li>
+<li><strong>Load-store architecture</strong>: only <code>LDR</code>/<code>STR</code> access memory; all computation happens between registers</li>
+<li>More instructions per program, but each takes fewer cycles (often 1)</li>
+</ul>
+<p>
+<strong><a href="https://en.wikipedia.org/wiki/ARM_architecture_family">ARM Cortex-M</a> is RISC.</strong> To add a value from memory to a register, you need two instructions:
+</p>
+<pre><code class="language-arm">LDR  R0, [R1]        @ Load value from memory into R0
+<p>
+ADD  R0, R0, R2      @ Add R2 to R0</code></pre>
+</p>
+<p>
+On a CISC processor (x86), this might be one instruction: <code>ADD EAX, [EBX]</code>.
+</p>
+<p>
+The RISC approach wins in embedded because:
+</p>
+<ul>
+<li>Simple instructions = simple hardware = lower power consumption</li>
+<li>Fixed-length (or limited-length) instructions = predictable timing</li>
+<li>Small silicon area = cheaper chips</li>
+</ul>
+<h2>Thumb and Thumb-2 Instruction Sets</h2>
+<p>
+ARM Cortex-M processors do <strong>not</strong> use the full 32-bit ARM instruction set. Instead, they use <a href="https://medium.com/@wadixtech/arm-cortex-m-thumb-encoding-fdb5f5c6b87b"><strong>Thumb</strong> and <strong>Thumb-2</strong></a>.
+</p>
+<h3>Original Thumb (16-bit)</h3>
+<ul>
+<li>All instructions are 16 bits (2 bytes) wide</li>
+<li>Very compact code (good for small flash sizes)</li>
+<li>Limited: can only access R0--R7 (low registers), fewer operations</li>
+<li>Used exclusively on Cortex-M0 and M0+</li>
+</ul>
+<pre><code class="language-arm">@ 16-bit Thumb instructions (2 bytes each)
+<p>
+MOVS R0, #5          @ 0x2005
+ADDS R0, R0, R1      @ 0x1840
+CMP  R0, #10         @ 0x280A</code></pre>
+</p>
+<h3>Thumb-2 (Mixed 16/32-bit)</h3>
+<ul>
+<li>Extends Thumb with additional 32-bit instructions</li>
+<li>Variable length: each instruction is either 16 or 32 bits</li>
+<li>32-bit instructions give access to R0--R12, larger immediates, more operations</li>
+<li>Used on Cortex-M3, M4, M7, M33</li>
+</ul>
+<pre><code class="language-arm">@ 16-bit Thumb instruction
+<p>
+ADDS R0, R1, R2      @ 2 bytes
+</p>
+<p>
+@ 32-bit Thumb-2 instruction
+MOVW R0, #0x1234     @ 4 bytes (16-bit immediate value)
+ADD.W R8, R9, R10    @ 4 bytes (high registers)</code></pre>
+</p>
+<h3>How the CPU Distinguishes 16-bit from 32-bit</h3>
+<p>
+The first halfword's upper bits determine the length:
+</p>
+<ul>
+<li>If bits [15:11] are <code>11101</code>, <code>11110</code>, or <code>11111</code> -> 32-bit instruction (fetch second halfword)</li>
+<li>Otherwise -> 16-bit instruction (complete)</li>
+</ul>
+<p>
+This is transparent to the programmer -- the assembler and CPU handle it automatically.
+</p>
+<h3>Code Density Comparison</h3>
+<table><thead><tr><th>Format</th><th>Code Size</th><th>Performance</th><th>Available On</th></tr></thead><tbody><tr><td>ARM (32-bit)</td><td>Largest</td><td>Highest (no decode overhead)</td><td>Cortex-A only</td></tr>
+<tr><td>Thumb (16-bit)</td><td>Smallest</td><td>Limited (fewer operations)</td><td>All Cortex-M</td></tr>
+<tr><td>Thumb-2 (mixed)</td><td>~70% of ARM</td><td>~95% of ARM</td><td>Cortex-M3+</td></tr></tbody></table>
+<p>
+Thumb-2 achieves nearly the performance of full ARM instructions at roughly 70% of the code size -- ideal for flash-constrained MCUs.
+</p>
+<h2>Addressing Modes</h2>
+<p>
+Addressing modes determine <strong>how operands are specified</strong> in an instruction.
+</p>
+<h3>Immediate</h3>
+<p>
+The operand value is encoded directly in the instruction:
+</p>
+<pre><code class="language-arm">MOV  R0, #42         @ R0 = 42 (value is in the instruction itself)
+<p>
+ADD  R1, R1, #1      @ R1 = R1 + 1</code></pre>
+</p>
+<p>
+Thumb limits immediates to 8 bits (0--255). Thumb-2 allows 12-bit modified immediates or <code>MOVW</code>/<code>MOVT</code> for full 32-bit values:
+</p>
+<pre><code class="language-arm">MOVW R0, #0x1234     @ Lower 16 bits: R0 = 0x0000_1234
+<p>
+MOVT R0, #0x5678     @ Upper 16 bits: R0 = 0x5678_1234</code></pre>
+</p>
+<h3>Register</h3>
+<p>
+Operands come from registers:
+</p>
+<pre><code class="language-arm">ADD  R0, R1, R2      @ R0 = R1 + R2
+<p>
+MOV  R0, R1          @ R0 = R1</code></pre>
+</p>
+<h3>Register with Shift</h3>
+<p>
+One operand can be shifted before the ALU operation:
+</p>
+<pre><code class="language-arm">ADD  R0, R1, R2, LSL #3   @ R0 = R1 + (R2 &lt;&lt; 3) = R1 + R2*8</code></pre>
+<h3>Register Offset (for Load/Store)</h3>
+<p>
+Used to access memory with a base address plus an offset:
+</p>
+<pre><code class="language-arm">LDR  R0, [R1]             @ R0 = memory[R1]          (no offset)
+<p>
+LDR  R0, [R1, #8]         @ R0 = memory[R1 + 8]      (immediate offset)
+LDR  R0, [R1, R2]         @ R0 = memory[R1 + R2]     (register offset)
+LDR  R0, [R1, R2, LSL #2] @ R0 = memory[R1 + R2*4]   (scaled register)
+LDR  R0, [R1, #4]!        @ R1 += 4, then R0 = mem[R1]   (pre-increment)
+LDR  R0, [R1], #4         @ R0 = mem[R1], then R1 += 4   (post-increment)</code></pre>
+</p>
+<p>
+Pre/post-increment modes are useful for walking through arrays.
+</p>
+<h2>Common Instruction Categories</h2>
+<h3>Data Processing</h3>
+<p>
+Arithmetic and logic operations between registers:
+</p>
+<pre><code class="language-arm">ADD  R0, R1, R2      @ Add
+<p>
+SUB  R0, R1, R2      @ Subtract
+AND  R0, R1, R2      @ Bitwise AND
+ORR  R0, R1, R2      @ Bitwise OR
+EOR  R0, R1, R2      @ Bitwise XOR (exclusive OR)
+LSL  R0, R1, #4      @ Logical shift left
+CMP  R0, R1          @ Compare (sets flags, discards result)</code></pre>
+</p>
+<h3>Load / Store</h3>
+<p>
+Move data between registers and memory (the only way to access memory in RISC):
+</p>
+<pre><code class="language-arm">LDR  R0, [R1]        @ Load 32-bit word
+<p>
+LDRH R0, [R1]        @ Load 16-bit halfword (zero-extended)
+LDRB R0, [R1]        @ Load 8-bit byte (zero-extended)
+STR  R0, [R1]        @ Store 32-bit word
+STRH R0, [R1]        @ Store 16-bit halfword
+STRB R0, [R1]        @ Store 8-bit byte
+LDMIA R0!, {R1-R4}   @ Load multiple: R1-R4 from consecutive addresses
+STMDB R0!, {R1-R4}   @ Store multiple (used for PUSH)</code></pre>
+</p>
+<h3>Branch</h3>
+<p>
+Change the program counter (control flow):
+</p>
+<pre><code class="language-arm">B    label            @ Unconditional branch
+<p>
+BEQ  label            @ Branch if equal (Z=1)
+BL   function         @ Branch with link (subroutine call)
+BX   LR               @ Branch to address in register (return)
+CBZ  R0, label        @ Compare and Branch if Zero (M3+)
+CBNZ R0, label        @ Compare and Branch if Not Zero (M3+)
+TBB  [R0, R1]         @ Table branch byte (switch-case, M3+)</code></pre>
+</p>
+<h3>System</h3>
+<p>
+Special instructions for system control:
+</p>
+<pre><code class="language-arm">MRS  R0, PRIMASK      @ Read special register
+<p>
+MSR  PRIMASK, R0      @ Write special register
+CPSID I               @ Disable interrupts
+CPSIE I               @ Enable interrupts
+SVC  #0               @ Supervisor Call (trigger SVCall exception)
+WFI                   @ Wait For Interrupt (enter sleep)
+WFE                   @ Wait For Event
+ISB                   @ Instruction Sync Barrier
+DSB                   @ Data Sync Barrier
+DMB                   @ Data Memory Barrier
+NOP                   @ No operation (1 cycle delay)</code></pre>
+</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://medium.com/@wadixtech/arm-cortex-m-thumb-encoding-fdb5f5c6b87b">ARM Cortex-M: Thumb Encoding</a> — Thumb and Thumb-2 instruction encoding explained</li>
+<li><a href="https://en.wikipedia.org/wiki/ARM_architecture_family">ARM Architecture Family - Wikipedia</a> — RISC philosophy and ARM instruction set evolution</li>
+<li><a href="https://embeddedsecurity.io/sec-arm-arch-core">Arm M-profile architectures and Cortex-M</a> — Cortex-M instruction set features and addressing modes</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="../cpu-core-and-alu.html">CPU Core and ALU</a> -- data processing in the ALU</li>
+<li><a href="fetch-decode-execute.html">Fetch-Decode-Execute</a> -- how instructions are decoded</li>
+<li><a href="pipeline-basics.html">Pipeline Basics</a> -- IT blocks for conditional execution</li>
+<li><a href="../registers-and-register-file.html">Registers and Register File</a> -- the operands for all instructions</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://medium.com/@wadixtech/arm-cortex-m-thumb-encoding-fdb5f5c6b87b" target="_blank" rel="noopener">ARM Cortex-M: Thumb Encoding</a></li><li><a href="https://en.wikipedia.org/wiki/ARM_architecture_family" target="_blank" rel="noopener">ARM Architecture Family - Wikipedia</a></li><li><a href="https://embeddedsecurity.io/sec-arm-arch-core" target="_blank" rel="noopener">Arm M-profile architectures and Cortex-M</a></li></ul></div>
+      <div class="page-nav"><a href="pipeline-basics.html"><span class="nav-label">← Previous</span><span class="nav-title">Pipeline Basics</span></a><a class="next" href="../clock-and-power-system/index.html"><span class="nav-label">Next →</span><span class="nav-title">Clock as Heartbeat, Power Trade-offs</span></a></div>
+    </main>
+  </div>
+  <script src="../../scripts/main.js"></script>
+</body>
+</html>

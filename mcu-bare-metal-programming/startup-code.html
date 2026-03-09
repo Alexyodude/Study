@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Startup Code — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="index.html">What Bare-Metal Means</a><a class="nav-item" href="cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item active" href="startup-code.html">Startup Code</a><a class="nav-item" href="vector-table.html">Vector Table</a><a class="nav-item" href="linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../mcu-bare-metal-programming/index.html">Bare-Metal Programming — Write Code for Bare Hardware</a><span class="sep">/</span><span>Startup Code</span></div>
+      <h1>Startup Code</h1>
+      <div class="tags"><span class="tag">startup</span><span class="tag">reset-handler</span><span class="tag">bare-metal</span><span class="tag">cortex-m</span><span class="tag">initialization</span></div>
+      <h2>What Happens Before main()</h2>
+<p>
+In a desktop program, the OS sets up the stack, loads the binary into memory, initializes the C runtime, and then calls <code>main()</code>. On a bare-metal MCU, there is no OS to do any of that. The startup code is responsible for everything.
+</p>
+<p>
+When an ARM Cortex-M processor comes out of reset, it does exactly two things:
+</p>
+<ol>
+<li>Loads the initial stack pointer (SP) from address <code>0x00000000</code>.</li>
+<li>Loads the reset vector from address <code>0x00000004</code> and branches to it.</li>
+</ol>
+<p>
+That reset vector points to <code>Reset_Handler</code> -- the <a href="https://allthingsembedded.com/post/2019-01-03-arm-cortex-m-startup-code-for-c-and-c/">true entry point of your firmware</a>. The processor does not call <code>main()</code> directly.
+</p>
+<h2>Reset_Handler: The Entry Point</h2>
+<code>Reset_Handler</code> must prepare the C runtime environment before calling <code>main()</code>. Here is the sequence:
+<pre><code class="language-text">Power On
+<p>
+  |
+  v
+[Load SP from 0x0000_0000]
+  |
+  v
+[Jump to Reset_Handler at 0x0000_0004]
+  |
+  v
+[Copy .data from Flash to SRAM]
+  |
+  v
+[Zero out .bss in SRAM]
+  |
+  v
+[Call SystemInit() -- configure clocks]
+  |
+  v
+[Call __libc_init_array() -- C++ constructors]
+  |
+  v
+[Call main()]
+  |
+  v
+[Infinite loop if main() returns]</code></pre>
+</p>
+<h2>Copying .data from Flash to SRAM (LMA to VMA)</h2>
+<p>
+Initialized global variables (like <code>int count = 42;</code>) need their initial values at runtime. These values are stored in flash (the <strong>Load Memory Address</strong>, LMA) but must live in SRAM at runtime (the <strong>Virtual Memory Address</strong>, VMA), as demonstrated in <a href="https://vivonomicon.com/2018/04/20/bare-metal-stm32-programming-part-2-making-it-to-main/">Making it to Main</a>.
+</p>
+<p>
+The startup code copies this block from flash to SRAM using symbols defined by the linker script:
+</p>
+<ul>
+<li><code>_sidata</code> -- start of .data in flash (source)</li>
+<li><code>_sdata</code> -- start of .data in SRAM (destination)</li>
+<li><code>_edata</code> -- end of .data in SRAM</li>
+</ul>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">/<em> Copy .data section from Flash to SRAM </em>/
+<p>
+uint32_t *src = &amp;_sidata;
+uint32_t *dst = &amp;_sdata;
+while (dst &lt; &amp;_edata) {
+    <em>dst++ = </em>src++;
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// Copy .data section from Flash to SRAM
+<p>
+unsafe {
+    let mut src = &amp;_sidata as *const u32;
+    let mut dst = &amp;_sdata as <em>const u32 as </em>mut u32;
+    let end = &amp;_edata as *const u32;
+    while (dst as *const u32) &lt; end {
+        core::ptr::write_volatile(dst, core::ptr::read_volatile(src));
+        src = src.add(1);
+        dst = dst.add(1);
+    }
+}
+</p>
+<p>
+// Idiomatic alternative using cortex-m-rt crate:
+// The #[entry] macro and cortex-m-rt runtime handle
+// .data copy and .bss zeroing automatically.</code></pre></div></div>
+</p>
+<h2>Zeroing the .bss Section</h2>
+<p>
+Uninitialized globals (like <code>int buffer[256];</code>) go in the <code>.bss</code> section. The C standard requires them to be zero at startup. Rather than storing a block of zeros in flash, the startup code fills <code>.bss</code> with zeros:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">/<em> Zero-fill .bss section </em>/
+<p>
+uint32_t *bss = &amp;_sbss;
+while (bss &lt; &amp;_ebss) {
+    *bss++ = 0;
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// Zero-fill .bss section
+<p>
+unsafe {
+    let mut bss = &amp;_sbss as <em>const u32 as </em>mut u32;
+    let end = &amp;_ebss as *const u32;
+    while (bss as *const u32) &lt; end {
+        core::ptr::write_volatile(bss, 0);
+        bss = bss.add(1);
+    }
+}</code></pre></div></div>
+</p>
+<h2>Initializing the Clock (SystemInit)</h2>
+<p>
+Most Cortex-M chips start up on an internal RC oscillator running at a low frequency (e.g., 8 MHz on STM32). <code>SystemInit()</code> is typically a CMSIS-provided function that:
+</p>
+<ul>
+<li>Configures the flash wait states</li>
+<li>Enables the HSE (High-Speed External) oscillator if present</li>
+<li>Configures the PLL to multiply the clock up (e.g., to 72 MHz or 168 MHz)</li>
+<li>Switches the system clock source</li>
+</ul>
+<p>
+This step is optional in the simplest programs -- the MCU will run on its default internal oscillator. But any real application needs a stable, known clock frequency.
+</p>
+<h2>Calling __libc_init_array (C++ Constructors)</h2>
+<p>
+If your project uses C++, global objects need their constructors called before <code>main()</code>. The compiler generates a table of constructor function pointers in the <code>.init_array</code> section. <code>__libc_init_array()</code> iterates through this table and calls each one.
+</p>
+<p>
+Even in pure C projects, this call is often included because some toolchain features (like <code>__attribute__((constructor))</code> functions) depend on it.
+</p>
+<h2>Calling main()</h2>
+<p>
+After all initialization is complete, the startup code calls <code>main()</code>. If <code>main()</code> ever returns, the startup code enters an infinite loop to prevent the processor from executing garbage instructions:
+</p>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">main();
+<p>
+while (1);  /<em> Trap: main() should never return </em>/</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// In Rust embedded, main() returns <code>-&gt; !</code> (never type),
+<p>
+// so the compiler enforces it never returns.
+#[entry]
+fn main() -&gt; ! {
+    // ... application code ...
+    loop {}  // Required: must diverge
+}</code></pre></div></div>
+</p>
+<h2>Example: Startup Code in C</h2>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="c">C</button><button class="code-tab" data-lang="rust">Rust</button></div><div class="code-panel active" data-lang="c"><pre><code class="language-c">/<em> Symbols defined by the linker script </em>/
+<p>
+extern uint32_t _sidata, _sdata, _edata;
+extern uint32_t _sbss, _ebss;
+extern uint32_t _estack;
+</p>
+<p>
+/<em> Prototypes </em>/
+void Reset_Handler(void);
+void Default_Handler(void);
+int main(void);
+void SystemInit(void);
+extern void __libc_init_array(void);
+</p>
+<p>
+void Reset_Handler(void) {
+    /<em> 1. Copy .data from Flash to SRAM </em>/
+    uint32_t *src = &amp;_sidata;
+    uint32_t *dst = &amp;_sdata;
+    while (dst &lt; &amp;_edata) {
+        <em>dst++ = </em>src++;
+    }
+</p>
+<p>
+    /<em> 2. Zero-fill .bss </em>/
+    dst = &amp;_sbss;
+    while (dst &lt; &amp;_ebss) {
+        *dst++ = 0;
+    }
+</p>
+<p>
+    /<em> 3. Configure system clock </em>/
+    SystemInit();
+</p>
+<p>
+    /<em> 4. Call static constructors </em>/
+    __libc_init_array();
+</p>
+<p>
+    /<em> 5. Enter application </em>/
+    main();
+</p>
+<p>
+    /<em> 6. Trap if main returns </em>/
+    while (1);
+}
+</p>
+<p>
+void Default_Handler(void) {
+    while (1);  /<em> Unhandled interrupt -- halt </em>/
+}</code></pre></div>
+</p>
+<div class="code-panel" data-lang="rust"><pre><code class="language-rust">// In Rust embedded, the cortex-m-rt crate handles startup automatically.
+<p>
+// It provides: .data copy, .bss zeroing, FPU init, and calls main().
+// You just write your entry point:
+</p>
+<p>
+#![no_std]
+#![no_main]
+</p>
+<p>
+use cortex_m_rt::entry;
+use panic_halt as _; // panic handler
+</p>
+<p>
+#[entry]
+fn main() -&gt; ! {
+    // cortex-m-rt has already:
+    //   1. Copied .data from Flash to SRAM
+    //   2. Zeroed .bss
+    //   3. Initialized the FPU (if present)
+    //   4. Called pre_init() (if defined)
+</p>
+<p>
+    // Your application starts here
+    loop {}
+}
+</p>
+<p>
+// For a fully manual Reset_Handler (no cortex-m-rt):
+#[no_mangle]
+pub unsafe extern "C" fn Reset_Handler() -&gt; ! {
+    extern "C" {
+        static _sidata: u32;
+        static mut _sdata: u32;
+        static _edata: u32;
+        static mut _sbss: u32;
+        static _ebss: u32;
+    }
+</p>
+<p>
+    // 1. Copy .data from Flash to SRAM
+    let mut src = &amp;_sidata as *const u32;
+    let mut dst = &amp;mut _sdata as *mut u32;
+    let end = &amp;_edata as *const u32;
+    while (dst as *const u32) &lt; end {
+        core::ptr::write(dst, core::ptr::read(src));
+        src = src.add(1);
+        dst = dst.add(1);
+    }
+</p>
+<p>
+    // 2. Zero-fill .bss
+    let mut bss = &amp;mut _sbss as *mut u32;
+    let bss_end = &amp;_ebss as *const u32;
+    while (bss as *const u32) &lt; bss_end {
+        core::ptr::write(bss, 0);
+        bss = bss.add(1);
+    }
+</p>
+<p>
+    // 3. Enter application (never returns)
+    extern "Rust" { fn main() -&gt; !; }
+    main()
+}</code></pre></div></div>
+</p>
+<h2>Example: Startup Code in Assembly (GNU AS)</h2>
+<pre><code class="language-armasm">.syntax unified
+<p>
+.cpu cortex-m3
+.thumb
+</p>
+<p>
+.global Reset_Handler
+.type Reset_Handler, %function
+</p>
+<p>
+Reset_Handler:
+    /<em> Copy .data from Flash (LMA) to SRAM (VMA) </em>/
+    ldr r0, =_sdata       /<em> destination start </em>/
+    ldr r1, =_edata       /<em> destination end </em>/
+    ldr r2, =_sidata      /<em> source start (in flash) </em>/
+copy_data:
+    cmp r0, r1
+    bge zero_bss
+    ldr r3, [r2], #4
+    str r3, [r0], #4
+    b copy_data
+</p>
+<p>
+zero_bss:
+    /<em> Zero-fill .bss </em>/
+    ldr r0, =_sbss
+    ldr r1, =_ebss
+    movs r2, #0
+fill_bss:
+    cmp r0, r1
+    bge call_main
+    str r2, [r0], #4
+    b fill_bss
+</p>
+<p>
+call_main:
+    bl SystemInit
+    bl __libc_init_array
+    bl main
+    b .                    /<em> infinite loop </em>/
+</p>
+<p>
+.size Reset_Handler, .-Reset_Handler</code></pre>
+</p>
+<h2>Key Takeaways</h2>
+<ul>
+<li>The processor loads SP and jumps to <code>Reset_Handler</code> automatically -- you never set the stack pointer in startup code.</li>
+<li>The <code>.data</code> copy and <code>.bss</code> zero are essential. Without them, your global variables contain garbage.</li>
+<li><code>SystemInit</code> is not part of the C language -- it is a CMSIS convention for clock setup.</li>
+<li>If you forget <code>__libc_init_array</code> in a C++ project, global objects will not be constructed.</li>
+</ul>
+<h2>References</h2>
+<ol>
+<li><a href="https://allthingsembedded.com/post/2019-01-03-arm-cortex-m-startup-code-for-c-and-c/">ARM Cortex-M Startup Code for C and C++ - AllThingsEmbedded</a> — Detailed explanation of Reset_Handler and runtime initialization</li>
+<li><a href="https://medium.com/@ragagr116/what-happens-before-main-understanding-the-startup-file-on-arm-cortex-m-46c9f55e1a6b">What Happens Before main() - Understanding the Startup File</a> — Overview of pre-main initialization on Cortex-M</li>
+<li><a href="https://vivonomicon.com/2018/04/20/bare-metal-stm32-programming-part-2-making-it-to-main/">Bare Metal STM32 Programming Part 2: Making it to Main</a> — Practical walkthrough of .data copy and .bss zeroing</li>
+<li><a href="https://jacobmossberg.se/posts/2018/08/11/run-c-program-bare-metal-on-arm-cortex-m3.html">Run a C Program Bare Metal on ARM Cortex-M3</a> — End-to-end example of startup code on Cortex-M3</li>
+</ol>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="vector-table.html">Vector Table</a> -- the structure that tells the CPU where <code>Reset_Handler</code> is</li>
+<li><a href="linker-scripts-in-practice.html">Linker Scripts in Practice</a> -- defines the symbols startup code uses</li>
+<li><a href="boot-process-deep-dive.html">Boot Process Deep Dive</a> -- the full power-on sequence</li>
+</ul>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://allthingsembedded.com/post/2019-01-03-arm-cortex-m-startup-code-for-c-and-c/" target="_blank" rel="noopener">ARM Cortex-M Startup Code for C and C++ - AllThingsEmbedded</a></li><li><a href="https://medium.com/@ragagr116/what-happens-before-main-understanding-the-startup-file-on-arm-cortex-m-46c9f55e1a6b" target="_blank" rel="noopener">What Happens Before main() - Understanding the Startup File</a></li><li><a href="https://vivonomicon.com/2018/04/20/bare-metal-stm32-programming-part-2-making-it-to-main/" target="_blank" rel="noopener">Bare Metal STM32 Programming Part 2: Making it to Main</a></li><li><a href="https://jacobmossberg.se/posts/2018/08/11/run-c-program-bare-metal-on-arm-cortex-m3.html" target="_blank" rel="noopener">Run a C Program Bare Metal on ARM Cortex-M3</a></li></ul></div>
+      <div class="page-nav"><a href="cross-compilation-toolchain.html"><span class="nav-label">← Previous</span><span class="nav-title">Cross-Compilation Toolchain</span></a><a class="next" href="vector-table.html"><span class="nav-label">Next →</span><span class="nav-title">Vector Table</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>
