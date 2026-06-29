@@ -19,7 +19,7 @@ sources:
 
 # Camera Sensor Catalog
 
-A searchable, filterable catalog of **camera image sensors across the full resolution range** — from **0.3 MP VGA up to 24.5 MP** — in both **color (RGB) and monochrome**, and both **global and rolling shutter**, sorted to surface **low-price** options first. Global shutter is the primary focus, but a few common **rolling-shutter** sensors are included and clearly labeled so the sensor search/filter is genuinely complete (Sony Pregius & Pregius S, OmniVision, onsemi AR / PYTHON / XGS, ams). It spans three buying categories: cheap **USB webcams/boards**, **embedded camera modules** (Raspberry Pi / Jetson), and professional **industrial machine-vision** cameras.
+A searchable, filterable catalog of **camera image sensors across the full resolution range** — from **0.3 MP VGA up to 67 MP** — in both **color (RGB) and monochrome**, and both **global and rolling shutter**, sorted to surface **low-price** options first. Global shutter is the primary focus, with a few common **rolling-shutter** sensors included and clearly labeled. It aims to cover the major machine-vision / embedded sensor families: **Sony Pregius & Pregius S, GPixel (GMAX / GSPRINT), Teledyne e2v Emerald, ams CMOSIS (CMV), onsemi AR / PYTHON / XGS, and OmniVision**. It spans three buying categories: cheap **USB webcams/boards**, **embedded camera modules** (Raspberry Pi / Jetson), and professional **industrial machine-vision** cameras.
 
 > **Open the interactive catalog:** [`/camera-sensors/`](../../site/camera-sensors/index.html) in the generated site. Filter by category, **shutter (global/rolling)**, color/mono, resolution band, interface, sensor, minimum frame rate, and maximum price; sort by price, frame rate, or resolution. Each card shows a **price-source confidence** (verified / listed / est.).
 
@@ -38,8 +38,8 @@ The catalog spans five resolution bands (filterable):
 - **< 1 MP (VGA)** — **OV7251** (640×480), **Sony IMX287** (728×544). Tiny, blisteringly fast (120–500+ fps), often mono. Tracking / high-speed inspection.
 - **1 MP** — **OV9281/OV9782**, **onsemi AR0144**, **PYTHON 1300**, **ams CGSS130 (GS130)** (1.3 MP NIR mono). Cheap, popular for robotics, depth (OAK), and VR/3D tracking.
 - **1.5–2.5 MP (the "1080p" crowd)** — **AR0234, IMX392, IMX174, IMX296, IMX273, OG02B10, OV2311**. The sweet spot for full-HD machine vision.
-- **3–5 MP** — **IMX252/IMX265** (3.2 MP), **IMX250/IMX264** (5 MP), **XGS 5000** (5.3 MP), **OV4689** (4 MP, *rolling*). More pixels at moderate-to-high frame rate.
-- **8 MP+** — **IMX219** (8 MP, *rolling*), **IMX546** (8.1 MP), **IMX267** (8.9 MP), **IMX304** (12.3 MP), **IMX540** (24.5 MP, Pregius S). High resolution; frame rates drop as pixels climb (the 24 MP runs ~16 fps over USB3, ~35 fps over GigE).
+- **3–5 MP** — **IMX252/IMX265** (3.2 MP), **IMX547** (5.1 MP), **IMX250/IMX264** (5 MP), **XGS 5000** (5.3 MP), **CMV4000** (4 MP), **Emerald 3.2M**, **IMX900** (3.2 MP), **OV4689** (4 MP, *rolling*). More pixels at moderate-to-high frame rate.
+- **8 MP+** — **IMX219** (8 MP, *rolling*), **IMX255** (8.9 MP), **IMX546/IMX267** (8–8.9 MP), **GMAX2509** (9 MP 4K), **XGS 12000 / IMX253 / IMX545 / CMV12000** (12 MP), **XGS 16000 / IMX542** (16 MP), **CMV20000 / IMX541 / GSPRINT4521** (20–21 MP), **IMX540 / IMX530 / PYTHON 25K / XGS 30000** (24–30 MP), **Emerald 67M** (67 MP). High resolution; frame rates fall as pixels climb (and some high-speed parts like CMV12000/GSPRINT run 300–1000 fps).
 
 "1080p" = **1920×1080**. Most 2.3 MP sensors are **1920×1200** (16:10) and contain a full 1080p frame. The **"True 1080p only"** toggle keeps only sensors at least 1920 px wide; 4:3 parts like IMX296 (1456×1088) or IMX273 (1440×1080) hit 1080 *lines* but are narrower.
 
@@ -72,6 +72,18 @@ The catalog spans five resolution bands (filterable):
 | **ams CGSS130 (GS130)** | 1080×1280 (1.3 MP) | mono | Global shutter; NIR-enhanced + HDR; 3D / face / iris sensing |
 | **Sony IMX219** | 3280×2464 (8 MP) | color | **Rolling shutter** — Raspberry Pi Cam v2; cheap, ubiquitous |
 | **OmniVision OV4689** | 2688×1520 (4 MP) | color | **Rolling shutter** — 4 MP surveillance; high frame rate, HDR |
+| **Sony IMX249** | 1920×1200 (2.3 MP) | both | Gen-1 Pregius; cost-effective 41 fps IMX174 sibling |
+| **Sony IMX255** | 4112×2176 (8.9 MP) | both | High-speed Pregius; 93 fps at 8.9 MP |
+| **Sony IMX253** | 4096×3000 (12.3 MP) | both | Classic 12 MP Pregius workhorse |
+| **Sony IMX900** | 2064×1552 (3.2 MP) | both | Newer Pregius S; RGB-IR, Quad HDR, 120 fps |
+| **Sony IMX547–542–541** | 5.1 / 12.4 / 16.3 / 20.4 MP | both | Pregius S standard line (BSI 2.74 µm) |
+| **Sony IMX530 / IMX540** | 5328×4608 (24.5 MP) | both | Pregius S 24.5 MP — high-speed / standard |
+| **GPixel GMAX series** | 9–25 MP | both | Smallest GS pixel; 4K @ 290 fps to 25 MP |
+| **GPixel GSPRINT4521** | 5120×4096 (21 MP) | mono | High-speed GS: 21 MP @ 1000 fps |
+| **Teledyne e2v Emerald** | 3.2 – 67 MP | both | Compact feature-rich GS up to 67 MP (8192²) |
+| **ams CMOSIS CMV** | 2 / 4 / 12 / 20 MP | both | Long-standing high-speed GS (CMV12000 = 4K @ 300 fps) |
+| **onsemi XGS series** | 5 / 12 / 16 / 30 MP | both | Modern high-res GS; XGS 30000 = 29.8 MP |
+| **onsemi PYTHON 480 / 25K** | 0.48 / 25 MP | both | VGA to 25 MP large-format global shutter |
 
 ## How to read price (verify-first)
 
