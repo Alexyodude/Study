@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Global Shutter Camera Catalog — Study Notes</title>
+  <link rel="stylesheet" href="../styles/main.css">
+  <style>
+    /* ===== Catalog-specific styles ===== */
+    .catalog-wrap { flex: 1; max-width: 80rem; padding: 2rem 3rem 4rem; margin: 0 auto; margin-top: var(--header-height); }
+
+    .cat-hero { margin-bottom: 1.5rem; }
+    .cat-hero h1 { font-size: 2rem; font-weight: 800; line-height: 1.2; margin-bottom: 0.5rem; }
+    .cat-hero p { color: var(--text-secondary); max-width: 62rem; }
+    .cat-criteria { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.8rem; }
+    .crit-chip {
+      font-size: 0.75rem; padding: 0.25rem 0.7rem; border-radius: 999px;
+      background: var(--accent-light); color: var(--accent); font-weight: 600;
+      border: 1px solid transparent;
+    }
+
+    /* Filter panel */
+    .filters {
+      background: var(--bg-secondary); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.1rem 1.25rem; margin: 1.25rem 0;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+      gap: 1rem 1.5rem; align-items: end;
+    }
+    .filter-field { display: flex; flex-direction: column; gap: 0.35rem; }
+    .filter-field label {
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.04em; color: var(--text-muted);
+    }
+    .filter-field input[type="text"], .filter-field select {
+      padding: 0.45rem 0.6rem; border: 1px solid var(--border); border-radius: 7px;
+      background: var(--bg); color: var(--text); font-size: 0.88rem;
+      font-family: var(--font-sans); outline: none; width: 100%;
+    }
+    .filter-field input[type="text"]:focus, .filter-field select:focus { border-color: var(--accent); }
+    .range-val { font-size: 0.8rem; color: var(--text); font-weight: 600; }
+    .filter-field input[type="range"] { width: 100%; accent-color: var(--accent); cursor: pointer; }
+
+    /* Segmented button group */
+    .seg-group { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+    .seg-btn {
+      padding: 0.4rem 0.7rem; border: 1px solid var(--border); border-radius: 7px;
+      background: var(--bg); color: var(--text-secondary); font-size: 0.8rem;
+      cursor: pointer; font-family: var(--font-sans); white-space: nowrap; transition: all 0.15s;
+    }
+    .seg-btn:hover { border-color: var(--accent); color: var(--text); }
+    .seg-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+    .toggle-row { display: flex; align-items: center; gap: 0.5rem; }
+    .toggle-row input { width: 1rem; height: 1rem; accent-color: var(--accent); cursor: pointer; }
+    .toggle-row label { text-transform: none; letter-spacing: 0; font-weight: 600; color: var(--text-secondary); font-size: 0.82rem; cursor: pointer; }
+
+    .filter-actions { display: flex; align-items: end; gap: 0.6rem; }
+    .btn-reset {
+      padding: 0.45rem 0.9rem; border: 1px solid var(--border); border-radius: 7px;
+      background: var(--bg); color: var(--text); font-size: 0.82rem; cursor: pointer;
+      font-family: var(--font-sans); font-weight: 600;
+    }
+    .btn-reset:hover { border-color: var(--accent); color: var(--accent); }
+
+    .result-bar {
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+      gap: 0.6rem; margin: 0.4rem 0 0.5rem; font-size: 0.85rem; color: var(--text-secondary);
+    }
+    .result-count strong { color: var(--text); font-size: 1.05rem; }
+
+    .price-legend {
+      display: flex; flex-wrap: wrap; gap: 0.6rem 1.1rem; font-size: 0.76rem;
+      color: var(--text-muted); margin-bottom: 1.1rem; padding: 0.6rem 0.8rem;
+      background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px;
+    }
+    .price-legend b { color: var(--text); }
+    .conf-dot { display: inline-block; width: 0.6rem; height: 0.6rem; border-radius: 50%; margin-right: 0.3rem; vertical-align: middle; }
+    .conf-dot.verified { background: #16a34a; }
+    .conf-dot.listed { background: #2563eb; }
+    .conf-dot.est { background: #9ca3af; }
+
+    /* Card grid */
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 1.1rem; }
+    .cam-card {
+      border: 1px solid var(--border); border-radius: 12px; background: var(--bg-secondary);
+      padding: 1.1rem 1.15rem; display: flex; flex-direction: column; gap: 0.7rem;
+      transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s; position: relative; overflow: hidden;
+    }
+    .cam-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.10); }
+    .cam-card.cheapest { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+
+    .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.6rem; }
+    .cam-name { font-size: 1rem; font-weight: 700; line-height: 1.25; }
+    .cam-vendor { font-size: 0.76rem; color: var(--text-muted); margin-top: 0.15rem; }
+    .price-tag { text-align: right; flex-shrink: 0; }
+    .price-tag .amount { font-size: 1.25rem; font-weight: 800; color: var(--text); white-space: nowrap; }
+    .price-conf { font-size: 0.66rem; font-weight: 700; cursor: help; }
+    .price-conf.verified { color: #16a34a; }
+    .price-conf.listed { color: #2563eb; }
+    .price-conf.est { color: var(--text-muted); }
+
+    .badge-best {
+      position: absolute; top: 0; right: 0;
+      background: var(--accent); color: #fff; font-size: 0.66rem; font-weight: 800;
+      padding: 0.2rem 0.6rem; border-bottom-left-radius: 8px; letter-spacing: 0.03em;
+    }
+    .cam-card.cheapest .cam-name { padding-right: 5.5rem; }
+
+    .spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.35rem 0.8rem; font-size: 0.8rem; }
+    .spec { display: flex; flex-direction: column; }
+    .spec .k { color: var(--text-muted); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.03em; }
+    .spec .v { color: var(--text); font-weight: 600; }
+
+    .pill-row { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+    .pill {
+      font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 6px;
+      background: var(--code-bg); border: 1px solid var(--code-border); color: var(--text-secondary); font-weight: 600;
+    }
+    .pill.cat-industrial { background: #ecfdf5; color: #047857; border-color: #a7f3d0; }
+    .pill.cat-embedded { background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; }
+    .pill.cat-webcam { background: #fef3c7; color: #92400e; border-color: #fde68a; }
+    .pill.mono { background: #f3f4f6; color: #374151; border-color: #d1d5db; }
+    .pill.color { background: #fce7f3; color: #be185d; border-color: #fbcfe8; }
+    [data-theme="dark"] .pill.cat-industrial { background: #064e3b; color: #6ee7b7; border-color: #065f46; }
+    [data-theme="dark"] .pill.cat-embedded { background: #1e3a5f; color: #93c5fd; border-color: #1e40af; }
+    [data-theme="dark"] .pill.cat-webcam { background: #422006; color: #fcd34d; border-color: #78350f; }
+    [data-theme="dark"] .pill.mono { background: #1f2937; color: #d1d5db; border-color: #374151; }
+    [data-theme="dark"] .pill.color { background: #500724; color: #f9a8d4; border-color: #831843; }
+
+    .cam-notes { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; }
+    .cam-link { margin-top: auto; font-size: 0.82rem; font-weight: 600; align-self: flex-start; }
+    .cam-link::after { content: " ↗"; }
+
+    .no-results { text-align: center; padding: 3rem 1rem; color: var(--text-muted); border: 1px dashed var(--border); border-radius: 12px; }
+
+    .back-home { font-size: 0.85rem; }
+    .cat-footer { margin-top: 2.5rem; padding-top: 1.25rem; border-top: 2px solid var(--border); font-size: 0.85rem; color: var(--text-muted); }
+    .cat-footer a { font-weight: 600; }
+
+    @media (max-width: 768px) {
+      .catalog-wrap { padding: 1.25rem 1rem 3rem; }
+      .cat-hero h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <div class="header-title"><a href="../index.html" style="color:inherit;text-decoration:none;">Study Notes</a></div>
+    <div style="flex:1;"></div>
+    <a class="back-home" href="../index.html">&larr; All topics</a>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+
+  <div class="catalog-wrap">
+    <nav class="breadcrumbs">
+      <a href="../index.html">Home</a><span class="sep">›</span>
+      <span>Camera Sensors — Global Shutter Catalog</span>
+    </nav>
+
+    <div class="cat-hero">
+      <h1>Global Shutter Camera Catalog</h1>
+      <p>Global-shutter cameras across the full resolution range — from 0.4 MP VGA to 5 MP — in color and monochrome, all ≥ 30 fps. Spans cheap USB webcams, embedded modules, and industrial machine-vision cameras. Sorted to surface the lowest price first, with price-source confidence shown on every card.</p>
+      <div class="cat-criteria">
+        <span class="crit-chip">Global shutter</span>
+        <span class="crit-chip">Color &amp; mono</span>
+        <span class="crit-chip">VGA → 5 MP</span>
+        <span class="crit-chip">&ge; 30 fps</span>
+        <span class="crit-chip">Price-source verified</span>
+      </div>
+    </div>
+
+    <!-- ===== Filters ===== -->
+    <div class="filters" id="filters">
+      <div class="filter-field" style="grid-column: 1 / -1;">
+        <label for="f-search">Search (name · sensor · vendor)</label>
+        <input type="text" id="f-search" placeholder="e.g. AR0234, FLIR, IMX296, OG02B10, OV9281…" autocomplete="off">
+      </div>
+
+      <div class="filter-field" style="grid-column: 1 / -1;">
+        <label>Category</label>
+        <div class="seg-group" id="f-category">
+          <button class="seg-btn active" data-val="all">All</button>
+          <button class="seg-btn" data-val="webcam">Webcam / USB</button>
+          <button class="seg-btn" data-val="embedded">Embedded module</button>
+          <button class="seg-btn" data-val="industrial">Industrial</button>
+        </div>
+      </div>
+
+      <div class="filter-field">
+        <label for="f-color">Color / Mono</label>
+        <select id="f-color">
+          <option value="all">Color &amp; mono</option>
+          <option value="color">Color (RGB) only</option>
+          <option value="mono">Monochrome only</option>
+        </select>
+      </div>
+
+      <div class="filter-field">
+        <label for="f-res">Resolution</label>
+        <select id="f-res">
+          <option value="all">All resolutions</option>
+          <option value="sub1">&lt; 1 MP (VGA)</option>
+          <option value="1mp">1 MP</option>
+          <option value="mid">1.5 – 2.5 MP (1080p class)</option>
+          <option value="high">3 MP+</option>
+        </select>
+      </div>
+
+      <div class="filter-field">
+        <label for="f-interface">Interface</label>
+        <select id="f-interface">
+          <option value="all">All interfaces</option>
+          <option value="USB 2.0">USB 2.0</option>
+          <option value="USB 3">USB 3.x</option>
+          <option value="MIPI">MIPI CSI</option>
+          <option value="GigE">GigE / IP</option>
+        </select>
+      </div>
+
+      <div class="filter-field">
+        <label for="f-sensor">Sensor</label>
+        <select id="f-sensor">
+          <option value="all">All sensors</option>
+          <option value="AR0234">onsemi AR0234</option>
+          <option value="AR0144">onsemi AR0144</option>
+          <option value="IMX392">Sony IMX392</option>
+          <option value="IMX174">Sony IMX174</option>
+          <option value="IMX296">Sony IMX296</option>
+          <option value="IMX273">Sony IMX273</option>
+          <option value="IMX287">Sony IMX287</option>
+          <option value="IMX265">Sony IMX265</option>
+          <option value="IMX250">Sony IMX250</option>
+          <option value="OG02B10">OmniVision OG02B10</option>
+          <option value="OV9281">OmniVision OV9281</option>
+          <option value="OV9782">OmniVision OV9782</option>
+        </select>
+      </div>
+
+      <div class="filter-field">
+        <label for="f-fps">Min frame rate: <span class="range-val" id="f-fps-val">30 fps</span></label>
+        <input type="range" id="f-fps" min="30" max="200" step="5" value="30">
+      </div>
+
+      <div class="filter-field">
+        <label for="f-price">Max price: <span class="range-val" id="f-price-val">$1400+</span></label>
+        <input type="range" id="f-price" min="20" max="1400" step="10" value="1400">
+      </div>
+
+      <div class="filter-field">
+        <label for="f-sort">Sort by</label>
+        <select id="f-sort">
+          <option value="price-asc">Price — low to high</option>
+          <option value="price-desc">Price — high to low</option>
+          <option value="fps-desc">Frame rate — high to low</option>
+          <option value="mp-desc">Resolution (MP) — high to low</option>
+          <option value="vendor">Vendor (A–Z)</option>
+        </select>
+      </div>
+
+      <div class="filter-field">
+        <label>Options</label>
+        <div class="toggle-row">
+          <input type="checkbox" id="f-true1080">
+          <label for="f-true1080">True 1080p only (1920-wide)</label>
+        </div>
+        <div class="toggle-row">
+          <input type="checkbox" id="f-confirmed">
+          <label for="f-confirmed">Verified / listed price only</label>
+        </div>
+      </div>
+
+      <div class="filter-actions">
+        <button class="btn-reset" id="f-reset">Reset filters</button>
+      </div>
+    </div>
+
+    <div class="result-bar">
+      <div class="result-count"><strong id="r-count">0</strong> cameras match</div>
+      <div>Prices in USD for comparison.</div>
+    </div>
+
+    <div class="price-legend">
+      <span><b>Price confidence:</b></span>
+      <span><span class="conf-dot verified"></span><b>Verified</b> — fetched from the live source page during research</span>
+      <span><span class="conf-dot listed"></span><b>Listed</b> — published retail price at a named reseller (page blocks auto-fetch)</span>
+      <span><span class="conf-dot est"></span><b>Est.</b> — approximate; most industrial vendors are quote-only</span>
+    </div>
+
+    <div class="cards" id="cards"></div>
+    <div class="no-results" id="no-results" style="display:none;">No cameras match these filters. Try widening price, frame rate, or resolution.</div>
+
+    <footer class="cat-footer">
+      Data compiled from vendor pages and resellers (Teledyne FLIR, Basler, The Imaging Source, XIMEA, e-con Systems, Daheng, Arducam, Luxonis, ELP, ALPCAM, Vadzo, TechNexion, InterTest).
+      Concept notes &amp; full references: see the <a href="../index.html">study site home</a>.
+    </footer>
+  </div>
+
+  <script src="../scripts/main.js"></script>
+  <script>
+    // ===== Catalog data (mirror of content/camera-sensors/catalog.json) =====
+    const CAMERAS = [
+      {id:"arducam-ov9281-mono", name:"Arducam OV9281 Mono GS (Raspberry Pi)", vendor:"Arducam", category:"embedded", sensor:"OmniVision OV9281", color:false, resolution:"1280×800", width:1280, height:800, true1080p:false, mp:1.0, fps:120, fps_at:"60 fps @ 1280×800 (MIPI), up to 120 fps over USB", interface:"MIPI CSI-2", mount:"M12", price:52, priceConf:"verified", priceSource:"welectron.com — €47.90 incl. VAT (fetched). Arducam US lists $25.99 for the standard module.", url:"https://www.welectron.com/Arducam-B0165-OV9281-1MP-Global-Shutter-Monochrome-NoIR-Camera-Module-with-M12-Mount-lens-for-Raspberry-Pi-4-3B-3_1", notes:"The classic cheap mono GS module for Pi/Jetson. NoIR variant. Ideal for tracking, fiducials, high-speed mono capture."},
+      {id:"arducam-ov9782-usb", name:"Arducam OV9782 Color GS USB (B0385)", vendor:"Arducam", category:"webcam", sensor:"OmniVision OV9782", color:true, resolution:"1280×800", width:1280, height:800, true1080p:false, mp:1.0, fps:100, fps_at:"100 fps (MJPG) @ 1280×800 / 720p", interface:"USB 2.0 (UVC)", mount:"M12", price:79, priceConf:"est", priceSource:"estimate — Amazon/Arducam B0385, price not published in search", url:"https://www.amazon.com/Arducam-Shutter-Distortion-Without-Microphones/dp/B0CLXZ29F9", notes:"Color sibling of the OV9281. UVC plug-and-play 1 MP color GS — cheap entry for OpenCV color motion work."},
+      {id:"luxonis-oak-ffc-ov9782", name:"Luxonis OAK-FFC OV9782", vendor:"Luxonis", category:"embedded", sensor:"OmniVision OV9782", color:true, resolution:"1280×800", width:1280, height:800, true1080p:false, mp:1.0, fps:120, fps_at:"120 fps @ 1280×800", interface:"MIPI (FFC)", mount:"M12", price:85, priceConf:"verified", priceSource:"shop.luxonis.com — US $84.99 (fetched)", url:"https://shop.luxonis.com/products/oak-ffc-ov9782-22-pin", notes:"FFC color GS module for the DepthAI/OAK ecosystem. Popular for stereo depth + on-camera AI."},
+      {id:"ar0144-color", name:"AR0144 Color GS Module", vendor:"TechNexion / CM Tech", category:"embedded", sensor:"onsemi AR0144", color:true, resolution:"1280×800", width:1280, height:800, true1080p:false, mp:1.0, fps:60, fps_at:"60 fps @ 1280×800", interface:"MIPI CSI-2", mount:"M12 / board", price:60, priceConf:"est", priceSource:"estimate — module vendors quote-only", url:"https://www.technexion.com/products/embedded-vision/image-sensors/tevs-ar0144/", notes:"onsemi's 1 MP GS, common in automotive/AR. Color and mono variants; low-light friendly."},
+      {id:"elp-usbgs1200p01", name:"ELP-USBGS1200P01 (AR0234 Color)", vendor:"ELP", category:"webcam", sensor:"onsemi AR0234", color:true, resolution:"1920×1200", width:1920, height:1200, true1080p:true, mp:2.3, fps:90, fps_at:"90 fps @ 1920×1200 / 1920×1080 (MJPEG)", interface:"USB 2.0 (UVC)", mount:"M12", price:72, priceConf:"verified", priceSource:"webcamerausb.com — $71.72 (fetched)", url:"https://www.webcamerausb.com/elp-global-shutter-90fps-high-speed-usb-camera-color-aptina-ar0234-2mp-1920x1080-camera-module-with-no-distortion-lens-85dergee-p-462.html", notes:"Lowest-cost true-1080p color global shutter. Plug-and-play UVC. Great for OpenCV / golf-swing / robotics."},
+      {id:"alpcam-ar0234-gs", name:"ALPCAM 2MP AR0234 Global Shutter USB", vendor:"ALPCAM", category:"webcam", sensor:"onsemi AR0234", color:true, resolution:"1920×1200", width:1920, height:1200, true1080p:true, mp:2.3, fps:90, fps_at:"90 fps @ full res", interface:"USB 2.0 (UVC)", mount:"M12", price:75, priceConf:"est", priceSource:"estimate — Amazon listing, price not published in search", url:"https://www.amazon.com/ALPCAM-Shutter-Distortion-Lightburn-Windows/dp/B0DM92T2MC", notes:"Budget UVC board for golf-swing & laser engraving. Wide-angle low-distortion lens."},
+      {id:"arducam-imx296-mipi", name:"Arducam IMX296 Color GS (Raspberry Pi)", vendor:"Arducam", category:"embedded", sensor:"Sony IMX296", color:true, resolution:"1456×1088", width:1456, height:1088, true1080p:false, mp:1.58, fps:60, fps_at:"60 fps @ 1456×1088", interface:"MIPI CSI-2", mount:"M12 / CS", price:59, priceConf:"est", priceSource:"estimate — Arducam page blocks fetch", url:"https://www.arducam.com/1-58mp-imx296-color-global-shutter-camera-module-with-m12-lens-for-raspberry-pi.html", notes:"Native Raspberry Pi (libcamera/Picamera2). 4:3 sensor — meets ≥1080 vertical but not full 1920-wide 1080p."},
+      {id:"arducam-imx296-usb3", name:"Arducam IMX296 Color GS USB3", vendor:"Arducam", category:"webcam", sensor:"Sony IMX296", color:true, resolution:"1456×1088", width:1456, height:1088, true1080p:false, mp:1.58, fps:44, fps_at:"44 fps @ 1456×1088", interface:"USB 3.0 (UVC)", mount:"CS", price:90, priceConf:"est", priceSource:"estimate — Amazon listing, price not published in search", url:"https://www.amazon.com/Arducam-IMX296-Shutter-High-Speed-Windows/dp/B0DBV4CBDQ", notes:"USB3 UVC version of the IMX296 module. Uncompressed output, good color fidelity."},
+      {id:"econ-uc20mpa-og02b10", name:"e-con UC20MPA (OG02B10 Color)", vendor:"e-con Systems", category:"industrial", sensor:"OmniVision OG02B10", color:true, resolution:"1600×1200", width:1600, height:1200, true1080p:false, mp:2.3, fps:60, fps_at:"60 fps @ 1600×1200", interface:"USB 2.0 (UVC)", mount:"S / M12", price:119, priceConf:"est", priceSource:"estimate — e-con / Spinel, quote-oriented", url:"https://www.spinelelectronics.com/product/uc20mpa/", notes:"HD color GS on OmniVision OG02B10 (OmniPixel3-GS). USB 2.0 UVC. Active product (Arducam's OG02B10 modules are discontinued)."},
+      {id:"arducam-og02b10-pivariety", name:"Arducam OG02B10 Color GS Module (B0348)", vendor:"Arducam", category:"embedded", sensor:"OmniVision OG02B10", color:true, resolution:"1600×1300", width:1600, height:1300, true1080p:false, mp:2.3, fps:60, fps_at:"60 fps @ 1600×1300 (80 fps @ 1600×1080, 120 fps @ 720p)", interface:"MIPI CSI-2", mount:"M12", price:110, priceConf:"listed", priceSource:"UCTronics — $109.99 (page blocks fetch; price read via search)", url:"https://www.uctronics.com/arducam-2mp-global-shutter-og02b10-color-camera-modules-pivariety.html", notes:"Pivariety MIPI module for Pi/Jetson; has a 1600×1080 @ 80 fps mode. NOTE: discontinued by Arducam (successor EK031). Listed for sensor reference."},
+      {id:"vadzo-ar0234-usb2", name:"Vadzo AR0234 Color GS USB 2.0", vendor:"Vadzo Imaging", category:"embedded", sensor:"onsemi AR0234", color:true, resolution:"1920×1200", width:1920, height:1200, true1080p:true, mp:2.3, fps:65, fps_at:"65 fps @ full res", interface:"USB 2.0 (UVC)", mount:"M12 / S", price:119, priceConf:"est", priceSource:"estimate — embedded vendor, quote-oriented", url:"https://www.vadzoimaging.com/product/ar0234-global-shutter-1080p-usb-2-0-camera", notes:"Embedded-vision board with driver support for Jetson / Pi host integration."},
+      {id:"arducam-ar0234-usb3", name:"Arducam AR0234 Color GS USB3 (B0495)", vendor:"Arducam", category:"webcam", sensor:"onsemi AR0234", color:true, resolution:"1920×1200", width:1920, height:1200, true1080p:true, mp:2.3, fps:80, fps_at:"up to 80 fps; ~76 fps @ full res", interface:"USB 3.0 (UVC)", mount:"M12", price:170, priceConf:"verified", priceSource:"welectron.com — €159.00 incl. VAT (fetched), ≈ $170", url:"https://www.welectron.com/Arducam-B0495-1-23MP-AR0234-Color-Global-Shutter-USB-30-Camera-Module-Without-Encolsure_1", notes:"Higher-bandwidth USB3 version of Arducam's AR0234 color module. Optional enclosure variant."},
+      {id:"imx392-ip-board", name:"IMX392 Global Shutter 1080p IP Board", vendor:"InterTest", category:"industrial", sensor:"Sony IMX392", color:true, resolution:"1920×1080", width:1920, height:1080, true1080p:true, mp:2.1, fps:60, fps_at:"60 fps @ 1080p", interface:"Ethernet / IP", mount:"board (no mount)", price:250, priceConf:"est", priceSource:"estimate — board-level, quote-oriented", url:"https://intertest.com/products/imx392-global-shutter-1080p-ip-board-camera-no-lens-mount", notes:"Board-level camera streaming HD video over IP. Integrates into embedded vision systems."},
+      {id:"daheng-mer2-160-227u3c", name:"Daheng MER2-160-227U3C (IMX273 Color)", vendor:"Daheng Imaging", category:"industrial", sensor:"Sony IMX273", color:true, resolution:"1440×1080", width:1440, height:1080, true1080p:false, mp:1.58, fps:227, fps_at:"227 fps @ 1440×1080", interface:"USB3 Vision", mount:"C / CS", price:260, priceConf:"listed", priceSource:"va-imaging.com — €240 listed ('contact for pricing'), ≈ $260", url:"https://va-imaging.com/products/usb3-0-camera-1-6mp-color-sony-imx273-mer2-160-227u3c", notes:"Compact industrial USB3, very high frame rate. Native 1440×1080 (1080 lines). Affordable Pregius entry vs FLIR/Basler."},
+      {id:"econ-see3cam-24cug", name:"e-con See3CAM_24CUG", vendor:"e-con Systems", category:"industrial", sensor:"onsemi AR0234", color:true, resolution:"1920×1080", width:1920, height:1080, true1080p:true, mp:2.3, fps:60, fps_at:"60 fps @ 1080p (120 fps @ 720p)", interface:"USB 3.1 Gen1 (Type-C)", mount:"S / M12", price:269, priceConf:"est", priceSource:"estimate — e-con quote-oriented", url:"https://www.e-consystems.com/industrial-cameras/ar0234-usb3-global-shutter-camera.asp", notes:"Full-HD color GS with onboard ISP and tuning. UVC plug-and-play, Type-C. Industrial-grade."},
+      {id:"basler-aca720-imx287", name:"Basler ace acA720-520um (IMX287 Mono)", vendor:"Basler", category:"industrial", sensor:"Sony IMX287", color:false, resolution:"728×544", width:728, height:544, true1080p:false, mp:0.4, fps:525, fps_at:"~525 fps @ 728×544", interface:"USB3 Vision", mount:"C / CS", price:350, priceConf:"est", priceSource:"estimate — Basler quote-only", url:"https://www.baslerweb.com/en/shop/aca720-imx287/", notes:"VGA-class Pregius, extremely high frame rate. Tiny fast mono sensor for high-speed inspection / tracking."},
+      {id:"flir-bfs-u3-23s3c", name:"FLIR Blackfly S BFS-U3-23S3C-C", vendor:"Teledyne FLIR", category:"industrial", sensor:"Sony IMX392", color:true, resolution:"1920×1200", width:1920, height:1200, true1080p:true, mp:2.3, fps:163, fps_at:"163 fps @ full res", interface:"USB3 Vision", mount:"C / CS", price:421, priceConf:"listed", priceSource:"B&H Photo — $421.00 (page blocks fetch; price read via search)", url:"https://www.bhphotovideo.com/c/product/1844617-REG/teledyne_flir_bfs_u3_23s3c_c_blackfly_s_usb3_2_3mp.html", notes:"Rugged 29×29 mm 'ice-cube' body, 240 MB buffer, hardware trigger / GPIO. Spinnaker SDK."},
+      {id:"tis-dfk-33gx174", name:"The Imaging Source DFK 33GX174 (GigE)", vendor:"The Imaging Source", category:"industrial", sensor:"Sony IMX174", color:true, resolution:"1920×1200", width:1920, height:1200, true1080p:true, mp:2.3, fps:50, fps_at:"50 fps @ full res (GigE-limited)", interface:"GigE Vision", mount:"C / CS", price:525, priceConf:"est", priceSource:"estimate — TIS quote-only", url:"https://www.theimagingsource.com/products/industrial-cameras/usb-3.0-color/dfk33ux174/", notes:"GigE version for cabled runs up to ~100 m. Large 1/1.2\" sensor, excellent low-light."},
+      {id:"tis-dfk-33ux174", name:"The Imaging Source DFK 33UX174 (USB3)", vendor:"The Imaging Source", category:"industrial", sensor:"Sony IMX174", color:true, resolution:"1920×1200", width:1920, height:1200, true1080p:true, mp:2.3, fps:162, fps_at:"162 fps @ full res", interface:"USB3 Vision", mount:"C / CS", price:520, priceConf:"est", priceSource:"estimate — TIS quote-only", url:"https://www.theimagingsource.com/products/industrial-cameras/usb-3.0-color/dfk33ux174/", notes:"Large 1/1.2\" IMX174, 5.86 µm pixels — strong dynamic range and low noise."},
+      {id:"basler-a2a1920-160uc", name:"Basler ace 2 a2A1920-160ucPRO", vendor:"Basler", category:"industrial", sensor:"Sony IMX392", color:true, resolution:"1920×1200", width:1920, height:1200, true1080p:true, mp:2.3, fps:160, fps_at:"160 fps @ full res", interface:"USB3 Vision", mount:"C / CS", price:540, priceConf:"est", priceSource:"estimate — Basler quote-only", url:"https://www.baslerweb.com/en/shop/a2a1920-160umpro/", notes:"ace 2 PRO series with PGI feature set, compact 29×29 mm. Pylon SDK."},
+      {id:"basler-aca1920-155uc", name:"Basler ace acA1920-155uc", vendor:"Basler", category:"industrial", sensor:"Sony IMX174", color:true, resolution:"1920×1200", width:1920, height:1200, true1080p:true, mp:2.3, fps:164, fps_at:"164 fps @ full res", interface:"USB3 Vision", mount:"C / CS", price:610, priceConf:"est", priceSource:"estimate — Basler quote-only", url:"https://www.baslerweb.com/en/shop/aca1920-155um/", notes:"Classic ace USB3 with large IMX174. Industry workhorse, wide lens ecosystem."},
+      {id:"ximea-mc023cg-sy", name:"XIMEA xiC MC023CG-SY", vendor:"XIMEA", category:"industrial", sensor:"Sony IMX174", color:true, resolution:"1936×1216", width:1936, height:1216, true1080p:true, mp:2.3, fps:166, fps_at:"166 fps @ full res", interface:"USB3 Vision", mount:"C / CS", price:700, priceConf:"est", priceSource:"estimate — XIMEA quote-only", url:"https://www.ximea.com/products/usb-vision-industrial/xic-sony-cmos-pregius-usb3-cameras/sony-imx174-usb3-color-industrial-camera", notes:"Ultra-compact 26×26 mm housing, very high frame rate. Premium build for embedded robotics."},
+      {id:"flir-bfs-u3-31s4c-imx265", name:"FLIR Blackfly S BFS-U3-31S4C-C (IMX265)", vendor:"Teledyne FLIR", category:"industrial", sensor:"Sony IMX265", color:true, resolution:"2048×1536", width:2048, height:1536, true1080p:true, mp:3.2, fps:55, fps_at:"55 fps @ 2048×1536", interface:"USB3 Vision", mount:"C / CS", price:750, priceConf:"est", priceSource:"estimate — FLIR quote-only (≈$200 for used mono GigE seen on eBay)", url:"https://www.teledynevisionsolutions.com/en-150/products/blackfly-s-usb3/?model=BFS-U3-31S4C-C&vertical=machine+vision&segment=iis", notes:"3.2 MP step up from 1080p when you need more pixels at moderate frame rate. 4:3 sensor."},
+      {id:"flir-bfs-u3-51s5c-imx250", name:"FLIR Blackfly S BFS-U3-51S5C-C (IMX250)", vendor:"Teledyne FLIR", category:"industrial", sensor:"Sony IMX250", color:true, resolution:"2448×2048", width:2448, height:2048, true1080p:true, mp:5.0, fps:75, fps_at:"75 fps @ 2448×2048", interface:"USB3 Vision", mount:"C / CS", price:1304, priceConf:"listed", priceSource:"B&H Photo — $1,304.00 (page blocks fetch; price read via search)", url:"https://www.bhphotovideo.com/c/product/1845639-REG/teledyne_flir_bfs_u3_51s5c_c_blackfly_s_usb3_5mp.html", notes:"High-resolution 5 MP color GS anchor. Same Blackfly S body/features as the 2.3 MP model."}
+    ];
+
+    const CAT_LABEL = { webcam: "Webcam / USB", embedded: "Embedded", industrial: "Industrial" };
+    const CONF_LABEL = { verified: "✓ verified", listed: "listed price", est: "est." };
+
+    const state = {
+      search:"", category:"all", color:"all", res:"all", interface:"all", sensor:"all",
+      minFps:30, maxPrice:1400, sort:"price-asc", true1080:false, confirmed:false
+    };
+
+    const el = (id) => document.getElementById(id);
+
+    function matchInterface(cam) {
+      if (state.interface === "all") return true;
+      if (state.interface === "USB 3") return /USB ?3/.test(cam.interface);
+      if (state.interface === "GigE") return /GigE|IP|Ethernet/.test(cam.interface);
+      return cam.interface.includes(state.interface);
+    }
+
+    function matchRes(cam) {
+      switch (state.res) {
+        case "sub1": return cam.mp < 1.0;
+        case "1mp":  return cam.mp >= 1.0 && cam.mp < 1.5;
+        case "mid":  return cam.mp >= 1.5 && cam.mp < 3.0;
+        case "high": return cam.mp >= 3.0;
+        default: return true;
+      }
+    }
+
+    function applyFilters() {
+      let list = CAMERAS.filter(cam => {
+        if (state.category !== "all" && cam.category !== state.category) return false;
+        if (state.color === "color" && !cam.color) return false;
+        if (state.color === "mono" && cam.color) return false;
+        if (!matchRes(cam)) return false;
+        if (!matchInterface(cam)) return false;
+        if (state.sensor !== "all" && !cam.sensor.includes(state.sensor)) return false;
+        if (cam.fps < state.minFps) return false;
+        if (cam.price > state.maxPrice) return false;
+        if (state.true1080 && !cam.true1080p) return false;
+        if (state.confirmed && cam.priceConf === "est") return false;
+        if (state.search) {
+          const q = state.search.toLowerCase();
+          const hay = (cam.name + " " + cam.sensor + " " + cam.vendor + " " + cam.interface).toLowerCase();
+          if (!hay.includes(q)) return false;
+        }
+        return true;
+      });
+
+      const sorters = {
+        "price-asc": (a, b) => a.price - b.price,
+        "price-desc": (a, b) => b.price - a.price,
+        "fps-desc": (a, b) => b.fps - a.fps,
+        "mp-desc": (a, b) => b.mp - a.mp,
+        "vendor": (a, b) => a.vendor.localeCompare(b.vendor)
+      };
+      list.sort(sorters[state.sort]);
+      return list;
+    }
+
+    function esc(s) { return String(s).replace(/"/g, "&quot;").replace(/</g, "&lt;"); }
+
+    function render() {
+      const list = applyFilters();
+      el("r-count").textContent = list.length;
+
+      const cheapestPrice = list.length ? Math.min(...list.map(c => c.price)) : null;
+      const cards = el("cards");
+      const noRes = el("no-results");
+
+      if (!list.length) { cards.innerHTML = ""; noRes.style.display = "block"; return; }
+      noRes.style.display = "none";
+
+      cards.innerHTML = list.map(cam => {
+        const isCheapest = cam.price === cheapestPrice;
+        return `
+          <div class="cam-card ${isCheapest ? "cheapest" : ""}">
+            ${isCheapest ? '<div class="badge-best">★ LOWEST PRICE</div>' : ""}
+            <div class="card-top">
+              <div>
+                <div class="cam-name">${cam.name}</div>
+                <div class="cam-vendor">${cam.vendor}</div>
+              </div>
+              <div class="price-tag">
+                <div class="amount">${cam.priceConf === "est" ? "~" : ""}$${cam.price}</div>
+                <div class="price-conf ${cam.priceConf}" title="${esc(cam.priceSource)}">${CONF_LABEL[cam.priceConf]}</div>
+              </div>
+            </div>
+            <div class="pill-row">
+              <span class="pill cat-${cam.category}">${CAT_LABEL[cam.category]}</span>
+              <span class="pill ${cam.color ? "color" : "mono"}">${cam.color ? "Color" : "Mono"}</span>
+              <span class="pill">${cam.interface}</span>
+              <span class="pill">${cam.sensor}</span>
+              ${cam.true1080p ? '<span class="pill">True 1080p</span>' : ''}
+            </div>
+            <div class="spec-grid">
+              <div class="spec"><span class="k">Resolution</span><span class="v">${cam.resolution} · ${cam.mp} MP</span></div>
+              <div class="spec"><span class="k">Frame rate</span><span class="v">${cam.fps} fps</span></div>
+              <div class="spec"><span class="k">Shutter</span><span class="v">Global</span></div>
+              <div class="spec"><span class="k">Mount</span><span class="v">${cam.mount}</span></div>
+            </div>
+            <div class="cam-notes">${cam.notes}</div>
+            <a class="cam-link" href="${cam.url}" target="_blank" rel="noopener">View product</a>
+          </div>`;
+      }).join("");
+    }
+
+    function initCatalog() {
+      el("f-search").addEventListener("input", e => { state.search = e.target.value.trim(); render(); });
+
+      el("f-category").querySelectorAll(".seg-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          el("f-category").querySelectorAll(".seg-btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          state.category = btn.dataset.val; render();
+        });
+      });
+
+      el("f-color").addEventListener("change", e => { state.color = e.target.value; render(); });
+      el("f-res").addEventListener("change", e => { state.res = e.target.value; render(); });
+      el("f-interface").addEventListener("change", e => { state.interface = e.target.value; render(); });
+      el("f-sensor").addEventListener("change", e => { state.sensor = e.target.value; render(); });
+      el("f-sort").addEventListener("change", e => { state.sort = e.target.value; render(); });
+
+      el("f-fps").addEventListener("input", e => {
+        state.minFps = +e.target.value; el("f-fps-val").textContent = state.minFps + " fps"; render();
+      });
+      el("f-price").addEventListener("input", e => {
+        state.maxPrice = +e.target.value;
+        el("f-price-val").textContent = state.maxPrice >= 1400 ? "$1400+" : "$" + state.maxPrice;
+        render();
+      });
+
+      el("f-true1080").addEventListener("change", e => { state.true1080 = e.target.checked; render(); });
+      el("f-confirmed").addEventListener("change", e => { state.confirmed = e.target.checked; render(); });
+
+      el("f-reset").addEventListener("click", () => {
+        Object.assign(state, { search:"", category:"all", color:"all", res:"all", interface:"all", sensor:"all", minFps:30, maxPrice:1400, sort:"price-asc", true1080:false, confirmed:false });
+        el("f-search").value = ""; el("f-color").value = "all"; el("f-res").value = "all";
+        el("f-interface").value = "all"; el("f-sensor").value = "all"; el("f-sort").value = "price-asc";
+        el("f-fps").value = 30; el("f-fps-val").textContent = "30 fps";
+        el("f-price").value = 1400; el("f-price-val").textContent = "$1400+";
+        el("f-true1080").checked = false; el("f-confirmed").checked = false;
+        el("f-category").querySelectorAll(".seg-btn").forEach(b => b.classList.toggle("active", b.dataset.val === "all"));
+        render();
+      });
+
+      render();
+    }
+
+    document.addEventListener("DOMContentLoaded", initCatalog);
+  </script>
+</body>
+</html>
