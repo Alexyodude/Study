@@ -1,8 +1,8 @@
 ---
-title: "Camera Sensors — Global Shutter Catalog"
+title: "Camera Sensor Catalog"
 created: 2026-06-29
 updated: 2026-06-29
-tags: [cameras, global-shutter, machine-vision, image-sensors, rgb, monochrome]
+tags: [cameras, global-shutter, rolling-shutter, machine-vision, image-sensors, rgb, monochrome]
 status: review
 sources:
   - url: "https://www.baslerweb.com/en-us/learning/cmos-global-shutter-cameras/"
@@ -17,27 +17,29 @@ sources:
     title: "Daheng MER2-160-227U3C — Sony IMX273 Color"
 ---
 
-# Camera Sensors — Global Shutter Catalog
+# Camera Sensor Catalog
 
-A searchable, filterable catalog of **global-shutter cameras across the full resolution range** — from **0.3 MP VGA up to 24.5 MP** — in both **color (RGB) and monochrome**, sorted to surface **low-price** options first. It aims to cover **any common global-shutter sensor** so the sensor search/filter is genuinely complete (Sony Pregius & Pregius S, OmniVision, onsemi AR / PYTHON / XGS). It spans three buying categories: cheap **USB webcams/boards**, **embedded camera modules** (Raspberry Pi / Jetson), and professional **industrial machine-vision** cameras.
+A searchable, filterable catalog of **camera image sensors across the full resolution range** — from **0.3 MP VGA up to 24.5 MP** — in both **color (RGB) and monochrome**, and both **global and rolling shutter**, sorted to surface **low-price** options first. Global shutter is the primary focus, but a few common **rolling-shutter** sensors are included and clearly labeled so the sensor search/filter is genuinely complete (Sony Pregius & Pregius S, OmniVision, onsemi AR / PYTHON / XGS, ams). It spans three buying categories: cheap **USB webcams/boards**, **embedded camera modules** (Raspberry Pi / Jetson), and professional **industrial machine-vision** cameras.
 
-> **Open the interactive catalog:** [`/camera-sensors/`](../../site/camera-sensors/index.html) in the generated site. Filter by category, color/mono, resolution band, interface, sensor, minimum frame rate, and maximum price; sort by price, frame rate, or resolution. Each card shows a **price-source confidence** (verified / listed / est.).
+> **Open the interactive catalog:** [`/camera-sensors/`](../../site/camera-sensors/index.html) in the generated site. Filter by category, **shutter (global/rolling)**, color/mono, resolution band, interface, sensor, minimum frame rate, and maximum price; sort by price, frame rate, or resolution. Each card shows a **price-source confidence** (verified / listed / est.).
 
-## Why global shutter (the filter requirement)
+## Global vs rolling shutter
 
 A **rolling shutter** exposes the image one row at a time, top to bottom. Anything moving fast — a spinning fan, a golf swing, a part on a conveyor — gets **skew, wobble, or partial-exposure artifacts** because different rows are captured at slightly different instants.
 
 A **global shutter** exposes **every pixel at the same instant**, then reads the data out. Fast motion is frozen cleanly with no skew. That is why machine vision, robotics, drones, and any high-speed capture prefer global shutter — at the cost of a more complex (and usually pricier) pixel design than rolling shutter.
 
+The catalog labels each sensor's shutter type and lets you filter by it. The rolling-shutter entries (Sony **IMX219**, OmniVision **OV4689**) are included because they're extremely common and frequently cross-shopped — but note they will skew on fast motion. Watch out for modules that mis-market rolling sensors (like the OV4689) as "global shutter."
+
 ## Resolution bands & "1080p"
 
-The catalog spans four resolution bands (filterable):
+The catalog spans five resolution bands (filterable):
 
 - **< 1 MP (VGA)** — **OV7251** (640×480), **Sony IMX287** (728×544). Tiny, blisteringly fast (120–500+ fps), often mono. Tracking / high-speed inspection.
-- **1 MP** — **OV9281/OV9782**, **onsemi AR0144**, **PYTHON 1300**. Cheap, popular for robotics, depth (OAK), and VR tracking.
+- **1 MP** — **OV9281/OV9782**, **onsemi AR0144**, **PYTHON 1300**, **ams CGSS130 (GS130)** (1.3 MP NIR mono). Cheap, popular for robotics, depth (OAK), and VR/3D tracking.
 - **1.5–2.5 MP (the "1080p" crowd)** — **AR0234, IMX392, IMX174, IMX296, IMX273, OG02B10, OV2311**. The sweet spot for full-HD machine vision.
-- **3–5 MP** — **IMX252/IMX265** (3.2 MP), **IMX250/IMX264** (5 MP), **XGS 5000** (5.3 MP). More pixels at moderate-to-high frame rate.
-- **8 MP+** — **IMX546** (8.1 MP), **IMX267** (8.9 MP), **IMX304** (12.3 MP), **IMX540** (24.5 MP, Pregius S). High-resolution GS; frame rates drop as pixels climb (the 24 MP runs ~16 fps over USB3, ~35 fps over GigE).
+- **3–5 MP** — **IMX252/IMX265** (3.2 MP), **IMX250/IMX264** (5 MP), **XGS 5000** (5.3 MP), **OV4689** (4 MP, *rolling*). More pixels at moderate-to-high frame rate.
+- **8 MP+** — **IMX219** (8 MP, *rolling*), **IMX546** (8.1 MP), **IMX267** (8.9 MP), **IMX304** (12.3 MP), **IMX540** (24.5 MP, Pregius S). High resolution; frame rates drop as pixels climb (the 24 MP runs ~16 fps over USB3, ~35 fps over GigE).
 
 "1080p" = **1920×1080**. Most 2.3 MP sensors are **1920×1200** (16:10) and contain a full 1080p frame. The **"True 1080p only"** toggle keeps only sensors at least 1920 px wide; 4:3 parts like IMX296 (1456×1088) or IMX273 (1440×1080) hit 1080 *lines* but are narrower.
 
@@ -67,6 +69,9 @@ The catalog spans four resolution bands (filterable):
 | **Sony IMX304** | 4096×3000 (12.3 MP) | both | 12 MP Pregius, large 1.1" format |
 | **Sony IMX546** | 2840×2840 (8.1 MP) | both | Pregius **S** (BSI, 2.74 µm); square sensor |
 | **Sony IMX540** | 5328×4608 (24.5 MP) | both | Pregius **S** flagship; 24.5 MP GS |
+| **ams CGSS130 (GS130)** | 1080×1280 (1.3 MP) | mono | Global shutter; NIR-enhanced + HDR; 3D / face / iris sensing |
+| **Sony IMX219** | 3280×2464 (8 MP) | color | **Rolling shutter** — Raspberry Pi Cam v2; cheap, ubiquitous |
+| **OmniVision OV4689** | 2688×1520 (4 MP) | color | **Rolling shutter** — 4 MP surveillance; high frame rate, HDR |
 
 ## How to read price (verify-first)
 

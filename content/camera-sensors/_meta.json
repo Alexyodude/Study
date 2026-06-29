@@ -1,8 +1,8 @@
 {
-  "title": "Camera Sensors — Global Shutter Catalog",
+  "title": "Camera Sensors — Catalog",
   "slug": "camera-sensors",
   "order": 5,
-  "tags": ["cameras", "global-shutter", "machine-vision", "1080p", "rgb"],
+  "tags": ["cameras", "global-shutter", "rolling-shutter", "image-sensors", "machine-vision"],
   "status": "review",
   "children": []
 }
