@@ -25,6 +25,12 @@
       "title": "Toolchain & Practice — Build and Debug Real Projects",
       "order": 4,
       "status": "draft"
+    },
+    {
+      "slug": "camera-sensors",
+      "title": "Camera Sensors — Global Shutter Catalog",
+      "order": 5,
+      "status": "review"
     }
   ]
 }
