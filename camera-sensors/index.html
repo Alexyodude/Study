@@ -239,12 +239,13 @@
           <optgroup label="onsemi">
             <option value="AR0234">onsemi AR0234</option>
             <option value="AR0144">onsemi AR0144</option>
-            <option value="PYTHON">onsemi PYTHON 1300</option>
-            <option value="XGS">onsemi XGS 5000</option>
+            <option value="PYTHON">onsemi PYTHON series</option>
+            <option value="XGS">onsemi XGS series</option>
           </optgroup>
           <optgroup label="Sony Pregius">
-            <option value="IMX392">Sony IMX392</option>
             <option value="IMX174">Sony IMX174</option>
+            <option value="IMX249">Sony IMX249</option>
+            <option value="IMX392">Sony IMX392</option>
             <option value="IMX296">Sony IMX296</option>
             <option value="IMX273">Sony IMX273</option>
             <option value="IMX287">Sony IMX287</option>
@@ -252,13 +253,32 @@
             <option value="IMX265">Sony IMX265</option>
             <option value="IMX264">Sony IMX264</option>
             <option value="IMX250">Sony IMX250</option>
+            <option value="IMX255">Sony IMX255</option>
             <option value="IMX267">Sony IMX267</option>
+            <option value="IMX253">Sony IMX253</option>
             <option value="IMX304">Sony IMX304</option>
             <option value="IMX219">Sony IMX219 (rolling)</option>
           </optgroup>
           <optgroup label="Sony Pregius S">
+            <option value="IMX900">Sony IMX900</option>
+            <option value="IMX547">Sony IMX547</option>
             <option value="IMX546">Sony IMX546</option>
+            <option value="IMX545">Sony IMX545</option>
+            <option value="IMX542">Sony IMX542</option>
+            <option value="IMX541">Sony IMX541</option>
             <option value="IMX540">Sony IMX540</option>
+            <option value="IMX530">Sony IMX530</option>
+          </optgroup>
+          <optgroup label="GPixel">
+            <option value="GMAX">GPixel GMAX series</option>
+            <option value="GSPRINT">GPixel GSPRINT</option>
+          </optgroup>
+          <optgroup label="Teledyne e2v">
+            <option value="Emerald">Teledyne e2v Emerald</option>
+          </optgroup>
+          <optgroup label="ams OSRAM">
+            <option value="CGSS130">ams CGSS130 (GS130)</option>
+            <option value="CMV">ams CMV series</option>
           </optgroup>
           <optgroup label="OmniVision">
             <option value="OG02B10">OmniVision OG02B10</option>
@@ -268,20 +288,17 @@
             <option value="OV7251">OmniVision OV7251</option>
             <option value="OV4689">OmniVision OV4689 (rolling)</option>
           </optgroup>
-          <optgroup label="ams OSRAM">
-            <option value="CGSS130">ams CGSS130 (GS130)</option>
-          </optgroup>
         </select>
       </div>
 
       <div class="filter-field">
-        <label for="f-fps">Min frame rate: <span class="range-val" id="f-fps-val">30 fps</span></label>
-        <input type="range" id="f-fps" min="30" max="200" step="5" value="30">
+        <label for="f-fps">Min frame rate: <span class="range-val" id="f-fps-val">10 fps</span></label>
+        <input type="range" id="f-fps" min="10" max="300" step="5" value="10">
       </div>
 
       <div class="filter-field">
-        <label for="f-price">Max price: <span class="range-val" id="f-price-val">$2500+</span></label>
-        <input type="range" id="f-price" min="20" max="2500" step="10" value="2500">
+        <label for="f-price">Max price: <span class="range-val" id="f-price-val">$8000+</span></label>
+        <input type="range" id="f-price" min="20" max="8000" step="20" value="8000">
       </div>
 
       <div class="filter-field">
@@ -373,7 +390,31 @@
       {id:"xgs5000-industrial", name:"XGS 5000 Industrial Camera (5.3MP)", vendor:"LUCID / onsemi", category:"industrial", sensor:"onsemi XGS 5000", color:true, resolution:"2592×2048", width:2592, height:2048, true1080p:true, mp:5.3, fps:132, fps_at:"132 fps @ 2592×2048 (12-bit)", interface:"USB3 Vision", mount:"C / CS", price:900, priceConf:"est", priceSource:"estimate — quote-only", url:"https://www.onsemi.com/products/sensors/image-sensors/xgs5000", notes:"onsemi XGS 5.3 MP GS, high frame rate (132 fps). Common in newer machine-vision cameras."},
       {id:"ams-cgss130-gs130", name:"ams CGSS130 (GS130) Mono", vendor:"ams OSRAM", category:"embedded", sensor:"ams CGSS130 (GS130)", color:false, shutter:"global", resolution:"1080×1280", width:1080, height:1280, true1080p:false, mp:1.3, fps:120, fps_at:"120 fps @ 1.3 MP", interface:"parallel / MIPI", mount:"board", price:60, priceConf:"est", priceSource:"estimate — sensor-level, integrator-dependent", url:"https://ams.com/-/ams-introduces-global-shutter-image-sensor-offering-high-sensitivity-at-near-infrared-wavelengths", notes:"ams global-shutter 1.3 MP mono with strong NIR response (QE ~40% @ 940 nm) and >100 dB HDR. 3D sensing, face / iris recognition."},
       {id:"sony-imx219-rolling", name:"Sony IMX219 (Raspberry Pi Cam v2)", vendor:"Sony / Raspberry Pi", category:"embedded", sensor:"Sony IMX219", color:true, shutter:"rolling", resolution:"3280×2464", width:3280, height:2464, true1080p:true, mp:8.0, fps:30, fps_at:"1080p @ 30 fps; ~15 fps @ 8 MP full res", interface:"MIPI CSI-2", mount:"M12 / fixed", price:25, priceConf:"est", priceSource:"estimate — Raspberry Pi Cam v2 ~$25; Arducam modules vary", url:"https://www.raspberrypi.com/documentation/accessories/camera.html", notes:"ROLLING shutter. The ubiquitous 8 MP Pi Cam v2 sensor — cheap and well-supported, but fast motion skews. Listed for completeness (not global shutter)."},
-      {id:"omnivision-ov4689-rolling", name:"OmniVision OV4689 4MP USB3", vendor:"OmniVision / CM Tech", category:"webcam", sensor:"OmniVision OV4689", color:true, shutter:"rolling", resolution:"2688×1520", width:2688, height:1520, true1080p:true, mp:4.0, fps:90, fps_at:"90 fps @ 4 MP (120 fps @ 1080p, 180 fps @ 720p)", interface:"USB 3.0", mount:"M12 / CS", price:60, priceConf:"est", priceSource:"estimate — CM Technology module, quote-oriented", url:"https://www.ovt.com/products/ov4689/", notes:"ROLLING shutter (OmniBSI-2). 4 MP high-frame-rate surveillance sensor; sometimes mis-marketed as global shutter. Listed for completeness (not global shutter)."}
+      {id:"omnivision-ov4689-rolling", name:"OmniVision OV4689 4MP USB3", vendor:"OmniVision / CM Tech", category:"webcam", sensor:"OmniVision OV4689", color:true, shutter:"rolling", resolution:"2688×1520", width:2688, height:1520, true1080p:true, mp:4.0, fps:90, fps_at:"90 fps @ 4 MP (120 fps @ 1080p, 180 fps @ 720p)", interface:"USB 3.0", mount:"M12 / CS", price:60, priceConf:"est", priceSource:"estimate — CM Technology module, quote-oriented", url:"https://www.ovt.com/products/ov4689/", notes:"ROLLING shutter (OmniBSI-2). 4 MP high-frame-rate surveillance sensor; sometimes mis-marketed as global shutter. Listed for completeness (not global shutter)."},
+      {id:"sony-imx249", name:"Sony IMX249 (Pregius 2.3MP)", vendor:"Sony", category:"industrial", sensor:"Sony IMX249", color:true, shutter:"global", resolution:"1920×1200", width:1920, height:1200, true1080p:true, mp:2.3, fps:41, fps_at:"41 fps @ full res", interface:"USB3 Vision", mount:"C / CS", price:450, priceConf:"est", priceSource:"estimate — quote-only", url:"https://www.baslerweb.com/en-us/learning/cmos-sensor-selection/", notes:"Gen-1 Pregius, cost-effective slower sibling of IMX174 (41 fps). Same 1/1.2\" large pixel, great low light."},
+      {id:"sony-imx253", name:"Sony IMX253 (Pregius 12.3MP)", vendor:"Sony", category:"industrial", sensor:"Sony IMX253", color:true, shutter:"global", resolution:"4096×3000", width:4096, height:3000, true1080p:true, mp:12.3, fps:32, fps_at:"32 fps @ 4096×3000 (USB3)", interface:"USB3 Vision", mount:"C / CS", price:1800, priceConf:"est", priceSource:"estimate — quote-only", url:"https://www.ximea.com/products/usb-vision-industrial/xic-sony-cmos-pregius-usb3-cameras/sony-imx253-usb3-color-industrial-camera", notes:"12.3 MP Gen-2 Pregius, large 1.1\" format. The classic 12 MP machine-vision workhorse."},
+      {id:"sony-imx255", name:"Sony IMX255 (Pregius 8.9MP)", vendor:"Sony", category:"industrial", sensor:"Sony IMX255", color:false, shutter:"global", resolution:"4112×2176", width:4112, height:2176, true1080p:true, mp:8.95, fps:93, fps_at:"93.7 fps @ 8.9 MP", interface:"USB3 Vision", mount:"C / CS", price:1700, priceConf:"est", priceSource:"estimate — quote-only", url:"https://www.framos.com/en/products/imx255llr-c-18371", notes:"High-speed 8.9 MP Pregius (16:9). Fast readout for traffic / high-throughput inspection."},
+      {id:"sony-imx900", name:"Sony IMX900 (Pregius S 3.2MP)", vendor:"Sony", category:"industrial", sensor:"Sony IMX900", color:true, shutter:"global", resolution:"2064×1552", width:2064, height:1552, true1080p:true, mp:3.2, fps:120, fps_at:"120 fps @ 3.2 MP; Quad shutter for µs events", interface:"USB3 Vision", mount:"S / M12", price:300, priceConf:"est", priceSource:"estimate — e-con / Vadzo modules, quote-oriented", url:"https://www.e-consystems.com/camera-modules/3mp-sony-pregius-imx900-global-shutter-camera-module.asp", notes:"Newer (2024) Pregius S with 2.25 µm pixels, RGB-IR, Quad HDR, strong NIR. Barcode, robotics, factory automation."},
+      {id:"sony-imx547", name:"Sony IMX547 (Pregius S 5.1MP)", vendor:"Sony", category:"industrial", sensor:"Sony IMX547", color:true, shutter:"global", resolution:"2472×2064", width:2472, height:2064, true1080p:true, mp:5.1, fps:58, fps_at:"58 fps @ 5.1 MP (GigE)", interface:"GigE Vision", mount:"C / CS", price:900, priceConf:"est", priceSource:"estimate — quote-only", url:"https://va-imaging.com/en-us/blogs/camera-image-sensors/cameras-with-sony-imx547-sensor-specs-prices-life-cycle", notes:"Pregius S 5.1 MP (BSI, 2.74 µm). Modern replacement for the 5 MP IMX264/250 class."},
+      {id:"sony-imx545", name:"Sony IMX545 (Pregius S 12.4MP)", vendor:"Sony", category:"industrial", sensor:"Sony IMX545", color:true, shutter:"global", resolution:"4096×3000", width:4096, height:3000, true1080p:true, mp:12.4, fps:64, fps_at:"~64 fps @ 12.4 MP", interface:"USB3 Vision", mount:"C / CS", price:1900, priceConf:"est", priceSource:"estimate — quote-only", url:"https://thinklucid.com/tech-briefs/sony-4th-generation-pregius-s/", notes:"Pregius S 12.4 MP — high resolution with the small 2.74 µm BSI pixel."},
+      {id:"sony-imx542", name:"Sony IMX542 (Pregius S 16.3MP)", vendor:"Sony", category:"industrial", sensor:"Sony IMX542", color:true, shutter:"global", resolution:"5328×3040", width:5328, height:3040, true1080p:true, mp:16.3, fps:52, fps_at:"52 fps @ 16.3 MP (GigE); 24 fps over USB3", interface:"GigE Vision", mount:"C / CS", price:2600, priceConf:"est", priceSource:"estimate — quote-only", url:"https://va-imaging.com/en-us/blogs/camera-image-sensors/cameras-with-sony-imx542-sensor-specs-prices-life-cycle", notes:"Pregius S 16.3 MP (16:9). Wide high-res field for inspection and ITS."},
+      {id:"sony-imx541", name:"Sony IMX541 (Pregius S 20.4MP)", vendor:"Sony", category:"industrial", sensor:"Sony IMX541", color:false, shutter:"global", resolution:"4512×4512", width:4512, height:4512, true1080p:true, mp:20.4, fps:30, fps_at:"~30 fps @ 20.4 MP", interface:"USB3 Vision", mount:"C / CS", price:3000, priceConf:"est", priceSource:"estimate — quote-only", url:"https://www.baslerweb.com/en/learning/sony-pregius-s-sensors/", notes:"Pregius S 20.4 MP square sensor. High-detail flat-panel / PCB / wafer inspection."},
+      {id:"sony-imx530", name:"Sony IMX530 (Pregius S 24.5MP, high-speed)", vendor:"Sony", category:"industrial", sensor:"Sony IMX530", color:true, shutter:"global", resolution:"5328×4608", width:5328, height:4608, true1080p:true, mp:24.5, fps:51, fps_at:"~51 fps @ 24.5 MP (CoaXPress / 10GigE)", interface:"CoaXPress", mount:"C / TFL", price:3800, priceConf:"est", priceSource:"estimate — quote-only", url:"https://www.ximea.com/products/usb-vision-industrial/xic-sony-cmos-pregius-usb3-cameras/sony-imx530-usb3-hdr-mono-industrial-camera", notes:"High-speed sibling of the IMX540 (same 24.5 MP, faster readout). For fast high-res capture."},
+      {id:"gpixel-gmax2509", name:"GPixel GMAX2509 (9MP 4K GS)", vendor:"GPixel", category:"industrial", sensor:"GPixel GMAX2509", color:false, shutter:"global", resolution:"4200×2160", width:4200, height:2160, true1080p:true, mp:9.1, fps:290, fps_at:"290 fps @ 4K (10-bit)", interface:"CoaXPress", mount:"C / CS", price:2000, priceConf:"est", priceSource:"estimate — quote-only", url:"https://gpixel.com/en/pro_details_1182.html", notes:"World's smallest charge-domain GS pixel; 4K (4200×2160) at 290 fps. High-speed >4K video & inspection."},
+      {id:"gpixel-gmax0505", name:"GPixel GMAX0505 (25MP GS)", vendor:"GPixel", category:"industrial", sensor:"GPixel GMAX0505", color:true, shutter:"global", resolution:"5120×4880", width:5120, height:4880, true1080p:true, mp:25.0, fps:150, fps_at:"up to 150 fps @ 25 MP", interface:"CoaXPress", mount:"C / TFL", price:3500, priceConf:"est", priceSource:"estimate — quote-only", url:"https://www.gpixel.com/en/pro_details_11126.html", notes:"25 MP 1.1\" GS with 2.5 µm pixel. High resolution at high frame rate for demanding inspection."},
+      {id:"gpixel-gsprint4521", name:"GPixel GSPRINT4521 (21MP high-speed)", vendor:"GPixel", category:"industrial", sensor:"GPixel GSPRINT4521", color:false, shutter:"global", resolution:"5120×4096", width:5120, height:4096, true1080p:true, mp:21.0, fps:1000, fps_at:"1000 fps @ 21 MP (8-bit); 3500+ fps ROI", interface:"CoaXPress", mount:"F / TFL", price:5000, priceConf:"est", priceSource:"estimate — quote-only", url:"https://gpixel.com/en/pro_details_1192.html", notes:"Flagship high-speed GS: 21 MP at 1000 fps. Motion capture, 3D laser profiling, scientific high-speed."},
+      {id:"e2v-emerald-67m", name:"Teledyne e2v Emerald 67M (67MP GS)", vendor:"Teledyne e2v", category:"industrial", sensor:"Teledyne e2v Emerald 67M", color:true, shutter:"global", resolution:"8192×8192", width:8192, height:8192, true1080p:true, mp:67.1, fps:32, fps_at:"32 fps @ 8-10 bit, 16 fps @ 12-bit", interface:"CoaXPress", mount:"M58 / F", price:6000, priceConf:"est", priceSource:"estimate — quote-only", url:"https://www.teledynevisionsolutions.com/products/emerald", notes:"67 MP global shutter (8192×8192, 2.5 µm). One of the highest-resolution GS sensors made."},
+      {id:"e2v-emerald-gen2-12m", name:"Teledyne e2v Emerald Gen2 12M", vendor:"Teledyne e2v", category:"industrial", sensor:"Teledyne e2v Emerald Gen2 12M", color:true, shutter:"global", resolution:"4096×3072", width:4096, height:3072, true1080p:true, mp:12.6, fps:60, fps_at:"~60 fps @ 12.6 MP", interface:"USB3 / GigE", mount:"C / CS", price:1800, priceConf:"est", priceSource:"estimate — quote-only", url:"https://www.teledynevisionsolutions.com/products/emerald-gen-2/", notes:"Gen2 Emerald, 2.8 µm pixel, 67 dB DR, <3e- read noise. Compact, feature-rich GS."},
+      {id:"e2v-emerald-3p2m", name:"Teledyne e2v Emerald 3.2M", vendor:"Teledyne e2v", category:"industrial", sensor:"Teledyne e2v Emerald 3.2M", color:true, shutter:"global", resolution:"2048×1536", width:2048, height:1536, true1080p:true, mp:3.2, fps:120, fps_at:"~120 fps @ 3.2 MP", interface:"USB3 Vision", mount:"C / CS", price:600, priceConf:"est", priceSource:"estimate — quote-only", url:"https://www.teledynevisionsolutions.com/products/emerald", notes:"Compact 3.2 MP GS, an alternative to IMX252/265 with on-chip HDR features."},
+      {id:"ams-cmv2000", name:"ams CMV2000 (2MP GS)", vendor:"ams OSRAM", category:"industrial", sensor:"ams CMV2000", color:true, shutter:"global", resolution:"2048×1088", width:2048, height:1088, true1080p:true, mp:2.2, fps:340, fps_at:"340 fps @ 2 MP (10-bit)", interface:"sub-LVDS", mount:"C / CS", price:700, priceConf:"est", priceSource:"estimate — quote-only", url:"https://ams-osram.com/products/sensor-solutions/cmos-image-sensors/ams-cmv2000", notes:"CMOSIS pipelined GS, HD (2048×1088) at 340 fps. Long-standing high-speed machine-vision sensor."},
+      {id:"ams-cmv4000", name:"ams CMV4000 (4MP GS)", vendor:"ams OSRAM", category:"industrial", sensor:"ams CMV4000", color:false, shutter:"global", resolution:"2048×2048", width:2048, height:2048, true1080p:true, mp:4.2, fps:180, fps_at:"180 fps @ 4 MP (10-bit)", interface:"sub-LVDS", mount:"C / CS", price:900, priceConf:"est", priceSource:"estimate — quote-only", url:"https://ams-osram.com/products/sensor-solutions/cmos-image-sensors/ams-cmv4000", notes:"4 MP square CMOSIS GS at 180 fps. Pin-compatible with CMV2000; widely used in older MV cameras."},
+      {id:"ams-cmv12000", name:"ams CMV12000 (12MP high-speed GS)", vendor:"ams OSRAM", category:"industrial", sensor:"ams CMV12000", color:false, shutter:"global", resolution:"4096×3072", width:4096, height:3072, true1080p:true, mp:12.6, fps:300, fps_at:"300 fps @ 12 MP (10-bit)", interface:"sub-LVDS", mount:"C / F", price:2500, priceConf:"est", priceSource:"estimate — quote-only", url:"https://ams-osram.com/products/sensor-solutions/cmos-image-sensors/ams-cmv12000", notes:"12 MP 4K GS at 300 fps — the sensor behind many high-speed cameras (e.g. Chronos 1.4)."},
+      {id:"ams-cmv20000", name:"ams CMV20000 (20MP GS)", vendor:"ams OSRAM", category:"industrial", sensor:"ams CMV20000", color:true, shutter:"global", resolution:"5120×3840", width:5120, height:3840, true1080p:true, mp:20.0, fps:30, fps_at:"30 fps @ 20 MP (12-bit)", interface:"sub-LVDS", mount:"F / M42", price:3000, priceConf:"est", priceSource:"estimate — quote-only", url:"https://ams-osram.com/products/sensors/cmos-image-sensors/ams-cmv20000", notes:"20 MP APS-C GS. High-resolution inspection where a large sensor and global shutter are both needed."},
+      {id:"onsemi-xgs12000", name:"onsemi XGS 12000 (12.6MP GS)", vendor:"onsemi", category:"industrial", sensor:"onsemi XGS 12000", color:true, shutter:"global", resolution:"4096×3072", width:4096, height:3072, true1080p:true, mp:12.6, fps:90, fps_at:"90 fps @ 12.6 MP (12-bit)", interface:"USB3 Vision", mount:"C / CS", price:1700, priceConf:"est", priceSource:"estimate — quote-only", url:"https://www.onsemi.com/products/sensors/image-sensors/xgs12000", notes:"XGS 12.6 MP GS, 1\" format, fast 90 fps readout. Common in current high-res MV cameras."},
+      {id:"onsemi-xgs16000", name:"onsemi XGS 16000 (16MP GS)", vendor:"onsemi", category:"industrial", sensor:"onsemi XGS 16000", color:true, shutter:"global", resolution:"4000×4000", width:4000, height:4000, true1080p:true, mp:16.0, fps:65, fps_at:"65 fps @ 16 MP", interface:"USB3 Vision", mount:"C / CS", price:2400, priceConf:"est", priceSource:"estimate — quote-only", url:"https://www.onsemi.com/products/sensors/image-sensors/xgs16000", notes:"Cost-effective 16 MP square GS at 65 fps. High-resolution inspection."},
+      {id:"onsemi-xgs30000", name:"onsemi XGS 30000 (29.8MP GS)", vendor:"onsemi", category:"industrial", sensor:"onsemi XGS 30000", color:false, shutter:"global", resolution:"5460×5460", width:5460, height:5460, true1080p:true, mp:29.8, fps:48, fps_at:"48 fps @ 29.8 MP (12-bit)", interface:"CoaXPress", mount:"F / TFL", price:3800, priceConf:"est", priceSource:"estimate — quote-only", url:"https://www.onsemi.com/products/sensors/image-sensors/xgs30000", notes:"29.8 MP APS-C square GS, low power. Very high-resolution global-shutter capture."},
+      {id:"onsemi-python480", name:"onsemi PYTHON 480 (VGA GS)", vendor:"onsemi", category:"industrial", sensor:"onsemi PYTHON 480", color:false, shutter:"global", resolution:"808×608", width:808, height:608, true1080p:false, mp:0.48, fps:120, fps_at:"120 fps @ VGA", interface:"parallel / LVDS", mount:"board", price:350, priceConf:"est", priceSource:"estimate — quote-only", url:"https://www.onsemi.com/pdf/datasheet/noip1sn0480a-d.pdf", notes:"0.48 MP VGA GS, tiny and low-cost. Motion sensing, tracking, machine-vision triggers."},
+      {id:"onsemi-python25k", name:"onsemi PYTHON 25K (25MP GS)", vendor:"onsemi", category:"industrial", sensor:"onsemi PYTHON 25K", color:true, shutter:"global", resolution:"5120×5120", width:5120, height:5120, true1080p:true, mp:26.2, fps:53, fps_at:"~53 fps @ 25 MP", interface:"CoaXPress", mount:"F / TFL", price:3500, priceConf:"est", priceSource:"estimate — quote-only", url:"https://www.onsemi.com/products/sensors/image-sensors", notes:"25 MP large-format GS (4.5 µm). High-resolution inspection and aerial imaging."}
     ];
 
     const CAT_LABEL = { webcam: "Webcam / USB", embedded: "Embedded", industrial: "Industrial" };
@@ -381,10 +422,18 @@
 
     const state = {
       search:"", category:"all", shutter:"all", color:"all", res:"all", interface:"all", sensor:"all",
-      minFps:30, maxPrice:2500, sort:"price-asc", true1080:false, confirmed:false
+      minFps:10, maxPrice:8000, sort:"price-asc", true1080:false, confirmed:false
     };
 
     const shutterOf = (cam) => cam.shutter || "global";
+
+    function matchSensor(cam) {
+      if (state.sensor === "all") return true;
+      const esc = state.sensor.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      // leading word-boundary so a family value ("CMV", "GMAX") matches "CMV2000"
+      // etc., while specific model values stay distinct ("IMX540" ≠ "IMX541").
+      return new RegExp("\\b" + esc).test(cam.sensor);
+    }
 
     const el = (id) => document.getElementById(id);
 
@@ -414,7 +463,7 @@
         if (state.color === "mono" && cam.color) return false;
         if (!matchRes(cam)) return false;
         if (!matchInterface(cam)) return false;
-        if (state.sensor !== "all" && !cam.sensor.includes(state.sensor)) return false;
+        if (!matchSensor(cam)) return false;
         if (cam.fps < state.minFps) return false;
         if (cam.price > state.maxPrice) return false;
         if (state.true1080 && !cam.true1080p) return false;
@@ -509,7 +558,7 @@
       });
       el("f-price").addEventListener("input", e => {
         state.maxPrice = +e.target.value;
-        el("f-price-val").textContent = state.maxPrice >= 2500 ? "$2500+" : "$" + state.maxPrice;
+        el("f-price-val").textContent = state.maxPrice >= 8000 ? "$8000+" : "$" + state.maxPrice;
         render();
       });
 
@@ -517,11 +566,11 @@
       el("f-confirmed").addEventListener("change", e => { state.confirmed = e.target.checked; render(); });
 
       el("f-reset").addEventListener("click", () => {
-        Object.assign(state, { search:"", category:"all", shutter:"all", color:"all", res:"all", interface:"all", sensor:"all", minFps:30, maxPrice:2500, sort:"price-asc", true1080:false, confirmed:false });
+        Object.assign(state, { search:"", category:"all", shutter:"all", color:"all", res:"all", interface:"all", sensor:"all", minFps:10, maxPrice:8000, sort:"price-asc", true1080:false, confirmed:false });
         el("f-search").value = ""; el("f-shutter").value = "all"; el("f-color").value = "all"; el("f-res").value = "all";
         el("f-interface").value = "all"; el("f-sensor").value = "all"; el("f-sort").value = "price-asc";
-        el("f-fps").value = 30; el("f-fps-val").textContent = "30 fps";
-        el("f-price").value = 2500; el("f-price-val").textContent = "$2500+";
+        el("f-fps").value = 10; el("f-fps-val").textContent = "10 fps";
+        el("f-price").value = 8000; el("f-price-val").textContent = "$8000+";
         el("f-true1080").checked = false; el("f-confirmed").checked = false;
         el("f-category").querySelectorAll(".seg-btn").forEach(b => b.classList.toggle("active", b.dataset.val === "all"));
         render();
