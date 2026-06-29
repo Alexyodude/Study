@@ -211,7 +211,7 @@
       "name": "e-con UC20MPA (OG02B10 Color)",
       "vendor": "e-con Systems",
       "category": "industrial",
-      "sensor": "OmniVision OG02B10",
+      "sensor": "OmniVision OG02B10 (A74A / A75A)",
       "format": "1/2.9\"",
       "color": true,
       "shutter": "global",
@@ -228,14 +228,14 @@
       "priceConf": "est",
       "priceSource": "estimate — e-con / Spinel, quote-oriented",
       "url": "https://www.spinelelectronics.com/product/uc20mpa/",
-      "notes": "HD color GS on OmniVision OG02B10 (OmniPixel3-GS). USB 2.0 UVC. Active product (Arducam's OG02B10 modules are discontinued)."
+      "notes": "HD color GS on OmniVision OG02B10 (OmniPixel3-GS). USB 2.0 UVC. Active product (Arducam's OG02B10 modules are discontinued). Orderable sensor parts: OG02B10-A74A / -A75A / -A75A-Z (color, packaging variants); the mono sibling is OG02B1B."
     },
     {
       "id": "arducam-og02b10-pivariety",
       "name": "Arducam OG02B10 Color GS Module (B0348)",
       "vendor": "Arducam",
       "category": "embedded",
-      "sensor": "OmniVision OG02B10",
+      "sensor": "OmniVision OG02B10 (A74A / A75A)",
       "format": "1/2.9\"",
       "color": true,
       "shutter": "global",
@@ -1093,6 +1093,14 @@
       "fps_at": "~53 fps @ 25 MP", "interface": "CoaXPress", "mount": "F / TFL", "price": 3500,
       "priceConf": "est", "priceSource": "estimate — quote-only", "url": "https://www.onsemi.com/products/sensors/image-sensors",
       "notes": "25 MP large-format GS (4.5 µm). High-resolution inspection and aerial imaging."
+    },
+    {
+      "id": "omnivision-og02b1b-mono", "name": "OmniVision OG02B1B Mono GS Module", "vendor": "OmniVision / CM Tech", "category": "webcam",
+      "sensor": "OmniVision OG02B1B", "format": "1/2.9\"", "color": false, "shutter": "global",
+      "resolution": "1600×1300", "width": 1600, "height": 1300, "true1080p": false, "mp": 2.1, "fps": 60,
+      "fps_at": "60 fps @ 1600×1300 (80 fps @ 1600×1080, 120 fps @ 720p)", "interface": "USB 3.0", "mount": "M12 / CS", "price": 85,
+      "priceConf": "est", "priceSource": "estimate — CM Technology / module, quote-oriented", "url": "https://www.ovt.com/products/og02b1b/",
+      "notes": "Monochrome sibling of the OG02B10 color sensor (same 2 MP, 3 µm OmniPixel3-GS, 15° CRA). NIR-strong mono for AR/VR tracking, robotics, 3D modeling."
     }
   ]
 }

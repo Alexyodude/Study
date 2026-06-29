@@ -56,7 +56,8 @@ The catalog spans five resolution bands (filterable):
 | **Sony IMX174** | 1920×1200 (2.3 MP) | both | Large 1/1.2" Pregius; best low-light / dynamic range |
 | **Sony IMX296** | 1456×1088 (1.58 MP) | both | 4:3; native Raspberry Pi "Global Shutter Camera" |
 | **Sony IMX273** | 1440×1080 (1.6 MP) | both | Pregius; native 1080-line, 200+ fps |
-| **OmniVision OG02B10** | 1600×1300 (2.3 MP) | color | OmniPixel3-GS; 1600×1080 @ 80 fps mode; AR/VR & robotics |
+| **OmniVision OG02B10** | 1600×1300 (2.3 MP) | color | OmniPixel3-GS; parts -A74A / -A75A / -A75A-Z; 1600×1080 @ 80 fps; AR/VR & robotics |
+| **OmniVision OG02B1B** | 1600×1300 (2.3 MP) | mono | Monochrome sibling of OG02B10; NIR-strong; tracking / 3D |
 | **Sony IMX252** | 2048×1536 (3.2 MP) | both | Pregius; fast 3.2 MP (~120 fps) |
 | **Sony IMX265** | 2048×1536 (3.2 MP) | both | Pregius; lower-cost 3.2 MP (~55 fps) |
 | **Sony IMX250** | 2448×2048 (5.0 MP) | both | 5 MP Pregius; ~75 fps |
