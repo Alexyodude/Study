@@ -164,7 +164,7 @@
       <div class="cat-criteria">
         <span class="crit-chip">Global shutter</span>
         <span class="crit-chip">Color &amp; mono</span>
-        <span class="crit-chip">VGA → 5 MP</span>
+        <span class="crit-chip">VGA → 24 MP</span>
         <span class="crit-chip">&ge; 30 fps</span>
         <span class="crit-chip">Price-source verified</span>
       </div>
@@ -203,7 +203,8 @@
           <option value="sub1">&lt; 1 MP (VGA)</option>
           <option value="1mp">1 MP</option>
           <option value="mid">1.5 – 2.5 MP (1080p class)</option>
-          <option value="high">3 MP+</option>
+          <option value="high">3 – 5 MP</option>
+          <option value="ultra">8 MP+</option>
         </select>
       </div>
 
@@ -222,18 +223,36 @@
         <label for="f-sensor">Sensor</label>
         <select id="f-sensor">
           <option value="all">All sensors</option>
-          <option value="AR0234">onsemi AR0234</option>
-          <option value="AR0144">onsemi AR0144</option>
-          <option value="IMX392">Sony IMX392</option>
-          <option value="IMX174">Sony IMX174</option>
-          <option value="IMX296">Sony IMX296</option>
-          <option value="IMX273">Sony IMX273</option>
-          <option value="IMX287">Sony IMX287</option>
-          <option value="IMX265">Sony IMX265</option>
-          <option value="IMX250">Sony IMX250</option>
-          <option value="OG02B10">OmniVision OG02B10</option>
-          <option value="OV9281">OmniVision OV9281</option>
-          <option value="OV9782">OmniVision OV9782</option>
+          <optgroup label="onsemi">
+            <option value="AR0234">onsemi AR0234</option>
+            <option value="AR0144">onsemi AR0144</option>
+            <option value="PYTHON">onsemi PYTHON 1300</option>
+            <option value="XGS">onsemi XGS 5000</option>
+          </optgroup>
+          <optgroup label="Sony Pregius">
+            <option value="IMX392">Sony IMX392</option>
+            <option value="IMX174">Sony IMX174</option>
+            <option value="IMX296">Sony IMX296</option>
+            <option value="IMX273">Sony IMX273</option>
+            <option value="IMX287">Sony IMX287</option>
+            <option value="IMX252">Sony IMX252</option>
+            <option value="IMX265">Sony IMX265</option>
+            <option value="IMX264">Sony IMX264</option>
+            <option value="IMX250">Sony IMX250</option>
+            <option value="IMX267">Sony IMX267</option>
+            <option value="IMX304">Sony IMX304</option>
+          </optgroup>
+          <optgroup label="Sony Pregius S">
+            <option value="IMX546">Sony IMX546</option>
+            <option value="IMX540">Sony IMX540</option>
+          </optgroup>
+          <optgroup label="OmniVision">
+            <option value="OG02B10">OmniVision OG02B10</option>
+            <option value="OV9281">OmniVision OV9281</option>
+            <option value="OV9782">OmniVision OV9782</option>
+            <option value="OV2311">OmniVision OV2311</option>
+            <option value="OV7251">OmniVision OV7251</option>
+          </optgroup>
         </select>
       </div>
 
@@ -243,8 +262,8 @@
       </div>
 
       <div class="filter-field">
-        <label for="f-price">Max price: <span class="range-val" id="f-price-val">$1400+</span></label>
-        <input type="range" id="f-price" min="20" max="1400" step="10" value="1400">
+        <label for="f-price">Max price: <span class="range-val" id="f-price-val">$2500+</span></label>
+        <input type="range" id="f-price" min="20" max="2500" step="10" value="2500">
       </div>
 
       <div class="filter-field">
@@ -323,7 +342,17 @@
       {id:"basler-aca1920-155uc", name:"Basler ace acA1920-155uc", vendor:"Basler", category:"industrial", sensor:"Sony IMX174", color:true, resolution:"1920×1200", width:1920, height:1200, true1080p:true, mp:2.3, fps:164, fps_at:"164 fps @ full res", interface:"USB3 Vision", mount:"C / CS", price:610, priceConf:"est", priceSource:"estimate — Basler quote-only", url:"https://www.baslerweb.com/en/shop/aca1920-155um/", notes:"Classic ace USB3 with large IMX174. Industry workhorse, wide lens ecosystem."},
       {id:"ximea-mc023cg-sy", name:"XIMEA xiC MC023CG-SY", vendor:"XIMEA", category:"industrial", sensor:"Sony IMX174", color:true, resolution:"1936×1216", width:1936, height:1216, true1080p:true, mp:2.3, fps:166, fps_at:"166 fps @ full res", interface:"USB3 Vision", mount:"C / CS", price:700, priceConf:"est", priceSource:"estimate — XIMEA quote-only", url:"https://www.ximea.com/products/usb-vision-industrial/xic-sony-cmos-pregius-usb3-cameras/sony-imx174-usb3-color-industrial-camera", notes:"Ultra-compact 26×26 mm housing, very high frame rate. Premium build for embedded robotics."},
       {id:"flir-bfs-u3-31s4c-imx265", name:"FLIR Blackfly S BFS-U3-31S4C-C (IMX265)", vendor:"Teledyne FLIR", category:"industrial", sensor:"Sony IMX265", color:true, resolution:"2048×1536", width:2048, height:1536, true1080p:true, mp:3.2, fps:55, fps_at:"55 fps @ 2048×1536", interface:"USB3 Vision", mount:"C / CS", price:750, priceConf:"est", priceSource:"estimate — FLIR quote-only (≈$200 for used mono GigE seen on eBay)", url:"https://www.teledynevisionsolutions.com/en-150/products/blackfly-s-usb3/?model=BFS-U3-31S4C-C&vertical=machine+vision&segment=iis", notes:"3.2 MP step up from 1080p when you need more pixels at moderate frame rate. 4:3 sensor."},
-      {id:"flir-bfs-u3-51s5c-imx250", name:"FLIR Blackfly S BFS-U3-51S5C-C (IMX250)", vendor:"Teledyne FLIR", category:"industrial", sensor:"Sony IMX250", color:true, resolution:"2448×2048", width:2448, height:2048, true1080p:true, mp:5.0, fps:75, fps_at:"75 fps @ 2448×2048", interface:"USB3 Vision", mount:"C / CS", price:1304, priceConf:"listed", priceSource:"B&H Photo — $1,304.00 (page blocks fetch; price read via search)", url:"https://www.bhphotovideo.com/c/product/1845639-REG/teledyne_flir_bfs_u3_51s5c_c_blackfly_s_usb3_5mp.html", notes:"High-resolution 5 MP color GS anchor. Same Blackfly S body/features as the 2.3 MP model."}
+      {id:"flir-bfs-u3-51s5c-imx250", name:"FLIR Blackfly S BFS-U3-51S5C-C (IMX250)", vendor:"Teledyne FLIR", category:"industrial", sensor:"Sony IMX250", color:true, resolution:"2448×2048", width:2448, height:2048, true1080p:true, mp:5.0, fps:75, fps_at:"75 fps @ 2448×2048", interface:"USB3 Vision", mount:"C / CS", price:1304, priceConf:"listed", priceSource:"B&H Photo — $1,304.00 (page blocks fetch; price read via search)", url:"https://www.bhphotovideo.com/c/product/1845639-REG/teledyne_flir_bfs_u3_51s5c_c_blackfly_s_usb3_5mp.html", notes:"High-resolution 5 MP color GS anchor. Same Blackfly S body/features as the 2.3 MP model."},
+      {id:"arducam-ov2311-mono", name:"Arducam OV2311 2MP Mono GS USB", vendor:"Arducam", category:"webcam", sensor:"OmniVision OV2311", color:false, resolution:"1600×1300", width:1600, height:1300, true1080p:false, mp:2.1, fps:60, fps_at:"60 fps @ 1600×1300", interface:"USB 2.0 (UVC)", mount:"M12", price:70, priceConf:"est", priceSource:"estimate — Amazon/Arducam, price not published in search", url:"https://www.arducam.com/arducam-ov2311-mipi-2mp-mono-global-shutter-camera-module-for-raspberry-pi.html", notes:"OmniPixel3-GS mono with strong near-infrared (NIR) response. Used for eye/iris tracking, 3D sensing, biometrics."},
+      {id:"ov7251-vga-mono", name:"OV7251 VGA Mono GS Module", vendor:"OmniVision (module)", category:"embedded", sensor:"OmniVision OV7251", color:false, resolution:"640×480", width:640, height:480, true1080p:false, mp:0.3, fps:120, fps_at:"120 fps @ VGA (180 fps @ QVGA, 360 fps @ QQVGA)", interface:"MIPI CSI-2", mount:"board", price:40, priceConf:"est", priceSource:"estimate — sensor-level module, varies by integrator", url:"https://www.ovt.com/products/ov7251/", notes:"Tiny VGA mono GS with NIR sensitivity. Gesture / head / eye tracking, depth & motion in AR/VR."},
+      {id:"flir-bfs-u3-32s4c-imx252", name:"FLIR Blackfly S BFS-U3-32S4C-C (IMX252)", vendor:"Teledyne FLIR", category:"industrial", sensor:"Sony IMX252", color:true, resolution:"2048×1536", width:2048, height:1536, true1080p:true, mp:3.2, fps:121, fps_at:"121 fps @ 2048×1536", interface:"USB3 Vision", mount:"C / CS", price:700, priceConf:"est", priceSource:"estimate — FLIR quote-only", url:"https://www.teledynevisionsolutions.com/products/blackfly-s-usb3/", notes:"3.2 MP Pregius — the fast sibling of IMX265 (121 fps vs 55 fps). High-throughput inspection."},
+      {id:"flir-bfs-u3-50s5c-imx264", name:"FLIR Blackfly S BFS-U3-50S5C-C (IMX264)", vendor:"Teledyne FLIR", category:"industrial", sensor:"Sony IMX264", color:true, resolution:"2448×2048", width:2448, height:2048, true1080p:true, mp:5.0, fps:35, fps_at:"35 fps @ 2448×2048", interface:"USB3 Vision", mount:"C / CS", price:950, priceConf:"est", priceSource:"estimate — FLIR quote-only", url:"https://www.teledynevisionsolutions.com/products/blackfly-s-usb3/", notes:"5 MP Pregius — the lower-noise, lower-speed sibling of IMX250 (35 fps vs 75 fps)."},
+      {id:"flir-bfs-u3-88s6c-imx267", name:"FLIR Blackfly S BFS-U3-88S6C-C (IMX267)", vendor:"Teledyne FLIR", category:"industrial", sensor:"Sony IMX267", color:true, resolution:"4096×2160", width:4096, height:2160, true1080p:true, mp:8.9, fps:42, fps_at:"42 fps @ 4096×2160", interface:"USB3 Vision", mount:"C / CS", price:1300, priceConf:"est", priceSource:"estimate — FLIR quote-only", url:"https://www.teledynevisionsolutions.com/products/blackfly-s-usb3/", notes:"8.9 MP 4K-class Pregius (4096×2160). CCD-replacement resolution with global shutter."},
+      {id:"flir-bfs-u3-120s4c-imx304", name:"FLIR Blackfly S BFS-U3-120S4C-C (IMX304)", vendor:"Teledyne FLIR", category:"industrial", sensor:"Sony IMX304", color:true, resolution:"4096×3000", width:4096, height:3000, true1080p:true, mp:12.3, fps:32, fps_at:"32 fps @ 4096×3000 (USB3)", interface:"USB3 Vision", mount:"C / CS", price:1500, priceConf:"est", priceSource:"estimate — FLIR quote-only", url:"https://www.teledynevisionsolutions.com/products/blackfly-s-usb3/", notes:"12.3 MP Pregius, large 1.1\" optical format. High-resolution GS for detailed inspection."},
+      {id:"ximea-imx546-pregius-s", name:"XIMEA xiX IMX546 (Pregius S 8.1MP)", vendor:"XIMEA", category:"industrial", sensor:"Sony IMX546", color:true, resolution:"2840×2840", width:2840, height:2840, true1080p:true, mp:8.1, fps:52, fps_at:"~52 fps @ 2840×2840", interface:"USB3 Vision", mount:"C / CS", price:1200, priceConf:"est", priceSource:"estimate — XIMEA quote-only", url:"https://www.ximea.com/products/usb-vision-industrial/xic-sony-cmos-pregius-usb3-cameras", notes:"Pregius S (BSI, 2.74 µm) square 8.1 MP sensor. Modern high-res GS in a compact format."},
+      {id:"ximea-imx540-pregius-s", name:"XIMEA / LUCID IMX540 (Pregius S 24.5MP)", vendor:"XIMEA / LUCID", category:"industrial", sensor:"Sony IMX540", color:true, resolution:"5328×4608", width:5328, height:4608, true1080p:true, mp:24.5, fps:35, fps_at:"35 fps @ 24.5 MP (GigE/10GigE); ~16 fps over USB3", interface:"GigE Vision", mount:"C / TFL", price:2200, priceConf:"est", priceSource:"estimate — XIMEA/LUCID quote-only", url:"https://www.ximea.com/products/usb-vision-industrial/xic-sony-cmos-pregius-usb3-cameras/sony-imx540-usb3-color-industrial-camera", notes:"Flagship 24.5 MP Pregius S global shutter. Big sensor for wide-area, high-detail inspection."},
+      {id:"ximea-python1300", name:"XIMEA xiQ PYTHON 1300 (1.3MP)", vendor:"XIMEA", category:"industrial", sensor:"onsemi PYTHON 1300", color:true, resolution:"1280×1024", width:1280, height:1024, true1080p:false, mp:1.3, fps:150, fps_at:"150 fps @ 1280×1024", interface:"USB3 Vision", mount:"C / CS", price:500, priceConf:"est", priceSource:"estimate — XIMEA quote-only", url:"https://www.ximea.com/products/usb-vision-industrial/xiq-usb3-compact-cmos-cameras/onsemi-python1300-usb3-color-compact-camera", notes:"onsemi PYTHON 1.3 MP (SXGA), 4.8 µm pixels. Ultra-compact board-level camera; color/mono/NIR variants."},
+      {id:"xgs5000-industrial", name:"XGS 5000 Industrial Camera (5.3MP)", vendor:"LUCID / onsemi", category:"industrial", sensor:"onsemi XGS 5000", color:true, resolution:"2592×2048", width:2592, height:2048, true1080p:true, mp:5.3, fps:132, fps_at:"132 fps @ 2592×2048 (12-bit)", interface:"USB3 Vision", mount:"C / CS", price:900, priceConf:"est", priceSource:"estimate — quote-only", url:"https://www.onsemi.com/products/sensors/image-sensors/xgs5000", notes:"onsemi XGS 5.3 MP GS, high frame rate (132 fps). Common in newer machine-vision cameras."}
     ];
 
     const CAT_LABEL = { webcam: "Webcam / USB", embedded: "Embedded", industrial: "Industrial" };
@@ -331,7 +360,7 @@
 
     const state = {
       search:"", category:"all", color:"all", res:"all", interface:"all", sensor:"all",
-      minFps:30, maxPrice:1400, sort:"price-asc", true1080:false, confirmed:false
+      minFps:30, maxPrice:2500, sort:"price-asc", true1080:false, confirmed:false
     };
 
     const el = (id) => document.getElementById(id);
@@ -348,7 +377,8 @@
         case "sub1": return cam.mp < 1.0;
         case "1mp":  return cam.mp >= 1.0 && cam.mp < 1.5;
         case "mid":  return cam.mp >= 1.5 && cam.mp < 3.0;
-        case "high": return cam.mp >= 3.0;
+        case "high": return cam.mp >= 3.0 && cam.mp < 6.0;
+        case "ultra": return cam.mp >= 6.0;
         default: return true;
       }
     }
@@ -453,7 +483,7 @@
       });
       el("f-price").addEventListener("input", e => {
         state.maxPrice = +e.target.value;
-        el("f-price-val").textContent = state.maxPrice >= 1400 ? "$1400+" : "$" + state.maxPrice;
+        el("f-price-val").textContent = state.maxPrice >= 2500 ? "$2500+" : "$" + state.maxPrice;
         render();
       });
 
@@ -461,11 +491,11 @@
       el("f-confirmed").addEventListener("change", e => { state.confirmed = e.target.checked; render(); });
 
       el("f-reset").addEventListener("click", () => {
-        Object.assign(state, { search:"", category:"all", color:"all", res:"all", interface:"all", sensor:"all", minFps:30, maxPrice:1400, sort:"price-asc", true1080:false, confirmed:false });
+        Object.assign(state, { search:"", category:"all", color:"all", res:"all", interface:"all", sensor:"all", minFps:30, maxPrice:2500, sort:"price-asc", true1080:false, confirmed:false });
         el("f-search").value = ""; el("f-color").value = "all"; el("f-res").value = "all";
         el("f-interface").value = "all"; el("f-sensor").value = "all"; el("f-sort").value = "price-asc";
         el("f-fps").value = 30; el("f-fps-val").textContent = "30 fps";
-        el("f-price").value = 1400; el("f-price-val").textContent = "$1400+";
+        el("f-price").value = 2500; el("f-price-val").textContent = "$2500+";
         el("f-true1080").checked = false; el("f-confirmed").checked = false;
         el("f-category").querySelectorAll(".seg-btn").forEach(b => b.classList.toggle("active", b.dataset.val === "all"));
         render();
