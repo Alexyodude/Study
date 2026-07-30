@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Step 3: Cryptographic Signing — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>C2PA — Content Provenance & Authenticity</button><div class="nav-children"><a class="nav-item" href="core-concepts.html">Core Concepts & Terminology</a><a class="nav-item" href="manifest-structure.html">Manifest Anatomy</a><a class="nav-item" href="step-1-content-creation.html">Step 1: Content Creation & Assertions</a><a class="nav-item" href="step-2-claim-assembly.html">Step 2: Claim Assembly</a><a class="nav-item active" href="step-3-signing.html">Step 3: Cryptographic Signing</a><a class="nav-item" href="step-4-embedding.html">Step 4: Embedding & Packaging</a><a class="nav-item" href="step-5-distribution.html">Step 5: Distribution & Durability</a><a class="nav-item" href="step-6-validation.html">Step 6: Validation & Verification</a><a class="nav-item" href="step-7-end-user.html">Step 7: End-User Presentation</a><a class="nav-item" href="trust-model.html">Trust Infrastructure</a><a class="nav-item" href="photo-vs-video.html">Photo vs. Video: What Differs</a><a class="nav-item" href="limitations.html">Limitations & Challenges</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Stereo Audio & Mic Placement</button><div class="nav-children"><a class="nav-item" href="../stereo-audio-and-mic-placement/index.html">Overview</a><a class="nav-item" href="../stereo-audio-and-mic-placement/how-we-hear-stereo.html">How We Hear Stereo (ITD & ILD)</a><a class="nav-item" href="../stereo-audio-and-mic-placement/coincident-techniques.html">Coincident Techniques (XY, Blumlein, M/S)</a><a class="nav-item" href="../stereo-audio-and-mic-placement/near-coincident-techniques.html">Near-Coincident Techniques (ORTF, DIN, NOS)</a><a class="nav-item" href="../stereo-audio-and-mic-placement/spaced-techniques.html">Spaced Techniques (AB)</a><a class="nav-item" href="../stereo-audio-and-mic-placement/pcb-mic-layout.html">PCB Layout for Dual MEMS Mics</a><a class="nav-item" href="../stereo-audio-and-mic-placement/potting-and-sealing.html">Potting & Environmental Sealing</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Image Sensors for Embedded</button><div class="nav-children"><a class="nav-item" href="../image-sensors-for-embedded/index.html">Overview</a><a class="nav-item" href="../image-sensors-for-embedded/sensor-basics.html">Sensor Basics (Format, Pixel, Shutter)</a><a class="nav-item" href="../image-sensors-for-embedded/interfaces.html">Sensor Interfaces (DVP, MIPI CSI-2)</a><a class="nav-item" href="../image-sensors-for-embedded/sensor-comparison.html">Sensor Comparison by Price</a><a class="nav-item" href="../image-sensors-for-embedded/choosing-a-sensor.html">How to Choose a Sensor</a><a class="nav-item" href="../image-sensors-for-embedded/stm32-hosts-for-cameras.html">STM32 Hosts for Dual Cameras + Secure Boot</a></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../c2pa/index.html">C2PA — Content Provenance & Authenticity</a><span class="sep">/</span><span>Step 3: Cryptographic Signing</span></div>
+      <h1>Step 3: Cryptographic Signing</h1>
+      <div class="tags"><span class="tag">c2pa</span><span class="tag">signing</span><span class="tag">cose</span><span class="tag">x509</span><span class="tag">certificates</span><span class="tag">time-stamp</span></div>
+      <p>
+Once the claim is assembled, it is cryptographically signed. This is the step that makes C2PA tamper-evident — the signature proves the manifest was created by a specific entity and has not been modified.
+</p>
+<h2>The Signing Process</h2>
+<h3>1. Serialize the Claim</h3>
+<p>
+The claim (assembled in <a href="step-2-claim-assembly.html">Step 2</a>) is serialized to deterministic CBOR bytes. These bytes become the <strong>payload</strong> of the signature.
+</p>
+<h3>2. Create COSE_Sign1 Structure</h3>
+<p>
+C2PA uses <a href="https://www.rfc-editor.org/rfc/rfc8152">COSE_Sign1</a> (CBOR Object Signing and Encryption, single-signer mode) as defined in RFC 8152. The structure is a four-element CBOR array:
+</p>
+<pre><code class="language-text">COSE_Sign1_Tagged = Tag(18, [
+<p>
+  protected_headers,    // Algorithm ID + certificate chain
+  unprotected_headers,  // Time-stamp token (if present)
+  payload,              // The serialized claim CBOR bytes
+  signature             // The actual cryptographic signature
+])</code></pre>
+</p>
+<h3>3. Build Protected Headers</h3>
+<p>
+The protected headers (signed along with the payload) include:
+</p>
+<table><thead><tr><th>Header</th><th>Value</th></tr></thead><tbody><tr><td><code>alg</code></td><td>Signing algorithm (e.g., ES256, ES384, PS256, Ed25519)</td></tr>
+<tr><td><code>x5chain</code></td><td>The signer's X.509 certificate chain (formatted per <a href="https://www.rfc-editor.org/rfc/rfc9360">RFC 9360</a>)</td></tr></tbody></table>
+<p>
+The <strong>full certificate chain</strong> — from the signing certificate up to (but not including) the root CA — is embedded in the header. This is why <a href="https://www.softwareseni.com/how-c2pa-content-credentials-work-and-what-their-limits-are/">verification requires no network call</a>.
+</p>
+<h3>4. Sign</h3>
+<p>
+The signer:
+</p>
+<ol>
+<li>Constructs the <code>Sig_structure</code> (the bytes-to-be-signed, combining protected headers and payload)</li>
+<li>Signs with their <strong>private key</strong></li>
+<li>Writes the resulting signature bytes into the COSE_Sign1 structure</li>
+</ol>
+<h3>5. Add Time-Stamp (Optional but Recommended)</h3>
+<p>
+After signing, the signer can request a <strong>time-stamp</strong> from a Time Stamping Authority (TSA):
+</p>
+<ol>
+<li>Send a hash of the signature to an <a href="https://www.rfc-editor.org/rfc/rfc3161">RFC 3161</a>-compliant TSA</li>
+<li>The TSA returns a signed time-stamp token proving the signature existed at a specific time</li>
+<li>The token is stored in the COSE_Sign1 unprotected headers</li>
+</ol>
+<p>
+Time-stamps are critical for <strong>long-term validation</strong> — they prove the signature was created while the certificate was still valid, even after the certificate expires.
+</p>
+<h2>Certificate Requirements</h2>
+<h3>X.509 Certificates</h3>
+<p>
+C2PA only accepts <a href="https://spec.c2pa.org/specifications/specifications/2.3/specs/C2PA_Specification.html">X.509 certificates</a> for signing. The signing certificate must include:
+</p>
+<ul>
+<li><strong>Extended Key Usage (EKU)</strong>: Must contain <code>id-kp-claimSigning</code> (C2PA-specific) or <code>id-kp-documentSigning</code></li>
+<li><strong>Key Usage</strong>: Digital signature</li>
+<li><strong>Subject</strong>: Identifies the signing entity</li>
+</ul>
+<h3>Certificate Chain</h3>
+<pre><code class="language-text">Root CA (on the Trust List)
+<p>
+  └── Intermediate CA
+        └── Signing Certificate (has EKU for claim signing)
+              └── Private Key (held by the signer)</code></pre>
+</p>
+<p>
+All intermediate certificates must be included in the COSE_Sign1 protected headers. The root CA is not included — it must already be on the validator's trust list.
+</p>
+<h3>Getting a Certificate</h3>
+<p>
+To get a trusted C2PA signing certificate, organizations must:
+</p>
+<ol>
+<li>Complete the <a href="https://c2pa.org/faqs/">C2PA Conformance Program</a> evaluation</li>
+<li>Obtain a certificate from an accredited CA (e.g., <a href="https://www.softwareseni.com/how-c2pa-content-credentials-work-and-what-their-limits-are/">DigiCert</a>, SSL.com)</li>
+<li>Certificates cost approximately <strong>$289/year</strong> — there is no free equivalent to Let's Encrypt for C2PA yet</li>
+</ol>
+<h2>Signing Approaches</h2>
+<h3>Hardware Signing (Strongest Trust)</h3>
+<p>
+The private key is stored in a <strong>hardware security module (HSM)</strong> or trusted execution environment:
+</p>
+<ul>
+<li><strong>Cameras</strong>: Leica M11-P, Google Pixel 10 (Titan M2 chip)</li>
+<li><strong>Benefit</strong>: The key never leaves the hardware — it cannot be copied or extracted</li>
+<li><strong>Trust level</strong>: Highest, because the signature is bound to a specific physical device</li>
+</ul>
+<h3>Software Signing</h3>
+<p>
+The private key is stored in software (encrypted keystore, cloud HSM):
+</p>
+<ul>
+<li><strong>Applications</strong>: Adobe Photoshop, Lightroom, Firefly</li>
+<li><strong>Benefit</strong>: Flexible, works with any tool</li>
+<li><strong>Trade-off</strong>: Key could potentially be compromised if the system is breached</li>
+</ul>
+<h3>Cloud Signing</h3>
+<p>
+A remote signing service holds the key and signs on behalf of the creator:
+</p>
+<ul>
+<li><strong>Use case</strong>: Web applications, mobile apps without HSM</li>
+<li><strong>Trade-off</strong>: Introduces a chain-of-custody question — the creator trusts the cloud service to sign correctly</li>
+</ul>
+<h2>Supported Algorithms</h2>
+<table><thead><tr><th>Algorithm</th><th>Type</th><th>Key Size</th></tr></thead><tbody><tr><td>ES256</td><td>ECDSA with P-256</td><td>256-bit</td></tr>
+<tr><td>ES384</td><td>ECDSA with P-384</td><td>384-bit</td></tr>
+<tr><td>ES512</td><td>ECDSA with P-521</td><td>521-bit</td></tr>
+<tr><td>PS256</td><td>RSASSA-PSS with SHA-256</td><td>2048+ bit</td></tr>
+<tr><td>PS384</td><td>RSASSA-PSS with SHA-384</td><td>2048+ bit</td></tr>
+<tr><td>PS512</td><td>RSASSA-PSS with SHA-512</td><td>2048+ bit</td></tr>
+<tr><td>Ed25519</td><td>EdDSA</td><td>256-bit</td></tr></tbody></table>
+<h2>What the Signature Proves</h2>
+<p>
+After signing, the COSE_Sign1 structure proves:
+</p>
+<ol>
+<li><strong>Integrity</strong> — The claim (and thus all assertion hashes) has not been modified</li>
+<li><strong>Authentication</strong> — The claim was signed by the holder of the private key matching the certificate</li>
+<li><strong>Non-repudiation</strong> — The signer cannot deny having signed (their certificate is in the signature)</li>
+<li><strong>Time</strong> — (If time-stamped) The signature existed at a proven point in time</li>
+</ol>
+<p>
+It does <strong>not</strong> prove:
+</p>
+<ul>
+<li>The content is truthful (a camera can photograph a screen showing a deepfake)</li>
+<li>The signer is trustworthy (that's the <a href="trust-model.html">trust model's</a> job)</li>
+</ul>
+<h2>References</h2>
+<ol>
+<li><a href="https://spec.c2pa.org/specifications/specifications/2.3/specs/C2PA_Specification.html">C2PA Technical Specification v2.3</a> — COSE_Sign1 structure, certificate requirements, algorithms</li>
+<li><a href="https://www.softwareseni.com/how-c2pa-content-credentials-work-and-what-their-limits-are/">How C2PA Content Credentials Work</a> — Hardware vs. software signing, certificate costs</li>
+<li><a href="https://c2pa.org/faqs/">C2PA FAQ</a> — Conformance program and certificate issuance</li>
+</ol>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://spec.c2pa.org/specifications/specifications/2.3/specs/C2PA_Specification.html" target="_blank" rel="noopener">C2PA Technical Specification v2.3</a></li><li><a href="https://www.softwareseni.com/how-c2pa-content-credentials-work-and-what-their-limits-are/" target="_blank" rel="noopener">How C2PA Content Credentials Work</a></li><li><a href="https://c2pa.org/faqs/" target="_blank" rel="noopener">C2PA FAQ</a></li></ul></div>
+      <div class="page-nav"><a href="step-2-claim-assembly.html"><span class="nav-label">← Previous</span><span class="nav-title">Step 2: Claim Assembly</span></a><a class="next" href="step-4-embedding.html"><span class="nav-label">Next →</span><span class="nav-title">Step 4: Embedding & Packaging</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

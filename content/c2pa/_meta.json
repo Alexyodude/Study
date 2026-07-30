@@ -1,0 +1,21 @@
+{
+  "title": "C2PA — Content Provenance & Authenticity",
+  "slug": "c2pa",
+  "order": 5,
+  "tags": ["c2pa", "content-credentials", "provenance", "cryptography", "digital-media"],
+  "status": "draft",
+  "children": [
+    { "slug": "core-concepts", "title": "Core Concepts & Terminology", "order": 1 },
+    { "slug": "manifest-structure", "title": "Manifest Anatomy", "order": 2 },
+    { "slug": "step-1-content-creation", "title": "Step 1: Content Creation & Assertions", "order": 3 },
+    { "slug": "step-2-claim-assembly", "title": "Step 2: Claim Assembly", "order": 4 },
+    { "slug": "step-3-signing", "title": "Step 3: Cryptographic Signing", "order": 5 },
+    { "slug": "step-4-embedding", "title": "Step 4: Embedding & Packaging", "order": 6 },
+    { "slug": "step-5-distribution", "title": "Step 5: Distribution & Durability", "order": 7 },
+    { "slug": "step-6-validation", "title": "Step 6: Validation & Verification", "order": 8 },
+    { "slug": "step-7-end-user", "title": "Step 7: End-User Presentation", "order": 9 },
+    { "slug": "trust-model", "title": "Trust Infrastructure", "order": 10 },
+    { "slug": "photo-vs-video", "title": "Photo vs. Video: What Differs", "order": 11 },
+    { "slug": "limitations", "title": "Limitations & Challenges", "order": 12 }
+  ]
+}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sensor Basics (Format, Pixel, Shutter) — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>C2PA — Content Provenance & Authenticity</button><div class="nav-children"><a class="nav-item" href="../c2pa/core-concepts.html">Core Concepts & Terminology</a><a class="nav-item" href="../c2pa/manifest-structure.html">Manifest Anatomy</a><a class="nav-item" href="../c2pa/step-1-content-creation.html">Step 1: Content Creation & Assertions</a><a class="nav-item" href="../c2pa/step-2-claim-assembly.html">Step 2: Claim Assembly</a><a class="nav-item" href="../c2pa/step-3-signing.html">Step 3: Cryptographic Signing</a><a class="nav-item" href="../c2pa/step-4-embedding.html">Step 4: Embedding & Packaging</a><a class="nav-item" href="../c2pa/step-5-distribution.html">Step 5: Distribution & Durability</a><a class="nav-item" href="../c2pa/step-6-validation.html">Step 6: Validation & Verification</a><a class="nav-item" href="../c2pa/step-7-end-user.html">Step 7: End-User Presentation</a><a class="nav-item" href="../c2pa/trust-model.html">Trust Infrastructure</a><a class="nav-item" href="../c2pa/photo-vs-video.html">Photo vs. Video: What Differs</a><a class="nav-item" href="../c2pa/limitations.html">Limitations & Challenges</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Stereo Audio & Mic Placement</button><div class="nav-children"><a class="nav-item" href="../stereo-audio-and-mic-placement/index.html">Overview</a><a class="nav-item" href="../stereo-audio-and-mic-placement/how-we-hear-stereo.html">How We Hear Stereo (ITD & ILD)</a><a class="nav-item" href="../stereo-audio-and-mic-placement/coincident-techniques.html">Coincident Techniques (XY, Blumlein, M/S)</a><a class="nav-item" href="../stereo-audio-and-mic-placement/near-coincident-techniques.html">Near-Coincident Techniques (ORTF, DIN, NOS)</a><a class="nav-item" href="../stereo-audio-and-mic-placement/spaced-techniques.html">Spaced Techniques (AB)</a><a class="nav-item" href="../stereo-audio-and-mic-placement/pcb-mic-layout.html">PCB Layout for Dual MEMS Mics</a><a class="nav-item" href="../stereo-audio-and-mic-placement/potting-and-sealing.html">Potting & Environmental Sealing</a></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Image Sensors for Embedded</button><div class="nav-children"><a class="nav-item" href="index.html">Overview</a><a class="nav-item active" href="sensor-basics.html">Sensor Basics (Format, Pixel, Shutter)</a><a class="nav-item" href="interfaces.html">Sensor Interfaces (DVP, MIPI CSI-2)</a><a class="nav-item" href="sensor-comparison.html">Sensor Comparison by Price</a><a class="nav-item" href="choosing-a-sensor.html">How to Choose a Sensor</a><a class="nav-item" href="stm32-hosts-for-cameras.html">STM32 Hosts for Dual Cameras + Secure Boot</a></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../image-sensors-for-embedded/index.html">Image Sensors for Embedded</a><span class="sep">/</span><span>Sensor Basics (Format, Pixel, Shutter)</span></div>
+      <h1>Sensor Basics (Format, Pixel, Shutter)</h1>
+      <div class="tags"><span class="tag">camera</span><span class="tag">image-sensor</span><span class="tag">optics</span></div>
+      <h1>Sensor Basics (Format, Pixel, Shutter)</h1>
+<p>
+A handful of parameters on a sensor datasheet determine most of the image quality decisions.
+</p>
+<h2>Optical format</h2>
+<p>
+Size of the sensing area, by convention given in "inches" (a legacy from old vidicon tubes — the number <strong>isn't</strong> the actual diagonal).
+</p>
+<table><thead><tr><th>Format</th><th>Diagonal (real)</th><th>Typical use</th></tr></thead><tbody><tr><td>1/4"</td><td>~4 mm</td><td>Cheap phone / IoT cameras (OV5647, MIS5001)</td></tr>
+<tr><td>1/3"</td><td>~6 mm</td><td>Better IoT, dashcams</td></tr>
+<tr><td>1/2.8"</td><td>~6.5 mm</td><td>Security cameras (IMX415)</td></tr>
+<tr><td>1/2.3"</td><td>~7.9 mm</td><td>Raspberry Pi HQ Cam (IMX477)</td></tr>
+<tr><td>1/1.8"</td><td>~9 mm</td><td>High-end IP cams</td></tr>
+<tr><td>1"</td><td>~16 mm</td><td>Prosumer</td></tr></tbody></table>
+<p>
+<strong>Bigger = more light per pixel = better low-light, better dynamic range.</strong> Also needs a bigger lens.
+</p>
+<h2>Pixel size</h2>
+<p>
+Measured in µm (micrometers). Bigger pixels = more photons per pixel = less noise.
+</p>
+<ul>
+<li>1.12 µm — tiny, phone sensors, noisy in low light.</li>
+<li>1.4 µm — typical cheap sensor (OV5647).</li>
+<li>1.55–1.8 µm — mid-range.</li>
+<li><strong>2.0–3.0 µm</strong> — low-light-optimized (Sony Starvis family).</li>
+<li>3.45+ µm — industrial / global shutter (IMX296).</li>
+</ul>
+<h2>Front-illuminated (FSI) vs back-illuminated (BSI)</h2>
+<ul>
+<li><strong>FSI</strong> (older): wiring is on top of the photodiodes, blocking light.</li>
+<li><strong>BSI</strong> (modern): wiring is moved to the back; more light reaches the photodiode → usually <strong>+1 stop</strong> of low-light performance.</li>
+</ul>
+<p>
+Almost all modern sensors (IMX219, IMX477, IMX708, Starvis line) are BSI. OV5647 is FSI — part of why it's poor in low light.
+</p>
+<h2>Rolling vs global shutter</h2>
+<ul>
+<li><strong>Rolling shutter:</strong> each row is read sequentially. Fast-moving objects get skewed ("jello" effect). Almost all consumer sensors.</li>
+<li><strong>Global shutter:</strong> every pixel is captured at the same instant. No skew. Needed for:</li>
+</ul>  - Robotics / drones
+<p>
+  - Machine vision, QR / barcode scanning
+  - Fast-moving subjects
+  - <strong>Stereo depth / structured light</strong>
+</p>
+<p>
+Global shutter sensors are much more expensive and usually much lower resolution (OV9281 = 1 MP, IMX296 = 1.6 MP, AR0234 = 2.3 MP).
+</p>
+<h2>HDR</h2>
+<p>
+Some sensors (IMX708, IMX585, IMX662) support <strong>staggered HDR</strong> or <strong>DOL-HDR</strong> — they expose multiple sub-frames at different exposures and merge in the ISP. Useful for high-contrast scenes (car cameras, outdoor surveillance).
+</p>
+<h2>Bayer pattern vs mono</h2>
+<p>
+Color sensors use a <strong>Bayer filter</strong> (RGGB typically). A "mono" or "monochrome" variant exists for some machine-vision sensors — it has no color filter, collects ~2× more light, and is common for CV where color isn't needed (OV9281-MONO).
+</p>
+<h2>Automatic functions (AE / AWB / AF)</h2>
+<ul>
+<li><strong>AEC/AGC</strong> — auto exposure / gain — usually built into the sensor.</li>
+<li><strong>AWB</strong> — auto white balance — can be in the sensor or the host ISP.</li>
+<li><strong>AF</strong> — autofocus — requires a voice-coil lens module; only some sensor modules support it (IMX708, IMX519, OV5640 AF version).</li>
+</ul>
+<h2>References</h2>
+<ol>
+<li><a href="https://commonlands.com/pages/image-sensors/imx708">Commonlands — Sony IMX708 overview</a> — BSI, HDR, PDAF details.</li>
+<li><a href="https://www.raspberrypi.com/documentation/accessories/camera.html">Raspberry Pi — Camera documentation</a> — Pixel size and format for RPi sensor line.</li>
+<li><a href="https://blog.arducam.com/official-raspberry-pi-cameras/">Arducam — Official Raspberry Pi Cameras</a> — Practical FSI vs BSI comparison across RPi modules.</li>
+</ol>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://commonlands.com/pages/image-sensors/imx708" target="_blank" rel="noopener">Commonlands — Sony IMX708 overview</a></li><li><a href="https://www.raspberrypi.com/documentation/accessories/camera.html" target="_blank" rel="noopener">Raspberry Pi — Camera documentation</a></li></ul></div>
+      <div class="page-nav"><a href="index.html"><span class="nav-label">← Previous</span><span class="nav-title">Overview</span></a><a class="next" href="interfaces.html"><span class="nav-label">Next →</span><span class="nav-title">Sensor Interfaces (DVP, MIPI CSI-2)</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

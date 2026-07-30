@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STM32 Hosts for Dual Cameras with Secure Boot — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>C2PA — Content Provenance & Authenticity</button><div class="nav-children"><a class="nav-item" href="../c2pa/core-concepts.html">Core Concepts & Terminology</a><a class="nav-item" href="../c2pa/manifest-structure.html">Manifest Anatomy</a><a class="nav-item" href="../c2pa/step-1-content-creation.html">Step 1: Content Creation & Assertions</a><a class="nav-item" href="../c2pa/step-2-claim-assembly.html">Step 2: Claim Assembly</a><a class="nav-item" href="../c2pa/step-3-signing.html">Step 3: Cryptographic Signing</a><a class="nav-item" href="../c2pa/step-4-embedding.html">Step 4: Embedding & Packaging</a><a class="nav-item" href="../c2pa/step-5-distribution.html">Step 5: Distribution & Durability</a><a class="nav-item" href="../c2pa/step-6-validation.html">Step 6: Validation & Verification</a><a class="nav-item" href="../c2pa/step-7-end-user.html">Step 7: End-User Presentation</a><a class="nav-item" href="../c2pa/trust-model.html">Trust Infrastructure</a><a class="nav-item" href="../c2pa/photo-vs-video.html">Photo vs. Video: What Differs</a><a class="nav-item" href="../c2pa/limitations.html">Limitations & Challenges</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Stereo Audio & Mic Placement</button><div class="nav-children"><a class="nav-item" href="../stereo-audio-and-mic-placement/index.html">Overview</a><a class="nav-item" href="../stereo-audio-and-mic-placement/how-we-hear-stereo.html">How We Hear Stereo (ITD & ILD)</a><a class="nav-item" href="../stereo-audio-and-mic-placement/coincident-techniques.html">Coincident Techniques (XY, Blumlein, M/S)</a><a class="nav-item" href="../stereo-audio-and-mic-placement/near-coincident-techniques.html">Near-Coincident Techniques (ORTF, DIN, NOS)</a><a class="nav-item" href="../stereo-audio-and-mic-placement/spaced-techniques.html">Spaced Techniques (AB)</a><a class="nav-item" href="../stereo-audio-and-mic-placement/pcb-mic-layout.html">PCB Layout for Dual MEMS Mics</a><a class="nav-item" href="../stereo-audio-and-mic-placement/potting-and-sealing.html">Potting & Environmental Sealing</a></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Image Sensors for Embedded</button><div class="nav-children"><a class="nav-item" href="index.html">Overview</a><a class="nav-item" href="sensor-basics.html">Sensor Basics (Format, Pixel, Shutter)</a><a class="nav-item" href="interfaces.html">Sensor Interfaces (DVP, MIPI CSI-2)</a><a class="nav-item" href="sensor-comparison.html">Sensor Comparison by Price</a><a class="nav-item" href="choosing-a-sensor.html">How to Choose a Sensor</a><a class="nav-item active" href="stm32-hosts-for-cameras.html">STM32 Hosts for Dual Cameras + Secure Boot</a></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../image-sensors-for-embedded/index.html">Image Sensors for Embedded</a><span class="sep">/</span><span>STM32 Hosts for Dual Cameras with Secure Boot</span></div>
+      <h1>STM32 Hosts for Dual Cameras with Secure Boot</h1>
+      <div class="tags"><span class="tag">stm32</span><span class="tag">camera</span><span class="tag">mipi</span><span class="tag">csi-2</span><span class="tag">dcmi</span><span class="tag">dcmipp</span><span class="tag">trustzone</span><span class="tag">secure-boot</span><span class="tag">security</span><span class="tag">pricing</span></div>
+      <h1>STM32 Hosts for Dual Cameras with Secure Boot</h1>
+<p>
+A practical short-list of STM32 parts that can simultaneously satisfy:
+</p>
+<ol>
+<li><strong>Two camera sensors</strong> wired in (not multiplexed into one stream).</li>
+<li><strong>At least 1080p @ 30 fps</strong> capture per stream.</li>
+<li><strong>ARM TrustZone</strong> (TrustZone-M for Cortex-M, TrustZone-A for Cortex-A).</li>
+<li><strong>ROM-based secure boot</strong> with an authenticated chain of trust.</li>
+</ol>
+<p>
+Picking a host is mostly about whether it has <strong>two camera input pipelines</strong> at all — most STM32 parts have only one. Security is easier; STM32Trust is broadly available.
+</p>
+<h2>The two viable families</h2>
+<table><thead><tr><th>Family</th><th>Cores</th><th>Cam input #1</th><th>Cam input #2</th><th>Max stream</th><th>TrustZone</th><th>Secure stack</th></tr></thead><tbody><tr><td><strong>STM32MP25x</strong> (MPU)</td><td>1–2× Cortex-A35 + Cortex-M33</td><td>MIPI CSI-2 (2-lane D-PHY) → DCMIPP</td><td>Parallel DCMI → DCMIPP</td><td>5 MP @ 30 fps via ISP, <strong>VENC rated 1080p30</strong></td><td>TrustZone-A (A35) <strong>+</strong> TrustZone-M (M33)</td><td>ROM → TF-A → <strong>OP-TEE</strong> → Linux</td></tr>
+<tr><td><strong>STM32N6x7</strong> (MCU)</td><td>Cortex-M55 @ 800 MHz + NeuralART NPU</td><td>MIPI CSI-2 (2-lane D-PHY) → DCMIPP</td><td>16-bit parallel DCMI → DCMIPP</td><td>1080p30 capture; <strong>H.264 encode capped at 1080p @ 15 fps</strong></td><td>TrustZone-M only</td><td>RSS ROM → <strong>TF-M / SBSFU</strong> (no OP-TEE — Cortex-M only)</td></tr></tbody></table>
+<p>
+Both expose <strong>two distinct camera ingress paths</strong> muxed into a single DCMIPP pixel pipeline. That's how you get "dual camera" on these chips. Beyond two, you need an external CSI-2 aggregator/MIPI mux.
+</p>
+<h2>STM32MP25 — the MPU answer</h2>
+<p>
+<strong>STM32MP251 / MP253 / MP255 / MP257</strong> — pick by feature set:
+</p>
+<table><thead><tr><th>Variant</th><th>A35 cores</th><th>NPU/GPU</th><th>Display</th><th>Ethernet</th><th>CAN-FD</th></tr></thead><tbody><tr><td>MP251</td><td>1×</td><td>—</td><td>DSI/LVDS</td><td>2×</td><td>3×</td></tr>
+<tr><td>MP253</td><td>2×</td><td>—</td><td>DSI/LVDS</td><td>2×</td><td>3×</td></tr>
+<tr><td>MP255</td><td>2×</td><td>NPU + GPU</td><td>DSI/LVDS</td><td>2×</td><td>3×</td></tr>
+<tr><td>MP257</td><td>2×</td><td>NPU + GPU</td><td>DSI + <strong>LVDS</strong></td><td><strong>3× (2+1 switch)</strong></td><td>3×</td></tr></tbody></table>
+<p>
+All four expose the same camera + security IP:
+</p>
+<ul>
+<li><strong>DCMIPP</strong> pixel pipeline with crop, decimate, downscale, statistics, dual-output.</li>
+<li><strong>CSI-2 host</strong> with 2-lane D-PHY, up to ~2.5 Gbps/lane.</li>
+<li><strong>Parallel DCMI</strong> input (8/10/12/14-bit) — second camera lane.</li>
+<li><strong>ISP</strong>: Lite-ISP block on the MIPI path; rated up to <strong>5 MP @ 30 fps</strong>. Two 1080p30 streams fit comfortably.</li>
+<li><strong>H.264 hardware encoder</strong> for 1080p30 (encode while you capture).</li>
+<li><strong>Security</strong>: ROM secure boot with public-key auth → BL2 → OP-TEE → Linux. On-the-fly external memory encryption (DDR + flash). Side-channel-resistant AES/PKA. RNG, secure storage, tamper.</li>
+<li>"<strong>P</strong>" suffix part numbers (e.g. STM32MP257<strong>F</strong>) include the full crypto option.</li>
+</ul>
+<p>
+<strong>Reference design:</strong> STM32MP257F-EV1 evaluation board. Camera modules from TechNexion / Digi (ConnectCore MP25) ship with V4L2 drivers in mainline Linux as of 2024.
+</p>
+<p>
+When to pick MP25:
+</p>
+<ul>
+<li>You're running Linux (or Zephyr on the M33 + Linux on the A35).</li>
+<li>You need to <strong>encode</strong> both 1080p30 streams (H.264 hardware) or push them over Ethernet.</li>
+<li>You want full TF-A + OP-TEE chain of trust (industry standard MPU security).</li>
+</ul>
+<h2>STM32N6 — the MCU answer (with real caveats)</h2>
+<p>
+<strong>STM32N657X0</strong>, ~800 MHz Cortex-M55 with Helium (MVE) and the <strong>NeuralART</strong> NPU (~600 GOPS). Positioned as "MPU-class on a microcontroller" — single-chip, no DDR mandatory, fast deterministic boot.
+</p>
+<ul>
+<li><strong>DCMIPP</strong> pixel pipeline (same family of IP as MP25).</li>
+<li><strong>CSI-2 host</strong> (2-lane D-PHY) — the <strong>first STM32 MCU with native CSI-2</strong>.</li>
+<li><strong>Parallel DCMI</strong> — works in parallel with CSI-2 for a second sensor.</li>
+<li><strong>H.264 encoder</strong>: <strong>1080p @ 15 fps</strong> maximum. Lower resolutions go faster (e.g., 720p closer to 30 fps), but the chip cannot encode 1080p30 at all, let alone two streams.</li>
+<li><strong>Security</strong>: TrustZone-<strong>M</strong> only (no Cortex-A → <strong>no OP-TEE</strong>, no Linux secure-world). The TEE on this part is <strong>TF-M</strong> or ST's SBSFU running in the secure state of the M55. ROM-based RSS secure boot, RDP, AES + PKA with side-channel countermeasures, <strong>OTFDEC</strong> for transparent decryption of code XIP'd from external flash.</li>
+</ul>
+<h3>Where N6 actually loses to MP25</h3>
+<table><thead><tr><th>Capability</th><th>STM32MP25</th><th>STM32N657</th></tr></thead><tbody><tr><td>Dual 1080p <strong>capture</strong></td><td>✅</td><td>✅</td></tr>
+<tr><td>Dual 1080p30 <strong>H.264 encode</strong></td><td>✅ (VENC interleaves streams)</td><td>❌ (encoder caps at 1080p15)</td></tr>
+<tr><td>Single 1080p30 H.264 encode</td><td>✅</td><td>❌ — best is 1080p15</td></tr>
+<tr><td>Single 4K H.264 encode</td><td>⚠️ at lower fps</td><td>❌</td></tr>
+<tr><td>OP-TEE secure-world OS</td><td>✅</td><td>❌ — TrustZone-M only, runs TF-M instead</td></tr>
+<tr><td>Linux + secure boot chain</td><td>✅ TF-A → OP-TEE → Linux</td><td>❌ — bare-metal / RTOS only</td></tr>
+<tr><td>5 MP @ 30 fps ISP</td><td>✅</td><td>✅ (same DCMIPP)</td></tr>
+<tr><td>On-device NPU</td><td>NPU on MP255/MP257</td><td>✅ (NeuralART, faster than MP25's NPU)</td></tr></tbody></table>
+<p>
+When to pick N6:
+</p>
+<ul>
+<li>You want a <strong>single MCU</strong> with no Linux and no DDR boot complexity.</li>
+<li>You're doing <strong>on-device AI inference</strong> on the camera streams (face/object/anomaly), where the NeuralART NPU is the actual differentiator.</li>
+<li>You can <strong>capture</strong> dual 1080p30 raw/YUV but <strong>don't need to H.264-encode</strong> both streams on-chip.</li>
+<li>A TF-M based TEE is acceptable in your security model (no OP-TEE requirement).</li>
+</ul>
+<p>
+When to <strong>avoid</strong> N6:
+</p>
+<ul>
+<li>You need OP-TEE, Linux, or any Cortex-A trusted-OS ecosystem.</li>
+<li>You need to <strong>encode</strong> at 1080p30 on-chip — the 15 fps cap is hard.</li>
+<li>You need >1080p video output beyond stills.</li>
+</ul>
+<h2>Parts to skip for this requirement</h2>
+<table><thead><tr><th>Family</th><th>Why it fails</th></tr></thead><tbody><tr><td>STM32MP15x / MP13x</td><td>DCMI only natively. CSI-2 needs an external bridge. Awkward at 1080p30 dual.</td></tr>
+<tr><td>STM32H7 / H7Rx / H7Sx</td><td>Most have DCMI only; no TrustZone-M (Cortex-M7). H7R7/H7S7 add DCMIPP but still single ingress.</td></tr>
+<tr><td>STM32H5</td><td>TrustZone-M ✅, secure boot ✅, but no native CSI-2 and limited camera bandwidth.</td></tr>
+<tr><td>STM32U5 / L5</td><td>TrustZone-M ✅, but single DCMI at most; not a dual-1080p30 part.</td></tr>
+<tr><td>STM32WBA / WL</td><td>No camera interface.</td></tr></tbody></table>
+<h2>Quick decision</h2>
+<pre><code class="language-text">Need OP-TEE, Linux, or 1080p30 H.264 encode?
+<p>
+  → STM32MP25x — only option. Pick MP257 for 3× Eth/LVDS, MP255 for cheaper
+    dev, MP253 for no-NPU, MP251 for single-A35 cost-down.
+</p>
+<p>
+Single-MCU AI camera, can live without H.264 encode at 1080p30, TF-M is enough?
+  → STM32N657 — and only then. The N6 captures dual 1080p30 fine but cannot
+    encode both at 1080p30 (encoder caps at 1080p15), and there is no OP-TEE
+    on Cortex-M.
+</p>
+<p>
+Anything that needs more than this — dual 4K encode, two full-ISP-processed
+&gt;2 MP streams, or a richer Linux secure-OS ecosystem — leave STM32:
+  → NXP i.MX 8M Plus, TI AM62A, Rockchip RK3588.</code></pre>
+</p>
+<h2>Pricing & availability (DigiKey, USD, snapshot 2026-04-30)</h2>
+<p>
+Prices and stock change weekly — verify before ordering. Mouser carries the same SKUs at comparable prices.
+</p>
+<table><thead><tr><th>Part</th><th>What it is</th><th>Stock</th><th>1 unit</th><th>10</th><th>100</th><th>500+</th><th>Package</th><th>Lead time</th></tr></thead><tbody><tr><td><a href="https://www.digikey.com/en/products/detail/stmicroelectronics/STM32MP257FAK3/24883094"><strong>STM32MP257FAK3</strong></a></td><td>dual A35 + M33, full crypto, NPU/GPU, 3× Ethernet</td><td>278</td><td>$26.70</td><td>$21.49</td><td>$18.75</td><td>$18.07 (250)</td><td>424-VFBGA 14×14, tray</td><td>20 wk</td></tr>
+<tr><td><a href="https://www.digikey.com/en/products/detail/stmicroelectronics/STM32MP255DAK3T/26254193"><strong>STM32MP255DAK3T</strong></a></td><td>dual A35 + M33, NPU/GPU</td><td>1,400 (T&R only)</td><td>—</td><td>—</td><td>—</td><td><strong>$15.60</strong> ea</td><td>424-VFBGA 14×14, T&R</td><td>20 wk</td></tr>
+<tr><td><a href="https://www.digikey.com/en/products/detail/stmicroelectronics/STM32N657X0H3Q/25675974"><strong>STM32N657X0H3Q</strong></a></td><td>M55 + NeuralART, large BGA</td><td><strong>0</strong> (notify)</td><td>$21.44</td><td>$17.13</td><td>$14.75 (119)</td><td>$13.89 (595)</td><td>264-VFBGA 14×14, tray</td><td>15 wk</td></tr>
+<tr><td><a href="https://www.digikey.com/en/products/detail/stmicroelectronics/STM32N657A0H3Q/25935633"><strong>STM32N657A0H3Q</strong></a></td><td>M55 + NeuralART, <strong>compact 6×6</strong></td><td><strong>2,503</strong></td><td>$18.36</td><td>$14.60</td><td>$12.62</td><td>$11.83</td><td>169-VFBGA 6×6, tray</td><td>15 wk</td></tr></tbody></table>
+<h3>Practical picks from this table</h3>
+<ul>
+<li><strong>Cheapest + most available right now</strong>: <strong>STM32N657A0H3Q</strong>. $18.36 in singles, 2,500+ on the shelf, the 6×6 BGA is much easier to lay out than the 14×14 parts.</li>
+<li><strong>Best MPU you can buy in singles</strong>: <strong>STM32MP257FAK3</strong>. ~$27/1, drops to $18 at 250 units. Same silicon as the EV1 dev kit.</li>
+<li><strong>Cheapest MPU at production volume</strong>: <strong>STM32MP255DAK3T</strong> at $15.60 each — but DigiKey only sells the full 1,400-unit Tape & Reel (~$21.8k). Not for prototyping.</li>
+<li><strong>Avoid for now</strong>: <strong>STM32N657X0H3Q</strong> (the 264-pin variant) — out of stock, 15-week lead time. Use the A0H3Q variant unless you specifically need its larger pin count.</li>
+</ul>
+<h3>Dev kits (the fast path)</h3>
+<table><thead><tr><th>Kit</th><th>Part</th><th>Notes</th></tr></thead><tbody><tr><td><a href="https://www.digikey.com/en/products/detail/stmicroelectronics/STM32MP257F-EV1/24740245">STM32MP257F-EV1</a></td><td>full evaluation board</td><td>DSI/LVDS, both camera connectors, expansion</td></tr>
+<tr><td><a href="https://www.digikey.com/en/products/detail/stmicroelectronics/STM32MP257F-DK/25862908">STM32MP257F-DK</a></td><td>discovery kit</td><td>cheaper, fewer connectors</td></tr>
+<tr><td><a href="https://www.digikey.com/en/products/detail/stmicroelectronics/STM32N6570-DK/25724059">STM32N6570-DK</a></td><td>N6 discovery kit</td><td>bundled camera, AI demos</td></tr>
+<tr><td><a href="https://www.digikey.com/en/products/detail/stmicroelectronics/NUCLEO-N657X0-Q/25724056">NUCLEO-N657X0-Q</a></td><td>Nucleo board</td><td>bare-bones, BYO camera</td></tr></tbody></table>
+<h2>How high can you push the resolution?</h2>
+<p>
+The headline number on the DCMIPP datasheet — "5 MP @ 30 fps" — is the <strong>ISP</strong> budget, not the chip's total capture capability. DCMIPP has three pipes; only one runs the ISP.
+</p>
+<table><thead><tr><th>Pipe</th><th>Purpose</th><th>Resolution bound</th></tr></thead><tbody><tr><td><strong>Pipe0 (Dump)</strong></td><td>Raw passthrough: stats, Bayer for stills, or YUV/RGB from a sensor that already has an ISP</td><td>Memory bandwidth (12 MP YUV/RGB confirmed)</td></tr>
+<tr><td><strong>Pipe1 (ISP)</strong></td><td>Bayer → RGB/YUV through the on-chip ISP</td><td><strong>5 MP @ 30 fps total</strong></td></tr>
+<tr><td><strong>Pipe2 (Aux)</strong></td><td>Crop / downsize / decimation; can dynamically tap ISP output</td><td>Shares Pipe1</td></tr></tbody></table>
+<p>
+So the rule is: anything that goes through the ISP must fit in 5 MP @ 30 fps. Anything that bypasses the ISP is bandwidth-bound, not ISP-bound.
+</p>
+<h3>What this means for dual-camera configs (STM32MP25)</h3>
+<table><thead><tr><th>Configuration</th><th>Works?</th><th>Note</th></tr></thead><tbody><tr><td>Dual <strong>1080p @ 30 fps</strong> through ISP (2 MP + 2 MP = 4 MP)</td><td>✅</td><td>Sweet spot. Headroom to spare.</td></tr>
+<tr><td>Dual <strong>1440p @ 30 fps</strong> through ISP (3.7 MP each)</td><td>❌</td><td>Exceeds 5 MP ISP budget.</td></tr>
+<tr><td><strong>5 MP @ 30 fps</strong> (ISP) + <strong>1080p @ 30 fps</strong> (bypass)</td><td>✅</td><td>Second sensor must output YUV/RGB itself.</td></tr>
+<tr><td>One <strong>5 MP @ 30 fps</strong> ISP-processed stream</td><td>✅</td><td>Full ISP budget on one camera.</td></tr>
+<tr><td><strong>4K Bayer</strong> decimated 2× → 2 MP into ISP</td><td>✅</td><td>Wide FOV preview, lower effective res.</td></tr>
+<tr><td><strong>4K @ 30 fps full ISP</strong></td><td>❌</td><td>Exceeds ISP.</td></tr>
+<tr><td><strong>Dual 1080p30 H.264 encode</strong></td><td>✅</td><td>VENC interleaves multiple streams.</td></tr>
+<tr><td><strong>4K H.264 encode</strong></td><td>⚠️</td><td>VENC accepts up to 4080×4080 but is rated 1080p30. 4K works only at lower fps with bandwidth headroom.</td></tr></tbody></table>
+<h3>STM32N6 specifics</h3>
+<p>
+Same ISP/DCMIPP family as MP25 — same 5 MP @ 30 fps ISP budget, same Pipe0 bypass story (12 MP YUV/RGB capture confirmed). The hard ceiling is the <strong>H.264 encoder at 1080p @ 15 fps</strong>. Capture can go higher than encode.
+</p>
+<h3>When STM32 is not the answer</h3>
+<ul>
+<li><strong>Dual 4K encoded output</strong>: not on STM32. Look at NXP i.MX 8M Plus, TI AM62A, or Rockchip RK3588.</li>
+<li><strong>Two full-ISP-processed >2 MP streams</strong>: same — exceeds the 5 MP shared ISP budget.</li>
+</ul>
+<h2>Wiring two sensors in practice</h2>
+<p>
+DCMIPP accepts <strong>one stream at a time</strong> but switches at the pipeline input. The realistic dual-camera topologies are:
+</p>
+<ol>
+<li><strong>CSI-2 sensor + parallel sensor</strong> — independent ingress paths, DCMIPP time-multiplexes pipeline output buffers. Easiest.</li>
+<li><strong>Two CSI-2 sensors via aggregator</strong> — e.g. Maxim/ADI GMSL or a TI FPD-Link III deserializer that combines two CSI-2 streams into a single virtual-channel-tagged CSI-2 stream into the STM32 host. DCMIPP demultiplexes by virtual channel.</li>
+<li><strong>Two CSI-2 sensors via MIPI mux</strong> — fast switch between sensors, but only one is live at a time. Not true dual capture.</li>
+</ol>
+<p>
+For genuinely <strong>simultaneous</strong> 1080p30 from both, topology (1) or (2) is what you build.
+</p>
+<h2>Security checklist (applies to both families)</h2>
+<ul>
+<li>Provision RSS / ROM keys at the factory (ECDSA P-256 or P-384).</li>
+<li>Enable RDP level 2 only after you have a verified field-update path.</li>
+<li>Use <strong>OTFDEC</strong> (N6) or <strong>MCE/SAES</strong> (MP25) to keep external flash images encrypted.</li>
+<li>Run camera/ISP DMAs through firewalls / RIF (Resource Isolation Framework on MP25) so the non-secure world cannot read frame buffers from the secure world.</li>
+<li>For two-sensor designs, isolate one sensor's pipeline into the secure domain if it carries sensitive data (driver-monitor, biometrics).</li>
+</ul>
+<h2>References</h2>
+<ol>
+<li><a href="https://www.st.com/en/microcontrollers-microprocessors/stm32mp2-series.html">STM32MP2 series — STMicroelectronics</a> — Family overview, variants, peripherals.</li>
+<li><a href="https://www.st.com/en/microcontrollers-microprocessors/stm32n657x0.html">STM32N657X0 — STMicroelectronics</a> — N6 product page with DCMIPP, CSI-2, NeuralART, RSS.</li>
+<li><a href="https://www.st.com/resource/en/application_note/an6211-introduction-to-digital-camera-interface-pixel-pipeline-for-stm32-mcus-stmicroelectronics.pdf">AN6211 — DCMIPP for STM32 MCUs</a> — Pixel pipeline architecture, CSI-2 + DCMI dual ingress.</li>
+<li><a href="https://wiki.stmicroelectronics.cn/stm32mpu/wiki/STM32MP2_V4L2_camera_overview">STM32MP2 V4L2 camera overview — ST wiki</a> — Linux media-controller graph for CSI + DCMIPP.</li>
+<li><a href="https://trustedfirmware-a.readthedocs.io/en/latest/plat/st/stm32mp2.html">TF-A STM32MP2 platform port</a> — Boot chain, OP-TEE integration on MP25.</li>
+<li><a href="https://www.st.com/content/st_com/en/ecosystems/stm32trust.html">STM32Trust — STMicroelectronics</a> — Security framework spanning TrustZone, secure boot, crypto IP.</li>
+<li><a href="https://www.cnx-software.com/2023/05/16/stm32mp25-stmicro-stm32mp2-arm-cortex-a35-m33-mpu-family/">CNX — STM32MP2 family announcement</a> — Variant feature matrix at launch.</li>
+<li><a href="https://medium.com/@pkusolruangchai/exploring-stm32n6-f41df8e2e516">Exploring STM32N6 (Medium)</a> — Independent deep-dive: CSI-2, DCMIPP, NPU, H.264 limits.</li>
+<li><a href="https://www.digikey.com/en/products/detail/stmicroelectronics/STM32MP257FAK3/24883094">DigiKey — STM32MP257FAK3</a> — Pricing, stock, packaging, lead time.</li>
+<li><a href="https://www.digikey.com/en/products/detail/stmicroelectronics/STM32MP255DAK3T/26254193">DigiKey — STM32MP255DAK3T</a> — Tape & Reel volume pricing.</li>
+<li><a href="https://www.digikey.com/en/products/detail/stmicroelectronics/STM32N657X0H3Q/25675974">DigiKey — STM32N657X0H3Q</a> — 264-pin BGA pricing & lead time.</li>
+<li><a href="https://www.digikey.com/en/products/detail/stmicroelectronics/STM32N657A0H3Q/25935633">DigiKey — STM32N657A0H3Q</a> — 169-pin compact BGA pricing & stock.</li>
+<li><a href="https://wiki.st.com/stm32mpu/wiki/How_to_use_the_DCMIPP_ISP">ST wiki — How to use the DCMIPP ISP</a> — Pipe0/Pipe1/Pipe2 architecture, ISP 5 MP budget, decimation factors.</li>
+<li><a href="https://wiki.st.com/stm32mcu/wiki/Introduction_to_Hardware_Video_Encoding_with_STM32">ST wiki — Hardware Video Encoding with STM32</a> — VENC resolution range and 1080p30 rating.</li>
+<li><a href="https://community.st.com/t5/edge-ai/can-the-stm32n6-be-connected-to-a-12mp-image-sensor/td-p/776772">ST community — STM32N6 with 12 MP image sensor</a> — 12 MP YUV/RGB sensors via Pipe0-dump (ISP bypass).</li>
+</ol>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://www.st.com/en/microcontrollers-microprocessors/stm32mp2-series.html" target="_blank" rel="noopener">STMicroelectronics — STM32MP2 series</a></li><li><a href="https://www.st.com/en/microcontrollers-microprocessors/stm32n657x0.html" target="_blank" rel="noopener">STMicroelectronics — STM32N657X0</a></li><li><a href="https://www.st.com/resource/en/application_note/an6211-introduction-to-digital-camera-interface-pixel-pipeline-for-stm32-mcus-stmicroelectronics.pdf" target="_blank" rel="noopener">AN6211 — DCMIPP for STM32 MCUs</a></li><li><a href="https://wiki.stmicroelectronics.cn/stm32mpu/wiki/STM32MP2_V4L2_camera_overview" target="_blank" rel="noopener">ST wiki — STM32MP2 V4L2 camera overview</a></li><li><a href="https://trustedfirmware-a.readthedocs.io/en/latest/plat/st/stm32mp2.html" target="_blank" rel="noopener">TF-A — STM32MP2 platform port</a></li><li><a href="https://www.st.com/content/st_com/en/ecosystems/stm32trust.html" target="_blank" rel="noopener">STMicroelectronics — STM32Trust security framework</a></li><li><a href="https://www.cnx-software.com/2023/05/16/stm32mp25-stmicro-stm32mp2-arm-cortex-a35-m33-mpu-family/" target="_blank" rel="noopener">CNX — STM32MP2 family announcement</a></li><li><a href="https://www.digikey.com/en/products/detail/stmicroelectronics/STM32MP257FAK3/24883094" target="_blank" rel="noopener">DigiKey — STM32MP257FAK3 pricing & stock</a></li><li><a href="https://www.digikey.com/en/products/detail/stmicroelectronics/STM32MP255DAK3T/26254193" target="_blank" rel="noopener">DigiKey — STM32MP255DAK3T pricing & stock</a></li><li><a href="https://www.digikey.com/en/products/detail/stmicroelectronics/STM32N657X0H3Q/25675974" target="_blank" rel="noopener">DigiKey — STM32N657X0H3Q pricing & stock</a></li><li><a href="https://www.digikey.com/en/products/detail/stmicroelectronics/STM32N657A0H3Q/25935633" target="_blank" rel="noopener">DigiKey — STM32N657A0H3Q pricing & stock</a></li></ul></div>
+      <div class="page-nav"><a href="choosing-a-sensor.html"><span class="nav-label">← Previous</span><span class="nav-title">How to Choose a Sensor</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

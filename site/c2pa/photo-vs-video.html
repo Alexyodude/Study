@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photo vs. Video: What Differs — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>C2PA — Content Provenance & Authenticity</button><div class="nav-children"><a class="nav-item" href="core-concepts.html">Core Concepts & Terminology</a><a class="nav-item" href="manifest-structure.html">Manifest Anatomy</a><a class="nav-item" href="step-1-content-creation.html">Step 1: Content Creation & Assertions</a><a class="nav-item" href="step-2-claim-assembly.html">Step 2: Claim Assembly</a><a class="nav-item" href="step-3-signing.html">Step 3: Cryptographic Signing</a><a class="nav-item" href="step-4-embedding.html">Step 4: Embedding & Packaging</a><a class="nav-item" href="step-5-distribution.html">Step 5: Distribution & Durability</a><a class="nav-item" href="step-6-validation.html">Step 6: Validation & Verification</a><a class="nav-item" href="step-7-end-user.html">Step 7: End-User Presentation</a><a class="nav-item" href="trust-model.html">Trust Infrastructure</a><a class="nav-item active" href="photo-vs-video.html">Photo vs. Video: What Differs</a><a class="nav-item" href="limitations.html">Limitations & Challenges</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Stereo Audio & Mic Placement</button><div class="nav-children"><a class="nav-item" href="../stereo-audio-and-mic-placement/index.html">Overview</a><a class="nav-item" href="../stereo-audio-and-mic-placement/how-we-hear-stereo.html">How We Hear Stereo (ITD & ILD)</a><a class="nav-item" href="../stereo-audio-and-mic-placement/coincident-techniques.html">Coincident Techniques (XY, Blumlein, M/S)</a><a class="nav-item" href="../stereo-audio-and-mic-placement/near-coincident-techniques.html">Near-Coincident Techniques (ORTF, DIN, NOS)</a><a class="nav-item" href="../stereo-audio-and-mic-placement/spaced-techniques.html">Spaced Techniques (AB)</a><a class="nav-item" href="../stereo-audio-and-mic-placement/pcb-mic-layout.html">PCB Layout for Dual MEMS Mics</a><a class="nav-item" href="../stereo-audio-and-mic-placement/potting-and-sealing.html">Potting & Environmental Sealing</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Image Sensors for Embedded</button><div class="nav-children"><a class="nav-item" href="../image-sensors-for-embedded/index.html">Overview</a><a class="nav-item" href="../image-sensors-for-embedded/sensor-basics.html">Sensor Basics (Format, Pixel, Shutter)</a><a class="nav-item" href="../image-sensors-for-embedded/interfaces.html">Sensor Interfaces (DVP, MIPI CSI-2)</a><a class="nav-item" href="../image-sensors-for-embedded/sensor-comparison.html">Sensor Comparison by Price</a><a class="nav-item" href="../image-sensors-for-embedded/choosing-a-sensor.html">How to Choose a Sensor</a><a class="nav-item" href="../image-sensors-for-embedded/stm32-hosts-for-cameras.html">STM32 Hosts for Dual Cameras + Secure Boot</a></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../c2pa/index.html">C2PA — Content Provenance & Authenticity</a><span class="sep">/</span><span>Photo vs. Video: What Differs</span></div>
+      <h1>Photo vs. Video: What Differs</h1>
+      <div class="tags"><span class="tag">c2pa</span><span class="tag">photo</span><span class="tag">video</span><span class="tag">bmff</span><span class="tag">streaming</span><span class="tag">fragmented-mp4</span><span class="tag">cmaf</span></div>
+      <p>
+The seven-step C2PA pipeline — create, assemble, sign, embed, distribute, validate, present — applies to <strong>both photos and videos</strong>. The manifest structure (assertions, claim, COSE_Sign1 signature) is identical. The trust model, certificates, and validation algorithm are the same.
+</p>
+<p>
+The differences are in <strong>how the hard binding is computed</strong> and <strong>how the manifest is physically embedded</strong>, because image files and video containers have fundamentally different internal structures. Streaming video adds an additional layer of complexity.
+</p>
+<h2>What's Identical</h2>
+<table><thead><tr><th>Component</th><th>Photo</th><th>Video</th></tr></thead><tbody><tr><td>Assertion Store</td><td>Same CBOR assertions</td><td>Same CBOR assertions</td></tr>
+<tr><td>Claim structure</td><td><code>c2pa.claim.v2</code></td><td><code>c2pa.claim.v2</code></td></tr>
+<tr><td>Claim Signature</td><td>COSE_Sign1</td><td>COSE_Sign1</td></tr>
+<tr><td>Certificates</td><td>X.509 with same EKU</td><td>X.509 with same EKU</td></tr>
+<tr><td>Soft bindings</td><td>Perceptual hash / watermark</td><td>Perceptual hash / watermark</td></tr>
+<tr><td>Ingredients</td><td>Same <code>c2pa.ingredient.v3</code></td><td>Same <code>c2pa.ingredient.v3</code></td></tr>
+<tr><td>Trust model</td><td>C2PA Trust List</td><td>C2PA Trust List</td></tr>
+<tr><td>Validation algorithm</td><td>Same 5-phase process</td><td>Same 5-phase process</td></tr></tbody></table>
+<h2>Hard Binding: The Key Difference</h2>
+<h3>Photos — Byte-Range Hashing</h3>
+<p>
+Photos (JPEG, PNG, WebP, TIFF) use <code>c2pa.hash.data</code>, which computes a SHA-256 hash over <strong>byte ranges</strong> of the file:
+</p>
+<pre><code class="language-text">File bytes:  [header][metadata][MANIFEST REGION][pixel data][footer]
+<p>
+                ↑                                    ↑         ↑
+                └────────── hashed ──────────────────┘─────────┘
+                          (manifest region excluded)</code></pre>
+</p>
+<p>
+The Claim Generator knows where the manifest will be inserted and excludes those bytes from the hash. Everything else — headers, pixel data, footer — is covered.
+</p>
+<h3>Monolithic Video — Box-Based Hashing</h3>
+<p>
+Video files (MP4, MOV, HEIC, AVIF) use the <a href="https://spec.c2pa.org/specifications/specifications/2.3/specs/C2PA_Specification.html">ISO Base Media File Format (BMFF)</a>, which organizes data into named <strong>boxes</strong> (also called atoms). Instead of byte ranges, C2PA uses <code>c2pa.hash.bmff.v3</code>, which hashes all boxes <strong>except</strong> the manifest box:
+</p>
+<pre><code class="language-text">MP4 file structure:
+<p>
+  ┌─────────┐
+  │  ftyp   │ ← hashed
+  ├─────────┤
+  │  moov   │ ← hashed (movie metadata, tracks, timing)
+  ├─────────┤
+  │  uuid   │ ← EXCLUDED (this is the C2PA manifest)
+  ├─────────┤
+  │  mdat   │ ← hashed (the actual video/audio data)
+  └─────────┘</code></pre>
+</p>
+<p>
+The box exclusion approach is more natural for BMFF files because the format is already organized into discrete, named containers. The hash covers all boxes not on the exclusion list.
+</p>
+<h3>Why the Difference Matters</h3>
+<ul>
+<li><strong>Byte-range hashing</strong> is simpler but requires knowing exact byte offsets — fragile if the file format changes internal layout</li>
+<li><strong>Box-based hashing</strong> is format-aware and more robust for container formats where box ordering can vary</li>
+</ul>
+<p>
+For a finished, monolithic video file, the experience is nearly identical to signing a photo: hash the content, sign, embed, done.
+</p>
+<h2>Embedding Location by Format</h2>
+<table><thead><tr><th>Format</th><th>Container Type</th><th>Where the Manifest Goes</th></tr></thead><tbody><tr><td>JPEG</td><td>Marker-based</td><td>APP11 marker segment</td></tr>
+<tr><td>PNG</td><td>Chunk-based</td><td><code>caBX</code> chunk</td></tr>
+<tr><td>WebP</td><td>RIFF container</td><td>RIFF chunk</td></tr>
+<tr><td>TIFF/DNG</td><td>IFD-based</td><td>IFD entry</td></tr>
+<tr><td>MP4</td><td>BMFF</td><td><code>uuid</code> box</td></tr>
+<tr><td>MOV</td><td>BMFF</td><td><code>uuid</code> box</td></tr>
+<tr><td>AVIF</td><td>BMFF</td><td><code>uuid</code> box</td></tr>
+<tr><td>HEIC/HEIF</td><td>BMFF</td><td><code>uuid</code> box</td></tr></tbody></table>
+<p>
+All BMFF-based formats (MP4, MOV, AVIF, HEIC) use the same embedding mechanism — a <code>uuid</code> box with a C2PA-specific UUID. This is a natural extension point in the BMFF container spec.
+</p>
+<h2>The Streaming Problem</h2>
+<p>
+For a monolithic video file, signing works just like a photo. But modern video delivery uses <strong>fragmented MP4 (fMP4)</strong> for adaptive streaming (HLS, DASH). This creates a fundamental problem:
+</p>
+<blockquote><p>You cannot hash a file that doesn't fully exist yet.</p></blockquote>
+<p>
+A live stream has no "last byte." Traditional C2PA <a href="https://irdeto.com/blog/extending-trust-into-live-video-with-c2pa">Merkle-tree hashing requires the complete file</a> from first to last byte before generating cryptographic proofs — impossible for live content.
+</p>
+<h2>C2PA 2.3: Per-Segment Signing</h2>
+<p>
+The C2PA 2.3 specification solves streaming with <strong>CMAF segment-level signing</strong>:
+</p>
+<h3>How It Works</h3>
+<pre><code class="language-text">Live camera feed
+<p>
+    ↓
+Encoder/Packager (C2PA-enabled)
+    ↓
+┌─────────────────────────────────────────────┐
+│  Initialization Segment                     │
+│  ├── Full C2PA manifest (once per track)    │
+│  └── Session key info                       │
+├─────────────────────────────────────────────┤
+│  Segment 1 (e.g., 2 seconds of video)      │
+│  ├── moof (fragment header)                 │
+│  ├── mdat (video/audio samples)             │
+│  └── emsg (Event Message Box)               │
+│       ├── Segment signature                 │
+│       └── Position in stream                │
+├─────────────────────────────────────────────┤
+│  Segment 2                                  │
+│  ├── moof + mdat                            │
+│  └── emsg (signature + position)            │
+├─────────────────────────────────────────────┤
+│  Segment 3 ...                              │
+└─────────────────────────────────────────────┘</code></pre>
+</p>
+<h3>Step by Step</h3>
+<ol>
+<li><strong>Initialization segment</strong> carries the full C2PA manifest once per media track — assertions, claim, signature, certificate chain</li>
+<li><strong>Each CMAF segment</strong> (typically 1–10 seconds of video) is independently hashed</li>
+<li>An <strong>Event Message Box (<code>emsg</code>)</strong> is embedded in each segment carrying:</li>
+</ol>   - The segment's cryptographic signature
+<p>
+   - Its position in the stream sequence
+</p>
+<ol>
+<li><strong>Session keys</strong> — asymmetric intermediate keys derived from the main signing key — generate per-segment signatures and rotate frequently across tracks</li>
+<li>The player validates each segment independently as it arrives</li>
+</ol>
+<h3>Why Session Keys?</h3>
+<p>
+Signing every segment with the main private key would be:
+</p>
+<ul>
+<li><strong>Slow</strong> — asymmetric signing is computationally expensive at real-time rates</li>
+<li><strong>Risky</strong> — frequent use of the main key increases exposure</li>
+</ul>
+<p>
+Session keys solve both: they are derived from the main key, can be verified against the certificate chain, but are cheaper to compute and can be rotated frequently.
+</p>
+<h3>Bandwidth Overhead</h3>
+<p>
+Per-segment signing adds approximately <a href="https://irdeto.com/blog/extending-trust-into-live-video-with-c2pa">0.56% bandwidth overhead</a> — negligible compared to the video data itself. Performance benchmarks show real-time validation on 1080p and 720p streams without playback disruption.
+</p>
+<h3>Compatibility</h3>
+<p>
+The streaming C2PA design works transparently with existing infrastructure:
+</p>
+<table><thead><tr><th>Component</th><th>Changes Needed?</th></tr></thead><tbody><tr><td>HLS/DASH manifests (M3U8, MPD)</td><td>None</td></tr>
+<tr><td>Video codecs (H.264, H.265, AV1)</td><td>None</td></tr>
+<tr><td>DRM systems (Widevine, FairPlay)</td><td>None</td></tr>
+<tr><td>CDN infrastructure</td><td>None</td></tr>
+<tr><td>Player seeking / quality switching</td><td>None</td></tr></tbody></table>
+<p>
+Non-C2PA-aware players simply ignore the <code>emsg</code> boxes — they are defined as skippable in the BMFF spec.
+</p>
+<h2>Validation Differences</h2>
+<h3>Photo Validation</h3>
+<ol>
+<li>Read the manifest from the metadata region</li>
+<li>Recompute SHA-256 over file byte ranges</li>
+<li>Compare with <code>c2pa.hash.data</code></li>
+</ol>
+<h3>Monolithic Video Validation</h3>
+<ol>
+<li>Read the manifest from the <code>uuid</code> box</li>
+<li>Enumerate all BMFF boxes</li>
+<li>Hash all boxes except the manifest box</li>
+<li>Compare with <code>c2pa.hash.bmff.v3</code></li>
+</ol>
+<h3>Streaming Video Validation</h3>
+<ol>
+<li>Read the manifest from the initialization segment</li>
+<li>For each arriving segment:</li>
+</ol>   - Read the <code>emsg</code> box
+<p>
+   - Hash the segment's <code>moof</code> + <code>mdat</code> boxes
+   - Verify the segment signature against the session key
+   - Verify the session key against the certificate chain
+</p>
+<ol>
+<li>Detect gaps or reordering via the position field</li>
+</ol>
+<p>
+Streaming validation is <strong>incremental</strong> — each segment is validated as it arrives, rather than waiting for the entire file.
+</p>
+<h2>Summary Comparison</h2>
+<table><thead><tr><th>Aspect</th><th>Photo</th><th>Monolithic Video</th><th>Streaming Video</th></tr></thead><tbody><tr><td>Hard binding type</td><td><code>c2pa.hash.data</code> (byte ranges)</td><td><code>c2pa.hash.bmff.v3</code> (box exclusion)</td><td>Per-segment hash + <code>emsg</code> signature</td></tr>
+<tr><td>Manifest location</td><td>Format-specific metadata region</td><td>BMFF <code>uuid</code> box</td><td>Initialization segment</td></tr>
+<tr><td>Must have complete file?</td><td>Yes</td><td>Yes</td><td>No — per-segment</td></tr>
+<tr><td>Validation mode</td><td>Whole-file</td><td>Whole-file</td><td>Incremental</td></tr>
+<tr><td>Signing frequency</td><td>Once</td><td>Once</td><td>Once per segment (1–10 sec)</td></tr>
+<tr><td>Session keys?</td><td>No</td><td>No</td><td>Yes — for performance</td></tr>
+<tr><td>Bandwidth overhead</td><td>~2–50 KB total</td><td>~2–50 KB total</td><td>~0.56% of stream</td></tr></tbody></table>
+<h2>References</h2>
+<ol>
+<li><a href="https://spec.c2pa.org/specifications/specifications/2.3/specs/C2PA_Specification.html">C2PA Technical Specification v2.3</a> — BMFF hashing, box exclusion, fragmented MP4 support</li>
+<li><a href="https://irdeto.com/blog/extending-trust-into-live-video-with-c2pa">Extending Trust into Live Video with C2PA — Irdeto</a> — Session keys, CMAF segment signing, bandwidth overhead</li>
+<li><a href="https://dl.acm.org/doi/10.1145/3625468.3652198">Integrating Content Authenticity with DASH Video Streaming — ACM MMSys 2024</a> — Academic analysis of C2PA streaming integration</li>
+<li><a href="https://www.qualabs.com/our-work/c2pa-for-live-video-how-to-sign-and-authenticate-content-in-real-time">C2PA for Live Video — Qualabs</a> — Real-time signing implementation</li>
+<li><a href="https://www.softwareseni.com/how-c2pa-content-credentials-work-and-what-their-limits-are/">How C2PA Content Credentials Work — SoftwareSeni</a> — Format support overview</li>
+</ol>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://spec.c2pa.org/specifications/specifications/2.3/specs/C2PA_Specification.html" target="_blank" rel="noopener">C2PA Technical Specification v2.3</a></li><li><a href="https://irdeto.com/blog/extending-trust-into-live-video-with-c2pa" target="_blank" rel="noopener">Extending Trust into Live Video with C2PA — Irdeto</a></li><li><a href="https://dl.acm.org/doi/10.1145/3625468.3652198" target="_blank" rel="noopener">Integrating Content Authenticity with DASH Video Streaming — ACM MMSys 2024</a></li><li><a href="https://www.qualabs.com/our-work/c2pa-for-live-video-how-to-sign-and-authenticate-content-in-real-time" target="_blank" rel="noopener">C2PA for Live Video — Qualabs</a></li><li><a href="https://www.softwareseni.com/how-c2pa-content-credentials-work-and-what-their-limits-are/" target="_blank" rel="noopener">How C2PA Content Credentials Work</a></li></ul></div>
+      <div class="page-nav"><a href="trust-model.html"><span class="nav-label">← Previous</span><span class="nav-title">Trust Infrastructure</span></a><a class="next" href="limitations.html"><span class="nav-label">Next →</span><span class="nav-title">Limitations & Challenges</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

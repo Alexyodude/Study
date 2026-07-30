@@ -1,0 +1,16 @@
+{
+  "title": "Stereo Audio & Mic Placement",
+  "slug": "stereo-audio-and-mic-placement",
+  "order": 6,
+  "tags": ["audio", "stereo", "microphones", "psychoacoustics", "pcb"],
+  "status": "draft",
+  "children": [
+    { "slug": "index", "title": "Overview", "order": 0 },
+    { "slug": "how-we-hear-stereo", "title": "How We Hear Stereo (ITD & ILD)", "order": 1 },
+    { "slug": "coincident-techniques", "title": "Coincident Techniques (XY, Blumlein, M/S)", "order": 2 },
+    { "slug": "near-coincident-techniques", "title": "Near-Coincident Techniques (ORTF, DIN, NOS)", "order": 3 },
+    { "slug": "spaced-techniques", "title": "Spaced Techniques (AB)", "order": 4 },
+    { "slug": "pcb-mic-layout", "title": "PCB Layout for Dual MEMS Mics", "order": 5 },
+    { "slug": "potting-and-sealing", "title": "Potting & Environmental Sealing", "order": 6 }
+  ]
+}

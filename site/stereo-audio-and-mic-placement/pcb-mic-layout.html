@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PCB Layout for Dual MEMS Mics — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>C2PA — Content Provenance & Authenticity</button><div class="nav-children"><a class="nav-item" href="../c2pa/core-concepts.html">Core Concepts & Terminology</a><a class="nav-item" href="../c2pa/manifest-structure.html">Manifest Anatomy</a><a class="nav-item" href="../c2pa/step-1-content-creation.html">Step 1: Content Creation & Assertions</a><a class="nav-item" href="../c2pa/step-2-claim-assembly.html">Step 2: Claim Assembly</a><a class="nav-item" href="../c2pa/step-3-signing.html">Step 3: Cryptographic Signing</a><a class="nav-item" href="../c2pa/step-4-embedding.html">Step 4: Embedding & Packaging</a><a class="nav-item" href="../c2pa/step-5-distribution.html">Step 5: Distribution & Durability</a><a class="nav-item" href="../c2pa/step-6-validation.html">Step 6: Validation & Verification</a><a class="nav-item" href="../c2pa/step-7-end-user.html">Step 7: End-User Presentation</a><a class="nav-item" href="../c2pa/trust-model.html">Trust Infrastructure</a><a class="nav-item" href="../c2pa/photo-vs-video.html">Photo vs. Video: What Differs</a><a class="nav-item" href="../c2pa/limitations.html">Limitations & Challenges</a></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Stereo Audio & Mic Placement</button><div class="nav-children"><a class="nav-item" href="index.html">Overview</a><a class="nav-item" href="how-we-hear-stereo.html">How We Hear Stereo (ITD & ILD)</a><a class="nav-item" href="coincident-techniques.html">Coincident Techniques (XY, Blumlein, M/S)</a><a class="nav-item" href="near-coincident-techniques.html">Near-Coincident Techniques (ORTF, DIN, NOS)</a><a class="nav-item" href="spaced-techniques.html">Spaced Techniques (AB)</a><a class="nav-item active" href="pcb-mic-layout.html">PCB Layout for Dual MEMS Mics</a><a class="nav-item" href="potting-and-sealing.html">Potting & Environmental Sealing</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Image Sensors for Embedded</button><div class="nav-children"><a class="nav-item" href="../image-sensors-for-embedded/index.html">Overview</a><a class="nav-item" href="../image-sensors-for-embedded/sensor-basics.html">Sensor Basics (Format, Pixel, Shutter)</a><a class="nav-item" href="../image-sensors-for-embedded/interfaces.html">Sensor Interfaces (DVP, MIPI CSI-2)</a><a class="nav-item" href="../image-sensors-for-embedded/sensor-comparison.html">Sensor Comparison by Price</a><a class="nav-item" href="../image-sensors-for-embedded/choosing-a-sensor.html">How to Choose a Sensor</a><a class="nav-item" href="../image-sensors-for-embedded/stm32-hosts-for-cameras.html">STM32 Hosts for Dual Cameras + Secure Boot</a></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../stereo-audio-and-mic-placement/index.html">Stereo Audio & Mic Placement</a><span class="sep">/</span><span>PCB Layout for Dual MEMS Mics</span></div>
+      <h1>PCB Layout for Dual MEMS Mics</h1>
+      <div class="tags"><span class="tag">audio</span><span class="tag">stereo</span><span class="tag">microphones</span><span class="tag">pcb</span><span class="tag">mems</span></div>
+      <h1>PCB Layout for Dual MEMS Mics</h1>
+<p>
+Practical guidance for laying out <strong>two MEMS microphones on a PCB</strong> to capture usable stereo sound. Synthesizes classical <a href="how-we-hear-stereo.html">stereo theory</a> with the real constraints of MEMS parts.
+</p>
+<h2>Step 1 — Pick the technique</h2>
+<p>
+Almost all general-purpose MEMS mics (ICS-43434, SPH0645, INMP441, IM69D130, etc.) are <strong>omnidirectional</strong>. That means:
+</p>
+<ul>
+<li><strong>XY, Blumlein, M/S, ORTF, DIN, NOS</strong> all require directional mics — skip them unless your part is specifically a directional MEMS.</li>
+<li>You are doing a <a href="spaced-techniques.html"><strong>spaced omni AB pair</strong></a>. Your only real knob is <strong>spacing</strong>.</li>
+</ul>
+<h2>Step 2 — Pick the spacing</h2>
+<p>
+Spacing determines both max ITD and how low in frequency the two mics start to phase-interact.
+</p>
+<table><thead><tr><th>Spacing</th><th>Max ITD</th><th>First null (hard-side source)</th><th>Feel</th></tr></thead><tbody><tr><td>1 cm</td><td>~29 µs</td><td>17 kHz</td><td>≈ Mono</td></tr>
+<tr><td>2 cm</td><td>~58 µs</td><td>8.5 kHz</td><td>Subtle stereo</td></tr>
+<tr><td>5 cm</td><td>~146 µs</td><td>3.4 kHz</td><td>Noticeable stereo</td></tr>
+<tr><td>10 cm</td><td>~290 µs</td><td>1.7 kHz</td><td>Clear stereo</td></tr>
+<tr><td>15–20 cm</td><td>~440–580 µs</td><td>1.1–0.85 kHz</td><td>Full natural stereo</td></tr></tbody></table>
+<p>
+Rule of thumb for PCB-scale products:
+</p>
+<ul>
+<li><strong>Earbuds / hearables:</strong> 15 mm between ports is a typical stereo / beamforming distance.</li>
+<li><strong>Phones / handhelds / small recorders:</strong> 5–15 cm gives meaningful stereo.</li>
+<li><strong>Larger bars, laptops:</strong> 15–30 cm approaches classic AB or ORTF spacing.</li>
+<li><strong>Below ~2 cm:</strong> don't bother calling it stereo — use a single mic or pick two mics for beamforming, not stereo imaging.</li>
+</ul>
+<h2>Step 3 — Match the mics</h2>
+<p>
+Stereo imaging relies on <strong>small</strong> differences between channels, so mismatches between mics show up as image shift or wandering.
+</p>
+<ul>
+<li><strong>Sensitivity matching:</strong> aim for <strong>±1 dB</strong> between the two parts. MEMS mics typically specify ±1 to ±3 dB; pick tighter-binned parts if possible.</li>
+<li><strong>Phase matching:</strong> aim for <strong>±5° to ±10°</strong> across the band — important for beamforming, less critical for simple stereo.</li>
+<li><strong>Buy from the same lot.</strong> Batch variation is real.</li>
+<li><strong>Route both mics identically.</strong> Same trace length, same passive values, same decoupling — anything asymmetric leaks into the stereo image.</li>
+</ul>
+<h2>Step 4 — Acoustic port design</h2>
+<p>
+The sound hole is part of the acoustic system. Treat it like a signal path.
+</p>
+<ul>
+<li><strong>Hole diameter:</strong> typically <strong>0.5–1.0 mm</strong> on the PCB; smaller can clog with solder paste, larger can resonate. See the <a href="https://media.digikey.com/pdf/data%20sheets/knowles%20acoustics%20pdfs/sisonic_design_guide.pdf">Knowles SiSonic Design Guide</a>.</li>
+<li><strong>Gasket between port and enclosure opening:</strong> mandatory. Leaks kill low-end and let noise in.</li>
+<li><strong>Make both ports identical:</strong> same hole size, same gasket, same enclosure opening shape. Asymmetry = frequency response mismatch = skewed stereo image.</li>
+<li><strong>Bottom-port vs. top-port:</strong> pick one and use the same for both mics. Mixing firing directions is asking for trouble.</li>
+</ul>
+<h2>Step 5 — PCB layout details</h2>
+<ul>
+<li><strong>Keep both mics far from noise sources:</strong> buck converters, clock crystals, antennas, motors, speakers. Put both mics on the <strong>same side</strong> of these noise sources so they reject common-mode noise similarly.</li>
+<li><strong>Mirror the routing.</strong> L and R trace lengths, vias, and ground returns should be as symmetric as practical.</li>
+<li><strong>Digital (I²S / PDM) mics are easier</strong> than analog for stereo because you don't have analog gain mismatch to worry about. Two PDM mics can even share clock and data lines with one tied to L-select and the other to R-select (this is how most stereo I²S MEMS pairs work).</li>
+<li><strong>Give each mic its own decoupling cap</strong> close to the VDD pin (100 nF typical, plus a bulk cap nearby).</li>
+<li><strong>Solid ground plane under both mics</strong>, not split. Splits cause return-path asymmetry.</li>
+</ul>
+<h2>Step 6 — Enclosure matters as much as PCB</h2>
+<ul>
+<li>The enclosure shape creates its own ILD via shadowing and diffraction. A flat PCB on an open bench sounds very different than one in a handheld case.</li>
+<li>If you want directivity without a directional mic, <strong>place the two mics on opposite sides of a physical baffle</strong> (the device body itself). This is how phones and laptops get usable stereo from two omnis — the body is the "head."</li>
+<li>For an "artificial head" effect in a small device, aim for <strong>~15 cm of enclosure width between mics with the body as an acoustic obstruction in between</strong>.</li>
+</ul>
+<h2>Quick decision tree</h2>
+<pre><code class="language-text">Is each mic directional?
+<p>
+├── Yes → You can do ORTF/XY; spacing and angle follow those techniques
+└── No  → Omni MEMS, AB spaced pair only
+         │
+         ├── Spacing &lt; 2 cm    → skip stereo, use beamforming instead
+         ├── Spacing 2–15 cm   → stereo with enclosure baffle between mics
+         └── Spacing &gt; 15 cm   → classical wide AB stereo</code></pre>
+</p>
+<h2>Common pitfalls</h2>
+<ul>
+<li><strong>Mounting two omnis side-by-side on a flat PCB with nothing between them.</strong> You'll get subtle stereo at best — the enclosure isn't helping you.</li>
+<li><strong>Asymmetric port openings or gaskets.</strong> The channel with the looser gasket will be bassier and louder → image shifts.</li>
+<li><strong>One mic near a speaker, one far.</strong> Guaranteed feedback and wildly different noise floors.</li>
+<li><strong>Trusting datasheet sensitivity tolerance.</strong> ±3 dB sensitivity tolerance means real parts can be 6 dB apart — that's a one-sided mono recording.</li>
+</ul>
+<h2>References</h2>
+<ol>
+<li><a href="https://puiaudio.com/generic-press-releases/wide-band-mems-microphones-application-guide/">PUI Audio — Wide-Band MEMS Microphones Application Guide</a> — Noise source placement and PCB layout fundamentals.</li>
+<li><a href="https://invensense.tdk.com/wp-content/uploads/2015/02/Recommendations-for-Mounting-and-Connecting-InvenSense-MEMS-Microphones.pdf">InvenSense AN-1003 — Mounting and Connecting MEMS Microphones</a> — Port design, solder paste, mounting.</li>
+<li><a href="https://media.digikey.com/pdf/data%20sheets/knowles%20acoustics%20pdfs/sisonic_design_guide.pdf">Knowles SiSonic Design Guide</a> — Sound hole geometry and acoustic path.</li>
+<li><a href="https://microchip.my.site.com/s/article/Mechanical-Design-of-MEMS-Microphone-Stack-Array-Geometry-Placement">Microchip — Mechanical Design of MEMS Microphone Array Geometry</a> — Array spacing for multi-mic use.</li>
+</ol>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://puiaudio.com/generic-press-releases/wide-band-mems-microphones-application-guide/" target="_blank" rel="noopener">PUI Audio — Wide-Band MEMS Microphones Application Guide</a></li><li><a href="https://invensense.tdk.com/wp-content/uploads/2015/02/Recommendations-for-Mounting-and-Connecting-InvenSense-MEMS-Microphones.pdf" target="_blank" rel="noopener">InvenSense AN-1003 — Mounting and Connecting MEMS Microphones</a></li><li><a href="https://media.digikey.com/pdf/data%20sheets/knowles%20acoustics%20pdfs/sisonic_design_guide.pdf" target="_blank" rel="noopener">Knowles — SiSonic Design Guide</a></li></ul></div>
+      <div class="page-nav"><a href="spaced-techniques.html"><span class="nav-label">← Previous</span><span class="nav-title">Spaced Techniques (AB)</span></a><a class="next" href="potting-and-sealing.html"><span class="nav-label">Next →</span><span class="nav-title">Potting & Environmental Sealing</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

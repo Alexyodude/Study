@@ -1,6 +1,6 @@
 {
-  "site_title": "MCU Study Guide",
-  "description": "Deep study of microcontrollers — bare-metal control of computation and memory",
+  "site_title": "Study Notes",
+  "description": "Personal study notes on various technical topics",
   "topics": [
     {
       "slug": "mcu-architecture",
@@ -25,6 +25,53 @@
       "title": "Toolchain & Practice — Build and Debug Real Projects",
       "order": 4,
       "status": "draft"
+    },
+    {
+      "slug": "c2pa",
+      "title": "C2PA — Content Provenance & Authenticity",
+      "order": 5,
+      "status": "draft",
+      "children": [
+        { "slug": "core-concepts", "title": "Core Concepts & Terminology", "order": 1 },
+        { "slug": "manifest-structure", "title": "Manifest Anatomy", "order": 2 },
+        { "slug": "step-1-content-creation", "title": "Step 1: Content Creation & Assertions", "order": 3 },
+        { "slug": "step-2-claim-assembly", "title": "Step 2: Claim Assembly", "order": 4 },
+        { "slug": "step-3-signing", "title": "Step 3: Cryptographic Signing", "order": 5 },
+        { "slug": "step-4-embedding", "title": "Step 4: Embedding & Packaging", "order": 6 },
+        { "slug": "step-5-distribution", "title": "Step 5: Distribution & Durability", "order": 7 },
+        { "slug": "step-6-validation", "title": "Step 6: Validation & Verification", "order": 8 },
+        { "slug": "step-7-end-user", "title": "Step 7: End-User Presentation", "order": 9 },
+        { "slug": "trust-model", "title": "Trust Infrastructure", "order": 10 },
+        { "slug": "photo-vs-video", "title": "Photo vs. Video: What Differs", "order": 11 },
+        { "slug": "limitations", "title": "Limitations & Challenges", "order": 12 }
+      ]
+    },
+    {
+      "slug": "stereo-audio-and-mic-placement",
+      "title": "Stereo Audio & Mic Placement",
+      "order": 6,
+      "status": "draft",
+      "children": [
+        { "slug": "how-we-hear-stereo", "title": "How We Hear Stereo (ITD & ILD)", "order": 1 },
+        { "slug": "coincident-techniques", "title": "Coincident Techniques (XY, Blumlein, M/S)", "order": 2 },
+        { "slug": "near-coincident-techniques", "title": "Near-Coincident Techniques (ORTF, DIN, NOS)", "order": 3 },
+        { "slug": "spaced-techniques", "title": "Spaced Techniques (AB)", "order": 4 },
+        { "slug": "pcb-mic-layout", "title": "PCB Layout for Dual MEMS Mics", "order": 5 },
+        { "slug": "potting-and-sealing", "title": "Potting & Environmental Sealing", "order": 6 }
+      ]
+    },
+    {
+      "slug": "image-sensors-for-embedded",
+      "title": "Image Sensors for Embedded",
+      "order": 7,
+      "status": "draft",
+      "children": [
+        { "slug": "sensor-basics", "title": "Sensor Basics (Format, Pixel, Shutter)", "order": 1 },
+        { "slug": "interfaces", "title": "Sensor Interfaces (DVP, MIPI CSI-2)", "order": 2 },
+        { "slug": "sensor-comparison", "title": "Sensor Comparison by Price", "order": 3 },
+        { "slug": "choosing-a-sensor", "title": "How to Choose a Sensor", "order": 4 },
+        { "slug": "stm32-hosts-for-cameras", "title": "STM32 Hosts for Dual Cameras + Secure Boot", "order": 5 }
+      ]
     }
   ]
 }

@@ -3,3 +3,6 @@ node_modules/
 *.jpg
 *.jpeg
 .playwright-mcp/
+
+# local state - not for the repo
+.omc/

@@ -1,0 +1,15 @@
+{
+  "title": "Image Sensors for Embedded",
+  "slug": "image-sensors-for-embedded",
+  "order": 7,
+  "tags": ["camera", "image-sensor", "mipi", "embedded", "imx", "omnivision", "smartsens", "stm32"],
+  "status": "draft",
+  "children": [
+    { "slug": "index", "title": "Overview", "order": 0 },
+    { "slug": "sensor-basics", "title": "Sensor Basics (Format, Pixel, Shutter)", "order": 1 },
+    { "slug": "interfaces", "title": "Sensor Interfaces (DVP, MIPI CSI-2)", "order": 2 },
+    { "slug": "sensor-comparison", "title": "Sensor Comparison by Price", "order": 3 },
+    { "slug": "choosing-a-sensor", "title": "How to Choose a Sensor", "order": 4 },
+    { "slug": "stm32-hosts-for-cameras", "title": "STM32 Hosts for Dual Cameras + Secure Boot", "order": 5 }
+  ]
+}

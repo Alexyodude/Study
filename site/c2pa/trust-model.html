@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trust Infrastructure — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>C2PA — Content Provenance & Authenticity</button><div class="nav-children"><a class="nav-item" href="core-concepts.html">Core Concepts & Terminology</a><a class="nav-item" href="manifest-structure.html">Manifest Anatomy</a><a class="nav-item" href="step-1-content-creation.html">Step 1: Content Creation & Assertions</a><a class="nav-item" href="step-2-claim-assembly.html">Step 2: Claim Assembly</a><a class="nav-item" href="step-3-signing.html">Step 3: Cryptographic Signing</a><a class="nav-item" href="step-4-embedding.html">Step 4: Embedding & Packaging</a><a class="nav-item" href="step-5-distribution.html">Step 5: Distribution & Durability</a><a class="nav-item" href="step-6-validation.html">Step 6: Validation & Verification</a><a class="nav-item" href="step-7-end-user.html">Step 7: End-User Presentation</a><a class="nav-item active" href="trust-model.html">Trust Infrastructure</a><a class="nav-item" href="photo-vs-video.html">Photo vs. Video: What Differs</a><a class="nav-item" href="limitations.html">Limitations & Challenges</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Stereo Audio & Mic Placement</button><div class="nav-children"><a class="nav-item" href="../stereo-audio-and-mic-placement/index.html">Overview</a><a class="nav-item" href="../stereo-audio-and-mic-placement/how-we-hear-stereo.html">How We Hear Stereo (ITD & ILD)</a><a class="nav-item" href="../stereo-audio-and-mic-placement/coincident-techniques.html">Coincident Techniques (XY, Blumlein, M/S)</a><a class="nav-item" href="../stereo-audio-and-mic-placement/near-coincident-techniques.html">Near-Coincident Techniques (ORTF, DIN, NOS)</a><a class="nav-item" href="../stereo-audio-and-mic-placement/spaced-techniques.html">Spaced Techniques (AB)</a><a class="nav-item" href="../stereo-audio-and-mic-placement/pcb-mic-layout.html">PCB Layout for Dual MEMS Mics</a><a class="nav-item" href="../stereo-audio-and-mic-placement/potting-and-sealing.html">Potting & Environmental Sealing</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Image Sensors for Embedded</button><div class="nav-children"><a class="nav-item" href="../image-sensors-for-embedded/index.html">Overview</a><a class="nav-item" href="../image-sensors-for-embedded/sensor-basics.html">Sensor Basics (Format, Pixel, Shutter)</a><a class="nav-item" href="../image-sensors-for-embedded/interfaces.html">Sensor Interfaces (DVP, MIPI CSI-2)</a><a class="nav-item" href="../image-sensors-for-embedded/sensor-comparison.html">Sensor Comparison by Price</a><a class="nav-item" href="../image-sensors-for-embedded/choosing-a-sensor.html">How to Choose a Sensor</a><a class="nav-item" href="../image-sensors-for-embedded/stm32-hosts-for-cameras.html">STM32 Hosts for Dual Cameras + Secure Boot</a></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../c2pa/index.html">C2PA — Content Provenance & Authenticity</a><span class="sep">/</span><span>Trust Infrastructure</span></div>
+      <h1>Trust Infrastructure</h1>
+      <div class="tags"><span class="tag">c2pa</span><span class="tag">trust</span><span class="tag">pki</span><span class="tag">certificate-authority</span><span class="tag">trust-list</span><span class="tag">conformance</span></div>
+      <p>
+C2PA's trust model determines <em>who</em> can sign Content Credentials and <em>how</em> validators decide whether to trust a signature. It builds on the same <strong>Public Key Infrastructure (PKI)</strong> that secures HTTPS on the web.
+</p>
+<h2>Trust Architecture Overview</h2>
+<pre><code class="language-text">C2PA Trust List
+<p>
+├── Root CA 1 (e.g., DigiCert)
+│   └── Intermediate CA
+│       └── Signing Certificate (Leica)  →  Signs manifests
+│
+├── Root CA 2 (e.g., SSL.com)
+│   └── Intermediate CA
+│       └── Signing Certificate (Adobe)  →  Signs manifests
+│
+└── Root CA N ...
+</p>
+<p>
+C2PA TSA Trust List
+├── TSA Root CA 1
+│   └── TSA Certificate (DigiCert TSA)   →  Issues time-stamps
+└── TSA Root CA 2
+    └── TSA Certificate (...)            →  Issues time-stamps</code></pre>
+</p>
+<h2>The C2PA Trust List</h2>
+<p>
+The <strong>C2PA Trust List</strong> is a <a href="https://spec.c2pa.org/specifications/specifications/2.3/specs/C2PA_Specification.html">curated list of X.509 root certificate authorities</a> authorized to issue C2PA signing certificates. It's analogous to your browser's built-in list of trusted root CAs for HTTPS.
+</p>
+<p>
+Key properties:
+</p>
+<ul>
+<li>Maintained by the C2PA organization</li>
+<li>Only includes CAs that meet C2PA's requirements</li>
+<li>Certificates must have the <code>c2pa-kp-claimSigning</code> Extended Key Usage (EKU)</li>
+<li>Validators use this list by default to determine if a signer is "trusted"</li>
+</ul>
+<h3>Separate TSA Trust List</h3>
+<p>
+A distinct trust list exists for <strong>Time Stamping Authorities</strong> — the services that provide cryptographic proof of when a signature was created. TSA certificates are validated independently from signing certificates.
+</p>
+<h2>Getting on the Trust List</h2>
+<h3>For Certificate Authorities</h3>
+<p>
+CAs apply to be included on the C2PA Trust List. They must demonstrate they can issue certificates that meet the technical requirements (proper EKU, key usage, certificate policies).
+</p>
+<h3>For Signers (Products and Services)</h3>
+<p>
+To obtain a trusted C2PA signing certificate, a product must:
+</p>
+<ol>
+<li><strong>Pass the Conformance Program</strong> — The product undergoes <a href="https://c2pa.org/faqs/">evaluation to meet technical and security requirements</a></li>
+<li><strong>Obtain a certificate from a listed CA</strong> — e.g., DigiCert, SSL.com</li>
+<li><strong>Be listed on the Conforming Products List</strong> — Public attestation of conformance</li>
+</ol>
+<p>
+Certificates include fields denoting the product's <strong>Assurance Level</strong>, indicating how rigorously the product was evaluated.
+</p>
+<h3>Certificate Costs</h3>
+<p>
+Currently, trusted C2PA signing certificates cost approximately <a href="https://www.softwareseni.com/how-c2pa-content-credentials-work-and-what-their-limits-are/">$289/year</a> from providers like DigiCert or SSL.com. There is <strong>no free CA equivalent</strong> to Let's Encrypt for C2PA signing, which creates a barrier for individual creators and small organizations.
+</p>
+<h2>PKI Fundamentals in C2PA Context</h2>
+<h3>How Certificate Chains Work</h3>
+<pre><code class="language-text">Root CA Certificate (self-signed, on the Trust List)
+<p>
+  │
+  ├── Signs → Intermediate CA Certificate
+  │              │
+  │              ├── Signs → Signing Certificate
+  │              │              │
+  │              │              └── Signs → C2PA Claim (using private key)
+  │              │
+  │              └── Signs → Another Signing Certificate ...
+  │
+  └── (Root's public key is pre-trusted by validators)</code></pre>
+</p>
+<p>
+Validation walks the chain upward:
+</p>
+<ol>
+<li>Extract the signing certificate from the manifest</li>
+<li>Verify it was signed by the intermediate CA</li>
+<li>Verify the intermediate was signed by the root CA</li>
+<li>Check if the root CA is on the trust list</li>
+</ol>
+<h3>Why Not Blockchain?</h3>
+<p>
+C2PA is frequently asked about blockchain. The answer: C2PA uses <a href="https://c2pa.org/faqs/">standard PKI, not blockchain</a>. The spec is described as "compatible with blockchain" but does not require it because:
+</p>
+<ul>
+<li>PKI is a proven, widely-deployed technology</li>
+<li>Certificate chains provide the same trust anchoring without the overhead of a distributed ledger</li>
+<li>Offline verification is a core requirement — blockchain would require network access</li>
+<li>The trust model is deliberately centralized (trusted CAs) rather than decentralized</li>
+</ul>
+<h2>Validator-Configured Trust</h2>
+<p>
+While the C2PA Trust List is the default, validators can override it with <strong>custom trust lists</strong>:
+</p>
+<table><thead><tr><th>Configuration</th><th>Use Case</th></tr></thead><tbody><tr><td>C2PA Trust List only</td><td>General-purpose consumer applications</td></tr>
+<tr><td>Custom trust list</td><td>Enterprise environments, government agencies</td></tr>
+<tr><td>Extended trust list</td><td>Accept C2PA list + additional roots</td></tr>
+<tr><td>Restrictive trust list</td><td>Only accept specific signers</td></tr></tbody></table>
+<p>
+A news organization might configure its validators to only trust certificates issued to known news agencies. A government might only trust certificates from its own CA.
+</p>
+<h2>Trust vs. Truth</h2>
+<p>
+A critical distinction: <strong>trust in C2PA is about the signer's identity, not the content's truthfulness</strong>.
+</p>
+<p>
+A manifest signed by a trusted signer proves:
+</p>
+<ul>
+<li>The signer is who they claim to be (identity)</li>
+<li>The content hasn't been modified since signing (integrity)</li>
+<li>The assertions were made at a proven time (temporality)</li>
+</ul>
+<p>
+It does <strong>not</strong> prove:
+</p>
+<ul>
+<li>The content depicts reality (a camera can photograph a fake scene)</li>
+<li>The signer's assertions are honest (the signer could lie about AI usage)</li>
+<li>The content is "real" in any absolute sense</li>
+</ul>
+<p>
+Trust in C2PA means: "I believe this entity is who they say they are, and I can verify the content hasn't been tampered with." The leap from there to "I believe this content is authentic" is a human judgment that depends on the signer's reputation.
+</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://spec.c2pa.org/specifications/specifications/2.3/specs/C2PA_Specification.html">C2PA Technical Specification v2.3</a> — Trust list specification, certificate requirements, validation states</li>
+<li><a href="https://c2pa.org/faqs/">C2PA FAQ</a> — Conformance program, PKI vs. blockchain, trust list management</li>
+<li><a href="https://www.softwareseni.com/how-c2pa-content-credentials-work-and-what-their-limits-are/">How C2PA Content Credentials Work</a> — Certificate costs and signing approaches</li>
+</ol>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://spec.c2pa.org/specifications/specifications/2.3/specs/C2PA_Specification.html" target="_blank" rel="noopener">C2PA Technical Specification v2.3</a></li><li><a href="https://c2pa.org/faqs/" target="_blank" rel="noopener">C2PA FAQ</a></li><li><a href="https://www.softwareseni.com/how-c2pa-content-credentials-work-and-what-their-limits-are/" target="_blank" rel="noopener">How C2PA Content Credentials Work</a></li></ul></div>
+      <div class="page-nav"><a href="step-7-end-user.html"><span class="nav-label">← Previous</span><span class="nav-title">Step 7: End-User Presentation</span></a><a class="next" href="photo-vs-video.html"><span class="nav-label">Next →</span><span class="nav-title">Photo vs. Video: What Differs</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

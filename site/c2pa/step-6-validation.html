@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Step 6: Validation & Verification — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>C2PA — Content Provenance & Authenticity</button><div class="nav-children"><a class="nav-item" href="core-concepts.html">Core Concepts & Terminology</a><a class="nav-item" href="manifest-structure.html">Manifest Anatomy</a><a class="nav-item" href="step-1-content-creation.html">Step 1: Content Creation & Assertions</a><a class="nav-item" href="step-2-claim-assembly.html">Step 2: Claim Assembly</a><a class="nav-item" href="step-3-signing.html">Step 3: Cryptographic Signing</a><a class="nav-item" href="step-4-embedding.html">Step 4: Embedding & Packaging</a><a class="nav-item" href="step-5-distribution.html">Step 5: Distribution & Durability</a><a class="nav-item active" href="step-6-validation.html">Step 6: Validation & Verification</a><a class="nav-item" href="step-7-end-user.html">Step 7: End-User Presentation</a><a class="nav-item" href="trust-model.html">Trust Infrastructure</a><a class="nav-item" href="photo-vs-video.html">Photo vs. Video: What Differs</a><a class="nav-item" href="limitations.html">Limitations & Challenges</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Stereo Audio & Mic Placement</button><div class="nav-children"><a class="nav-item" href="../stereo-audio-and-mic-placement/index.html">Overview</a><a class="nav-item" href="../stereo-audio-and-mic-placement/how-we-hear-stereo.html">How We Hear Stereo (ITD & ILD)</a><a class="nav-item" href="../stereo-audio-and-mic-placement/coincident-techniques.html">Coincident Techniques (XY, Blumlein, M/S)</a><a class="nav-item" href="../stereo-audio-and-mic-placement/near-coincident-techniques.html">Near-Coincident Techniques (ORTF, DIN, NOS)</a><a class="nav-item" href="../stereo-audio-and-mic-placement/spaced-techniques.html">Spaced Techniques (AB)</a><a class="nav-item" href="../stereo-audio-and-mic-placement/pcb-mic-layout.html">PCB Layout for Dual MEMS Mics</a><a class="nav-item" href="../stereo-audio-and-mic-placement/potting-and-sealing.html">Potting & Environmental Sealing</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Image Sensors for Embedded</button><div class="nav-children"><a class="nav-item" href="../image-sensors-for-embedded/index.html">Overview</a><a class="nav-item" href="../image-sensors-for-embedded/sensor-basics.html">Sensor Basics (Format, Pixel, Shutter)</a><a class="nav-item" href="../image-sensors-for-embedded/interfaces.html">Sensor Interfaces (DVP, MIPI CSI-2)</a><a class="nav-item" href="../image-sensors-for-embedded/sensor-comparison.html">Sensor Comparison by Price</a><a class="nav-item" href="../image-sensors-for-embedded/choosing-a-sensor.html">How to Choose a Sensor</a><a class="nav-item" href="../image-sensors-for-embedded/stm32-hosts-for-cameras.html">STM32 Hosts for Dual Cameras + Secure Boot</a></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../c2pa/index.html">C2PA — Content Provenance & Authenticity</a><span class="sep">/</span><span>Step 6: Validation & Verification</span></div>
+      <h1>Step 6: Validation & Verification</h1>
+      <div class="tags"><span class="tag">c2pa</span><span class="tag">validation</span><span class="tag">verification</span><span class="tag">trust-list</span><span class="tag">certificate</span></div>
+      <p>
+When someone receives an asset with Content Credentials, a <strong>Validator</strong> checks whether the credentials are authentic, unmodified, and trustworthy. This is the most technically complex step in the pipeline.
+</p>
+<h2>The Five Phases of Validation</h2>
+<h3>Phase 1: Manifest Discovery</h3>
+<ol>
+<li><strong>Locate the manifest store</strong> — Check for embedded JUMBF data, a sidecar <code>.c2pa</code> file, or a remote manifest URL</li>
+<li><strong>Identify the active manifest</strong> — The last manifest in the store is the active one</li>
+<li><strong>Parse the JUMBF structure</strong> — Extract the assertion store, claim, and claim signature</li>
+</ol>
+<h3>Phase 2: Claim & Signature Validation</h3>
+<ol>
+<li><strong>Parse the claim</strong> — Deserialize the <code>c2pa.claim.v2</code> CBOR structure</li>
+<li><strong>Validate the COSE_Sign1 signature</strong>:</li>
+</ol>   - Extract the protected headers (algorithm, certificate chain)
+<p>
+   - Reconstruct the <code>Sig_structure</code> (the bytes-to-be-signed)
+   - Verify the signature against the signer's public key from the certificate
+</p>
+<ol>
+<li><strong>Validate the time-stamp</strong> (if present):</li>
+</ol>   - Verify the RFC 3161 time-stamp token's signature
+<p>
+   - Confirm the time-stamp covers the claim signature
+   - Check that the TSA certificate is on the <a href="https://spec.c2pa.org/specifications/specifications/2.3/specs/C2PA_Specification.html">TSA trust list</a>
+</p>
+<h3>Phase 3: Credential & Revocation Checking</h3>
+<ol>
+<li><strong>Extract the signer certificate</strong> from the COSE_Sign1 protected headers</li>
+<li><strong>Validate the certificate chain</strong>:</li>
+</ol>   - Verify each certificate's signature up to a trusted root
+<p>
+   - Check that the signing certificate has the correct EKU (<code>id-kp-claimSigning</code>)
+   - Confirm the certificate was valid at signing time (using the time-stamp)
+</p>
+<ol>
+<li><strong>Check revocation status</strong>:</li>
+</ol>   - Query OCSP (Online Certificate Status Protocol) responders, or
+<p>
+   - Check Certificate Revocation Lists (CRLs)
+   - If the certificate was revoked <em>before</em> the time-stamp, the manifest is invalid
+</p>
+<h3>Phase 4: Assertion & Content Validation</h3>
+<ol>
+<li><strong>Validate assertion hashes</strong> — For each assertion in <code>created_assertions</code> and <code>gathered_assertions</code>:</li>
+</ol>    - Recompute the SHA-256 hash of the assertion's bytes
+<p>
+    - Compare with the hash stored in the claim's hashed-URI
+    - Any mismatch → assertion was tampered with
+</p>
+<ol>
+<li><strong>Validate the hard binding</strong>:</li>
+</ol>    - Recompute the SHA-256 hash over the file bytes (excluding the manifest region)
+<p>
+    - Compare with the hash in <code>c2pa.hash.data</code>
+    - Any mismatch → <strong>the file content has been modified since signing</strong>
+</p>
+<ol>
+<li><strong>Validate ingredients recursively</strong>:</li>
+</ol>    - For each <code>c2pa.ingredient.v3</code> assertion, locate and validate the ingredient's manifest
+<p>
+    - This creates a recursive validation of the entire provenance chain
+</p>
+<ol>
+<li><strong>Verify redacted assertions</strong> — Confirm redacted assertion URIs match expected entries</li>
+</ol>
+<h3>Phase 5: Trust Determination</h3>
+<ol>
+<li><strong>Check the trust list</strong> — Does the signing certificate's root CA appear on:</li>
+</ol>    - The <a href="https://spec.c2pa.org/specifications/specifications/2.3/specs/C2PA_Specification.html">C2PA Trust List</a> (default), or
+<p>
+    - A validator-configured custom trust list
+</p>
+<ol>
+<li><strong>Return validation results</strong> with status codes</li>
+</ol>
+<h2>Validation States</h2>
+<p>
+The spec defines three progressive levels of validity:
+</p>
+<pre><code class="language-text">Well-formed Manifest
+<p>
+    ↓ (+ valid signature + unrevoked certificate)
+Valid Manifest
+    ↓ (+ signer is on the trust list)
+Trusted Manifest</code></pre>
+</p>
+<table><thead><tr><th>State</th><th>Meaning</th></tr></thead><tbody><tr><td><strong>Well-formed</strong></td><td>Structurally correct JUMBF/CBOR — parses without errors</td></tr>
+<tr><td><strong>Valid</strong></td><td>Signature is cryptographically correct, certificate chain is valid, content hash matches</td></tr>
+<tr><td><strong>Trusted</strong></td><td>All of the above, AND the signer's root CA is on the validator's trust list</td></tr></tbody></table>
+<p>
+A manifest can be <strong>valid but not trusted</strong> — e.g., signed with a self-signed certificate. The cryptography checks out, but there's no trusted authority vouching for the signer.
+</p>
+<h2>Offline Verification</h2>
+<p>
+A key design decision: <a href="https://www.softwareseni.com/how-c2pa-content-credentials-work-and-what-their-limits-are/">all required certificates travel inside the manifest</a>. This means basic validation (phases 1-2, 4) works <strong>without any network access</strong>.
+</p>
+<p>
+Network is only needed for:
+</p>
+<ul>
+<li>Certificate revocation checking (OCSP/CRL) — Phase 3</li>
+<li>Remote manifest retrieval — if the manifest isn't embedded</li>
+<li>Soft binding recovery — looking up manifests in a repository</li>
+</ul>
+<h2>Verification Tools</h2>
+<table><thead><tr><th>Tool</th><th>Type</th><th>Use Case</th></tr></thead><tbody><tr><td><a href="https://contentcredentials.org/">Content Credentials Verify</a></td><td>Web app</td><td>Browser-based verification (uses WebAssembly)</td></tr>
+<tr><td><a href="https://github.com/contentauth/c2patool">c2patool</a></td><td>CLI</td><td>Inspect and sign manifests from the command line</td></tr>
+<tr><td><a href="https://spec.c2pa.org/specifications/specifications/2.3/specs/C2PA_Specification.html">C2PA Viewer</a></td><td>Debug tool</td><td>Raw JSON manifest inspection</td></tr>
+<tr><td><a href="https://github.com/contentauth/c2pa-rs">c2pa-rs</a></td><td>Rust library</td><td>Build verification into your own applications</td></tr>
+<tr><td><a href="https://github.com/contentauth/c2pa-node">c2pa-node</a></td><td>Node.js library</td><td>JavaScript/TypeScript integration</td></tr></tbody></table>
+<h2>What a Failed Validation Means</h2>
+<table><thead><tr><th>Failure</th><th>Likely Cause</th></tr></thead><tbody><tr><td>Signature invalid</td><td>Manifest was modified after signing</td></tr>
+<tr><td>Hard binding mismatch</td><td>File content was modified after signing</td></tr>
+<tr><td>Assertion hash mismatch</td><td>An individual assertion was tampered with</td></tr>
+<tr><td>Certificate expired (no time-stamp)</td><td>Signing certificate is past its validity period</td></tr>
+<tr><td>Certificate revoked</td><td>The CA revoked the signer's certificate</td></tr>
+<tr><td>Not on trust list</td><td>Signer used a certificate from an unrecognized CA</td></tr></tbody></table>
+<p>
+A failed hard binding doesn't necessarily mean malice — it could mean a non-C2PA-aware tool re-saved the file, inadvertently changing bytes.
+</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://spec.c2pa.org/specifications/specifications/2.3/specs/C2PA_Specification.html">C2PA Technical Specification v2.3</a> — Complete validation algorithm, trust list specification</li>
+<li><a href="https://www.softwareseni.com/how-c2pa-content-credentials-work-and-what-their-limits-are/">How C2PA Content Credentials Work</a> — Verification tools and offline capabilities</li>
+<li><a href="https://c2pa.org/faqs/">C2PA FAQ</a> — Trust list and conformance program details</li>
+</ol>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://spec.c2pa.org/specifications/specifications/2.3/specs/C2PA_Specification.html" target="_blank" rel="noopener">C2PA Technical Specification v2.3</a></li><li><a href="https://www.softwareseni.com/how-c2pa-content-credentials-work-and-what-their-limits-are/" target="_blank" rel="noopener">How C2PA Content Credentials Work</a></li><li><a href="https://c2pa.org/faqs/" target="_blank" rel="noopener">C2PA FAQ</a></li></ul></div>
+      <div class="page-nav"><a href="step-5-distribution.html"><span class="nav-label">← Previous</span><span class="nav-title">Step 5: Distribution & Durability</span></a><a class="next" href="step-7-end-user.html"><span class="nav-label">Next →</span><span class="nav-title">Step 7: End-User Presentation</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

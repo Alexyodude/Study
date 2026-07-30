@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Limitations & Challenges — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>C2PA — Content Provenance & Authenticity</button><div class="nav-children"><a class="nav-item" href="core-concepts.html">Core Concepts & Terminology</a><a class="nav-item" href="manifest-structure.html">Manifest Anatomy</a><a class="nav-item" href="step-1-content-creation.html">Step 1: Content Creation & Assertions</a><a class="nav-item" href="step-2-claim-assembly.html">Step 2: Claim Assembly</a><a class="nav-item" href="step-3-signing.html">Step 3: Cryptographic Signing</a><a class="nav-item" href="step-4-embedding.html">Step 4: Embedding & Packaging</a><a class="nav-item" href="step-5-distribution.html">Step 5: Distribution & Durability</a><a class="nav-item" href="step-6-validation.html">Step 6: Validation & Verification</a><a class="nav-item" href="step-7-end-user.html">Step 7: End-User Presentation</a><a class="nav-item" href="trust-model.html">Trust Infrastructure</a><a class="nav-item" href="photo-vs-video.html">Photo vs. Video: What Differs</a><a class="nav-item active" href="limitations.html">Limitations & Challenges</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Stereo Audio & Mic Placement</button><div class="nav-children"><a class="nav-item" href="../stereo-audio-and-mic-placement/index.html">Overview</a><a class="nav-item" href="../stereo-audio-and-mic-placement/how-we-hear-stereo.html">How We Hear Stereo (ITD & ILD)</a><a class="nav-item" href="../stereo-audio-and-mic-placement/coincident-techniques.html">Coincident Techniques (XY, Blumlein, M/S)</a><a class="nav-item" href="../stereo-audio-and-mic-placement/near-coincident-techniques.html">Near-Coincident Techniques (ORTF, DIN, NOS)</a><a class="nav-item" href="../stereo-audio-and-mic-placement/spaced-techniques.html">Spaced Techniques (AB)</a><a class="nav-item" href="../stereo-audio-and-mic-placement/pcb-mic-layout.html">PCB Layout for Dual MEMS Mics</a><a class="nav-item" href="../stereo-audio-and-mic-placement/potting-and-sealing.html">Potting & Environmental Sealing</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Image Sensors for Embedded</button><div class="nav-children"><a class="nav-item" href="../image-sensors-for-embedded/index.html">Overview</a><a class="nav-item" href="../image-sensors-for-embedded/sensor-basics.html">Sensor Basics (Format, Pixel, Shutter)</a><a class="nav-item" href="../image-sensors-for-embedded/interfaces.html">Sensor Interfaces (DVP, MIPI CSI-2)</a><a class="nav-item" href="../image-sensors-for-embedded/sensor-comparison.html">Sensor Comparison by Price</a><a class="nav-item" href="../image-sensors-for-embedded/choosing-a-sensor.html">How to Choose a Sensor</a><a class="nav-item" href="../image-sensors-for-embedded/stm32-hosts-for-cameras.html">STM32 Hosts for Dual Cameras + Secure Boot</a></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../c2pa/index.html">C2PA — Content Provenance & Authenticity</a><span class="sep">/</span><span>Limitations & Challenges</span></div>
+      <h1>Limitations & Challenges</h1>
+      <div class="tags"><span class="tag">c2pa</span><span class="tag">limitations</span><span class="tag">challenges</span><span class="tag">first-mile-trust</span><span class="tag">metadata-stripping</span></div>
+      <p>
+C2PA is a powerful standard, but it has clear boundaries. Understanding what it <strong>cannot</strong> do is just as important as understanding what it can.
+</p>
+<h2>The First-Mile Trust Gap</h2>
+<p>
+The most fundamental limitation: <a href="https://www.softwareseni.com/how-c2pa-content-credentials-work-and-what-their-limits-are/">C2PA can confirm that a specific device or software made a specific claim at a specific time. It cannot confirm the underlying content is authentic.</a>
+</p>
+<p>
+<strong>Example</strong>: A C2PA-enabled camera can sign a photograph of a screen displaying a deepfake. The manifest will be cryptographically valid — signed by a trusted camera, with a valid certificate, at a verified time. But the content is still a photo of a fake.
+</p>
+<p>
+C2PA proves <em>provenance</em> (who made a claim about this content), not <em>truth</em> (whether the content depicts reality).
+</p>
+<h2>Metadata Stripping</h2>
+<p>
+Most platforms today re-encode uploaded images, stripping embedded metadata including C2PA manifests:
+</p>
+<table><thead><tr><th>Platform</th><th>Strips Metadata?</th><th>C2PA Impact</th></tr></thead><tbody><tr><td>WhatsApp</td><td>Yes</td><td>Manifest lost</td></tr>
+<tr><td>iMessage</td><td>Yes</td><td>Manifest lost</td></tr>
+<tr><td>Facebook/Instagram</td><td>Yes</td><td>Manifest lost</td></tr>
+<tr><td>Twitter/X</td><td>Yes</td><td>Manifest lost</td></tr>
+<tr><td>Email (most clients)</td><td>Sometimes</td><td>Depends on client</td></tr></tbody></table>
+<p>
+<strong>Mitigation</strong>: Soft bindings (watermarks, perceptual hashes) can recover manifests via repository lookup, but this requires platform or validator support.
+</p>
+<h2>No Deepfake Detection</h2>
+<p>
+<a href="https://www.softwareseni.com/how-c2pa-content-credentials-work-and-what-their-limits-are/">C2PA does not detect deepfakes or AI-generated content.</a> It records a signer's <strong>assertion</strong> about whether AI was used. The assertion's truthfulness depends entirely on the signer's honesty.
+</p>
+<ul>
+<li>A generative AI tool that follows C2PA will disclose AI generation in its assertions</li>
+<li>A malicious tool could generate AI content and not disclose it (or claim it was a real photo)</li>
+<li>C2PA has no mechanism to independently verify these assertions</li>
+</ul>
+<h2>Certificate Cost Barrier</h2>
+<p>
+Trusted signing certificates cost approximately <a href="https://www.softwareseni.com/how-c2pa-content-credentials-work-and-what-their-limits-are/">$289/year</a> from providers like DigiCert or SSL.com. Unlike HTTPS (which has Let's Encrypt), there is <strong>no free certificate authority</strong> for C2PA.
+</p>
+<p>
+This creates a significant barrier:
+</p>
+<ul>
+<li>Individual creators, citizen journalists, and small organizations may not be able to afford signing</li>
+<li>Self-signed certificates work technically but don't appear as "trusted" to validators</li>
+<li>The cost model favors large organizations and commercial software vendors</li>
+</ul>
+<h2>Absence of Credentials ≠ Inauthenticity</h2>
+<p>
+A critical reasoning trap: <strong>most content on the internet has no C2PA credentials</strong>. The absence of credentials does not mean content is fake, manipulated, or untrustworthy. C2PA is opt-in, and the vast majority of legitimate content was created before C2PA existed or with tools that don't support it.
+</p>
+<p>
+This asymmetry creates a risk: if platforms start treating unsigned content as suspicious, it penalizes everyone who hasn't adopted C2PA — regardless of their content's authenticity.
+</p>
+<h2>Privacy Concerns</h2>
+<p>
+The <a href="https://worldprivacyforum.org/posts/privacy-identity-and-trust-in-c2pa/">World Privacy Forum's analysis</a> raises several privacy considerations:
+</p>
+<h3>Signer Identity Exposure</h3>
+<p>
+When a device signs content, the certificate identifies the signing entity. For consumer devices, this could link photos to a specific device or account.
+</p>
+<h3>Metadata Leakage</h3>
+<p>
+Assertions can contain GPS coordinates, device identifiers, timestamps, and other sensitive data. While assertions are opt-in, some implementations might include more than the user intends.
+</p>
+<h3>Tracking Risk</h3>
+<p>
+If every photo from a specific camera carries a unique signing certificate, it creates a persistent identifier that could be used to track the camera's owner across all their published content.
+</p>
+<h3>The Attribution Paradox</h3>
+<p>
+The core spec <a href="https://c2pa.org/faqs/">does not support attribution to individuals</a> — it deliberately avoids tying content to people. But the certificate identifies the signing entity (a device, an application), which in practice is often linked to a person. The privacy boundary is thinner than it appears.
+</p>
+<h2>Unsigned Content Strips</h2>
+<p>
+C2PA credentials can be intentionally removed:
+</p>
+<ul>
+<li><strong>Legitimate reasons</strong>: Privacy (removing location data), content licensing (removing provenance for stock photos), platform requirements</li>
+<li><strong>Malicious reasons</strong>: Hiding the origin of stolen content, removing AI generation disclosures</li>
+<li><strong>Accidental</strong>: Using non-C2PA-aware tools that strip metadata</li>
+</ul>
+<p>
+Once stripped, the only recovery mechanism is soft bindings — which are not universally implemented.
+</p>
+<h2>Scalability and Ecosystem Maturity</h2>
+<ul>
+<li><strong>Limited hardware support</strong>: As of 2026, only a handful of cameras and phones support hardware C2PA signing</li>
+<li><strong>Software ecosystem</strong>: Growing but still early — most creative tools don't natively sign</li>
+<li><strong>Platform support</strong>: Few social media platforms preserve or display Content Credentials</li>
+<li><strong>Awareness</strong>: Most end users have never seen or heard of Content Credentials</li>
+</ul>
+<h2>Summary of Boundaries</h2>
+<table><thead><tr><th>C2PA Can</th><th>C2PA Cannot</th></tr></thead><tbody><tr><td>Prove who signed a manifest</td><td>Prove content is truthful</td></tr>
+<tr><td>Detect if content was modified since signing</td><td>Prevent content from being modified</td></tr>
+<tr><td>Record that AI was used (if disclosed by signer)</td><td>Detect AI-generated content independently</td></tr>
+<tr><td>Provide provenance chain across edits</td><td>Force all editors to participate</td></tr>
+<tr><td>Work offline for basic validation</td><td>Guarantee credentials survive all sharing paths</td></tr>
+<tr><td>Interoperate with standard metadata (EXIF, IPTC)</td><td>Replace the need for human judgment</td></tr></tbody></table>
+<h2>References</h2>
+<ol>
+<li><a href="https://www.softwareseni.com/how-c2pa-content-credentials-work-and-what-their-limits-are/">How C2PA Content Credentials Work and What Their Limits Are</a> — First-mile trust gap, metadata stripping, certificate costs</li>
+<li><a href="https://c2pa.org/faqs/">C2PA FAQ</a> — Attribution, privacy, and ecosystem questions</li>
+<li><a href="https://worldprivacyforum.org/posts/privacy-identity-and-trust-in-c2pa/">Privacy, Identity and Trust in C2PA — World Privacy Forum</a> — Privacy analysis of the C2PA framework</li>
+<li><a href="https://spec.c2pa.org/specifications/specifications/2.3/explainer/Explainer.html">C2PA and Content Credentials Explainer v2.3</a> — Design principles and limitations acknowledgments</li>
+</ol>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://www.softwareseni.com/how-c2pa-content-credentials-work-and-what-their-limits-are/" target="_blank" rel="noopener">How C2PA Content Credentials Work and What Their Limits Are</a></li><li><a href="https://c2pa.org/faqs/" target="_blank" rel="noopener">C2PA FAQ</a></li><li><a href="https://worldprivacyforum.org/posts/privacy-identity-and-trust-in-c2pa/" target="_blank" rel="noopener">Privacy, Identity and Trust in C2PA — World Privacy Forum</a></li><li><a href="https://spec.c2pa.org/specifications/specifications/2.3/explainer/Explainer.html" target="_blank" rel="noopener">C2PA and Content Credentials Explainer v2.3</a></li></ul></div>
+      <div class="page-nav"><a href="photo-vs-video.html"><span class="nav-label">← Previous</span><span class="nav-title">Photo vs. Video: What Differs</span></a><a class="next" href="../stereo-audio-and-mic-placement/index.html"><span class="nav-label">Next →</span><span class="nav-title">Overview</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>
