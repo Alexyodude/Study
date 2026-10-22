@@ -72,12 +72,12 @@ Tensor parallel (vLLM `-tp 2`) lets both cards read at once, approaching 2× ban
 
 ## Is 64 GB system RAM worth it?
 
-You have 32 GB of DDR5 (2×16 GB). That is enough for everything that fits in 48 GB of VRAM.
+You have 16 GB of DDR5 (2×8 GB). That is enough for everything that fits in 48 GB of VRAM — the weights live on the GPUs, and llama.cpp streams the model file from the SSD while loading. Keep a 16–32 GB swap file as a safety net.
 
 - **No upgrade needed** if you stay within 48 GB VRAM models (most people; everything up to 32B dense and ~35B MoE).
 - **Consider 64 GB** only for 100B+ MoE models like gpt-oss-120b: llama.cpp can keep attention on the GPUs and push expert layers to system RAM (`--n-cpu-moe N`). It runs, slower, but surprisingly usable because only a few experts are active per token.
 
-If you do upgrade on AM5, buying a matched **2×32 GB** kit beats adding two more 16 GB sticks: four DDR5 sticks force much lower memory speeds on AM5. With 2026 DDR5 prices, that kit is expensive, so wait until you actually hit this case.
+If you do upgrade on AM5, replace your sticks with a matched **2×32 GB** kit rather than adding two more: four DDR5 sticks force much lower memory speeds on AM5 (and you could sell the 2×8 GB, which holds value in the shortage). With 2026 DDR5 prices, that kit is expensive, so wait until you actually hit this case.
 
 ## Related
 

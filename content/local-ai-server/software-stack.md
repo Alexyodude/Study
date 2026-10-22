@@ -63,6 +63,14 @@ ls /dev/dri/                          # expect card0, card1 (+ iGPU if any), ren
 sudo dmesg | grep -iE "xe |guc"       # check the driver loaded both cards and the GuC firmware version
 ```
 
+With only 16 GB of system RAM, add a swap file so large model loads (especially vLLM, which stages weights in RAM) don't get killed:
+
+```bash
+sudo fallocate -l 32G /swapfile && sudo chmod 600 /swapfile
+sudo mkswap /swapfile && sudo swapon /swapfile
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+```
+
 **Firmware gotcha:** one user found Ubuntu shipped an older GuC firmware than the kernel wanted and saw [degraded performance until updating it](https://bentech.substack.com/p/running-local-llms-on-intel-arc-pro). If dmesg complains about GuC firmware, update the `linux-firmware` package (or copy the newer file from upstream linux-firmware).
 
 ## Step 3a — llama.cpp (start here)
@@ -112,7 +120,7 @@ Intel's [LLM Scaler](https://github.com/intel/llm-scaler) ships a Docker image (
 
 ```bash
 docker pull intel/llm-scaler-vllm:0.26.0-b2
-docker run -it --rm --net=host --device=/dev/dri --shm-size=16g \
+docker run -it --rm --net=host --device=/dev/dri --shm-size=8g \
   -v ~/models:/llm/models intel/llm-scaler-vllm:0.26.0-b2 bash
 # inside the container (see the repo's vllm/README.md for the exact recommended flags):
 vllm serve /llm/models/Qwen3-32B --tensor-parallel-size 2 --quantization fp8 --max-model-len 32768

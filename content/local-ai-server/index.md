@@ -21,7 +21,7 @@ sources:
 
 **Goal:** turn two Intel Arc Pro B60 GPUs you already own into a local LLM server, spending **under $1000** on everything else.
 
-**Short answer:** it is very doable. Two B60s give you **48 GB of VRAM** (2 × 24 GB, [456 GB/s each](https://www.intel.com/content/dam/www/central-libraries/us/en/documents/2026-03/datasheet-b60-gpu.pdf)) — enough for 32B-class models at high quality or 70B-class models at 4-bit. The GPUs are the expensive part, and you already have them. You also already own **16 GB DDR5 sticks**, which removes the biggest 2026 cost problem (RAM), so the rest of the box is an **AM5 desktop for roughly $750–900**.
+**Short answer:** it is very doable. Two B60s give you **48 GB of VRAM** (2 × 24 GB, [456 GB/s each](https://www.intel.com/content/dam/www/central-libraries/us/en/documents/2026-03/datasheet-b60-gpu.pdf)) — enough for 32B-class models at high quality or 70B-class models at 4-bit. The GPUs are the expensive part, and you already have them. You also already own **2×8 GB DDR5 (16 GB)**, which removes the biggest 2026 cost problem (RAM), so the rest of the box is an **AM5 desktop for roughly $750–900**. 16 GB is enough for a GPU-only inference server.
 
 ## The recommended build at a glance
 
@@ -29,7 +29,7 @@ sources:
 |---|---|---|
 | CPU | Ryzen 5 7600 / 7600X (new or used) | $130–200 |
 | Motherboard | AM5 board that splits the two top slots **x8/x8** from the CPU (e.g. ASRock X670E Taichi / Taichi Lite, ASUS ProArt X670E/X870E-Creator, ASUS ProArt B650-Creator — verify in the manual) | $250–350 |
-| RAM | **Your existing DDR5** (2×16 GB = 32 GB) | $0 |
+| RAM | **Your existing DDR5** (2×8 GB = 16 GB) — enough when models run fully on the GPUs | $0 |
 | Storage | 1–2 TB NVMe SSD | $80–150 |
 | PSU | 850–1000 W ATX 3.x, 80+ Gold, enough 8-pin PCIe leads | $110–160 |
 | Case + fans | Airflow case fitting two dual-slot cards with a gap | $70–120 |

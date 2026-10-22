@@ -55,7 +55,7 @@ You already own the hard part: two GPUs with 24 GB each. This page picks the che
 
 Consumer DRAM prices exploded in 2025–2026 because AI data centers absorbed supply. A 64 GB DDR5 kit that cost about $190 a year ago has been tracked at [over $1,000](https://tech-insider.org/ca/ram-ddr5-ssd-price-shortage-canada-2026/), and 32 GB kits that were $100–200 now start around [$350](https://www.tomshardware.com/pc-components/ram/ram-price-index-2026-lowest-price-on-ddr5-and-ddr4-memory-of-all-capacities). A new AM5/LGA1851 build would spend half the budget on memory alone — **unless you already own DDR5**.
 
-**You already have 16 GB DDR5 sticks**, so the RAM problem is solved and a current-generation **AM5** platform fits the budget (Option A). If you didn't have them, **used DDR4** would be the escape hatch (Option B). For a GPU inference box, system RAM speed barely matters as long as everything fits in VRAM.
+**You already have 2×8 GB DDR5 (16 GB)**, so the RAM problem is solved and a current-generation **AM5** platform fits the budget (Option A). If you didn't have them, **used DDR4** would be the escape hatch (Option B). For a GPU inference box, system RAM speed barely matters as long as everything fits in VRAM.
 
 ## Option A (recommended for you): AM5 + your existing DDR5
 
@@ -63,7 +63,7 @@ Consumer DRAM prices exploded in 2025–2026 because AI data centers absorbed su
 |---|---|---|---|
 | CPU | Ryzen 5 7600 / 7600X | $130–200 | 24 usable PCIe 5.0 lanes, ReBAR supported. **Avoid 8000G APUs** (8500G/8600G/8700G) — they have fewer PCIe lanes and can't do x8/x8 |
 | Board | AM5 board with **x8/x8 from the CPU** | $250–350 | Reported x8/x8 candidates: [ASRock X670E Taichi / Taichi Lite, ASRock X870 Taichi Creator](https://forum.level1techs.com/t/asrock-x870-taichi-creator-dual-gpu/243897), [ASUS ProArt X870E-Creator, ProArt X670E-Creator, ProArt B650-Creator](https://forum.level1techs.com/t/x870e-motherboard-for-dual-gpu-and-optane/222898) — **verify in the manual**; plain B650/B850/X870 boards usually run the second slot at x4 from the chipset |
-| RAM | Your 16 GB DDR5 sticks | $0 | Two sticks = 32 GB in dual channel. Only have one? A matching second stick is worth buying |
+| RAM | Your 2×8 GB DDR5 | $0 | 16 GB in dual channel — enough for a GPU-only server (see below) |
 | SSD | 1–2 TB NVMe | $80–150 | Use an M.2 slot that does **not** steal lanes from the second GPU slot (see below) |
 | PSU | 850–1000 W ATX 3.x Gold | $110–160 | Two 200 W GPUs + 65 W CPU ≈ 550 W peak |
 | Case | Airflow case, 7+ slots | $70–120 | Leave at least one empty slot between cards |
@@ -72,6 +72,7 @@ Consumer DRAM prices exploded in 2025–2026 because AI data centers absorbed su
 
 Things to check with your RAM and AM5:
 
+- **Is 16 GB enough?** Yes, for this job. The model lives in GPU memory, not system RAM. llama.cpp memory-maps the model file, so loading a 40 GB model with 16 GB of RAM works — it just streams from the SSD (a fast NVMe makes loads quick). Add a 16–32 GB swap file as a safety net, especially for vLLM, which stages weights through system RAM while loading. You'd only need more RAM to offload giant models to the CPU, and that needs 64 GB+ anyway.
 - **Desktop sticks, not laptop.** Desktop DDR5 is a long UDIMM; laptop DDR5 (SO-DIMM) won't fit. Server RDIMMs also won't work on AM5.
 - **First boot takes minutes.** AM5 trains DDR5 memory on first boot (and after BIOS updates) — a black screen for 1–3 minutes is normal. Update the BIOS early.
 - **M.2 lane sharing.** On several AM5 boards (e.g. the [ProArt X870E](https://forum.level1techs.com/t/x870e-motherboard-for-dual-gpu-and-optane/222898)), populating a specific Gen5 M.2 slot drops the second GPU slot to x4. The manual's lane table tells you which M.2 slot to avoid.
@@ -120,7 +121,7 @@ Intel and vLLM support PCIe peer-to-peer between B60s, but community testing fou
 
 - Ryzen 5 7600 — $170
 - ASRock X670E Taichi Lite or ASUS ProArt B650-Creator — $300
-- Your 2×16 GB DDR5 — $0
+- Your 2×8 GB DDR5 — $0
 - 2 TB NVMe — $120
 - 1000 W Gold ATX 3.1 PSU — $140
 - Airflow case + 2 extra fans — $100

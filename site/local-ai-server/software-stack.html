@@ -63,6 +63,14 @@ ls /dev/dri/                          # expect card0, card1 (+ iGPU if any), ren
 sudo dmesg | grep -iE "xe |guc"       # check the driver loaded both cards and the GuC firmware version</code></pre>
 </p>
 <p>
+With only 16 GB of system RAM, add a swap file so large model loads (especially vLLM, which stages weights in RAM) don't get killed:
+</p>
+<pre><code class="language-bash">sudo fallocate -l 32G /swapfile &amp;&amp; sudo chmod 600 /swapfile
+<p>
+sudo mkswap /swapfile &amp;&amp; sudo swapon /swapfile
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab</code></pre>
+</p>
+<p>
 <strong>Firmware gotcha:</strong> one user found Ubuntu shipped an older GuC firmware than the kernel wanted and saw <a href="https://bentech.substack.com/p/running-local-llms-on-intel-arc-pro">degraded performance until updating it</a>. If dmesg complains about GuC firmware, update the <code>linux-firmware</code> package (or copy the newer file from upstream linux-firmware).
 </p>
 <h2>Step 3a — llama.cpp (start here)</h2>
@@ -108,7 +116,7 @@ Intel's <a href="https://github.com/intel/llm-scaler">LLM Scaler</a> ships a Doc
 </p>
 <pre><code class="language-bash">docker pull intel/llm-scaler-vllm:0.26.0-b2
 <p>
-docker run -it --rm --net=host --device=/dev/dri --shm-size=16g \
+docker run -it --rm --net=host --device=/dev/dri --shm-size=8g \
   -v ~/models:/llm/models intel/llm-scaler-vllm:0.26.0-b2 bash
 </p>
 <h1>inside the container (see the repo's vllm/README.md for the exact recommended flags):</h1>
