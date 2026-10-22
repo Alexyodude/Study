@@ -41,6 +41,40 @@ sources:
     title: "Linus Tech Tips — AM5 Boards with x8/x8"
   - url: "https://tomshardware.com/pc-components/gpus/maxsun-unveils-intel-dual-gpu-battlemage-graphics-card-with-48gb-gddr6-to-compete-with-nvidia-and-amd"
     title: "Tom's Hardware — Maxsun Dual B60"
+  - url: "https://www.newegg.com/asus-proart-b850-creator-wifi-atx-motherboard-amd-b850-am5/p/N82E16813119780"
+    title: "Newegg — ASUS ProArt B850-Creator WiFi Neo"
+  - url: "https://www.microcenter.com/product/709979/asus-b850-creator-proart-wifi-neo-amd-am5-atx-motherboard"
+    title: "Micro Center — ASUS ProArt B850-Creator WiFi Neo"
+  - url: "https://www.newegg.com/amp/asus-proart-b650-creator/p/N82E16813119615"
+    title: "Newegg — ASUS ProArt B650-Creator"
+  - url: "https://camelcamelcamel.com/product/B0BQD5WWRT"
+    title: "CamelCamelCamel — ASUS ProArt B650-Creator"
+  - url: "https://pcpartpicker.com/product/TyLp99/asrock-x870-taichi-creator-atx-am5-motherboard-x870-taichi-creator"
+    title: "PCPartPicker — ASRock X870 Taichi Creator"
+  - url: "https://www.bestbuy.com/product/asrock-x870e-taichi-lite/C34K265Q5Z/sku/11013070"
+    title: "Best Buy — ASRock X870E Taichi Lite"
+  - url: "https://www.newegg.com/asrock-x870e-taichi-lite-extended-atx-motherboard-amd-x870e-am5/p/N82E16813162162"
+    title: "Newegg — ASRock X870E Taichi Lite"
+  - url: "https://pangoly.com/en/price-history/asrock-x870e-taichi"
+    title: "Pangoly — ASRock X870E Taichi price history"
+  - url: "https://www.thefpsreview.com/motherboard/msi-mpg-x870e-carbon-wifi/"
+    title: "The FPS Review — MSI MPG X870E Carbon WiFi"
+  - url: "https://pangoly.com/en/product/msi-mpg-x870e-carbon-wifi"
+    title: "Pangoly — MSI MPG X870E Carbon WiFi"
+  - url: "https://pcpartpicker.com/product/mFFmP6/asus-proart-x870e-creator-wifi-atx-am5-motherboard-proart-x870e-creator-wifi"
+    title: "PCPartPicker — ASUS ProArt X870E-Creator WiFi"
+  - url: "https://pangoly.com/en/price-history/asus-proart-x870e-creator-wifi"
+    title: "Pangoly — ASUS ProArt X870E-Creator price history"
+  - url: "https://pangoly.com/en/price-history/asus-proart-x670e-creator-wifi"
+    title: "Pangoly — ASUS ProArt X670E-Creator price history"
+  - url: "https://pangoly.com/en/product/asrock-x670e-taichi-carrara"
+    title: "Pangoly — ASRock X670E Taichi Carrara"
+  - url: "https://pangoly.com/en/product/asus-rog-crosshair-x870e-dark-hero"
+    title: "Pangoly — ASUS ROG Crosshair X870E Dark Hero"
+  - url: "https://www.club386.com/?p=113140"
+    title: "Club386 — MSI MEG X870E Godlike price drop"
+  - url: "https://www.guru3d.com/story/asus-crosshair-x870e-glacial-and-dark-hero-hit-retail-shelves/"
+    title: "Guru3D — Crosshair X870E Glacial and Dark Hero at retail"
 ---
 
 # Hardware & the $1000 Budget
@@ -94,31 +128,28 @@ Things to check with your RAM and AM5:
 
 Two **separate physical slots**, each fed **x8 from the CPU**. Don't confuse this with "x8+x8 bifurcation" of a single slot (for a riser or a dual-GPU card) — e.g. MSI's [MAG X870E Tomahawk](https://www.msi.com/blog/pcie-lane-bifurcation-and-bandwidth-sharing-on-msi-x870e-x870-motherboards) can bifurcate its top slot but its second slot comes from the chipset.
 
-Confirmed by the vendor or a review:
+Prices are **snapshots found via search and price trackers (mostly Aug–Oct 2026)**, not live quotes — check the listing before buying. "—" means no current listing was found. x8/x8: ✅ confirmed by vendor/review, ◐ reported by guides/forums (check the manual). Sorted cheapest first.
 
-```text
-ASUS ProArt X870E-Creator WiFi
-ASUS ProArt B850-Creator WiFi Neo
-ASUS ROG Crosshair X870E Dark Hero
-ASUS ROG Crosshair X870E Glacial
-ASRock X670E Taichi Carrara
-```
+| Board (copy-paste name) | x8/x8 | Amazon | Newegg | Best Buy | Notes |
+|---|---|---|---|---|---|
+| ASUS ProArt B650-Creator | ◐ | — (out of stock; low $222) | ~$240 | — | Walmart ~$273. Older B650, PCIe 4.0 GPU slots — fine for B60 |
+| ASUS ProArt B850-Creator WiFi Neo | ✅ | — (no price shown) | ~$300 | — (discontinued new) | Micro Center ~$290, B&H ~$289. **Best value pick** |
+| ASRock X870 Taichi Creator | ◐ | ~$320 | ~$320 | ~$385 (aggregator) | Second slot fits max 2-slot card |
+| ASRock X870E Taichi Lite | ◐ | ~$290–320 (unverified) | ~$384–394 (open box ~$255) | ~$318 | E-ATX — check case fit |
+| ASRock X870E Taichi | ◐ | ~$282 (undated) / often OOS | ~$350 | ~$371 | MSRP was $449 |
+| MSI MPG X870E Carbon WiFi | ◐ | ~$390–417 | ~$390 | ~$390 (tracker) | MSI store ~$390. Split disables one M.2 |
+| ASUS ProArt X870E-Creator WiFi | ✅ | ~$507 | ~$507–512 | ~$551 (out of stock) | B&H ~$507. 10GbE, slots 3 apart |
+| ASUS ProArt X670E-Creator WiFi | ◐ | ~$745+ (3rd party) | ~$610–860 (3rd party) | — | ASUS store ~$460. Avoid marketplace markups |
+| ASRock X670E Taichi Carrara | ✅ | ~$418 (out of stock) | — | — | Discontinued; used/special order only |
+| ASRock X670E Taichi | ◐ | — | — | — | Discontinued; ~$495 special order elsewhere |
+| ASUS ROG Crosshair X870E Dark Hero | ✅ | ~$679 | ~$680 | ~$680 | Over budget for this build |
+| ASUS ROG Crosshair X670E Hero | ◐ | — | — | — | Discontinued; ~$560–850 outside US |
+| MSI MEG X870E Godlike | ◐ | ~$999 | ~$1,099 (launch) | — | Flagship — not worth it here |
+| ASUS ROG Crosshair X870E Glacial | ✅ | — | — | — | ~$1,274 US retail — not worth it here |
 
-Reported by guides/forums (likely, but check the manual):
+**For this build:** ProArt B850-Creator WiFi Neo (~$290–300) or ProArt B650-Creator (~$240) keep the total near $800. Taichi Creator / Taichi Lite (~$320) are the next step up.
 
-```text
-ASRock X870E Taichi Lite
-ASRock X870E Taichi
-ASRock X670E Taichi
-ASRock X870 Taichi Creator
-MSI MPG X870E Carbon WiFi
-MSI MEG X870E Godlike
-ASUS ProArt X670E-Creator WiFi
-ASUS ProArt B650-Creator
-ASUS ROG Crosshair X670E Hero
-```
-
-Sources: [ASUS AM5 lineup](https://www.asus.com/us/blog/the-refined-and-upgraded-asus-am5-motherboard-lineup-offers-new-choices-for-every-pc-builder/), [TechSpot X870 roundup](https://www.techspot.com/review/3143-amd-x870-motherboards-full/), [Computing for Geeks multi-GPU guide](https://computingforgeeks.com/best-motherboard-multi-gpu-ai/), [Tech Tactician dual-GPU LLM boards](https://techtactician.com/best-amd-motherboards-for-dual-gpu-llm-builds-guide/), [Linus Tech Tips AM5 x8/x8 thread](https://linustechtips.com/topic/1474393-am5-motherboards-with-dual-x16-x8x8-pcie-slots/), [Level1Techs Taichi Creator thread](https://forum.level1techs.com/t/asrock-x870-taichi-creator-dual-gpu/243897).
+x8/x8 sources: [ASUS AM5 lineup](https://www.asus.com/us/blog/the-refined-and-upgraded-asus-am5-motherboard-lineup-offers-new-choices-for-every-pc-builder/), [TechSpot X870 roundup](https://www.techspot.com/review/3143-amd-x870-motherboards-full/), [Computing for Geeks multi-GPU guide](https://computingforgeeks.com/best-motherboard-multi-gpu-ai/), [Tech Tactician dual-GPU LLM boards](https://techtactician.com/best-amd-motherboards-for-dual-gpu-llm-builds-guide/), [Linus Tech Tips AM5 x8/x8 thread](https://linustechtips.com/topic/1474393-am5-motherboards-with-dual-x16-x8x8-pcie-slots/), [Level1Techs Taichi Creator thread](https://forum.level1techs.com/t/asrock-x870-taichi-creator-dual-gpu/243897).
 
 Caveats: on most of these, filling a specific M.2 slot (often the top Gen5 one) drops the second GPU slot to x4 or disables the split — read the lane table. The ProArt X870E's slots are three positions apart, fine for two dual-slot B60s ([Computing for Geeks](https://computingforgeeks.com/best-motherboard-multi-gpu-ai/)).
 
@@ -196,3 +227,20 @@ Intel and vLLM support PCIe peer-to-peer between B60s, but community testing fou
 16. [Computing for Geeks — Best Motherboards for Multi-GPU AI](https://computingforgeeks.com/best-motherboard-multi-gpu-ai/) — AM5 dual-GPU boards, slot spacing, M.2 trade-offs
 17. [Tech Tactician — Best AMD Motherboards for Dual GPU LLM Builds](https://techtactician.com/best-amd-motherboards-for-dual-gpu-llm-builds-guide/) — dual-GPU LLM board picks
 18. [Linus Tech Tips — AM5 Boards with x8/x8](https://linustechtips.com/topic/1474393-am5-motherboards-with-dual-x16-x8x8-pcie-slots/) — community list of x8/x8 AM5 boards
+19. [Newegg — ASUS ProArt B850-Creator WiFi Neo](https://www.newegg.com/asus-proart-b850-creator-wifi-atx-motherboard-amd-b850-am5/p/N82E16813119780) — B850-Creator Neo Newegg price
+20. [Micro Center — ASUS ProArt B850-Creator WiFi Neo](https://www.microcenter.com/product/709979/asus-b850-creator-proart-wifi-neo-amd-am5-atx-motherboard) — B850-Creator Neo Micro Center price
+21. [Newegg — ASUS ProArt B650-Creator](https://www.newegg.com/amp/asus-proart-b650-creator/p/N82E16813119615) — B650-Creator Newegg price
+22. [CamelCamelCamel — ASUS ProArt B650-Creator](https://camelcamelcamel.com/product/B0BQD5WWRT) — B650-Creator Amazon price history
+23. [PCPartPicker — ASRock X870 Taichi Creator](https://pcpartpicker.com/product/TyLp99/asrock-x870-taichi-creator-atx-am5-motherboard-x870-taichi-creator) — Taichi Creator Amazon/Newegg prices
+24. [Best Buy — ASRock X870E Taichi Lite](https://www.bestbuy.com/product/asrock-x870e-taichi-lite/C34K265Q5Z/sku/11013070) — Taichi Lite Best Buy price
+25. [Newegg — ASRock X870E Taichi Lite](https://www.newegg.com/asrock-x870e-taichi-lite-extended-atx-motherboard-amd-x870e-am5/p/N82E16813162162) — Taichi Lite Newegg price
+26. [Pangoly — ASRock X870E Taichi price history](https://pangoly.com/en/price-history/asrock-x870e-taichi) — X870E Taichi Newegg/Best Buy prices
+27. [The FPS Review — MSI MPG X870E Carbon WiFi](https://www.thefpsreview.com/motherboard/msi-mpg-x870e-carbon-wifi/) — Carbon Amazon/Newegg prices
+28. [Pangoly — MSI MPG X870E Carbon WiFi](https://pangoly.com/en/product/msi-mpg-x870e-carbon-wifi) — Carbon Best Buy price
+29. [PCPartPicker — ASUS ProArt X870E-Creator WiFi](https://pcpartpicker.com/product/mFFmP6/asus-proart-x870e-creator-wifi-atx-am5-motherboard-proart-x870e-creator-wifi) — ProArt X870E Amazon/Newegg prices
+30. [Pangoly — ASUS ProArt X870E-Creator price history](https://pangoly.com/en/price-history/asus-proart-x870e-creator-wifi) — ProArt X870E Best Buy price
+31. [Pangoly — ASUS ProArt X670E-Creator price history](https://pangoly.com/en/price-history/asus-proart-x670e-creator-wifi) — ProArt X670E marketplace prices
+32. [Pangoly — ASRock X670E Taichi Carrara](https://pangoly.com/en/product/asrock-x670e-taichi-carrara) — Carrara Amazon price
+33. [Pangoly — ASUS ROG Crosshair X870E Dark Hero](https://pangoly.com/en/product/asus-rog-crosshair-x870e-dark-hero) — Dark Hero retailer prices
+34. [Club386 — MSI MEG X870E Godlike price drop](https://www.club386.com/?p=113140) — Godlike Amazon price
+35. [Guru3D — Crosshair X870E Glacial and Dark Hero at retail](https://www.guru3d.com/story/asus-crosshair-x870e-glacial-and-dark-hero-hit-retail-shelves/) — Glacial US retail price
