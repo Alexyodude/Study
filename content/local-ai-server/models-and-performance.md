@@ -70,12 +70,14 @@ Tensor parallel (vLLM `-tp 2`) lets both cards read at once, approaching 2× ban
 | Biggest that fits | 70B dense | Q4_K_M, 8k context | Slow but possible |
 | Embeddings / RAG | Small embedding + reranker models | vLLM ([LLM Scaler supports both](https://github.com/intel/llm-scaler)) | Run alongside a chat model on one card |
 
-## Is 64 GB system RAM worth the extra ~$100–150?
+## Is 64 GB system RAM worth it?
 
-- **No**, if you stay within 48 GB VRAM models (most people; everything up to 32B dense and ~35B MoE).
-- **Yes**, if you want 100B+ MoE models like gpt-oss-120b: llama.cpp can keep attention on the GPUs and push expert layers to system RAM (`--n-cpu-moe N`). It runs, slower, but surprisingly usable because only a few experts are active per token.
+You have 32 GB of DDR5 (2×16 GB). That is enough for everything that fits in 48 GB of VRAM.
 
-Since RAM is so expensive in 2026, start with 32 GB and upgrade only if you actually hit this case.
+- **No upgrade needed** if you stay within 48 GB VRAM models (most people; everything up to 32B dense and ~35B MoE).
+- **Consider 64 GB** only for 100B+ MoE models like gpt-oss-120b: llama.cpp can keep attention on the GPUs and push expert layers to system RAM (`--n-cpu-moe N`). It runs, slower, but surprisingly usable because only a few experts are active per token.
+
+If you do upgrade on AM5, buying a matched **2×32 GB** kit beats adding two more 16 GB sticks: four DDR5 sticks force much lower memory speeds on AM5. With 2026 DDR5 prices, that kit is expensive, so wait until you actually hit this case.
 
 ## Related
 

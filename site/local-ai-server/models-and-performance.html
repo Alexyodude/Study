@@ -76,13 +76,16 @@ Tensor parallel (vLLM <code>-tp 2</code>) lets both cards read at once, approach
 <tr><td>Coding agent</td><td>30B-class coder MoE</td><td>GGUF Q5 / FP8</td><td>Speed matters more than raw size for agents</td></tr>
 <tr><td>Biggest that fits</td><td>70B dense</td><td>Q4_K_M, 8k context</td><td>Slow but possible</td></tr>
 <tr><td>Embeddings / RAG</td><td>Small embedding + reranker models</td><td>vLLM (<a href="https://github.com/intel/llm-scaler">LLM Scaler supports both</a>)</td><td>Run alongside a chat model on one card</td></tr></tbody></table>
-<h2>Is 64 GB system RAM worth the extra ~$100–150?</h2>
+<h2>Is 64 GB system RAM worth it?</h2>
+<p>
+You have 32 GB of DDR5 (2×16 GB). That is enough for everything that fits in 48 GB of VRAM.
+</p>
 <ul>
-<li><strong>No</strong>, if you stay within 48 GB VRAM models (most people; everything up to 32B dense and ~35B MoE).</li>
-<li><strong>Yes</strong>, if you want 100B+ MoE models like gpt-oss-120b: llama.cpp can keep attention on the GPUs and push expert layers to system RAM (<code>--n-cpu-moe N</code>). It runs, slower, but surprisingly usable because only a few experts are active per token.</li>
+<li><strong>No upgrade needed</strong> if you stay within 48 GB VRAM models (most people; everything up to 32B dense and ~35B MoE).</li>
+<li><strong>Consider 64 GB</strong> only for 100B+ MoE models like gpt-oss-120b: llama.cpp can keep attention on the GPUs and push expert layers to system RAM (<code>--n-cpu-moe N</code>). It runs, slower, but surprisingly usable because only a few experts are active per token.</li>
 </ul>
 <p>
-Since RAM is so expensive in 2026, start with 32 GB and upgrade only if you actually hit this case.
+If you do upgrade on AM5, buying a matched <strong>2×32 GB</strong> kit beats adding two more 16 GB sticks: four DDR5 sticks force much lower memory speeds on AM5. With 2026 DDR5 prices, that kit is expensive, so wait until you actually hit this case.
 </p>
 <h2>Related</h2>
 <ul>

@@ -31,18 +31,18 @@
 <strong>Goal:</strong> turn two Intel Arc Pro B60 GPUs you already own into a local LLM server, spending <strong>under $1000</strong> on everything else.
 </p>
 <p>
-<strong>Short answer:</strong> it is very doable. Two B60s give you <strong>48 GB of VRAM</strong> (2 × 24 GB, <a href="https://www.intel.com/content/dam/www/central-libraries/us/en/documents/2026-03/datasheet-b60-gpu.pdf">456 GB/s each</a>) — enough for 32B-class models at high quality or 70B-class models at 4-bit. The GPUs are the expensive part, and you already have them. The rest of the box can be a <strong>used AM4 desktop platform for roughly $600–850</strong>, leaving headroom inside the budget.
+<strong>Short answer:</strong> it is very doable. Two B60s give you <strong>48 GB of VRAM</strong> (2 × 24 GB, <a href="https://www.intel.com/content/dam/www/central-libraries/us/en/documents/2026-03/datasheet-b60-gpu.pdf">456 GB/s each</a>) — enough for 32B-class models at high quality or 70B-class models at 4-bit. The GPUs are the expensive part, and you already have them. You also already own <strong>16 GB DDR5 sticks</strong>, which removes the biggest 2026 cost problem (RAM), so the rest of the box is an <strong>AM5 desktop for roughly $750–900</strong>.
 </p>
 <h2>The recommended build at a glance</h2>
-<table><thead><tr><th>Part</th><th>Pick</th><th>Est. cost (used/new, Oct 2026)</th></tr></thead><tbody><tr><td>CPU</td><td>Ryzen 5 5600 / Ryzen 7 5700X (used)</td><td>$80–130</td></tr>
-<tr><td>Motherboard</td><td>X570 or B550 board that splits the top slot <strong>x8/x8</strong> (e.g. ASRock X570 Taichi, ASUS ProArt B550-Creator)</td><td>$150–250</td></tr>
-<tr><td>RAM</td><td>32 GB DDR4 (2×16), 64 GB if you want CPU offload</td><td>$90–250</td></tr>
+<table><thead><tr><th>Part</th><th>Pick</th><th>Est. cost (Oct 2026)</th></tr></thead><tbody><tr><td>CPU</td><td>Ryzen 5 7600 / 7600X (new or used)</td><td>$130–200</td></tr>
+<tr><td>Motherboard</td><td>AM5 board that splits the two top slots <strong>x8/x8</strong> from the CPU (e.g. ASRock X670E Taichi / Taichi Lite, ASUS ProArt X670E/X870E-Creator, ASUS ProArt B650-Creator — verify in the manual)</td><td>$250–350</td></tr>
+<tr><td>RAM</td><td><strong>Your existing DDR5</strong> (2×16 GB = 32 GB)</td><td>$0</td></tr>
 <tr><td>Storage</td><td>1–2 TB NVMe SSD</td><td>$80–150</td></tr>
 <tr><td>PSU</td><td>850–1000 W ATX 3.x, 80+ Gold, enough 8-pin PCIe leads</td><td>$110–160</td></tr>
 <tr><td>Case + fans</td><td>Airflow case fitting two dual-slot cards with a gap</td><td>$70–120</td></tr>
-<tr><td><strong>Total</strong></td><td><strong>≈ $580–1060 → aim for ~$750</strong></td></tr></tbody></table>
+<tr><td><strong>Total</strong></td><td><strong>≈ $640–980 → aim for ~$800</strong></td></tr></tbody></table>
 <p>
-Prices are estimates. DRAM is in a severe shortage in 2026 (<a href="https://www.tomshardware.com/pc-components/ram/ram-price-index-2026-lowest-price-on-ddr5-and-ddr4-memory-of-all-capacities">Tom's Hardware RAM index</a>), which is the main reason this guide picks a <strong>DDR4</strong> platform instead of a new DDR5 one. Details and alternatives are in <a href="hardware-and-budget.html">Hardware & the $1000 Budget</a>.
+Prices are estimates. DRAM is in a severe shortage in 2026 (<a href="https://www.tomshardware.com/pc-components/ram/ram-price-index-2026-lowest-price-on-ddr5-and-ddr4-memory-of-all-capacities">Tom's Hardware RAM index</a>) — reusing your DDR5 is what makes a modern AM5 platform affordable. Without that RAM, a used DDR4/AM4 build would be cheaper. Details and alternatives are in <a href="hardware-and-budget.html">Hardware & the $1000 Budget</a>.
 </p>
 <h2>Three rules that make or break the build</h2>
 <ol>

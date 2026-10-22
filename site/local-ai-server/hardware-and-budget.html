@@ -44,12 +44,33 @@ You already own the hard part: two GPUs with 24 GB each. This page picks the che
 </ul>
 <h2>Why the platform choice is mostly about RAM prices</h2>
 <p>
-Consumer DRAM prices exploded in 2025–2026 because AI data centers absorbed supply. A 64 GB DDR5 kit that cost about $190 a year ago has been tracked at <a href="https://tech-insider.org/ca/ram-ddr5-ssd-price-shortage-canada-2026/">over $1,000</a>, and 32 GB kits that were $100–200 now start around <a href="https://www.tomshardware.com/pc-components/ram/ram-price-index-2026-lowest-price-on-ddr5-and-ddr4-memory-of-all-capacities">$350</a>. A new AM5/LGA1851 build would spend half the budget on memory alone.
+Consumer DRAM prices exploded in 2025–2026 because AI data centers absorbed supply. A 64 GB DDR5 kit that cost about $190 a year ago has been tracked at <a href="https://tech-insider.org/ca/ram-ddr5-ssd-price-shortage-canada-2026/">over $1,000</a>, and 32 GB kits that were $100–200 now start around <a href="https://www.tomshardware.com/pc-components/ram/ram-price-index-2026-lowest-price-on-ddr5-and-ddr4-memory-of-all-capacities">$350</a>. A new AM5/LGA1851 build would spend half the budget on memory alone — <strong>unless you already own DDR5</strong>.
 </p>
 <p>
-<strong>Used DDR4</strong> is the escape hatch: it is also inflated, but far less, and plenty of it is on the second-hand market from upgraded desktops. For a GPU inference box, system RAM speed barely matters as long as everything fits in VRAM.
+<strong>You already have 16 GB DDR5 sticks</strong>, so the RAM problem is solved and a current-generation <strong>AM5</strong> platform fits the budget (Option A). If you didn't have them, <strong>used DDR4</strong> would be the escape hatch (Option B). For a GPU inference box, system RAM speed barely matters as long as everything fits in VRAM.
 </p>
-<h2>Option A (recommended): used AM4 desktop</h2>
+<h2>Option A (recommended for you): AM5 + your existing DDR5</h2>
+<table><thead><tr><th>Part</th><th>What to buy</th><th>Est. cost</th><th>Notes</th></tr></thead><tbody><tr><td>CPU</td><td>Ryzen 5 7600 / 7600X</td><td>$130–200</td><td>24 usable PCIe 5.0 lanes, ReBAR supported. <strong>Avoid 8000G APUs</strong> (8500G/8600G/8700G) — they have fewer PCIe lanes and can't do x8/x8</td></tr>
+<tr><td>Board</td><td>AM5 board with <strong>x8/x8 from the CPU</strong></td><td>$250–350</td><td>Reported x8/x8 candidates: <a href="https://forum.level1techs.com/t/asrock-x870-taichi-creator-dual-gpu/243897">ASRock X670E Taichi / Taichi Lite, ASRock X870 Taichi Creator</a>, <a href="https://forum.level1techs.com/t/x870e-motherboard-for-dual-gpu-and-optane/222898">ASUS ProArt X870E-Creator, ProArt X670E-Creator, ProArt B650-Creator</a> — <strong>verify in the manual</strong>; plain B650/B850/X870 boards usually run the second slot at x4 from the chipset</td></tr>
+<tr><td>RAM</td><td>Your 16 GB DDR5 sticks</td><td>$0</td><td>Two sticks = 32 GB in dual channel. Only have one? A matching second stick is worth buying</td></tr>
+<tr><td>SSD</td><td>1–2 TB NVMe</td><td>$80–150</td><td>Use an M.2 slot that does <strong>not</strong> steal lanes from the second GPU slot (see below)</td></tr>
+<tr><td>PSU</td><td>850–1000 W ATX 3.x Gold</td><td>$110–160</td><td>Two 200 W GPUs + 65 W CPU ≈ 550 W peak</td></tr>
+<tr><td>Case</td><td>Airflow case, 7+ slots</td><td>$70–120</td><td>Leave at least one empty slot between cards</td></tr>
+<tr><td>CPU cooler</td><td>Stock (7600 includes one)</td><td>$0–25</td></tr>
+<tr><td><strong>Total</strong></td><td><strong>≈ $640–1,000</strong></td><td>Target ~$800</td></tr></tbody></table>
+<p>
+Things to check with your RAM and AM5:
+</p>
+<ul>
+<li><strong>Desktop sticks, not laptop.</strong> Desktop DDR5 is a long UDIMM; laptop DDR5 (SO-DIMM) won't fit. Server RDIMMs also won't work on AM5.</li>
+<li><strong>First boot takes minutes.</strong> AM5 trains DDR5 memory on first boot (and after BIOS updates) — a black screen for 1–3 minutes is normal. Update the BIOS early.</li>
+<li><strong>M.2 lane sharing.</strong> On several AM5 boards (e.g. the <a href="https://forum.level1techs.com/t/x870e-motherboard-for-dual-gpu-and-optane/222898">ProArt X870E</a>), populating a specific Gen5 M.2 slot drops the second GPU slot to x4. The manual's lane table tells you which M.2 slot to avoid.</li>
+<li><strong>Slot spacing.</strong> Some boards' second slot can't take a card thicker than two slots (<a href="https://forum.level1techs.com/t/asrock-x870-taichi-creator-dual-gpu/243897">Taichi Creator report</a>). Most B60s are dual-slot, so this is usually fine.</li>
+</ul>
+<p>
+Intel alternative: an LGA1700 board with x8/x8 (e.g. ProArt Z790-Creator, MSI Z790 Ace/Carbon) plus a used i5-13400/14400 also works with DDR5 — compare used prices locally.
+</p>
+<h2>Option B: used AM4 desktop (if you had no RAM)</h2>
 <table><thead><tr><th>Part</th><th>What to buy</th><th>Est. cost</th><th>Notes</th></tr></thead><tbody><tr><td>CPU</td><td>Ryzen 5 5600 / 5600X / 7 5700X</td><td>$80–130</td><td>Ryzen 5000 supports ReBAR and PCIe 4.0; avoid 5600G/5700G APUs (PCIe 3.0, x8 lanes for GPUs)</td></tr>
 <tr><td>Board</td><td>X570 or B550 with <strong>x8/x8 from CPU</strong></td><td>$150–250</td><td>Confirmed layouts: <a href="https://at-web1.www.anandtech.com/show/14161/the-amd-x570-motherboard-overview/4">ASRock X570 Taichi</a> (x16 or x8/x8). Also commonly x8/x8: ASUS ProArt B550-Creator, Gigabyte X570 Aorus Master, MSI MEG X570 Ace — <strong>verify in the manual</strong></td></tr>
 <tr><td>RAM</td><td>2×16 GB DDR4-3200</td><td>$90–150</td><td>Go 2×32 GB ($180–250+) only if you plan CPU/MoE offload</td></tr>
@@ -62,7 +83,7 @@ Consumer DRAM prices exploded in 2025–2026 because AI data centers absorbed su
 <p>
 Look for the PCIe slot table. You want wording like <em>"PCIE1 / PCIE2: x16/x0 or x8/x8"</em> — both slots wired to the <strong>CPU</strong>. Avoid boards where the second long slot says <em>"x4 (chipset)"</em> or <em>"shares bandwidth with M.2"</em> only. Forum threads show many people <a href="https://forum.level1techs.com/t/dual-gpu-pcie-bifurcation-question-frustration/252100">get burned by this</a>: a full-length slot is not necessarily wired x8.
 </p>
-<h2>Option B: you already own a desktop</h2>
+<h2>Option C: you already own a desktop</h2>
 <p>
 If you have a PC with Ryzen 3000/5000 or Intel 10th-gen+:
 </p>
@@ -70,7 +91,7 @@ If you have a PC with Ryzen 3000/5000 or Intel 10th-gen+:
 <li><strong>Two CPU-wired slots x8/x8?</strong> Just add a PSU if needed. Cost: $0–160.</li>
 <li><strong>Second slot is chipset x4?</strong> It still works with llama.cpp <strong>layer split</strong>, which sends only small activations between GPUs per token. Tensor parallel in vLLM will be slower. Cost: $0–160, and upgrade the board later if you outgrow it.</li>
 </ul>
-<h2>Option C: used workstation (only with care)</h2>
+<h2>Option D: used workstation (only with care)</h2>
 <p>
 Used Dell Precision T7820 / HP Z6 G4 / Lenovo P720 towers are cheap and often come with 64–128 GB of ECC RAM — attractive in a RAM shortage. But:
 </p>
@@ -85,15 +106,15 @@ Only go this way if you confirm ReBAR in that exact model's BIOS first. A newer 
 <p>
 Intel and vLLM support PCIe peer-to-peer between B60s, but community testing found <a href="https://forum.level1techs.com/t/llm-adventures-with-intel-arc-pro-b60s-p2p-vllm/252516">consumer platforms are slower for P2P traffic</a> than workstation boards or a PCIe switch. With two cards this mostly affects tensor-parallel throughput, not whether things work. Layer split is barely affected.
 </p>
-<h2>Budget example</h2>
+<h2>Budget example (with your DDR5)</h2>
 <ul>
-<li>Ryzen 5 5600 (used) — $90</li>
-<li>ASRock X570 Taichi (used) — $200</li>
-<li>2×16 GB DDR4-3200 (used) — $110</li>
+<li>Ryzen 5 7600 — $170</li>
+<li>ASRock X670E Taichi Lite or ASUS ProArt B650-Creator — $300</li>
+<li>Your 2×16 GB DDR5 — $0</li>
 <li>2 TB NVMe — $120</li>
 <li>1000 W Gold ATX 3.1 PSU — $140</li>
 <li>Airflow case + 2 extra fans — $100</li>
-<li><strong>Total: $760</strong>, leaving ~$240 for a 64 GB RAM upgrade later or a UPS.</li>
+<li><strong>Total: $830</strong>, leaving ~$170 for a UPS, a bigger SSD, or more RAM later.</li>
 </ul>
 <h2>Related</h2>
 <ul>
@@ -112,8 +133,10 @@ Intel and vLLM support PCIe peer-to-peer between B60s, but community testing fou
 <li><a href="https://www.tomshardware.com/pc-components/ram/ram-price-index-2026-lowest-price-on-ddr5-and-ddr4-memory-of-all-capacities">Tom's Hardware — RAM Price Index 2026</a> — DRAM pricing</li>
 <li><a href="https://tech-insider.org/ca/ram-ddr5-ssd-price-shortage-canada-2026/">Tech Insider — RAM/SSD Shortage 2026</a> — 64 GB kit price history</li>
 <li><a href="https://tomshardware.com/pc-components/gpus/maxsun-unveils-intel-dual-gpu-battlemage-graphics-card-with-48gb-gddr6-to-compete-with-nvidia-and-amd">Tom's Hardware — Maxsun Dual B60</a> — dual-GPU card power and bifurcation</li>
+<li><a href="https://forum.level1techs.com/t/asrock-x870-taichi-creator-dual-gpu/243897">Level1Techs — ASRock X870 Taichi Creator Dual GPU</a> — AM5 x8/x8 board candidates and slot-spacing caveat</li>
+<li><a href="https://forum.level1techs.com/t/x870e-motherboard-for-dual-gpu-and-optane/222898">Level1Techs — X870E Motherboard for Dual GPU</a> — ProArt x8/x8 and M.2 lane-sharing behavior</li>
 </ol>
-      <div class="sources"><h2>References</h2><ul><li><a href="https://www.intel.com/content/dam/www/central-libraries/us/en/documents/2026-03/datasheet-b60-gpu.pdf" target="_blank" rel="noopener">Intel Arc Pro B60 Datasheet</a></li><li><a href="https://flopper.io/gpu/intel-arc-pro-b60-24gb/spec-sheet" target="_blank" rel="noopener">Flopper — Arc Pro B60 Spec Sheet</a></li><li><a href="https://cdn.multitronic.fi/media/9/6/mmo_134689064_1773307848_3924_283.pdf" target="_blank" rel="noopener">Sparkle Arc Pro B60 User Manual</a></li><li><a href="https://www.intel.com/content/www/us/en/support/articles/000099073.html" target="_blank" rel="noopener">Intel Support — Resizable BAR for Arc Pro graphics</a></li><li><a href="https://at-web1.www.anandtech.com/show/14161/the-amd-x570-motherboard-overview/4" target="_blank" rel="noopener">AnandTech — X570 Motherboard Overview</a></li><li><a href="https://forum.level1techs.com/t/dual-gpu-pcie-bifurcation-question-frustration/252100" target="_blank" rel="noopener">Level1Techs — Dual GPU PCIe Bifurcation</a></li><li><a href="https://forum.level1techs.com/t/llm-adventures-with-intel-arc-pro-b60s-p2p-vllm/252516" target="_blank" rel="noopener">Level1Techs — LLM Adventures with Arc Pro B60s, P2P, vLLM</a></li><li><a href="https://www.tomshardware.com/pc-components/ram/ram-price-index-2026-lowest-price-on-ddr5-and-ddr4-memory-of-all-capacities" target="_blank" rel="noopener">Tom's Hardware — RAM Price Index 2026</a></li><li><a href="https://tech-insider.org/ca/ram-ddr5-ssd-price-shortage-canada-2026/" target="_blank" rel="noopener">Tech Insider — RAM/SSD Shortage 2026</a></li><li><a href="https://tomshardware.com/pc-components/gpus/maxsun-unveils-intel-dual-gpu-battlemage-graphics-card-with-48gb-gddr6-to-compete-with-nvidia-and-amd" target="_blank" rel="noopener">Tom's Hardware — Maxsun Dual B60</a></li></ul></div>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://www.intel.com/content/dam/www/central-libraries/us/en/documents/2026-03/datasheet-b60-gpu.pdf" target="_blank" rel="noopener">Intel Arc Pro B60 Datasheet</a></li><li><a href="https://flopper.io/gpu/intel-arc-pro-b60-24gb/spec-sheet" target="_blank" rel="noopener">Flopper — Arc Pro B60 Spec Sheet</a></li><li><a href="https://cdn.multitronic.fi/media/9/6/mmo_134689064_1773307848_3924_283.pdf" target="_blank" rel="noopener">Sparkle Arc Pro B60 User Manual</a></li><li><a href="https://www.intel.com/content/www/us/en/support/articles/000099073.html" target="_blank" rel="noopener">Intel Support — Resizable BAR for Arc Pro graphics</a></li><li><a href="https://at-web1.www.anandtech.com/show/14161/the-amd-x570-motherboard-overview/4" target="_blank" rel="noopener">AnandTech — X570 Motherboard Overview</a></li><li><a href="https://forum.level1techs.com/t/dual-gpu-pcie-bifurcation-question-frustration/252100" target="_blank" rel="noopener">Level1Techs — Dual GPU PCIe Bifurcation</a></li><li><a href="https://forum.level1techs.com/t/llm-adventures-with-intel-arc-pro-b60s-p2p-vllm/252516" target="_blank" rel="noopener">Level1Techs — LLM Adventures with Arc Pro B60s, P2P, vLLM</a></li><li><a href="https://www.tomshardware.com/pc-components/ram/ram-price-index-2026-lowest-price-on-ddr5-and-ddr4-memory-of-all-capacities" target="_blank" rel="noopener">Tom's Hardware — RAM Price Index 2026</a></li><li><a href="https://tech-insider.org/ca/ram-ddr5-ssd-price-shortage-canada-2026/" target="_blank" rel="noopener">Tech Insider — RAM/SSD Shortage 2026</a></li><li><a href="https://forum.level1techs.com/t/asrock-x870-taichi-creator-dual-gpu/243897" target="_blank" rel="noopener">Level1Techs — ASRock X870 Taichi Creator Dual GPU</a></li><li><a href="https://forum.level1techs.com/t/x870e-motherboard-for-dual-gpu-and-optane/222898" target="_blank" rel="noopener">Level1Techs — X870E Motherboard for Dual GPU</a></li><li><a href="https://tomshardware.com/pc-components/gpus/maxsun-unveils-intel-dual-gpu-battlemage-graphics-card-with-48gb-gddr6-to-compete-with-nvidia-and-amd" target="_blank" rel="noopener">Tom's Hardware — Maxsun Dual B60</a></li></ul></div>
       <div class="page-nav"><a href="index.html"><span class="nav-label">← Previous</span><span class="nav-title">Local AI Server Overview</span></a><a class="next" href="software-stack.html"><span class="nav-label">Next →</span><span class="nav-title">Software Stack & Setup</span></a></div>
     </main>
   </div>

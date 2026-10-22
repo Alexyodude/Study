@@ -39,7 +39,7 @@ Set these before installing anything:
 - **Resizable BAR (Re-Size BAR / Smart Access Memory):** Enabled — [required for proper Arc Pro performance](https://www.intel.com/content/www/us/en/support/articles/000099073.html)
 - **CSM:** Disabled (pure UEFI boot; ReBAR depends on it)
 - **PCIe slot mode:** x8/x8 (some boards call it "bifurcation" or set it automatically when both slots are filled)
-- **PCIe link speed:** Auto (Gen4 on AM4). If you see instability, force Gen4.
+- **PCIe link speed:** Auto (the B60 links at Gen5 x8 on AM5). If you see instability or link errors, force Gen4 — the bandwidth loss barely matters for inference.
 
 Verify ReBAR once Linux is up — each B60 should show a BAR equal to its VRAM:
 
