@@ -41,6 +41,8 @@ sources:
     title: "Linus Tech Tips — AM5 Boards with x8/x8"
   - url: "https://tomshardware.com/pc-components/gpus/maxsun-unveils-intel-dual-gpu-battlemage-graphics-card-with-48gb-gddr6-to-compete-with-nvidia-and-amd"
     title: "Tom's Hardware — Maxsun Dual B60"
+  - url: "https://www.ebay.com/shop/pcie-bifurcation-riser?_nkw=pcie+bifurcation+riser"
+    title: "eBay — PCIe bifurcation risers"
   - url: "https://www.newegg.com/asus-proart-b850-creator-wifi-atx-motherboard-amd-b850-am5/p/N82E16813119780"
     title: "Newegg — ASUS ProArt B850-Creator WiFi Neo"
   - url: "https://www.microcenter.com/product/709979/asus-b850-creator-proart-wifi-neo-amd-am5-atx-motherboard"
@@ -149,6 +151,26 @@ Prices are **snapshots found via search and price trackers (mostly Aug–Oct 202
 
 **For this build:** ProArt B850-Creator WiFi Neo (~$290–300) or ProArt B650-Creator (~$240) keep the total near $800. Taichi Creator / Taichi Lite (~$320) are the next step up.
 
+#### Under $300 only
+
+| Board | GPU slots | Best price seen | Where |
+|---|---|---|---|
+| ASUS ProArt B650-Creator | x8/x8 PCIe 4.0 (◐) | ~$240 | Newegg |
+| ASRock X870E Taichi Lite | x8/x8 PCIe 5.0 (◐) | ~$255 open box (final sale) / ~$290–320 new (unverified) | Newegg / Amazon |
+| ASRock X870E Taichi | x8/x8 PCIe 5.0 (◐) | ~$282 (undated, often out of stock) | Amazon |
+| ASUS ProArt B850-Creator WiFi Neo | x8/x8 PCIe 5.0 (✅) | ~$290 / ~$300 | Micro Center / Newegg |
+
+### Two x8 slots vs one bifurcated x16 slot
+
+Splitting **one** PCIe 5.0 x16 slot into x8+x8 with a riser gives each GPU **exactly the same lanes** as a board with two x8/x8 slots — the split happens either way. And the B60 is an **x8 card**: an x16 slot gives it nothing extra.
+
+The difference is cost and hassle:
+
+- **Two-slot x8/x8 board:** the split is wired on the board. Cards plug straight in. No extra parts.
+- **One-slot bifurcation:** needs a board whose BIOS offers x8x8 on the top slot (e.g. MSI [documents this on some X870E boards](https://www.msi.com/blog/pcie-lane-bifurcation-and-bandwidth-sharing-on-msi-x870e-x870-motherboards)), plus a riser. Gen5 x16-to-2×x8 risers use MCIO cables and cost about [$130–280](https://www.ebay.com/shop/pcie-bifurcation-riser?_nkw=pcie+bifurcation+riser); cheaper ones are Gen3/Gen4 only. The GPUs then sit off the board (open frame or vertical mounts), and long Gen5 cables are prone to link errors.
+
+So bifurcation only pays off if you already own a single-slot board, or want 3–4 GPUs (x4/x4/x4/x4). For a new 2×B60 build, buy the two-slot board.
+
 x8/x8 sources: [ASUS AM5 lineup](https://www.asus.com/us/blog/the-refined-and-upgraded-asus-am5-motherboard-lineup-offers-new-choices-for-every-pc-builder/), [TechSpot X870 roundup](https://www.techspot.com/review/3143-amd-x870-motherboards-full/), [Computing for Geeks multi-GPU guide](https://computingforgeeks.com/best-motherboard-multi-gpu-ai/), [Tech Tactician dual-GPU LLM boards](https://techtactician.com/best-amd-motherboards-for-dual-gpu-llm-builds-guide/), [Linus Tech Tips AM5 x8/x8 thread](https://linustechtips.com/topic/1474393-am5-motherboards-with-dual-x16-x8x8-pcie-slots/), [Level1Techs Taichi Creator thread](https://forum.level1techs.com/t/asrock-x870-taichi-creator-dual-gpu/243897).
 
 Caveats: on most of these, filling a specific M.2 slot (often the top Gen5 one) drops the second GPU slot to x4 or disables the split — read the lane table. The ProArt X870E's slots are three positions apart, fine for two dual-slot B60s ([Computing for Geeks](https://computingforgeeks.com/best-motherboard-multi-gpu-ai/)).
@@ -244,3 +266,4 @@ Intel and vLLM support PCIe peer-to-peer between B60s, but community testing fou
 33. [Pangoly — ASUS ROG Crosshair X870E Dark Hero](https://pangoly.com/en/product/asus-rog-crosshair-x870e-dark-hero) — Dark Hero retailer prices
 34. [Club386 — MSI MEG X870E Godlike price drop](https://www.club386.com/?p=113140) — Godlike Amazon price
 35. [Guru3D — Crosshair X870E Glacial and Dark Hero at retail](https://www.guru3d.com/story/asus-crosshair-x870e-glacial-and-dark-hero-hit-retail-shelves/) — Glacial US retail price
+36. [eBay — PCIe bifurcation risers](https://www.ebay.com/shop/pcie-bifurcation-riser?_nkw=pcie+bifurcation+riser) — Gen5 MCIO x16-to-2×x8 riser prices
