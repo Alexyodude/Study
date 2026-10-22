@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Local AI Server Overview — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Local AI Server — 2× Arc Pro B60 on a Budget</button><div class="nav-children"><a class="nav-item active" href="index.html">Local AI Server Overview</a><a class="nav-item" href="hardware-and-budget.html">Hardware & the $1000 Budget</a><a class="nav-item" href="software-stack.html">Software Stack & Setup</a><a class="nav-item" href="models-and-performance.html">Models & Expected Performance</a></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../local-ai-server/index.html">Local AI Server — 2× Arc Pro B60 on a Budget</a><span class="sep">/</span><span>Local AI Server Overview</span></div>
+      <h1>Local AI Server Overview</h1>
+      <div class="tags"><span class="tag">local-llm</span><span class="tag">intel-arc</span><span class="tag">b60</span><span class="tag">homelab</span><span class="tag">budget</span></div>
+      <h1>Local AI Server Overview</h1>
+<p>
+<strong>Goal:</strong> turn two Intel Arc Pro B60 GPUs you already own into a local LLM server, spending <strong>under $1000</strong> on everything else.
+</p>
+<p>
+<strong>Short answer:</strong> it is very doable. Two B60s give you <strong>48 GB of VRAM</strong> (2 × 24 GB, <a href="https://www.intel.com/content/dam/www/central-libraries/us/en/documents/2026-03/datasheet-b60-gpu.pdf">456 GB/s each</a>) — enough for 32B-class models at high quality or 70B-class models at 4-bit. The GPUs are the expensive part, and you already have them. The rest of the box can be a <strong>used AM4 desktop platform for roughly $600–850</strong>, leaving headroom inside the budget.
+</p>
+<h2>The recommended build at a glance</h2>
+<table><thead><tr><th>Part</th><th>Pick</th><th>Est. cost (used/new, Oct 2026)</th></tr></thead><tbody><tr><td>CPU</td><td>Ryzen 5 5600 / Ryzen 7 5700X (used)</td><td>$80–130</td></tr>
+<tr><td>Motherboard</td><td>X570 or B550 board that splits the top slot <strong>x8/x8</strong> (e.g. ASRock X570 Taichi, ASUS ProArt B550-Creator)</td><td>$150–250</td></tr>
+<tr><td>RAM</td><td>32 GB DDR4 (2×16), 64 GB if you want CPU offload</td><td>$90–250</td></tr>
+<tr><td>Storage</td><td>1–2 TB NVMe SSD</td><td>$80–150</td></tr>
+<tr><td>PSU</td><td>850–1000 W ATX 3.x, 80+ Gold, enough 8-pin PCIe leads</td><td>$110–160</td></tr>
+<tr><td>Case + fans</td><td>Airflow case fitting two dual-slot cards with a gap</td><td>$70–120</td></tr>
+<tr><td><strong>Total</strong></td><td><strong>≈ $580–1060 → aim for ~$750</strong></td></tr></tbody></table>
+<p>
+Prices are estimates. DRAM is in a severe shortage in 2026 (<a href="https://www.tomshardware.com/pc-components/ram/ram-price-index-2026-lowest-price-on-ddr5-and-ddr4-memory-of-all-capacities">Tom's Hardware RAM index</a>), which is the main reason this guide picks a <strong>DDR4</strong> platform instead of a new DDR5 one. Details and alternatives are in <a href="hardware-and-budget.html">Hardware & the $1000 Budget</a>.
+</p>
+<h2>Three rules that make or break the build</h2>
+<ol>
+<li><strong>Both GPUs need real CPU lanes.</strong> Use a board that runs two slots at <strong>x8/x8</strong> from the CPU. A second card in a chipset x4 slot works for simple layer-splitting but hurts tensor-parallel speed.</li>
+<li><strong>Turn on Resizable BAR</strong> (plus Above 4G Decoding) in the BIOS. Intel says it <a href="https://www.intel.com/content/www/us/en/support/articles/000099073.html">must be enabled</a> for proper Arc Pro performance. That rules out most older Xeon workstations.</li>
+<li><strong>Use Linux with a recent kernel</strong> and either <strong>llama.cpp</strong> (easy, flexible) or Intel's <strong><a href="https://github.com/intel/llm-scaler">LLM Scaler</a></strong> vLLM container (best multi-user throughput). See <a href="software-stack.html">Software Stack & Setup</a>.</li>
+</ol>
+<h2>Key concepts</h2>
+<ul>
+<li><strong>VRAM is the budget for models.</strong> A model's weights plus its KV cache (context) must fit in 48 GB to run fast.</li>
+<li><strong>Memory bandwidth sets generation speed.</strong> Each generated token reads every active weight once, so tokens/s ≈ bandwidth ÷ model size (upper bound).</li>
+<li><strong>Layer split vs tensor parallel.</strong> Layer split (llama.cpp default) puts half the layers on each GPU — little PCIe traffic, simple. Tensor parallel (vLLM <code>-tp 2</code>) splits every layer across both GPUs — faster for batches/many users, but needs good PCIe bandwidth.</li>
+</ul>
+<h2>Example: what you'll run on day one</h2>
+<pre><code class="language-bash"># llama.cpp (Vulkan build) serving a 32B model split across both B60s
+<p>
+./build/bin/llama-server -m ~/models/Qwen3-32B-Q5_K_M.gguf \
+  -ngl 99 --split-mode layer --tensor-split 1,1 -c 32768 --host 0.0.0.0 --port 8080</code></pre>
+</p>
+<p>
+Then point <a href="https://github.com/open-webui/open-webui">Open WebUI</a> or any OpenAI-compatible client at <code>http://<server>:8080/v1</code>.
+</p>
+<h2>Pages in this topic</h2>
+<ul>
+<li><a href="hardware-and-budget.html">Hardware & the $1000 Budget</a> — platform choice, parts list, PSU, cooling, the RAM-price problem</li>
+<li><a href="software-stack.html">Software Stack & Setup</a> — BIOS, OS, drivers, llama.cpp, vLLM / LLM Scaler, front-ends</li>
+<li><a href="models-and-performance.html">Models & Expected Performance</a> — what fits in 48 GB and how fast it runs</li>
+</ul>
+<h2>Related topics</h2>
+<ul>
+<li><a href="../camera-sensors/index.html">Camera Sensors — Catalog</a> — another hardware-selection guide in this site</li>
+</ul>
+<h2>References</h2>
+<ol>
+<li><a href="https://www.intel.com/content/dam/www/central-libraries/us/en/documents/2026-03/datasheet-b60-gpu.pdf">Intel Arc Pro B60 Datasheet</a> — official memory, bandwidth, and platform specs</li>
+<li><a href="https://github.com/intel/llm-scaler">Intel LLM Scaler (GitHub)</a> — Intel's vLLM/ComfyUI stack for Arc Pro B60/B70</li>
+<li><a href="https://www.intel.com/content/www/us/en/support/articles/000099073.html">Intel Support — Resizable BAR</a> — ReBAR requirement for Arc Pro cards</li>
+<li><a href="https://www.tomshardware.com/pc-components/ram/ram-price-index-2026-lowest-price-on-ddr5-and-ddr4-memory-of-all-capacities">Tom's Hardware — RAM Price Index 2026</a> — current DRAM pricing context</li>
+<li><a href="https://github.com/open-webui/open-webui">Open WebUI</a> — self-hosted chat front-end for OpenAI-compatible servers</li>
+</ol>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://www.intel.com/content/dam/www/central-libraries/us/en/documents/2026-03/datasheet-b60-gpu.pdf" target="_blank" rel="noopener">Intel Arc Pro B60 Datasheet</a></li><li><a href="https://github.com/intel/llm-scaler" target="_blank" rel="noopener">Intel LLM Scaler (GitHub)</a></li><li><a href="https://www.intel.com/content/www/us/en/support/articles/000099073.html" target="_blank" rel="noopener">Intel Support — Resizable BAR for Arc Pro graphics</a></li><li><a href="https://www.tomshardware.com/pc-components/ram/ram-price-index-2026-lowest-price-on-ddr5-and-ddr4-memory-of-all-capacities" target="_blank" rel="noopener">Tom's Hardware — RAM Price Index 2026</a></li><li><a href="https://github.com/open-webui/open-webui" target="_blank" rel="noopener">Open WebUI</a></li></ul></div>
+      <div class="page-nav"><a href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html"><span class="nav-label">← Previous</span><span class="nav-title">Case Study: CH32V003 Array for Image Processing</span></a><a class="next" href="hardware-and-budget.html"><span class="nav-label">Next →</span><span class="nav-title">Hardware & the $1000 Budget</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Software Stack & Setup — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Local AI Server — 2× Arc Pro B60 on a Budget</button><div class="nav-children"><a class="nav-item" href="index.html">Local AI Server Overview</a><a class="nav-item" href="hardware-and-budget.html">Hardware & the $1000 Budget</a><a class="nav-item active" href="software-stack.html">Software Stack & Setup</a><a class="nav-item" href="models-and-performance.html">Models & Expected Performance</a></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../local-ai-server/index.html">Local AI Server — 2× Arc Pro B60 on a Budget</a><span class="sep">/</span><span>Software Stack & Setup</span></div>
+      <h1>Software Stack & Setup</h1>
+      <div class="tags"><span class="tag">linux</span><span class="tag">intel-arc</span><span class="tag">llama-cpp</span><span class="tag">vllm</span><span class="tag">sycl</span><span class="tag">vulkan</span><span class="tag">docker</span></div>
+      <h1>Software Stack & Setup</h1>
+<p>
+The stack, bottom to top: <strong>BIOS → Linux kernel (Xe driver) → Intel compute runtime (Level Zero / OpenCL) or Vulkan → inference engine (llama.cpp or vLLM) → OpenAI-compatible API → chat UI.</strong>
+</p>
+<h2>Step 1 — BIOS settings</h2>
+<p>
+Set these before installing anything:
+</p>
+<ul>
+<li><strong>Above 4G Decoding:</strong> Enabled</li>
+<li><strong>Resizable BAR (Re-Size BAR / Smart Access Memory):</strong> Enabled — <a href="https://www.intel.com/content/www/us/en/support/articles/000099073.html">required for proper Arc Pro performance</a></li>
+<li><strong>CSM:</strong> Disabled (pure UEFI boot; ReBAR depends on it)</li>
+<li><strong>PCIe slot mode:</strong> x8/x8 (some boards call it "bifurcation" or set it automatically when both slots are filled)</li>
+<li><strong>PCIe link speed:</strong> Auto (Gen4 on AM4). If you see instability, force Gen4.</li>
+</ul>
+<p>
+Verify ReBAR once Linux is up — each B60 should show a BAR equal to its VRAM:
+</p>
+<pre><code class="language-bash">sudo lspci -vv -d 8086: | grep -iE "VGA|Display|Region 2"
+<h1>Expect something like: Region 2: Memory at ... (64-bit, prefetchable) [size=32G]</code></pre></h1>
+<h2>Step 2 — Operating system & driver</h2>
+<ul>
+<li>The B60 (Battlemage / Xe2) uses the <strong>Xe kernel driver</strong>, which is <a href="https://dgpu-docs.intel.com/overview/introduction.html">in the upstream kernel since 6.11</a>. Newer is better for Battlemage.</li>
+<li>Intel validates its compute-runtime container on <a href="https://dgpu-docs.intel.com/overview/release-notes/containers/compute-runtime/26.14.37833.4.html">Ubuntu 24.04.4</a>; Phoronix ran four Arc Pro cards on <a href="https://www.phoronix.com/review/intel-arc-pro-b70-four">Ubuntu 26.04 LTS with Linux 7.0</a>.</li>
+</ul>
+<p>
+<strong>Recommendation:</strong> Ubuntu <strong>26.04 LTS</strong> (newest kernel and Mesa out of the box) or Ubuntu 24.04.4 with the HWE kernel if you want to match Intel's validation exactly.
+</p>
+<p>
+User-space drivers: Intel's <a href="https://dgpu-docs.intel.com/installation-guides/installing-omix.html">Open Middleware Xe (OMIX)</a> bundles the Level Zero and OpenCL runtimes, the SYCL compiler, oneDNN and oneMKL, and lists the B60 as supported. Follow that guide for the SYCL path. For the Vulkan path, Ubuntu's Mesa driver is enough.
+</p>
+<pre><code class="language-bash">sudo usermod -aG render,video $USER   # GPU device access; log out and back in
+<p>
+ls /dev/dri/                          # expect card0, card1 (+ iGPU if any), renderD128, renderD129
+sudo dmesg | grep -iE "xe |guc"       # check the driver loaded both cards and the GuC firmware version</code></pre>
+</p>
+<p>
+<strong>Firmware gotcha:</strong> one user found Ubuntu shipped an older GuC firmware than the kernel wanted and saw <a href="https://bentech.substack.com/p/running-local-llms-on-intel-arc-pro">degraded performance until updating it</a>. If dmesg complains about GuC firmware, update the <code>linux-firmware</code> package (or copy the newer file from upstream linux-firmware).
+</p>
+<h2>Step 3a — llama.cpp (start here)</h2>
+<p>
+Easiest and most flexible: runs GGUF models, splits across both GPUs, offloads to CPU RAM when needed, exposes an OpenAI-compatible server.
+</p>
+<p>
+Two GPU backends work on the B60:
+</p>
+<table><thead><tr><th>Backend</th><th>Pros</th><th>Cons</th></tr></thead><tbody><tr><td><strong>Vulkan</strong></td><td>No oneAPI install; uses distro Mesa; good for hybrid & vision models</td><td>Prompt processing usually slower</td></tr>
+<tr><td><strong>SYCL</strong></td><td>Faster prompt processing on Arc Pro (~150 tok/s more PP in one <a href="https://aur.archlinux.org/packages/llama.cpp-sycl?O=0">B70 user report</a>)</td><td>Needs Intel oneAPI/OMIX toolchain</td></tr></tbody></table>
+<div class="code-tabs"><div class="code-tab-bar"><button class="code-tab active" data-lang="bash">Bash</button><button class="code-tab" data-lang="bash">Bash</button></div><div class="code-panel active" data-lang="bash"><pre><code class="language-bash"># Vulkan build
+<p>
+sudo apt install -y build-essential cmake git libvulkan-dev glslc
+git clone https://github.com/ggml-org/llama.cpp &amp;&amp; cd llama.cpp
+cmake -B build -DGGML_VULKAN=ON
+cmake --build build -j
+./build/bin/llama-server --list-devices    # should list both B60s</code></pre></div>
+</p>
+<div class="code-panel" data-lang="bash"><pre><code class="language-bash"># SYCL build (after installing OMIX / oneAPI)
+<p>
+source /opt/intel/oneapi/setvars.sh
+git clone https://github.com/ggml-org/llama.cpp &amp;&amp; cd llama.cpp
+cmake -B build -DGGML_SYCL=ON -DCMAKE_C_COMPILER=icx -DCMAKE_CXX_COMPILER=icpx
+cmake --build build -j
+./build/bin/llama-server --list-devices</code></pre></div></div>
+</p>
+<p>
+Serve a model across both cards:
+</p>
+<pre><code class="language-bash">./build/bin/llama-server -m ~/models/Qwen3-32B-Q5_K_M.gguf \
+<p>
+  -ngl 99 --split-mode layer --tensor-split 1,1 \
+  -c 32768 -fa on --host 0.0.0.0 --port 8080</code></pre>
+</p>
+<ul>
+<li><code>-ngl 99</code> puts all layers on GPU; <code>--tensor-split 1,1</code> divides them evenly between the two 24 GB cards.</li>
+<li>Try both builds with <code>llama-bench</code> on your model — Vulkan vs SYCL results change between releases.</li>
+</ul>
+<h2>Step 3b — vLLM via Intel LLM Scaler (for throughput / many users)</h2>
+<p>
+Intel's <a href="https://github.com/intel/llm-scaler">LLM Scaler</a> ships a Docker image (<code>intel/llm-scaler-vllm</code>, latest <code>0.26.0-b2</code>, Sept 2026) with vLLM tuned for B60/B70. It supports <strong>tensor, pipeline and data parallel</strong>, INT4 and FP8 quantization, embedding/reranker models, and P2P between cards.
+</p>
+<pre><code class="language-bash">docker pull intel/llm-scaler-vllm:0.26.0-b2
+<p>
+docker run -it --rm --net=host --device=/dev/dri --shm-size=16g \
+  -v ~/models:/llm/models intel/llm-scaler-vllm:0.26.0-b2 bash
+</p>
+<h1>inside the container (see the repo's vllm/README.md for the exact recommended flags):</h1>
+<p>
+vllm serve /llm/models/Qwen3-32B --tensor-parallel-size 2 --quantization fp8 --max-model-len 32768</code></pre>
+</p>
+<p>
+When to use which:
+</p>
+<ul>
+<li><strong>Just you, chatting/coding, trying many models →</strong> llama.cpp.</li>
+<li><strong>Several users or agents hitting the server at once, Hugging Face-format models →</strong> vLLM. It batches requests and is far more efficient under load.</li>
+</ul>
+<p>
+Expect rough edges: community builders report <a href="https://bentech.substack.com/p/running-local-llms-on-intel-arc-pro">driver bugs, OOMs and long time-to-first-token</a> on this path. Pin a known-good image tag once things work.
+</p>
+<h2>Step 4 — front-end & remote access</h2>
+<ul>
+<li><strong><a href="https://github.com/open-webui/open-webui">Open WebUI</a></strong> in Docker, pointed at <code>http://localhost:8080/v1</code> (llama.cpp) or <code>:8000/v1</code> (vLLM).</li>
+<li>Coding tools (Continue, Aider, opencode, etc.) can use the same OpenAI-compatible URL.</li>
+<li>For access outside your home, use a VPN like Tailscale/WireGuard rather than port-forwarding.</li>
+</ul>
+<h2>Checklist</h2>
+<ol>
+<li>BIOS: 4G decoding + ReBAR on, CSM off, x8/x8</li>
+<li>Ubuntu 26.04 (or 24.04.4 HWE), user in <code>render</code> group</li>
+<li><code>lspci</code> shows large BAR on both cards; dmesg shows Xe + GuC loaded</li>
+<li>llama.cpp Vulkan build lists two devices</li>
+<li>Serve one model, benchmark, then try SYCL and/or LLM Scaler</li>
+</ol>
+<h2>Related</h2>
+<ul>
+<li><a href="hardware-and-budget.html">Hardware & the $1000 Budget</a></li>
+<li><a href="models-and-performance.html">Models & Expected Performance</a></li>
+</ul>
+<h2>References</h2>
+<ol>
+<li><a href="https://dgpu-docs.intel.com/overview/introduction.html">Intel GPU Docs — Overview</a> — Xe kernel driver in upstream Linux 6.11+</li>
+<li><a href="https://dgpu-docs.intel.com/installation-guides/installing-omix.html">Intel — Installing OMIX</a> — Level Zero, OpenCL, SYCL compiler, oneDNN/oneMKL bundle</li>
+<li><a href="https://dgpu-docs.intel.com/overview/release-notes/containers/compute-runtime/26.14.37833.4.html">Intel Compute Runtime 26.14 Release Notes</a> — B60 support, Ubuntu 24.04.4 validation</li>
+<li><a href="https://github.com/intel/llm-scaler">Intel LLM Scaler (GitHub)</a> — vLLM/omni containers, release history, multi-GPU features</li>
+<li><a href="https://www.phoronix.com/review/intel-arc-pro-b70-four">Phoronix — Four Intel Graphics Cards on Ubuntu 26.04</a> — multi-card Arc Pro on Linux 7.0</li>
+<li><a href="https://bentech.substack.com/p/running-local-llms-on-intel-arc-pro">Running Local LLMs on Intel Arc Pro B60 and B70</a> — GuC firmware gotcha, Vulkan vs SYCL, vLLM pain points</li>
+<li><a href="https://github.com/ggml-org/llama.cpp/discussions/23313">llama.cpp — Performance on Intel GPU with SYCL</a> — SYCL backend performance discussion</li>
+<li><a href="https://www.intel.com/content/www/us/en/support/articles/000099073.html">Intel Support — Resizable BAR</a> — ReBAR requirement</li>
+<li><a href="https://github.com/open-webui/open-webui">Open WebUI</a> — chat front-end</li>
+<li><a href="https://aur.archlinux.org/packages/llama.cpp-sycl?O=0">AUR — llama.cpp-sycl</a> — user comment comparing SYCL vs Vulkan on a B70</li>
+</ol>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://dgpu-docs.intel.com/overview/introduction.html" target="_blank" rel="noopener">Intel Data Center & Pro GPU Docs — Overview</a></li><li><a href="https://dgpu-docs.intel.com/installation-guides/installing-omix.html" target="_blank" rel="noopener">Intel — Installing Open Middleware Xe (OMIX)</a></li><li><a href="https://dgpu-docs.intel.com/overview/release-notes/containers/compute-runtime/26.14.37833.4.html" target="_blank" rel="noopener">Intel Compute Runtime 26.14 Release Notes</a></li><li><a href="https://github.com/intel/llm-scaler" target="_blank" rel="noopener">Intel LLM Scaler (GitHub)</a></li><li><a href="https://www.phoronix.com/review/intel-arc-pro-b70-four" target="_blank" rel="noopener">Phoronix — Four Intel Graphics Cards on Ubuntu 26.04</a></li><li><a href="https://bentech.substack.com/p/running-local-llms-on-intel-arc-pro" target="_blank" rel="noopener">Running Local LLMs on Intel Arc Pro B60 and B70 GPUs</a></li><li><a href="https://github.com/ggml-org/llama.cpp/discussions/23313" target="_blank" rel="noopener">llama.cpp — Performance on Intel GPU with SYCL</a></li><li><a href="https://www.intel.com/content/www/us/en/support/articles/000099073.html" target="_blank" rel="noopener">Intel Support — Resizable BAR for Arc Pro graphics</a></li><li><a href="https://github.com/open-webui/open-webui" target="_blank" rel="noopener">Open WebUI</a></li><li><a href="https://aur.archlinux.org/packages/llama.cpp-sycl?O=0" target="_blank" rel="noopener">AUR — llama.cpp-sycl package (user benchmark comments)</a></li></ul></div>
+      <div class="page-nav"><a href="hardware-and-budget.html"><span class="nav-label">← Previous</span><span class="nav-title">Hardware & the $1000 Budget</span></a><a class="next" href="models-and-performance.html"><span class="nav-label">Next →</span><span class="nav-title">Models & Expected Performance</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

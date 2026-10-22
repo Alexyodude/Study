@@ -31,6 +31,12 @@
       "title": "Camera Sensors — Catalog",
       "order": 5,
       "status": "review"
+    },
+    {
+      "slug": "local-ai-server",
+      "title": "Local AI Server — 2× Arc Pro B60 on a Budget",
+      "order": 6,
+      "status": "review"
     }
   ]
 }

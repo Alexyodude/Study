@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hardware & the $1000 Budget — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Local AI Server — 2× Arc Pro B60 on a Budget</button><div class="nav-children"><a class="nav-item" href="index.html">Local AI Server Overview</a><a class="nav-item active" href="hardware-and-budget.html">Hardware & the $1000 Budget</a><a class="nav-item" href="software-stack.html">Software Stack & Setup</a><a class="nav-item" href="models-and-performance.html">Models & Expected Performance</a></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../local-ai-server/index.html">Local AI Server — 2× Arc Pro B60 on a Budget</a><span class="sep">/</span><span>Hardware & the $1000 Budget</span></div>
+      <h1>Hardware & the $1000 Budget</h1>
+      <div class="tags"><span class="tag">hardware</span><span class="tag">intel-arc</span><span class="tag">b60</span><span class="tag">pcie</span><span class="tag">psu</span><span class="tag">budget</span><span class="tag">am4</span></div>
+      <h1>Hardware & the $1000 Budget</h1>
+<p>
+You already own the hard part: two GPUs with 24 GB each. This page picks the cheapest host that lets both cards run at full usefulness, and explains why.
+</p>
+<h2>What the B60 needs from the host</h2>
+<table><thead><tr><th>Spec</th><th>Value</th><th>Why it matters for the build</th></tr></thead><tbody><tr><td>Memory</td><td>24 GB GDDR6, 192-bit, <a href="https://www.intel.com/content/dam/www/central-libraries/us/en/documents/2026-03/datasheet-b60-gpu.pdf">456 GB/s</a></td><td>48 GB total across two cards</td></tr>
+<tr><td>Interface</td><td><a href="https://flopper.io/gpu/intel-arc-pro-b60-24gb/spec-sheet">PCIe 5.0 x8</a></td><td>Only uses 8 lanes, so an x8/x8 split loses nothing on PCIe 4.0 boards beyond link speed</td></tr>
+<tr><td>Power</td><td><a href="https://cdn.multitronic.fi/media/9/6/mmo_134689064_1773307848_3924_283.pdf">200 W TBP, one 8-pin</a> (Sparkle blower/passive)</td><td>~400 W for two cards; check your exact model's connector</td></tr>
+<tr><td>Compute</td><td>20 Xe cores, 160 XMX engines, ~197 INT8 TOPS (<a href="https://flopper.io/gpu/intel-arc-pro-b60-24gb/spec-sheet">Flopper</a>)</td><td>Prompt processing speed</td></tr>
+<tr><td>Firmware</td><td><a href="https://www.intel.com/content/www/us/en/support/articles/000099073.html">Resizable BAR required for proper performance</a></td><td>CPU + board must support ReBAR</td></tr></tbody></table>
+<h3>Check which B60 variant you have</h3>
+<ul>
+<li><strong>Blower (fan) cards</strong> exhaust out the back — ideal for two cards close together.</li>
+<li><strong>Passive cards</strong> have <strong>no fan</strong>. They are designed for server chassis with strong front-to-back airflow. In a desktop case you must add a fan ducted directly over each card, or they will thermal-throttle.</li>
+<li><strong>Dual-GPU cards</strong> (e.g. Maxsun B60 Dual 48G) put two GPUs on one board and need <strong>x8/x8 bifurcation of a single slot</strong> and a <a href="https://tomshardware.com/pc-components/gpus/maxsun-unveils-intel-dual-gpu-battlemage-graphics-card-with-48gb-gddr6-to-compete-with-nvidia-and-amd">400 W 12V-2x6 connector</a>. If you have two separate single-GPU cards (most likely), you instead need <strong>two slots wired x8/x8</strong>.</li>
+</ul>
+<h2>Why the platform choice is mostly about RAM prices</h2>
+<p>
+Consumer DRAM prices exploded in 2025–2026 because AI data centers absorbed supply. A 64 GB DDR5 kit that cost about $190 a year ago has been tracked at <a href="https://tech-insider.org/ca/ram-ddr5-ssd-price-shortage-canada-2026/">over $1,000</a>, and 32 GB kits that were $100–200 now start around <a href="https://www.tomshardware.com/pc-components/ram/ram-price-index-2026-lowest-price-on-ddr5-and-ddr4-memory-of-all-capacities">$350</a>. A new AM5/LGA1851 build would spend half the budget on memory alone.
+</p>
+<p>
+<strong>Used DDR4</strong> is the escape hatch: it is also inflated, but far less, and plenty of it is on the second-hand market from upgraded desktops. For a GPU inference box, system RAM speed barely matters as long as everything fits in VRAM.
+</p>
+<h2>Option A (recommended): used AM4 desktop</h2>
+<table><thead><tr><th>Part</th><th>What to buy</th><th>Est. cost</th><th>Notes</th></tr></thead><tbody><tr><td>CPU</td><td>Ryzen 5 5600 / 5600X / 7 5700X</td><td>$80–130</td><td>Ryzen 5000 supports ReBAR and PCIe 4.0; avoid 5600G/5700G APUs (PCIe 3.0, x8 lanes for GPUs)</td></tr>
+<tr><td>Board</td><td>X570 or B550 with <strong>x8/x8 from CPU</strong></td><td>$150–250</td><td>Confirmed layouts: <a href="https://at-web1.www.anandtech.com/show/14161/the-amd-x570-motherboard-overview/4">ASRock X570 Taichi</a> (x16 or x8/x8). Also commonly x8/x8: ASUS ProArt B550-Creator, Gigabyte X570 Aorus Master, MSI MEG X570 Ace — <strong>verify in the manual</strong></td></tr>
+<tr><td>RAM</td><td>2×16 GB DDR4-3200</td><td>$90–150</td><td>Go 2×32 GB ($180–250+) only if you plan CPU/MoE offload</td></tr>
+<tr><td>SSD</td><td>1–2 TB NVMe (PCIe 3.0/4.0)</td><td>$80–150</td><td>Models are 15–45 GB each; 2 TB is comfortable</td></tr>
+<tr><td>PSU</td><td>850–1000 W ATX 3.x Gold</td><td>$110–160</td><td>Two 200 W GPUs + 65 W CPU ≈ 550 W peak; headroom covers transients</td></tr>
+<tr><td>Case</td><td>Airflow case, 7+ slots</td><td>$70–120</td><td>Leave at least one empty slot between cards</td></tr>
+<tr><td>CPU cooler</td><td>Stock or $25 tower</td><td>$0–25</td></tr>
+<tr><td><strong>Total</strong></td><td><strong>≈ $580–1,000</strong></td><td>Target ~$750</td></tr></tbody></table>
+<h3>How to read a board manual for x8/x8</h3>
+<p>
+Look for the PCIe slot table. You want wording like <em>"PCIE1 / PCIE2: x16/x0 or x8/x8"</em> — both slots wired to the <strong>CPU</strong>. Avoid boards where the second long slot says <em>"x4 (chipset)"</em> or <em>"shares bandwidth with M.2"</em> only. Forum threads show many people <a href="https://forum.level1techs.com/t/dual-gpu-pcie-bifurcation-question-frustration/252100">get burned by this</a>: a full-length slot is not necessarily wired x8.
+</p>
+<h2>Option B: you already own a desktop</h2>
+<p>
+If you have a PC with Ryzen 3000/5000 or Intel 10th-gen+:
+</p>
+<ul>
+<li><strong>Two CPU-wired slots x8/x8?</strong> Just add a PSU if needed. Cost: $0–160.</li>
+<li><strong>Second slot is chipset x4?</strong> It still works with llama.cpp <strong>layer split</strong>, which sends only small activations between GPUs per token. Tensor parallel in vLLM will be slower. Cost: $0–160, and upgrade the board later if you outgrow it.</li>
+</ul>
+<h2>Option C: used workstation (only with care)</h2>
+<p>
+Used Dell Precision T7820 / HP Z6 G4 / Lenovo P720 towers are cheap and often come with 64–128 GB of ECC RAM — attractive in a RAM shortage. But:
+</p>
+<ul>
+<li>Most Skylake/Cascade Lake Xeon platforms <strong>do not expose Resizable BAR</strong>, which Arc needs.</li>
+<li>They are PCIe 3.0, and their PSUs use proprietary connectors with limited PCIe power leads.</li>
+</ul>
+<p>
+Only go this way if you confirm ReBAR in that exact model's BIOS first. A newer workstation (e.g. Threadripper Pro) fixes all this but usually exceeds the budget.
+</p>
+<h2>A note on multi-GPU on consumer platforms</h2>
+<p>
+Intel and vLLM support PCIe peer-to-peer between B60s, but community testing found <a href="https://forum.level1techs.com/t/llm-adventures-with-intel-arc-pro-b60s-p2p-vllm/252516">consumer platforms are slower for P2P traffic</a> than workstation boards or a PCIe switch. With two cards this mostly affects tensor-parallel throughput, not whether things work. Layer split is barely affected.
+</p>
+<h2>Budget example</h2>
+<ul>
+<li>Ryzen 5 5600 (used) — $90</li>
+<li>ASRock X570 Taichi (used) — $200</li>
+<li>2×16 GB DDR4-3200 (used) — $110</li>
+<li>2 TB NVMe — $120</li>
+<li>1000 W Gold ATX 3.1 PSU — $140</li>
+<li>Airflow case + 2 extra fans — $100</li>
+<li><strong>Total: $760</strong>, leaving ~$240 for a 64 GB RAM upgrade later or a UPS.</li>
+</ul>
+<h2>Related</h2>
+<ul>
+<li><a href="software-stack.html">Software Stack & Setup</a> — BIOS settings to flip after assembly</li>
+<li><a href="models-and-performance.html">Models & Expected Performance</a> — when 64 GB system RAM is worth it</li>
+</ul>
+<h2>References</h2>
+<ol>
+<li><a href="https://www.intel.com/content/dam/www/central-libraries/us/en/documents/2026-03/datasheet-b60-gpu.pdf">Intel Arc Pro B60 Datasheet</a> — memory and bandwidth specs</li>
+<li><a href="https://flopper.io/gpu/intel-arc-pro-b60-24gb/spec-sheet">Flopper — Arc Pro B60 Spec Sheet</a> — PCIe interface, Xe cores, TOPS</li>
+<li><a href="https://cdn.multitronic.fi/media/9/6/mmo_134689064_1773307848_3924_283.pdf">Sparkle Arc Pro B60 User Manual</a> — 200 W TBP, 8-pin connector, PSU recommendation</li>
+<li><a href="https://www.intel.com/content/www/us/en/support/articles/000099073.html">Intel Support — Resizable BAR</a> — ReBAR requirement</li>
+<li><a href="https://at-web1.www.anandtech.com/show/14161/the-amd-x570-motherboard-overview/4">AnandTech — X570 Motherboard Overview</a> — X570 Taichi slot layout</li>
+<li><a href="https://forum.level1techs.com/t/dual-gpu-pcie-bifurcation-question-frustration/252100">Level1Techs — Dual GPU PCIe Bifurcation</a> — real-world bifurcation pitfalls</li>
+<li><a href="https://forum.level1techs.com/t/llm-adventures-with-intel-arc-pro-b60s-p2p-vllm/252516">Level1Techs — LLM Adventures with Arc Pro B60s, P2P, vLLM</a> — P2P performance on consumer vs workstation platforms</li>
+<li><a href="https://www.tomshardware.com/pc-components/ram/ram-price-index-2026-lowest-price-on-ddr5-and-ddr4-memory-of-all-capacities">Tom's Hardware — RAM Price Index 2026</a> — DRAM pricing</li>
+<li><a href="https://tech-insider.org/ca/ram-ddr5-ssd-price-shortage-canada-2026/">Tech Insider — RAM/SSD Shortage 2026</a> — 64 GB kit price history</li>
+<li><a href="https://tomshardware.com/pc-components/gpus/maxsun-unveils-intel-dual-gpu-battlemage-graphics-card-with-48gb-gddr6-to-compete-with-nvidia-and-amd">Tom's Hardware — Maxsun Dual B60</a> — dual-GPU card power and bifurcation</li>
+</ol>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://www.intel.com/content/dam/www/central-libraries/us/en/documents/2026-03/datasheet-b60-gpu.pdf" target="_blank" rel="noopener">Intel Arc Pro B60 Datasheet</a></li><li><a href="https://flopper.io/gpu/intel-arc-pro-b60-24gb/spec-sheet" target="_blank" rel="noopener">Flopper — Arc Pro B60 Spec Sheet</a></li><li><a href="https://cdn.multitronic.fi/media/9/6/mmo_134689064_1773307848_3924_283.pdf" target="_blank" rel="noopener">Sparkle Arc Pro B60 User Manual</a></li><li><a href="https://www.intel.com/content/www/us/en/support/articles/000099073.html" target="_blank" rel="noopener">Intel Support — Resizable BAR for Arc Pro graphics</a></li><li><a href="https://at-web1.www.anandtech.com/show/14161/the-amd-x570-motherboard-overview/4" target="_blank" rel="noopener">AnandTech — X570 Motherboard Overview</a></li><li><a href="https://forum.level1techs.com/t/dual-gpu-pcie-bifurcation-question-frustration/252100" target="_blank" rel="noopener">Level1Techs — Dual GPU PCIe Bifurcation</a></li><li><a href="https://forum.level1techs.com/t/llm-adventures-with-intel-arc-pro-b60s-p2p-vllm/252516" target="_blank" rel="noopener">Level1Techs — LLM Adventures with Arc Pro B60s, P2P, vLLM</a></li><li><a href="https://www.tomshardware.com/pc-components/ram/ram-price-index-2026-lowest-price-on-ddr5-and-ddr4-memory-of-all-capacities" target="_blank" rel="noopener">Tom's Hardware — RAM Price Index 2026</a></li><li><a href="https://tech-insider.org/ca/ram-ddr5-ssd-price-shortage-canada-2026/" target="_blank" rel="noopener">Tech Insider — RAM/SSD Shortage 2026</a></li><li><a href="https://tomshardware.com/pc-components/gpus/maxsun-unveils-intel-dual-gpu-battlemage-graphics-card-with-48gb-gddr6-to-compete-with-nvidia-and-amd" target="_blank" rel="noopener">Tom's Hardware — Maxsun Dual B60</a></li></ul></div>
+      <div class="page-nav"><a href="index.html"><span class="nav-label">← Previous</span><span class="nav-title">Local AI Server Overview</span></a><a class="next" href="software-stack.html"><span class="nav-label">Next →</span><span class="nav-title">Software Stack & Setup</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

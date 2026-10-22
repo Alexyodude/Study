@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Models & Expected Performance — MCU Study Guide</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <button class="hamburger" aria-label="Toggle sidebar">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle sidebar"><div class="menu-toggle-icon"><span></span><span></span><span></span></div></button>
+    <div class="header-title">MCU Study Guide</div>
+    <div class="header-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search topics..." aria-label="Search">
+      <div class="search-results"></div>
+    </div>
+    <div class="lang-switcher" aria-label="Code language"><select class="lang-select"></select></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  </header>
+  <div class="layout">
+    <nav class="sidebar"><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>MCU Architecture — Understand the Machine</button><div class="nav-children"><a class="nav-item" href="../mcu-architecture/index.html">MCU Architecture Overview</a><a class="nav-item" href="../mcu-architecture/cpu-core-and-alu.html">CPU Core and ALU</a><a class="nav-item" href="../mcu-architecture/registers-and-register-file.html">Registers and Register File</a><a class="nav-item" href="../mcu-architecture/program-counter-and-execution-flow.html">Program Counter and Execution Flow</a><a class="nav-item" href="../mcu-architecture/stack-pointer-and-call-stack.html">Stack Pointer and Call Stack</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Architecture</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/memory-architecture/index.html">Memory Architecture Overview</a><a class="nav-item" href="../mcu-architecture/memory-architecture/flash-memory.html">Flash Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/sram.html">SRAM</a><a class="nav-item" href="../mcu-architecture/memory-architecture/eeprom-and-nvm.html">EEPROM and Non-Volatile Memory</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-mapped-io.html">Memory-Mapped I/O</a><a class="nav-item" href="../mcu-architecture/memory-architecture/memory-layout-and-linker-scripts.html">Memory Layout and Linker Scripts</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Instruction Execution</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/instruction-execution/index.html">The Instruction Cycle</a><a class="nav-item" href="../mcu-architecture/instruction-execution/fetch-decode-execute.html">Fetch, Decode, Execute</a><a class="nav-item" href="../mcu-architecture/instruction-execution/clock-cycles-and-timing.html">Clock Cycles and Timing</a><a class="nav-item" href="../mcu-architecture/instruction-execution/pipeline-basics.html">Pipeline Basics</a><a class="nav-item" href="../mcu-architecture/instruction-execution/instruction-set-overview.html">Instruction Set Overview</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Clock and Power System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-architecture/clock-and-power-system/index.html">Clock as Heartbeat, Power Trade-offs</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/clock-sources-and-tree.html">Clock Sources and Clock Tree</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/pll-and-prescalers.html">PLL and Prescalers</a><a class="nav-item" href="../mcu-architecture/clock-and-power-system/sleep-and-low-power-modes.html">Sleep and Low-Power Modes</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Bare-Metal Programming — Write Code for Bare Hardware</button><div class="nav-children"><a class="nav-item" href="../mcu-bare-metal-programming/index.html">What Bare-Metal Means</a><a class="nav-item" href="../mcu-bare-metal-programming/cross-compilation-toolchain.html">Cross-Compilation Toolchain</a><a class="nav-item" href="../mcu-bare-metal-programming/startup-code.html">Startup Code</a><a class="nav-item" href="../mcu-bare-metal-programming/vector-table.html">Vector Table</a><a class="nav-item" href="../mcu-bare-metal-programming/linker-scripts-in-practice.html">Linker Scripts in Practice</a><a class="nav-item" href="../mcu-bare-metal-programming/register-level-programming.html">Register-Level Programming</a><a class="nav-item" href="../mcu-bare-metal-programming/volatile-and-compiler-barriers.html">Volatile and Compiler Barriers</a><a class="nav-item" href="../mcu-bare-metal-programming/makefile-and-build-system.html">Makefile and Build System</a><a class="nav-item" href="../mcu-bare-metal-programming/boot-process-deep-dive.html">Boot Process Deep Dive</a><a class="nav-item" href="../mcu-bare-metal-programming/flashing-firmware.html">Flashing Firmware onto an MCU</a><a class="nav-item" href="../mcu-bare-metal-programming/flash-programming-from-firmware.html">Flash Programming from Firmware</a></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Peripherals & Interrupts — Interact with the World</button><div class="nav-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/index.html">Peripherals as Hardware Engines</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/gpio-register-level.html">GPIO at Register Level</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/timers-and-counters.html">Timers and Counters</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/uart-serial.html">UART Serial Communication</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/spi-protocol.html">SPI Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/i2c-protocol.html">I2C Protocol</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/adc-and-analog.html">ADC and Analog</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/parallel-io-and-multi-mcu-sync.html">Parallel I/O and Multi-MCU Synchronization</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Interrupt System</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/index.html">Why Interrupts</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/nvic-architecture.html">NVIC Architecture</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/priority-and-preemption.html">Priority and Preemption</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/isr-design-patterns.html">ISR Design Patterns</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/context-switching-mechanics.html">Context Switching Mechanics</a><a class="nav-item" href="../mcu-peripherals-and-interrupts/interrupt-system/exceptions-and-faults.html">Exceptions and Faults</a></div></div></div></div><div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>Toolchain & Practice — Build and Debug Real Projects</button><div class="nav-children"><a class="nav-item" href="../mcu-toolchain-and-practice/index.html">Bridging Theory to Practice</a><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Debugging and Probes</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/index.html">Debug Access Port and CoreSight</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/jtag-and-swd.html">JTAG and SWD</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/openocd-and-gdb.html">OpenOCD and GDB</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/semihosting-and-printf.html">Semihosting and Printf Debugging</a><a class="nav-item" href="../mcu-toolchain-and-practice/debugging-and-probes/fault-debugging-techniques.html">Fault Debugging Techniques</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>Memory Management in Practice</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/index.html">Memory as Most Constrained Resource</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/stack-vs-heap.html">Stack vs Heap</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/dma-controller.html">DMA Controller</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/mpu-memory-protection.html">MPU Memory Protection</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/static-allocation-patterns.html">Static Allocation Patterns</a><a class="nav-item" href="../mcu-toolchain-and-practice/memory-management-in-practice/external-shared-ram.html">External Shared RAM</a></div></div><div class="nav-sub-section"><button class="nav-sub-title"><span class="chevron">&#9654;</span>MCU Families Compared</button><div class="nav-sub-children"><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/index.html">How to Read a Datasheet</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/arm-cortex-m.html">ARM Cortex-M Family</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/avr-architecture.html">AVR Architecture</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/risc-v-microcontrollers.html">RISC-V Microcontrollers</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/choosing-an-mcu.html">Choosing an MCU</a><a class="nav-item" href="../mcu-toolchain-and-practice/mcu-families-compared/ch32v003-parallel-image-processing.html">Case Study: CH32V003 Array for Image Processing</a></div></div></div></div><div class="nav-section"><button class="nav-section-title expanded"><span class="chevron">&#9654;</span>Local AI Server — 2× Arc Pro B60 on a Budget</button><div class="nav-children"><a class="nav-item" href="index.html">Local AI Server Overview</a><a class="nav-item" href="hardware-and-budget.html">Hardware & the $1000 Budget</a><a class="nav-item" href="software-stack.html">Software Stack & Setup</a><a class="nav-item active" href="models-and-performance.html">Models & Expected Performance</a></div></div></nav>
+    <div class="sidebar-overlay"></div>
+    <main class="content">
+      <div class="breadcrumbs"><a href="../index.html">Home</a><span class="sep">/</span><a href="../local-ai-server/index.html">Local AI Server — 2× Arc Pro B60 on a Budget</a><span class="sep">/</span><span>Models & Expected Performance</span></div>
+      <h1>Models & Expected Performance</h1>
+      <div class="tags"><span class="tag">local-llm</span><span class="tag">models</span><span class="tag">quantization</span><span class="tag">performance</span><span class="tag">vram</span></div>
+      <h1>Models & Expected Performance</h1>
+<p>
+With 48 GB of VRAM split across two cards, the question is: <strong>which models fit, and how fast will they be?</strong>
+</p>
+<h2>Rule of thumb: will it fit?</h2>
+<p>
+<strong>VRAM needed ≈ model file size + KV cache + ~1 GB overhead per GPU.</strong>
+</p>
+<p>
+Model file size ≈ parameters × bits-per-weight ÷ 8. Examples:
+</p>
+<table><thead><tr><th>Model size</th><th>Q4_K_M (~4.8 bpw)</th><th>Q5_K_M (~5.7 bpw)</th><th>Q8_0 (~8.5 bpw)</th><th>Fits in 48 GB?</th></tr></thead><tbody><tr><td>8–9B</td><td>~5 GB</td><td>~6 GB</td><td>~9 GB</td><td>Easily — one card is enough</td></tr>
+<tr><td>14B</td><td>~9 GB</td><td>~10 GB</td><td>~15 GB</td><td>Easily — one card</td></tr>
+<tr><td>27–32B dense</td><td>~19 GB</td><td>~23 GB</td><td>~34 GB</td><td>Yes, at any of these, with long context</td></tr>
+<tr><td>30–35B MoE (~3B active)</td><td>~19 GB</td><td>~23 GB</td><td>~35 GB</td><td>Yes — and fast</td></tr>
+<tr><td>70B dense</td><td>~42 GB</td><td>~50 GB</td><td>~75 GB</td><td>Only Q4, with short context (~8k)</td></tr>
+<tr><td>100B+ MoE (e.g. gpt-oss-120b, ~63 GB)</td><td>—</td><td>—</td><td>—</td><td>Partly — needs CPU offload + 64 GB system RAM</td></tr></tbody></table>
+<p>
+KV cache grows with context length. A 32B model at 32k context typically needs several more GB; use <code>-ctk q8_0 -ctv q8_0</code> in llama.cpp to halve it.
+</p>
+<h2>Rule of thumb: how fast?</h2>
+<p>
+When generating, each token reads every active weight once, so:
+</p>
+<p>
+<strong>max tokens/s ≈ memory bandwidth ÷ bytes read per token.</strong>
+</p>
+<p>
+With layer split, the two cards work one after the other, so you get one card's bandwidth (456 GB/s) for the whole model:
+</p>
+<ul>
+<li>32B dense at Q4 (~19 GB): 456 ÷ 19 ≈ <strong>24 t/s ceiling</strong>, expect ~12–18 t/s.</li>
+<li>30B MoE with ~3B active at Q4 (~2 GB read per token): ceiling well over 100 t/s; real-world tends to land around 40–70 t/s because of overheads. A single B70 (the bigger sibling with more memory bandwidth, so expect somewhat less on a B60) has been measured at <a href="https://aiweekly.co/alerts/intel-arc-pro-b70-delivers-63-ts-on-qwen-36-35b">62–64 t/s on Qwen 3.6-35B</a>.</li>
+<li>70B dense at Q4 (~42 GB): ≈ 11 t/s ceiling, expect ~6–9 t/s.</li>
+</ul>
+<p>
+Tensor parallel (vLLM <code>-tp 2</code>) lets both cards read at once, approaching 2× bandwidth for single requests, and much more total throughput under batching.
+</p>
+<h3>Real measurements (sanity check)</h3>
+<ul>
+<li>A single B60 with llama.cpp SYCL on a 9B Q4 model measured about <a href="https://forum.level1techs.com/t/arc-pro-b60-for-local-llms/246971">329 t/s prompt processing and 23 t/s generation</a> — below the theoretical ceiling, showing that <strong>Arc software is still maturing</strong>. Update llama.cpp often.</li>
+<li>Dual-B60 vLLM users report <strong>very long time-to-first-token on long contexts</strong> (<a href="https://discuss.vllm.ai/t/intel-xpu-dual-arc-b60pro-single-arc-b70pro/2770">vLLM forum</a>). Prompt processing (prefill) is the weak spot vs NVIDIA; keep agent/coding contexts lean or use prefix caching.</li>
+<li>Phoronix found llama.cpp Vulkan <a href="https://www.phoronix.com/review/intel-arc-pro-b70-four">scaled to two cards and then collapsed</a> beyond that — two cards is the sweet spot for this backend.</li>
+</ul>
+<h2>Suggested starter lineup</h2>
+<table><thead><tr><th>Use</th><th>Model class</th><th>Format</th><th>Why</th></tr></thead><tbody><tr><td>Everyday chat, fast</td><td>~30–35B MoE (e.g. Qwen3/3.6 30B-A3B class)</td><td>GGUF Q5/Q6</td><td>Very fast, high quality, long context</td></tr>
+<tr><td>Best dense quality</td><td>27–32B dense</td><td>GGUF Q6/Q8 or FP8 in vLLM</td><td>Fits fully with room for 32k+ context</td></tr>
+<tr><td>Coding agent</td><td>30B-class coder MoE</td><td>GGUF Q5 / FP8</td><td>Speed matters more than raw size for agents</td></tr>
+<tr><td>Biggest that fits</td><td>70B dense</td><td>Q4_K_M, 8k context</td><td>Slow but possible</td></tr>
+<tr><td>Embeddings / RAG</td><td>Small embedding + reranker models</td><td>vLLM (<a href="https://github.com/intel/llm-scaler">LLM Scaler supports both</a>)</td><td>Run alongside a chat model on one card</td></tr></tbody></table>
+<h2>Is 64 GB system RAM worth the extra ~$100–150?</h2>
+<ul>
+<li><strong>No</strong>, if you stay within 48 GB VRAM models (most people; everything up to 32B dense and ~35B MoE).</li>
+<li><strong>Yes</strong>, if you want 100B+ MoE models like gpt-oss-120b: llama.cpp can keep attention on the GPUs and push expert layers to system RAM (<code>--n-cpu-moe N</code>). It runs, slower, but surprisingly usable because only a few experts are active per token.</li>
+</ul>
+<p>
+Since RAM is so expensive in 2026, start with 32 GB and upgrade only if you actually hit this case.
+</p>
+<h2>Related</h2>
+<ul>
+<li><a href="hardware-and-budget.html">Hardware & the $1000 Budget</a></li>
+<li><a href="software-stack.html">Software Stack & Setup</a></li>
+</ul>
+<h2>References</h2>
+<ol>
+<li><a href="https://www.intel.com/content/dam/www/central-libraries/us/en/documents/2026-03/datasheet-b60-gpu.pdf">Intel Arc Pro B60 Datasheet</a> — 456 GB/s memory bandwidth used in the speed estimates</li>
+<li><a href="https://forum.level1techs.com/t/arc-pro-b60-for-local-llms/246971">Level1Techs — Arc Pro B60 for Local LLMs</a> — measured llama.cpp SYCL numbers on a B60</li>
+<li><a href="https://aiweekly.co/alerts/intel-arc-pro-b70-delivers-63-ts-on-qwen-36-35b">AI Weekly — Arc Pro B70 63 t/s on Qwen 3.6-35B</a> — MoE speed reference on a sibling card</li>
+<li><a href="https://discuss.vllm.ai/t/intel-xpu-dual-arc-b60pro-single-arc-b70pro/2770">vLLM Forum — Dual Arc B60 Pro vs Single B70 Pro</a> — real-world dual-B60 vLLM experience</li>
+<li><a href="https://www.phoronix.com/review/intel-arc-pro-b70-four">Phoronix — Four Intel Graphics Cards on Ubuntu 26.04</a> — multi-GPU Vulkan scaling</li>
+<li><a href="https://github.com/intel/llm-scaler">Intel LLM Scaler (GitHub)</a> — embedding/reranker and quantization support</li>
+</ol>
+      <div class="sources"><h2>References</h2><ul><li><a href="https://www.intel.com/content/dam/www/central-libraries/us/en/documents/2026-03/datasheet-b60-gpu.pdf" target="_blank" rel="noopener">Intel Arc Pro B60 Datasheet</a></li><li><a href="https://forum.level1techs.com/t/arc-pro-b60-for-local-llms/246971" target="_blank" rel="noopener">Level1Techs — Arc Pro B60 for Local LLMs</a></li><li><a href="https://aiweekly.co/alerts/intel-arc-pro-b70-delivers-63-ts-on-qwen-36-35b" target="_blank" rel="noopener">AI Weekly — Arc Pro B70 63 t/s on Qwen 3.6-35B</a></li><li><a href="https://discuss.vllm.ai/t/intel-xpu-dual-arc-b60pro-single-arc-b70pro/2770" target="_blank" rel="noopener">vLLM Forum — Dual Arc B60 Pro vs Single B70 Pro</a></li><li><a href="https://www.phoronix.com/review/intel-arc-pro-b70-four" target="_blank" rel="noopener">Phoronix — Four Intel Graphics Cards on Ubuntu 26.04</a></li><li><a href="https://github.com/intel/llm-scaler" target="_blank" rel="noopener">Intel LLM Scaler (GitHub)</a></li></ul></div>
+      <div class="page-nav"><a href="software-stack.html"><span class="nav-label">← Previous</span><span class="nav-title">Software Stack & Setup</span></a></div>
+    </main>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

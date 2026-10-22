@@ -1,0 +1,13 @@
+{
+  "title": "Local AI Server — 2× Arc Pro B60 on a Budget",
+  "slug": "local-ai-server",
+  "order": 6,
+  "tags": ["local-llm", "intel-arc", "b60", "homelab", "hardware", "budget"],
+  "status": "review",
+  "children": [
+    { "slug": "index", "title": "Local AI Server Overview", "type": "file" },
+    { "slug": "hardware-and-budget", "title": "Hardware & the $1000 Budget", "type": "file" },
+    { "slug": "software-stack", "title": "Software Stack & Setup", "type": "file" },
+    { "slug": "models-and-performance", "title": "Models & Expected Performance", "type": "file" }
+  ]
+}
