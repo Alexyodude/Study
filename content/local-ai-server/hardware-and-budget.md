@@ -27,6 +27,18 @@ sources:
     title: "Level1Techs — ASRock X870 Taichi Creator Dual GPU"
   - url: "https://forum.level1techs.com/t/x870e-motherboard-for-dual-gpu-and-optane/222898"
     title: "Level1Techs — X870E Motherboard for Dual GPU"
+  - url: "https://www.asus.com/us/blog/the-refined-and-upgraded-asus-am5-motherboard-lineup-offers-new-choices-for-every-pc-builder/"
+    title: "ASUS — Refined AM5 Motherboard Lineup"
+  - url: "https://www.msi.com/blog/pcie-lane-bifurcation-and-bandwidth-sharing-on-msi-x870e-x870-motherboards"
+    title: "MSI — PCIe Bifurcation on X870E/X870"
+  - url: "https://www.techspot.com/review/3143-amd-x870-motherboards-full/"
+    title: "TechSpot — AMD X870 Motherboard Roundup"
+  - url: "https://computingforgeeks.com/best-motherboard-multi-gpu-ai/"
+    title: "Computing for Geeks — Best Motherboards for Multi-GPU AI"
+  - url: "https://techtactician.com/best-amd-motherboards-for-dual-gpu-llm-builds-guide/"
+    title: "Tech Tactician — Best AMD Motherboards for Dual GPU LLM Builds"
+  - url: "https://linustechtips.com/topic/1474393-am5-motherboards-with-dual-x16-x8x8-pcie-slots/"
+    title: "Linus Tech Tips — AM5 Boards with x8/x8"
   - url: "https://tomshardware.com/pc-components/gpus/maxsun-unveils-intel-dual-gpu-battlemage-graphics-card-with-48gb-gddr6-to-compete-with-nvidia-and-amd"
     title: "Tom's Hardware — Maxsun Dual B60"
 ---
@@ -62,7 +74,7 @@ Consumer DRAM prices exploded in 2025–2026 because AI data centers absorbed su
 | Part | What to buy | Est. cost | Notes |
 |---|---|---|---|
 | CPU | Ryzen 5 7600 / 7600X | $130–200 | 24 usable PCIe 5.0 lanes, ReBAR supported. **Avoid 8000G APUs** (8500G/8600G/8700G) — they have fewer PCIe lanes and can't do x8/x8 |
-| Board | AM5 board with **x8/x8 from the CPU** | $250–350 | Reported x8/x8 candidates: [ASRock X670E Taichi / Taichi Lite, ASRock X870 Taichi Creator](https://forum.level1techs.com/t/asrock-x870-taichi-creator-dual-gpu/243897), [ASUS ProArt X870E-Creator, ProArt X670E-Creator, ProArt B650-Creator](https://forum.level1techs.com/t/x870e-motherboard-for-dual-gpu-and-optane/222898) — **verify in the manual**; plain B650/B850/X870 boards usually run the second slot at x4 from the chipset |
+| Board | AM5 board with **x8/x8 from the CPU** | $250–350 | See the copy-paste list below — **verify in the manual**; plain B650/B850/X870 boards usually run the second slot at x4 from the chipset |
 | RAM | Your 2×8 GB DDR5 | $0 | 16 GB in dual channel — enough for a GPU-only server (see below) |
 | SSD | 1–2 TB NVMe | $80–150 | Use an M.2 slot that does **not** steal lanes from the second GPU slot (see below) |
 | PSU | 850–1000 W ATX 3.x Gold | $110–160 | Two 200 W GPUs + 65 W CPU ≈ 550 W peak |
@@ -77,6 +89,38 @@ Things to check with your RAM and AM5:
 - **First boot takes minutes.** AM5 trains DDR5 memory on first boot (and after BIOS updates) — a black screen for 1–3 minutes is normal. Update the BIOS early.
 - **M.2 lane sharing.** On several AM5 boards (e.g. the [ProArt X870E](https://forum.level1techs.com/t/x870e-motherboard-for-dual-gpu-and-optane/222898)), populating a specific Gen5 M.2 slot drops the second GPU slot to x4. The manual's lane table tells you which M.2 slot to avoid.
 - **Slot spacing.** Some boards' second slot can't take a card thicker than two slots ([Taichi Creator report](https://forum.level1techs.com/t/asrock-x870-taichi-creator-dual-gpu/243897)). Most B60s are dual-slot, so this is usually fine.
+
+### AM5 boards with x8/x8 (copy-paste search list)
+
+Two **separate physical slots**, each fed **x8 from the CPU**. Don't confuse this with "x8+x8 bifurcation" of a single slot (for a riser or a dual-GPU card) — e.g. MSI's [MAG X870E Tomahawk](https://www.msi.com/blog/pcie-lane-bifurcation-and-bandwidth-sharing-on-msi-x870e-x870-motherboards) can bifurcate its top slot but its second slot comes from the chipset.
+
+Confirmed by the vendor or a review:
+
+```text
+ASUS ProArt X870E-Creator WiFi
+ASUS ProArt B850-Creator WiFi Neo
+ASUS ROG Crosshair X870E Dark Hero
+ASUS ROG Crosshair X870E Glacial
+ASRock X670E Taichi Carrara
+```
+
+Reported by guides/forums (likely, but check the manual):
+
+```text
+ASRock X870E Taichi Lite
+ASRock X870E Taichi
+ASRock X670E Taichi
+ASRock X870 Taichi Creator
+MSI MPG X870E Carbon WiFi
+MSI MEG X870E Godlike
+ASUS ProArt X670E-Creator WiFi
+ASUS ProArt B650-Creator
+ASUS ROG Crosshair X670E Hero
+```
+
+Sources: [ASUS AM5 lineup](https://www.asus.com/us/blog/the-refined-and-upgraded-asus-am5-motherboard-lineup-offers-new-choices-for-every-pc-builder/), [TechSpot X870 roundup](https://www.techspot.com/review/3143-amd-x870-motherboards-full/), [Computing for Geeks multi-GPU guide](https://computingforgeeks.com/best-motherboard-multi-gpu-ai/), [Tech Tactician dual-GPU LLM boards](https://techtactician.com/best-amd-motherboards-for-dual-gpu-llm-builds-guide/), [Linus Tech Tips AM5 x8/x8 thread](https://linustechtips.com/topic/1474393-am5-motherboards-with-dual-x16-x8x8-pcie-slots/), [Level1Techs Taichi Creator thread](https://forum.level1techs.com/t/asrock-x870-taichi-creator-dual-gpu/243897).
+
+Caveats: on most of these, filling a specific M.2 slot (often the top Gen5 one) drops the second GPU slot to x4 or disables the split — read the lane table. The ProArt X870E's slots are three positions apart, fine for two dual-slot B60s ([Computing for Geeks](https://computingforgeeks.com/best-motherboard-multi-gpu-ai/)).
 
 Intel alternative: an LGA1700 board with x8/x8 (e.g. ProArt Z790-Creator, MSI Z790 Ace/Carbon) plus a used i5-13400/14400 also works with DDR5 — compare used prices locally.
 
@@ -120,7 +164,7 @@ Intel and vLLM support PCIe peer-to-peer between B60s, but community testing fou
 ## Budget example (with your DDR5)
 
 - Ryzen 5 7600 — $170
-- ASRock X670E Taichi Lite or ASUS ProArt B650-Creator — $300
+- ASRock X870E Taichi Lite or ASUS ProArt B850-Creator WiFi Neo — $300
 - Your 2×8 GB DDR5 — $0
 - 2 TB NVMe — $120
 - 1000 W Gold ATX 3.1 PSU — $140
@@ -146,3 +190,9 @@ Intel and vLLM support PCIe peer-to-peer between B60s, but community testing fou
 10. [Tom's Hardware — Maxsun Dual B60](https://tomshardware.com/pc-components/gpus/maxsun-unveils-intel-dual-gpu-battlemage-graphics-card-with-48gb-gddr6-to-compete-with-nvidia-and-amd) — dual-GPU card power and bifurcation
 11. [Level1Techs — ASRock X870 Taichi Creator Dual GPU](https://forum.level1techs.com/t/asrock-x870-taichi-creator-dual-gpu/243897) — AM5 x8/x8 board candidates and slot-spacing caveat
 12. [Level1Techs — X870E Motherboard for Dual GPU](https://forum.level1techs.com/t/x870e-motherboard-for-dual-gpu-and-optane/222898) — ProArt x8/x8 and M.2 lane-sharing behavior
+13. [ASUS — Refined AM5 Motherboard Lineup](https://www.asus.com/us/blog/the-refined-and-upgraded-asus-am5-motherboard-lineup-offers-new-choices-for-every-pc-builder/) — x8/x8 on ProArt B850-Creator, Crosshair X870E Dark Hero/Glacial
+14. [MSI — PCIe Bifurcation on X870E/X870](https://www.msi.com/blog/pcie-lane-bifurcation-and-bandwidth-sharing-on-msi-x870e-x870-motherboards) — single-slot bifurcation vs two-slot x8/x8
+15. [TechSpot — AMD X870 Motherboard Roundup](https://www.techspot.com/review/3143-amd-x870-motherboards-full/) — ProArt X870E-Creator x8/x8 split
+16. [Computing for Geeks — Best Motherboards for Multi-GPU AI](https://computingforgeeks.com/best-motherboard-multi-gpu-ai/) — AM5 dual-GPU boards, slot spacing, M.2 trade-offs
+17. [Tech Tactician — Best AMD Motherboards for Dual GPU LLM Builds](https://techtactician.com/best-amd-motherboards-for-dual-gpu-llm-builds-guide/) — dual-GPU LLM board picks
+18. [Linus Tech Tips — AM5 Boards with x8/x8](https://linustechtips.com/topic/1474393-am5-motherboards-with-dual-x16-x8x8-pcie-slots/) — community list of x8/x8 AM5 boards

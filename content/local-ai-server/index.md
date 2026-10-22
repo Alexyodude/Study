@@ -28,7 +28,7 @@ sources:
 | Part | Pick | Est. cost (Oct 2026) |
 |---|---|---|
 | CPU | Ryzen 5 7600 / 7600X (new or used) | $130–200 |
-| Motherboard | AM5 board that splits the two top slots **x8/x8** from the CPU (e.g. ASRock X670E Taichi / Taichi Lite, ASUS ProArt X670E/X870E-Creator, ASUS ProArt B650-Creator — verify in the manual) | $250–350 |
+| Motherboard | AM5 board that splits the two top slots **x8/x8** from the CPU (e.g. ASRock X870E Taichi Lite, ASUS ProArt X870E-Creator, MSI MPG X870E Carbon WiFi — full list in [Hardware & the $1000 Budget](hardware-and-budget.md)) | $250–350 |
 | RAM | **Your existing DDR5** (2×8 GB = 16 GB) — enough when models run fully on the GPUs | $0 |
 | Storage | 1–2 TB NVMe SSD | $80–150 |
 | PSU | 850–1000 W ATX 3.x, 80+ Gold, enough 8-pin PCIe leads | $110–160 |
