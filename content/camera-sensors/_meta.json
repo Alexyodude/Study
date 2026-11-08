@@ -4,5 +4,9 @@
   "order": 5,
   "tags": ["cameras", "global-shutter", "rolling-shutter", "image-sensors", "machine-vision"],
   "status": "review",
-  "children": []
+  "children": [],
+  "catalog": {
+    "title": "Camera Sensor Catalog",
+    "blurb": "Searchable catalog · 62 sensors (VGA→67MP, color &amp; mono, global &amp; rolling)"
+  }
 }

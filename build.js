@@ -202,6 +202,8 @@ function buildPageList() {
   for (const topic of registry.topics.sort((a, b) => a.order - b.order)) {
     const topicDir = path.join(CONTENT_DIR, topic.slug);
     const meta = JSON.parse(fs.readFileSync(path.join(topicDir, '_meta.json'), 'utf8'));
+    // Catalog topics are one interactive page at <slug>/index.html instead of markdown pages.
+    if (meta.catalog) topic.catalog = meta.catalog;
 
     for (const child of meta.children) {
       if (child.type === 'directory') {
@@ -264,7 +266,14 @@ function buildNavHtml(registry, pages, currentUrlPath) {
 
   for (const topic of registry.topics.sort((a, b) => a.order - b.order)) {
     const g = grouped[topic.slug];
-    if (!g) continue;
+    if (!g) {
+      if (topic.catalog) {
+        const rel = relativePath(currentUrlPath, `${topic.slug}/index.html`);
+        nav += `<div class="nav-section"><button class="nav-section-title"><span class="chevron">&#9654;</span>${topic.title}</button>`;
+        nav += `<div class="nav-children"><a class="nav-item" href="${rel}">${topic.catalog.title}</a></div></div>`;
+      }
+      continue;
+    }
 
     const isTopicActive = pages.some(p => p.topicSlug === topic.slug && p.urlPath === currentUrlPath);
     const expanded = isTopicActive || pages.some(p => p.topicSlug === topic.slug && p.urlPath === currentUrlPath);
@@ -317,7 +326,8 @@ function relativePath(from, to) {
 // Generate HTML page
 // ============================================================
 function generatePage(page, pages, registry, pageIndex) {
-  const raw = fs.readFileSync(page.filePath, 'utf8');
+  // Normalise CRLF: Windows checkouts (core.autocrlf=true) break the front-matter regex.
+  const raw = fs.readFileSync(page.filePath, 'utf8').replace(/\r\n/g, '\n');
   const { meta, body } = parseFrontMatter(raw);
   const contentHtml = md2html(body);
   const title = meta.title || page.title;
@@ -421,7 +431,7 @@ function generateLandingPage(registry, pages) {
     topicsHtml += `
       <div class="topic-card">
         <h3><a href="${topic.slug}/index.html">${topic.title}</a></h3>
-        <p>${count} pages</p>
+        <p>${topic.catalog ? topic.catalog.blurb : `${count} pages`}</p>
       </div>`;
   }
 
@@ -499,7 +509,17 @@ function main() {
   fs.writeFileSync(path.join(SITE_DIR, 'index.html'), landing, 'utf8');
   console.log('  index.html');
 
-  console.log(`\nDone! Generated ${pages.length + 1} HTML files.`);
+  // Catalog topics with a builder script generate their own interactive page.
+  let catalogPages = 0;
+  for (const topic of registry.topics) {
+    if (topic.catalog && topic.catalog.builder) {
+      const outPath = require(path.join(__dirname, topic.catalog.builder)).build({ md2html, parseFrontMatter });
+      console.log(`  ${path.relative(SITE_DIR, outPath).replace(/\\/g, '/')}`);
+      catalogPages++;
+    }
+  }
+
+  console.log(`\nDone! Generated ${pages.length + 1 + catalogPages} HTML files.`);
 }
 
 main();

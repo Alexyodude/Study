@@ -1,0 +1,20 @@
+{
+  "title": "MCU Products — Catalog",
+  "slug": "mcu-products",
+  "order": 6,
+  "tags": [
+    "mcu",
+    "microcontrollers",
+    "catalog",
+    "arm",
+    "risc-v",
+    "wireless"
+  ],
+  "status": "review",
+  "children": [],
+  "catalog": {
+    "title": "MCU Product Catalog",
+    "blurb": "Searchable catalog · 256 MCUs from 43 vendors (8-bit → NPU, Arm · RISC-V · Xtensa)",
+    "builder": "build-mcu-catalog.js"
+  }
+}
