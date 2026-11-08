@@ -257,6 +257,7 @@ function build({ md2html, parseFrontMatter }) {
           <div class="toggle-row"><input type="checkbox" id="f-can"><label for="f-can">CAN / CAN-FD</label></div>
           <div class="toggle-row"><input type="checkbox" id="f-eth"><label for="f-eth">Ethernet</label></div>
           <div class="toggle-row"><input type="checkbox" id="f-fpu"><label for="f-fpu">Hardware FPU</label></div>
+          <div class="toggle-row"><input type="checkbox" id="f-cam"><label for="f-cam">Camera input (DVP / DCMI / CSI)</label></div>
           <div class="toggle-row"><input type="checkbox" id="f-priced"><label for="f-priced">Verified / listed price only</label></div>
           <div class="toggle-row"><input type="checkbox" id="f-jlc"><label for="f-jlc">In stock at JLCPCB</label></div>
           <div class="toggle-row"><input type="checkbox" id="f-basic"><label for="f-basic">JLC Basic part (no loading fee)</label></div>
@@ -294,8 +295,9 @@ function build({ md2html, parseFrontMatter }) {
     const ARCH_LABEL = ${JSON.stringify(ARCH_LABEL)};
     const CONF_LABEL = { verified: "● verified", listed: "● listed", est: "est.", none: "no price" };
     const DEFAULTS = { search: "", category: "all", arch: "all", vendor: "all", radio: "all", flash: 0, ram: 0, mhz: 0,
-      price: Infinity, sort: "price-asc", usb: false, can: false, eth: false, fpu: false, priced: false, jlc: false, basic: false };
-    const TOGGLES = ["usb", "can", "eth", "fpu", "priced", "jlc", "basic"];
+      price: Infinity, sort: "price-asc", usb: false, can: false, eth: false, fpu: false, cam: false, priced: false, jlc: false, basic: false };
+    const TOGGLES = ["usb", "can", "eth", "fpu", "cam", "priced", "jlc", "basic"];
+    const hasCam = m => !!m.camera && !/^(no|none|-)$/i.test(String(m.camera).trim());
     const state = { ...DEFAULTS };
     const el = id => document.getElementById(id);
     const esc = s => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -328,11 +330,12 @@ function build({ md2html, parseFrontMatter }) {
         if (state.can && !hasCan(m)) return false;
         if (state.eth && !m.ethernet) return false;
         if (state.fpu && !(m.fpu === "sp" || m.fpu === "dp")) return false;
+        if (state.cam && !hasCam(m)) return false;
         if (state.priced && !(m.price != null && (m.priceConf === "verified" || m.priceConf === "listed"))) return false;
         if (state.jlc && !(m.jlcStock > 0)) return false;
         if (state.basic && m.jlcLibrary !== "Basic") return false;
         if (q) {
-          const hay = [m.part, m.family, m.vendor, m.core, (m.highlights || []).join(" "), radios(m), m.notes, m.lcsc].join(" ").toLowerCase();
+          const hay = [m.part, m.family, m.vendor, m.core, (m.highlights || []).join(" "), radios(m), m.notes, m.lcsc, m.camera].join(" ").toLowerCase();
           if (!hay.includes(q)) return false;
         }
         return true;
@@ -367,7 +370,8 @@ function build({ md2html, parseFrontMatter }) {
         '<div class="price-conf ' + esc(m.priceConf) + '" title="' + esc(m.priceSource || "") + '">' + (CONF_LABEL[m.priceConf] || CONF_LABEL.none) + "</div></div></div>" +
         '<div class="pill-row"><span class="pill cat">' + (CAT_LABEL[m.category] || esc(m.category)) + '</span><span class="pill">' + (ARCH_LABEL[m.arch] || esc(m.arch)) + "</span>" +
         radioPills + (hasUsb(m) ? '<span class="pill">USB ' + esc(m.usb) + "</span>" : "") + (hasCan(m) ? '<span class="pill">' + esc(m.can) + "</span>" : "") +
-        (m.ethernet ? '<span class="pill">Ethernet</span>' : "") + "</div>" +
+        (m.ethernet ? '<span class="pill">Ethernet</span>' : "") +
+        (hasCam(m) ? '<span class="pill radio">Camera: ' + esc(m.camera) + "</span>" : "") + "</div>" +
         (m.lcsc ? '<div class="jlc-row">LCSC <a href="https://www.lcsc.com/product-detail/' + esc(m.lcsc) + '.html" target="_blank" rel="noopener">' + esc(m.lcsc) + "</a> · " +
           (m.jlcStock > 0 ? m.jlcStock.toLocaleString("en-US") + " in stock" : '<span class="oos">out of stock</span>') + " · JLC " + esc(m.jlcLibrary) + "</div>" : "") +
         '<div class="spec-grid">' +
