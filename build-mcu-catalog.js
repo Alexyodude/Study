@@ -371,6 +371,7 @@ function build({ md2html, parseFrontMatter }) {
         '<div class="pill-row"><span class="pill cat">' + (CAT_LABEL[m.category] || esc(m.category)) + '</span><span class="pill">' + (ARCH_LABEL[m.arch] || esc(m.arch)) + "</span>" +
         radioPills + (hasUsb(m) ? '<span class="pill">USB ' + esc(m.usb) + "</span>" : "") + (hasCan(m) ? '<span class="pill">' + esc(m.can) + "</span>" : "") +
         (m.ethernet ? '<span class="pill">Ethernet</span>' : "") +
+        (m.status && m.status !== "active" ? '<span class="pill cat" title="' + esc(m.statusNote || "") + '">' + esc(m.status === "nrnd" ? "NRND" : m.status === "eol" ? "EOL" : m.status[0].toUpperCase() + m.status.slice(1)) + "</span>" : "") +
         (hasCam(m) ? '<span class="pill radio">Camera: ' + esc(m.camera) + "</span>" : "") + "</div>" +
         (m.lcsc ? '<div class="jlc-row">LCSC <a href="https://www.lcsc.com/product-detail/' + esc(m.lcsc) + '.html" target="_blank" rel="noopener">' + esc(m.lcsc) + "</a> · " +
           (m.jlcStock > 0 ? m.jlcStock.toLocaleString("en-US") + " in stock" : '<span class="oos">out of stock</span>') + " · JLC " + esc(m.jlcLibrary) + "</div>" : "") +
